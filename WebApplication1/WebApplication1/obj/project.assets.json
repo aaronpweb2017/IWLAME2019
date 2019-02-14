@@ -12953,11 +12953,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Lenovo\\OneDrive\\Instituto Tecnológico de Culiacán\\SEMESTRE 10 (ENERO-JUNIO 2019)\\INGENIERÍA WEB\\IWLAME2019\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
+      "projectUniqueName": "F:\\OneDrive\\Instituto Tecnológico de Culiacán\\SEMESTRE 10 (ENERO-JUNIO 2019)\\INGENIERÍA WEB\\IWLAME2019\\IWLAME2019\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
       "projectName": "WebApplication1",
-      "projectPath": "C:\\Users\\Lenovo\\OneDrive\\Instituto Tecnológico de Culiacán\\SEMESTRE 10 (ENERO-JUNIO 2019)\\INGENIERÍA WEB\\IWLAME2019\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
+      "projectPath": "F:\\OneDrive\\Instituto Tecnológico de Culiacán\\SEMESTRE 10 (ENERO-JUNIO 2019)\\INGENIERÍA WEB\\IWLAME2019\\IWLAME2019\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
       "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Lenovo\\OneDrive\\Instituto Tecnológico de Culiacán\\SEMESTRE 10 (ENERO-JUNIO 2019)\\INGENIERÍA WEB\\IWLAME2019\\WebApplication1\\WebApplication1\\obj\\",
+      "outputPath": "F:\\OneDrive\\Instituto Tecnológico de Culiacán\\SEMESTRE 10 (ENERO-JUNIO 2019)\\INGENIERÍA WEB\\IWLAME2019\\IWLAME2019\\WebApplication1\\WebApplication1\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

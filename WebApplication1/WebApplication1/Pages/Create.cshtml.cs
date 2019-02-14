@@ -19,7 +19,7 @@ namespace WebApplication1.Pages
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
-                return Page();
+                return Page();         
             DataBase.Customers.Add(Customer);
             await DataBase.SaveChangesAsync();
             Message = $"Customer '{Customer.Name}' added!!!";
