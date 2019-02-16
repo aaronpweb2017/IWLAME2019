@@ -16,26 +16,20 @@
 		$password_2 = mysqli_real_escape_string($db, $_POST['password_2']);
 
 		//ensure that form fields are filled properly:
-		if(empty($username)) {
+		if(empty($username))
 			array_push($errors, "Username is required.");
-		}
-		if(empty($email)) {
+		if(empty($email))
 			array_push($errors, "Email is required.");
-		}
-		if(empty($password_1)) {
+		if(empty($password_1))
 			array_push($errors, "Password is required.");
-		} 
-		if($password_1!=$password_2) {
+		if($password_1!=$password_2)
 			array_push($errors, "The two passwords do not match.");
-		}
 
-		//if there are no errors, save user to database:
+		//If there are no errors, save user to database:
 		if(count($errors)==0) { 
-			$key = random_int(1, 1000);
 			$password = md5($password_1); //encrypt password before storing it.
-			$sql = "INSERT INTO users (id, username, email, password) VALUES ($key, $username, $email, $password)";
+			$sql = "INSERT INTO users (username, email, password) VALUES ($username, $email, $password)";
 			mysqli_query($db, $sql);
-			echo "You have been registered.";
 			$_SESSION['username'] = $username;
 			$_SESSION['success'] = "you're now logged in.";
 			header('location: index.php'); //redirect to home page;
@@ -48,31 +42,24 @@
 		$password = mysqli_real_escape_string($db, $_POST['password']);
 
 		//ensure that form fields are filled properly:
-		if(empty($username)) {
+		if(empty($username))
 			array_push($errors, "Username is required.");
-		}
-		if(empty($password)) {
+		if(empty($password))
 			array_push($errors, "Password is required.");
-		}
-
 
 		//if there are no errors, find user in database:
 		if(count($errors)==0) { 
 			$password = md5($password); //encrypt password before comparing.
 			$query = "SELECT* FROM users WHERE username='$username' AND password='$password'";
 			$result = mysqli_query($db, $query);
-			if(mysqli_num_rows($result) == 1) {
-				//log user in:
+			if(mysqli_num_rows($result) == 1) { //log user in:
 				$_SESSION['username'] = $username;
 				$_SESSION['success'] = "you're now logged in.";
 				header('location: index.php'); //redirect to home page;
 			} 
-			else {
+			else 
 				array_push($errors, "wrong username/password combination.");
-			}
 		}
-
-
 	}
 
 	//logout
