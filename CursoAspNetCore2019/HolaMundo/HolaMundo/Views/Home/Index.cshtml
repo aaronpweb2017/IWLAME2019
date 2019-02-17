@@ -1,0 +1,31 @@
+﻿@model List<Pais>
+
+@{
+    ViewData["Title"] = "Home Page";
+    string nombre = "Luis Aarón";
+}
+
+@inject Microsoft.AspNetCore.Hosting.IHostingEnvironment enviroment;
+<!--
+<environment include="Development">
+    <p>El ambiente de la aplicación está en estado de desarrollo...</p>
+</environment>
+
+<environment include="Production">
+    <p>El ambiente de la aplicación está en estado de producción...</p>
+</environment>
+-->
+<!-- <p>La aplicación se encuentra en el ambiente @enviroment.EnvironmentName</p>-->
+
+<p>Lista de países registrados:</p>
+<ul style="list-style-type: none;">
+    @foreach (var pais in Model)
+    {
+        <li> @pais.Nombre </li>
+    }
+</ul>
+
+<div class="text-center">
+    <h1 class="display-4" style="color: blue; font-style: oblique; ">Welcome @nombre!!!</h1>
+    <p>Learn about: <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
