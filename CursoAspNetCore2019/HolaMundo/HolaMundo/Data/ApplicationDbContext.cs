@@ -14,6 +14,6 @@ namespace HolaMundo.Data
         public DbSet<Pais> Paises { get; set; } 
         //Comandos para agregar una migración que actualice la base de datos:
         //Add-Migration Agregar_Paises
-        //update database
+        //update-database
     }
 }

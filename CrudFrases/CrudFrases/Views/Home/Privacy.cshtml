@@ -1,0 +1,17 @@
+﻿@model List<Frase>
+
+@{
+    ViewData["Title"] = "Privacy Policy";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>Listado de frases registradas:</p>
+<ul style="list-style-type: none;">
+    @foreach (var nombre in Model)
+    {
+        <li>@nombre.Valor</li>
+    }
+</ul>
+
+<p>Use this page to detail your site's privacy policy.</p>
