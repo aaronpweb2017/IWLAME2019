@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.lblRoute = new System.Windows.Forms.Label();
             this.txtBoxRoute = new System.Windows.Forms.TextBox();
             this.btnOpenFolderFiles = new System.Windows.Forms.Button();
@@ -44,6 +43,7 @@
             this.rdBtnModifiedName = new System.Windows.Forms.RadioButton();
             this.rdBtnOriginalName = new System.Windows.Forms.RadioButton();
             this.btnClean = new System.Windows.Forms.Button();
+            this.btnAleatorio = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblRoute
@@ -208,11 +208,23 @@
             this.btnClean.UseVisualStyleBackColor = true;
             this.btnClean.Click += new System.EventHandler(this.btnClean_Click);
             // 
+            // btnAleatorio
+            // 
+            this.btnAleatorio.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAleatorio.Location = new System.Drawing.Point(758, 53);
+            this.btnAleatorio.Name = "btnAleatorio";
+            this.btnAleatorio.Size = new System.Drawing.Size(85, 26);
+            this.btnAleatorio.TabIndex = 15;
+            this.btnAleatorio.Text = "Aleatorio";
+            this.btnAleatorio.UseVisualStyleBackColor = true;
+            this.btnAleatorio.Click += new System.EventHandler(this.btnAleatorio_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(857, 568);
+            this.Controls.Add(this.btnAleatorio);
             this.Controls.Add(this.btnClean);
             this.Controls.Add(this.rdBtnOriginalName);
             this.Controls.Add(this.rdBtnModifiedName);
@@ -229,7 +241,6 @@
             this.Controls.Add(this.txtBoxRoute);
             this.Controls.Add(this.lblRoute);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Renombrador de Archivos";
@@ -255,6 +266,7 @@
         private System.Windows.Forms.Button btnClean;
         private System.Windows.Forms.Button btnInterChange;
         private System.Windows.Forms.Button btnExit;
+        private System.Windows.Forms.Button btnAleatorio;
     }
 }
 

@@ -2,13 +2,14 @@
 using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
+using System.Collections.Generic;
 
 namespace RenombradorArchivos
 {
     public partial class Form1 : Form
     {
-        FolderBrowserDialog FBD;
-        string[] fileRoutes; String fileName; int fileNumber;
+        FolderBrowserDialog FBD; Random rand = new Random();
+        string [] fileRoutes; String fileName; int fileNumber;
         public Form1()
         {
             InitializeComponent(); CenterToScreen();
@@ -110,7 +111,6 @@ namespace RenombradorArchivos
             lblFileNumber.Location = new Point(681, 439);
             txtBoxFileNumber.Location = new Point(769, 439);
             rdBtnModifiedName.Checked = true;
-            btnRename.Enabled = false;
         }
 
         private void txtBoxFileName_tb_KeyDown(object sender, KeyEventArgs e)
@@ -143,6 +143,30 @@ namespace RenombradorArchivos
                 else
                     MessageBox.Show("Ingrese un dato.");
             }
+        }
+
+        private void btnAleatorio_Click(object sender, EventArgs e)
+        {
+            if(fileRoutes == null) { 
+                MessageBox.Show("Ingrese un dato."); return;
+            }
+            List<string> rdmLst = new List<string>(); FileInfo file;
+            foreach (string fileRoute in fileRoutes) {
+                file = new FileInfo(fileRoute);
+                rdmLst.Add(file.Name);
+            }
+            int n = rdmLst.Count;
+            while (n>1)
+            {
+                n--; int k = rand.Next(n + 1);
+                string filename = rdmLst[k];
+                rdmLst[k] = rdmLst[n];
+                rdmLst[n] = filename;
+            }
+
+            lstBoxFolderFiles.Items.Clear();
+            foreach (string filename in rdmLst)
+                lstBoxFolderFiles.Items.Add(filename);      
         }
     }
 }
