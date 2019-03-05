@@ -1,0 +1,9 @@
+<html>
+        <h1 style="font-style: oblique; font-weight: bold;">New Employees List (Registration):</h1>
+    <div style="display: flex;">
+        <ng-container *ngFor="let employee of employees">
+            <event-thumbnail #thumbnail [employee]="employee" [employeesQuantity]="employees.length" (eventClick)="handleEventClicked($event)"></event-thumbnail>
+            <!-- <button class="btn btn-primary" (click)="thumbnail.showEmployeesQuantity()">Employees Quantity</button> -->
+        </ng-container>
+    </div>
+</html>

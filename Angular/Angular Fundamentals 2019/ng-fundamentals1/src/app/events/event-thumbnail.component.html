@@ -1,0 +1,25 @@
+<html>
+    <div class="well hoverwell" style="border-radius: 10px; margin-left: 30px;">&nbsp;
+        <h2 style="font-weight: bold;">Employee {{employee?.id}}:</h2>
+        <div><h4>Name: {{employee?.name}} </h4></div>
+        <div><h4>Date: {{employee?.date}} </h4></div>
+        <div><h4>Time: {{employee?.time}} </h4></div>
+        <div [ngSwitch]="employee?.time">
+            <span *ngSwitchCase="'8:00 am'"><h5>Early Start</h5></span>
+            <span *ngSwitchCase="'9:00 am'"><h5>Medium Start 1</h5></span>
+            <span *ngSwitchCase="'10:00 am'"><h5>Medium Start 2</h5></span>
+            <span *ngSwitchCase="'11:00 am'"><h5>Late Start</h5></span>
+            <span *ngSwitchDefault>Normal Start</span>
+        </div>
+        <div><h4>Salary: {{employee?.salary}} </h4></div>
+        <div>
+            <span><h4 style="font-weight: bold;">Location:</h4></span>
+            <span [hidden]="!employee?.location?.address"><h4 style="font-weight: bold;">Address: {{employee?.location?.address}}</h4></span>
+            <span *ngIf="employee?.location?.country?.name"><h4 style="font-weight: bold;">Country: {{employee?.location?.country?.name}}</h4></span>
+            <span><h4 style="font-weight: bold;">State: {{employee?.location?.country?.state}}</h4></span>
+            <span><h4 style="font-weight: bold;">City: {{employee?.location?.country?.city?.name}}</h4></span>
+            <span><h4 style="font-weight: bold;">Neighborhood: {{employee?.location?.country?.city?.neighborhood}}</h4></span>
+            <button style="font-weight: bold;" class="btn btn-primary" (click)="handleClickMe();">Employee Details</button>
+        </div>
+    </div>
+</html>
