@@ -1,9 +1,10 @@
 <html>
-        <h1 style="font-style: oblique; font-weight: bold;">New Employees List (Registration):</h1>
+    <h1 style="font-style: oblique; font-weight: bold;">New Events List (Registration):</h1>
     <div style="display: flex;">
-        <ng-container *ngFor="let employee of employees">
-            <event-thumbnail #thumbnail [employee]="employee" [employeesQuantity]="employees.length" (eventClick)="handleEventClicked($event)"></event-thumbnail>
-            <!-- <button class="btn btn-primary" (click)="thumbnail.showEmployeesQuantity()">Employees Quantity</button> -->
+        <ng-container *ngFor="let event of events">
+            <event-thumbnail #thumbnail [event]="event" (eventClick)="handleEventClicked($event)"></event-thumbnail>
+            
         </ng-container>
+        <!-- <button class="btn btn-primary" (click)="thumbnail.showEventsQuantity()">Events Quantity</button>  -->
     </div>
 </html>
