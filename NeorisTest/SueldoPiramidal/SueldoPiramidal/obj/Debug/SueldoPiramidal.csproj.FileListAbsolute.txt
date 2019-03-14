@@ -1,0 +1,7 @@
+F:\OneDrive\Instituto Tecnológico de Culiacán\SEMESTRE 10 (ENERO-JUNIO 2019)\INGENIERÍA WEB\IWLAME2019\IWLAME2019\NeorisTest\SueldoPiramidal\SueldoPiramidal\bin\Debug\SueldoPiramidal.exe.config
+F:\OneDrive\Instituto Tecnológico de Culiacán\SEMESTRE 10 (ENERO-JUNIO 2019)\INGENIERÍA WEB\IWLAME2019\IWLAME2019\NeorisTest\SueldoPiramidal\SueldoPiramidal\bin\Debug\SueldoPiramidal.exe
+F:\OneDrive\Instituto Tecnológico de Culiacán\SEMESTRE 10 (ENERO-JUNIO 2019)\INGENIERÍA WEB\IWLAME2019\IWLAME2019\NeorisTest\SueldoPiramidal\SueldoPiramidal\bin\Debug\SueldoPiramidal.pdb
+F:\OneDrive\Instituto Tecnológico de Culiacán\SEMESTRE 10 (ENERO-JUNIO 2019)\INGENIERÍA WEB\IWLAME2019\IWLAME2019\NeorisTest\SueldoPiramidal\SueldoPiramidal\obj\Debug\SueldoPiramidal.csprojAssemblyReference.cache
+F:\OneDrive\Instituto Tecnológico de Culiacán\SEMESTRE 10 (ENERO-JUNIO 2019)\INGENIERÍA WEB\IWLAME2019\IWLAME2019\NeorisTest\SueldoPiramidal\SueldoPiramidal\obj\Debug\SueldoPiramidal.csproj.CoreCompileInputs.cache
+F:\OneDrive\Instituto Tecnológico de Culiacán\SEMESTRE 10 (ENERO-JUNIO 2019)\INGENIERÍA WEB\IWLAME2019\IWLAME2019\NeorisTest\SueldoPiramidal\SueldoPiramidal\obj\Debug\SueldoPiramidal.exe
+F:\OneDrive\Instituto Tecnológico de Culiacán\SEMESTRE 10 (ENERO-JUNIO 2019)\INGENIERÍA WEB\IWLAME2019\IWLAME2019\NeorisTest\SueldoPiramidal\SueldoPiramidal\obj\Debug\SueldoPiramidal.pdb

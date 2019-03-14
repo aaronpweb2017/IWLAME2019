@@ -1,0 +1,10 @@
+F:\OneDrive\Instituto Tecnológico de Culiacán\SEMESTRE 10 (ENERO-JUNIO 2019)\INGENIERÍA WEB\IWLAME2019\IWLAME2019\DepuradorArchivos\DepuradorArchivos\bin\Debug\DepuradorArchivos.exe.config
+F:\OneDrive\Instituto Tecnológico de Culiacán\SEMESTRE 10 (ENERO-JUNIO 2019)\INGENIERÍA WEB\IWLAME2019\IWLAME2019\DepuradorArchivos\DepuradorArchivos\bin\Debug\DepuradorArchivos.exe
+F:\OneDrive\Instituto Tecnológico de Culiacán\SEMESTRE 10 (ENERO-JUNIO 2019)\INGENIERÍA WEB\IWLAME2019\IWLAME2019\DepuradorArchivos\DepuradorArchivos\bin\Debug\DepuradorArchivos.pdb
+F:\OneDrive\Instituto Tecnológico de Culiacán\SEMESTRE 10 (ENERO-JUNIO 2019)\INGENIERÍA WEB\IWLAME2019\IWLAME2019\DepuradorArchivos\DepuradorArchivos\obj\Debug\DepuradorArchivos.csprojAssemblyReference.cache
+F:\OneDrive\Instituto Tecnológico de Culiacán\SEMESTRE 10 (ENERO-JUNIO 2019)\INGENIERÍA WEB\IWLAME2019\IWLAME2019\DepuradorArchivos\DepuradorArchivos\obj\Debug\DepuradorArchivos.Form1.resources
+F:\OneDrive\Instituto Tecnológico de Culiacán\SEMESTRE 10 (ENERO-JUNIO 2019)\INGENIERÍA WEB\IWLAME2019\IWLAME2019\DepuradorArchivos\DepuradorArchivos\obj\Debug\DepuradorArchivos.Properties.Resources.resources
+F:\OneDrive\Instituto Tecnológico de Culiacán\SEMESTRE 10 (ENERO-JUNIO 2019)\INGENIERÍA WEB\IWLAME2019\IWLAME2019\DepuradorArchivos\DepuradorArchivos\obj\Debug\DepuradorArchivos.csproj.GenerateResource.cache
+F:\OneDrive\Instituto Tecnológico de Culiacán\SEMESTRE 10 (ENERO-JUNIO 2019)\INGENIERÍA WEB\IWLAME2019\IWLAME2019\DepuradorArchivos\DepuradorArchivos\obj\Debug\DepuradorArchivos.csproj.CoreCompileInputs.cache
+F:\OneDrive\Instituto Tecnológico de Culiacán\SEMESTRE 10 (ENERO-JUNIO 2019)\INGENIERÍA WEB\IWLAME2019\IWLAME2019\DepuradorArchivos\DepuradorArchivos\obj\Debug\DepuradorArchivos.exe
+F:\OneDrive\Instituto Tecnológico de Culiacán\SEMESTRE 10 (ENERO-JUNIO 2019)\INGENIERÍA WEB\IWLAME2019\IWLAME2019\DepuradorArchivos\DepuradorArchivos\obj\Debug\DepuradorArchivos.pdb

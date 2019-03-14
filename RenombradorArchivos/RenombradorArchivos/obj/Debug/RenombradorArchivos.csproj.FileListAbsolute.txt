@@ -1,0 +1,10 @@
+F:\OneDrive\Instituto Tecnológico de Culiacán\SEMESTRE 10 (ENERO-JUNIO 2019)\INGENIERÍA WEB\IWLAME2019\IWLAME2019\RenombradorArchivos\RenombradorArchivos\bin\Debug\RenombradorArchivos.exe.config
+F:\OneDrive\Instituto Tecnológico de Culiacán\SEMESTRE 10 (ENERO-JUNIO 2019)\INGENIERÍA WEB\IWLAME2019\IWLAME2019\RenombradorArchivos\RenombradorArchivos\bin\Debug\RenombradorArchivos.exe
+F:\OneDrive\Instituto Tecnológico de Culiacán\SEMESTRE 10 (ENERO-JUNIO 2019)\INGENIERÍA WEB\IWLAME2019\IWLAME2019\RenombradorArchivos\RenombradorArchivos\bin\Debug\RenombradorArchivos.pdb
+F:\OneDrive\Instituto Tecnológico de Culiacán\SEMESTRE 10 (ENERO-JUNIO 2019)\INGENIERÍA WEB\IWLAME2019\IWLAME2019\RenombradorArchivos\RenombradorArchivos\obj\Debug\RenombradorArchivos.csprojAssemblyReference.cache
+F:\OneDrive\Instituto Tecnológico de Culiacán\SEMESTRE 10 (ENERO-JUNIO 2019)\INGENIERÍA WEB\IWLAME2019\IWLAME2019\RenombradorArchivos\RenombradorArchivos\obj\Debug\RenombradorArchivos.Form1.resources
+F:\OneDrive\Instituto Tecnológico de Culiacán\SEMESTRE 10 (ENERO-JUNIO 2019)\INGENIERÍA WEB\IWLAME2019\IWLAME2019\RenombradorArchivos\RenombradorArchivos\obj\Debug\RenombradorArchivos.Properties.Resources.resources
+F:\OneDrive\Instituto Tecnológico de Culiacán\SEMESTRE 10 (ENERO-JUNIO 2019)\INGENIERÍA WEB\IWLAME2019\IWLAME2019\RenombradorArchivos\RenombradorArchivos\obj\Debug\RenombradorArchivos.csproj.GenerateResource.cache
+F:\OneDrive\Instituto Tecnológico de Culiacán\SEMESTRE 10 (ENERO-JUNIO 2019)\INGENIERÍA WEB\IWLAME2019\IWLAME2019\RenombradorArchivos\RenombradorArchivos\obj\Debug\RenombradorArchivos.csproj.CoreCompileInputs.cache
+F:\OneDrive\Instituto Tecnológico de Culiacán\SEMESTRE 10 (ENERO-JUNIO 2019)\INGENIERÍA WEB\IWLAME2019\IWLAME2019\RenombradorArchivos\RenombradorArchivos\obj\Debug\RenombradorArchivos.exe
+F:\OneDrive\Instituto Tecnológico de Culiacán\SEMESTRE 10 (ENERO-JUNIO 2019)\INGENIERÍA WEB\IWLAME2019\IWLAME2019\RenombradorArchivos\RenombradorArchivos\obj\Debug\RenombradorArchivos.pdb

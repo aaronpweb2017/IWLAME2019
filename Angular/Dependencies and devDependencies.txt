@@ -1,0 +1,39 @@
+dependencies:
+npm install package @angular/animations@7.2.0 --save
+npm install package @angular/common@7.2.0 --save
+npm install package @angular/compiler@7.2.0 --save
+npm install package @angular/core@7.2.0 --save
+npm install package @angular/forms@7.2.0 --save
+npm install package @angular/platform-browser@7.2.0 --save
+npm install package @angular/platform-browser-dynamic@7.2.0 --save
+npm install package @angular/router@7.2.0 --save
+npm install package core-js@2.5.4 --save
+npm install package ngf-bootstrap@0.0.5 --save
+npm install package rxjs@6.3.3 --save
+npm install package tslib@1.9.0 --save
+npm install package zone.js@0.8.26 --save
+npm install package toastr --save
+
+devDependencies:
+npm install package @angular-devkit/build-angular@0.13.0 --save-dev
+npm install package @angular/compiler-cli@7.2.0 --save-dev
+
+------------------------------------------------------------------------
+
+npm install package @angular/cli@7.3.3 --save-dev
+npm install package @angular/language-service@7.2.0 --save-dev
+npm install package @types/jasmine@2.8.8 --save-dev
+npm install package @types/jasminewd2@2.0.3 --save-dev
+npm install package @types/node@8.9.4 --save-dev
+npm install package codelyzer@4.5.0 --save-dev
+npm install package jasmine-core@2.99.1 --save-dev
+npm install package jasmine-spec-reporter@4.2.1 --save-dev
+npm install package karma@4.0.0 --save-dev
+npm install package karma-chrome-launcher@2.2.0 --save-dev
+npm install package karma-coverage-istanbul-reporter@2.0.1 --save-dev
+npm install package karma-jasmine@1.1.2 --save-dev
+npm install package karma-jasmine-html-reporter@0.2.2 --save-dev
+npm install package protractor@5.4.0 --save-dev
+npm install package ts-node@7.0.0 --save-dev
+npm install package tslint@5.11.0 --save-dev
+npm install package typescript@3.2.2 --save-dev

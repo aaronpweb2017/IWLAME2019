@@ -1,0 +1,6 @@
+F:\OneDrive\Instituto Tecnológico de Culiacán\SEMESTRE 10 (ENERO-JUNIO 2019)\INGENIERÍA WEB\IWLAME2019\IWLAME2019\NeorisTest\ClientePositivo\ClientePositivo\bin\Debug\ClientePositivo.exe.config
+F:\OneDrive\Instituto Tecnológico de Culiacán\SEMESTRE 10 (ENERO-JUNIO 2019)\INGENIERÍA WEB\IWLAME2019\IWLAME2019\NeorisTest\ClientePositivo\ClientePositivo\bin\Debug\ClientePositivo.exe
+F:\OneDrive\Instituto Tecnológico de Culiacán\SEMESTRE 10 (ENERO-JUNIO 2019)\INGENIERÍA WEB\IWLAME2019\IWLAME2019\NeorisTest\ClientePositivo\ClientePositivo\bin\Debug\ClientePositivo.pdb
+F:\OneDrive\Instituto Tecnológico de Culiacán\SEMESTRE 10 (ENERO-JUNIO 2019)\INGENIERÍA WEB\IWLAME2019\IWLAME2019\NeorisTest\ClientePositivo\ClientePositivo\obj\Debug\ClientePositivo.csproj.CoreCompileInputs.cache
+F:\OneDrive\Instituto Tecnológico de Culiacán\SEMESTRE 10 (ENERO-JUNIO 2019)\INGENIERÍA WEB\IWLAME2019\IWLAME2019\NeorisTest\ClientePositivo\ClientePositivo\obj\Debug\ClientePositivo.exe
+F:\OneDrive\Instituto Tecnológico de Culiacán\SEMESTRE 10 (ENERO-JUNIO 2019)\INGENIERÍA WEB\IWLAME2019\IWLAME2019\NeorisTest\ClientePositivo\ClientePositivo\obj\Debug\ClientePositivo.pdb

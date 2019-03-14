@@ -18,9 +18,9 @@ namespace SueldoPiramidal
             RegistraTrabajadores();
             Console.WriteLine("---------------------Trabajadores sin Aumento:---------------------");
             MuestraPiramideLaboral();
-            Console.Write("\nAumentar 10% desde el trabajador (identificador): ");
-            int id = Convert.ToInt16(Console.ReadLine());
-            AumentaSueldoPiramidal(id);
+            //Console.Write("\nAumentar 10% desde el trabajador (identificador): ");
+            //int id = Convert.ToInt16(Console.ReadLine());
+            //AumentaSueldoPiramidal(id);
             Console.ReadKey();
         }
 
@@ -31,7 +31,7 @@ namespace SueldoPiramidal
             trabajadorObj = new Trabajador(idNode, rdName.GetRandomName(), rdValue.Next(3000, 10000), new List<Trabajador>());
             arbolTrabajadores[0].Add(new NodoTrabajador(trabajadorObj, idNode, 0));
             int NoNiveles = rdValue.Next(1, 5);
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < NoNiveles; i++)
             {
                 arbolTrabajadores.Add(new List<NodoTrabajador>());
                 for (int j = 0; j < arbolTrabajadores[i].Count; j++)

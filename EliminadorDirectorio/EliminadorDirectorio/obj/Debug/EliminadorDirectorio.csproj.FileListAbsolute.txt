@@ -1,0 +1,10 @@
+C:\Users\Lenovo\Documents\EliminadorDirectorio\EliminadorDirectorio\obj\Debug\EliminadorDirectorio.csprojAssemblyReference.cache
+C:\Users\Lenovo\Documents\EliminadorDirectorio\EliminadorDirectorio\obj\Debug\EliminadorDirectorio.Properties.Resources.resources
+C:\Users\Lenovo\Documents\EliminadorDirectorio\EliminadorDirectorio\obj\Debug\EliminadorDirectorio.csproj.GenerateResource.cache
+C:\Users\Lenovo\Documents\EliminadorDirectorio\EliminadorDirectorio\obj\Debug\EliminadorDirectorio.csproj.CoreCompileInputs.cache
+C:\Users\Lenovo\Documents\EliminadorDirectorio\EliminadorDirectorio\bin\Debug\EliminadorDirectorio.exe.config
+C:\Users\Lenovo\Documents\EliminadorDirectorio\EliminadorDirectorio\bin\Debug\EliminadorDirectorio.exe
+C:\Users\Lenovo\Documents\EliminadorDirectorio\EliminadorDirectorio\bin\Debug\EliminadorDirectorio.pdb
+C:\Users\Lenovo\Documents\EliminadorDirectorio\EliminadorDirectorio\obj\Debug\EliminadorDirectorio.Marco.resources
+C:\Users\Lenovo\Documents\EliminadorDirectorio\EliminadorDirectorio\obj\Debug\EliminadorDirectorio.exe
+C:\Users\Lenovo\Documents\EliminadorDirectorio\EliminadorDirectorio\obj\Debug\EliminadorDirectorio.pdb

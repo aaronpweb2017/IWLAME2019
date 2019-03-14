@@ -2,9 +2,8 @@
     <h1 style="font-style: oblique; font-weight: bold;">New Events List (Registration):</h1>
     <div style="display: flex;">
         <ng-container *ngFor="let event of events">
-            <event-thumbnail #thumbnail [event]="event" (eventClick)="handleEventClicked($event)"></event-thumbnail>
-            
+            <event-thumbnail (click)="handleThumbnailClick(event.name)" [event]="event"
+            (eventClick)="handleEventClicked($event)"></event-thumbnail>
         </ng-container>
-        <!-- <button class="btn btn-primary" (click)="thumbnail.showEventsQuantity()">Events Quantity</button>  -->
     </div>
 </html>

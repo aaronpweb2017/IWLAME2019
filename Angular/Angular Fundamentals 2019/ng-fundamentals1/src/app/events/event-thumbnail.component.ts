@@ -3,8 +3,8 @@ import { Component, Input, Output, EventEmitter } from '@angular/core'
 @Component({
     selector: 'event-thumbnail',
     templateUrl: './event-thumbnail.component.html',
-    styles: [`
-        .red { color: #FF0000 !important; }
+    styles: [
+        `.red { color: #FF0000 !important; }
         .green { color: #00FF00 !important; }
         .blue { color: #0000FF !important; }
         .yellow { color: #FFFF00 !important; }
@@ -14,8 +14,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core'
         .normal { font-style: normal; }
         .thumbnail { min-height: 210px; }
         .pad-left { margin-left: 10px; }
-        .well_div { color: #bbb; }
-        `
+        .well_div { color: #bbb; }`
     ]
 })
 

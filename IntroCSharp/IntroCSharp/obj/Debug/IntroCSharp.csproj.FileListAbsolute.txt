@@ -1,0 +1,7 @@
+F:\OneDrive\Instituto Tecnológico de Culiacán\SEMESTRE 10 (ENERO-JUNIO 2019)\INGENIERÍA WEB\IWLAME2019\IWLAME2019\IntroCSharp\IntroCSharp\bin\Debug\IntroCSharp.exe.config
+F:\OneDrive\Instituto Tecnológico de Culiacán\SEMESTRE 10 (ENERO-JUNIO 2019)\INGENIERÍA WEB\IWLAME2019\IWLAME2019\IntroCSharp\IntroCSharp\bin\Debug\IntroCSharp.exe
+F:\OneDrive\Instituto Tecnológico de Culiacán\SEMESTRE 10 (ENERO-JUNIO 2019)\INGENIERÍA WEB\IWLAME2019\IWLAME2019\IntroCSharp\IntroCSharp\bin\Debug\IntroCSharp.pdb
+F:\OneDrive\Instituto Tecnológico de Culiacán\SEMESTRE 10 (ENERO-JUNIO 2019)\INGENIERÍA WEB\IWLAME2019\IWLAME2019\IntroCSharp\IntroCSharp\obj\Debug\IntroCSharp.csprojAssemblyReference.cache
+F:\OneDrive\Instituto Tecnológico de Culiacán\SEMESTRE 10 (ENERO-JUNIO 2019)\INGENIERÍA WEB\IWLAME2019\IWLAME2019\IntroCSharp\IntroCSharp\obj\Debug\IntroCSharp.csproj.CoreCompileInputs.cache
+F:\OneDrive\Instituto Tecnológico de Culiacán\SEMESTRE 10 (ENERO-JUNIO 2019)\INGENIERÍA WEB\IWLAME2019\IWLAME2019\IntroCSharp\IntroCSharp\obj\Debug\IntroCSharp.exe
+F:\OneDrive\Instituto Tecnológico de Culiacán\SEMESTRE 10 (ENERO-JUNIO 2019)\INGENIERÍA WEB\IWLAME2019\IWLAME2019\IntroCSharp\IntroCSharp\obj\Debug\IntroCSharp.pdb
