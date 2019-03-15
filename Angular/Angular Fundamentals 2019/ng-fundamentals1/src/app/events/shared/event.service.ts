@@ -5,6 +5,9 @@ export class EventService {
     getEvents() {
         return events
     }
+    getEvent(id:number) {
+      return events.find(event => event.id == id)
+    }
 }
 
 const events = [
@@ -92,7 +95,7 @@ const events = [
       date: '4/15/2037',
       time: '9:00 am',
       price: 950.00,
-      imageUrl: '/assets/images/angularconnect-shield.png',
+      imageUrl: '/assets/images/basic-shield.png',
       location: {
         address: 'The NG-NL Convention Center & Scuba Shop',
         city: 'Amsterdam',
@@ -152,7 +155,7 @@ const events = [
       date: '5/4/2037',
       time: '10:00 am',
       price: 759.00,
-      imageUrl: '/assets/images/angularconnect-shield.png',
+      imageUrl: '/assets/images/ng-conf.png',
       location: {
         address: 'The Palatial America Hotel',
         city: 'Salt Lake City',
@@ -234,7 +237,7 @@ const events = [
       date: '6/10/2037',
       time: '11:00 am',
       price: 800.00,
-      imageUrl: '/assets/images/angularconnect-shield.png',
+      imageUrl: '/assets/images/ng-nl.png',
       location: {
         address: 'The UN Angular Center',
         city: 'New York',

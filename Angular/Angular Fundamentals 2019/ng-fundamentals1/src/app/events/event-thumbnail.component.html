@@ -1,5 +1,5 @@
 <html>
-    <div class="well hoverwell" style="border-radius: 10px; margin-left: 20px;">
+    <div [routerLink]="['/events',event.id]" class="well hoverwell" style="border-radius: 10px; margin-left: 20px;">
         <h2 style="font-weight: bold;">event {{event?.id}}:</h2>
         <span [hidden]="!event?.name"><h4>Name: {{event?.name}}</h4></span>
         <span><h4>Date: {{event?.date}}</h4></span>
