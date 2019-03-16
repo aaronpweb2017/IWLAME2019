@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EventService } from './shared/event.service';
-import { ToastService } from './common/toastr.service';
+import { ToastrService } from './common/toastr.service';
 
 declare let toastr
 
@@ -9,19 +9,20 @@ declare let toastr
 })
 
 export class EventsListComponent implements OnInit {
-    events:any[]
-    
+    events:any[];
+
     handleEventClicked(id) {
         alert('Clicked Event Id: '+id);
         console.log('Clicked Event Id: '+id);
     }
-    constructor(private eventService: EventService, private toastr : ToastService) { }
+    
+    constructor(private eventService:EventService, private toastr:ToastrService) { }
     
     ngOnInit() {
-      this.events = this.eventService.getEvents()
+      this.events=this.eventService.getEvents();
     }
 
-    handleThumbnailClick(eventName) {
+    handleThumbnailClicked(eventName) {
       this.toastr.success("Click on: "+eventName+ "event.")
     }
 }

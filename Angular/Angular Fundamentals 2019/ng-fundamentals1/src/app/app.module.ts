@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule }  from '@angular/router'
 import { BrowserModule } from '@angular/platform-browser';
+import { Routes, RouterModule }  from '@angular/router';
 import { EventsAppComponent } from './events-app.component'; 
 import { EventsListComponent } from './events/events-list.component';
 import { EventThumbnailComponent } from './events/event-thumbnail.component';
 import { NavBarComponent } from './nav/navbar.component';
-import { EventService } from './events/shared/event.service';
-import { ToastService } from './events/common/toastr.service';
 import { EventDetailsComponent } from './events/event-details/event-details.component';
+import { EventService } from './events/shared/event.service';
+import { ToastrService } from './events/common/toastr.service';
 import { appRoutes } from './routes';
+import { LlllDirective } from './llll.directive';
+import { YesPipe } from './yes.pipe';
 
 @NgModule({
   imports: [
@@ -19,10 +21,12 @@ import { appRoutes } from './routes';
     EventsAppComponent,
     EventsListComponent,
     EventThumbnailComponent,
+    NavBarComponent,
     EventDetailsComponent,
-    NavBarComponent
+    LlllDirective,
+    YesPipe
   ],
-  providers: [EventService, ToastService],
+  providers: [EventService,ToastrService],
   bootstrap: [EventsAppComponent]
 })
 export class AppModule { }

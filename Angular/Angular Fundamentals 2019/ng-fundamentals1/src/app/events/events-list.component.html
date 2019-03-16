@@ -1,9 +1,8 @@
 <html>
-    <h1 style="font-style: oblique; font-weight: bold;">New Events List (Registration):</h1>
+    <h1 style="font-style: oblique; font-weight:bold;">New Events List (Registration):</h1>
     <div style="display: flex;">
         <ng-container *ngFor="let event of events">
-            <event-thumbnail (click)="handleThumbnailClick(event.name)" [event]="event"
-            (eventClick)="handleEventClicked($event)"></event-thumbnail>
+            <event-thumbnail (click)="handleThumbnailClicked(event.name)" [event]="event" (eventClick)="handleEventClicked($event)"></event-thumbnail>
         </ng-container>
     </div>
 </html>
