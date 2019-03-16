@@ -13,27 +13,26 @@
         </div>
         <span *ngIf="event?.location?.address"><h4 style="font-weight: bold;">Location:</h4></span>
         <div>
-            <span><h5 style="font-weight: bold;">Address: {{event?.location?.address}} </h5></span>
-            <span><h5 style="font-weight: bold;">City: {{event?.location?.city}} </h5></span>
-            <span><h5 style="font-weight: bold;">Country: {{event?.location?.country}} </h5></span>
+            <span><h5 style="font-weight: bold;">Address: {{event?.location?.address}}</h5></span>
+            <span><h5 style="font-weight: bold;">City: {{event?.location?.city}}</h5></span>
+            <span><h5 style="font-weight: bold;">Country: {{event?.location?.country}}</h5></span>
         </div>
         <span *ngIf="event?.sessions?.id"><h4 style="font-weight: bold;">Sessions:</h4></span>
-        
         <ng-container *ngFor="let session of event?.sessions; let i = index" [attr.data-index]="i">
             <div>
                 <span><h4 style="font-weight: bold;">Session {{i+1}}: </h4></span>
                 <span style="display:inline-block; margin-left: 20px;"><h5>Id: {{session.id}} </h5></span>
                 <span style="display:inline-block; margin-left: 20px;"><h5>Name: {{session.name}} </h5></span>
-                <span style="display:inline-block; margin-left: 20px;"><h5>Presenter: {{session.presenter}} </h5></span>
-                <span style="display:inline-block; margin-left: 20px;"><h5>Duration: {{session.duration}} </h5></span>
-                <span style="display:inline-block; margin-left: 20px;"><h5>Level: {{session.level}} </h5></span>
+                <span style="display:inline-block; margin-left: 20px;"><h5>Presenter: {{session.presenter}}</h5></span>
+                <span style="display:inline-block; margin-left: 20px;"><h5>Duration: {{session.duration}}</h5></span>
+                <span style="display:inline-block; margin-left: 20px;"><h5>Level: {{session.level}}</h5></span>
                 <span *ngIf="!session?.voters.length==0"><h5 style="font-weight: bold;">Voters:</h5></span>  
                 <ng-container *ngFor="let voter of session?.voters">
                     <span style="display:inline-block; margin-left: 20px;"><h5>{{voter}}</h5></span>
                 </ng-container>
             </div>
         </ng-container>
-        <button style="margin-left: 5px;" class="btn btn-primary" (click)="showSessionsQuantity()">Session_Quantity</button>
-        <button style="margin-left: 5px;" class="btn btn-primary" (click)="handleClickMe()">Click_Here</button>
+        <button style="margin-left: 5px; font-weight: bold;" class="btn btn-primary" (click)="showSessionsQuantity()">Session_Quantity</button>
+        <button style="margin-left: 5px; font-weight: bold;" class="btn btn-primary" (click)="handleClickMe()">Click_Here</button>
     </div>
 </html>

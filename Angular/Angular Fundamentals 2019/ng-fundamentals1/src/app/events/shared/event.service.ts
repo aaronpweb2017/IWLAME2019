@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core'
+import { Injectable } from '@angular/core';
 
 @Injectable()
 export class EventService {
     getEvents() {
-        return events
+        return events;
     }
     getEvent(id:number) {
-      return events.find(event => event.id == id)
+      return events.find(event => event.id == id);
     }
 }
 
