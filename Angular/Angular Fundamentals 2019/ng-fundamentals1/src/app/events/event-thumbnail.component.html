@@ -18,7 +18,7 @@
             <span><h5 style="font-weight: bold;">Country: {{event?.location?.country}}</h5></span>
         </div>
         <span *ngIf="event?.sessions?.id"><h4 style="font-weight: bold;">Sessions:</h4></span>
-        <ng-container *ngFor="let session of event?.sessions; let i = index" [attr.data-index]="i">
+        <ng-container *ngFor="let session of event?.sessions; let i=index;" [attr.data-index]="i">
             <div>
                 <span><h4 style="font-weight: bold;">Session {{i+1}}: </h4></span>
                 <span style="display:inline-block; margin-left: 20px;"><h5>Id: {{session.id}} </h5></span>
