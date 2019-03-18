@@ -1,0 +1,8 @@
+<html>
+    <h1 style="font-style: oblique; font-weight: bold;">Welcome to CemeteryProject:</h1>
+    <div style="display: flex;">
+        <ng-container *ngFor="let employee of employees">
+            <employee-thumbnail [employee]="employee"></employee-thumbnail>
+        </ng-container>
+    </div>
+</html>

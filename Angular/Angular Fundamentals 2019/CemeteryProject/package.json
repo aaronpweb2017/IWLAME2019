@@ -25,7 +25,9 @@
     "file-uri-to-path": "^1.0.0",
     "hoek": "^6.1.2",
     "joi": "^14.3.1",
+    "ngf-bootstrap": "0.0.5",
     "ngx-xml2json": "^1.0.2",
+    "package": "^1.0.1",
     "rxjs": "^6.3.3",
     "tslib": "^1.9.0",
     "zone.js": "^0.8.26"

@@ -1,0 +1,41 @@
+.well {
+    background-color: rgb(153, 113, 113);
+    color: #24292e;
+    line-height: 1.5;
+}
+
+.paginate-container {
+    margin-bottom: 15px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.d-flex {
+    display: flex!important;
+}
+
+.pagination .current, .pagination .current:hover {
+    background-color: #0366d6;
+    border-color: #0366d6;
+    color: #fff;
+    z-index: 3;
+}
+
+.pagination a, .pagination em, .pagination span {
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    background: #fff;
+    border: 1px solid #e1e4e8;
+    color: #0366d6;
+    cursor: pointer;
+    float: left;
+    font-size: 13px;
+    font-style: normal;
+    margin-left: -1px;
+    padding: 7px 12px;
+    position: relative;
+    user-select: none;
+    vertical-align: middle;
+    white-space: nowrap;
+}
