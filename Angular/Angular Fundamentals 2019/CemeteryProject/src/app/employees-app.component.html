@@ -1,0 +1,22 @@
+<html>
+  <div style="text-align:center">
+    <h1>Welcome to {{title}}!</h1>
+  </div>
+  <div class="well hoverwell">
+    <h1>Cementery Employees Array Content ({{employees.length}}):</h1>
+    <ul>
+      <ng-container *ngFor="let employee of employees; let i=index;" [attr.data-index]="i">
+          <h2>employee {{i+1}}:</h2>
+          <h4>Id: {{employee.id_empleadoN}}</h4>
+          <h4>Tipo: {{employee.tipo_empleado}}</h4>
+          <h4>Nombre: {{employee.nombre}}</h4>
+          <h4>Apellido: {{employee.apellido}}</h4>
+          <h4>Direccion: {{employee.direccion}}</h4>
+          <h4>Antiguedad: {{employee.antiguedad}}</h4>
+          <h4>Fecha de Contrato: {{employee.fecha_contrato}}</h4>
+          <h4>Telefono: {{employee.telefono}}</h4>
+          <h4>Salario: {{employee.salario}}</h4>
+      </ng-container>
+    </ul>
+  </div>
+</html>
