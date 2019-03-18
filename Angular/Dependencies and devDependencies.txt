@@ -1,3 +1,6 @@
+Omit npm install (node_module folder creation) command:
+ng new [project_name] --skip-install
+
 dependencies:
 npm install package @angular/animations@7.2.0 --save
 npm install package @angular/common@7.2.0 --save
@@ -8,18 +11,18 @@ npm install package @angular/platform-browser@7.2.0 --save
 npm install package @angular/platform-browser-dynamic@7.2.0 --save
 npm install package @angular/router@7.2.0 --save
 npm install package core-js@2.5.4 --save
-npm install package ngf-bootstrap@0.0.5 --save
 npm install package rxjs@6.3.3 --save
 npm install package tslib@1.9.0 --save
 npm install package zone.js@0.8.26 --save
+
+specific dependencies:
+npm install package ngf-bootstrap@0.0.5 --save
 npm install package toastr --save
+npm install package ngx-xml2json@1.0.2 --save
 
 devDependencies:
 npm install package @angular-devkit/build-angular@0.13.0 --save-dev
 npm install package @angular/compiler-cli@7.2.0 --save-dev
-
-------------------------------------------------------------------------
-
 npm install package @angular/cli@7.3.3 --save-dev
 npm install package @angular/language-service@7.2.0 --save-dev
 npm install package @types/jasmine@2.8.8 --save-dev
