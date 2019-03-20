@@ -9,10 +9,30 @@ import { EmployeesService } from './shared/employees.service';
 
 export class EmployeesListComponent {
   employees:any[];
+  rows:any[]; cols:any[];
   constructor(private employeesService:EmployeesService) { }
   ngOnInit() {
     this.employeesService.ngOnInit();
     this.employees=this.employeesService.getEmployees();
     setTimeout(()=>{this.employees=this.employeesService.getEmployees();}, 1000);
+  }
+  getArrayFromZeroToN(limit:number) {
+    let rowsArray:number[]=[];
+    let index:number=0;
+    for(let i=0; i<limit; i+=10) {
+      if(i==0) {
+        rowsArray[index]=i; index+=1; continue;
+      }
+      rowsArray[index]=(i-1); index+=1; 
+    }
+    return rowsArray;
+  }
+  getArrayFromAToB(a:number,b:number) {
+    let colsArray:number[]=[];
+    let index:number=0;
+    for(let i=0; i<(b-a); i+=1) {
+      colsArray[i]=a+i;
+    }
+    return colsArray;
   }
 }
