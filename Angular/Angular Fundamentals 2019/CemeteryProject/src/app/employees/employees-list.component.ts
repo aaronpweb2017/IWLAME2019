@@ -28,7 +28,4 @@ export class EmployeesListComponent {
     }
     return colsArray;
   }
-  wtfFunction(){
-    console.log("you make click here.")
-  }
 }
