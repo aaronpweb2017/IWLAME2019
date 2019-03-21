@@ -6,6 +6,6 @@ import { Component, Input} from '@angular/core'
     styleUrls: ['./employee-thumbnail.component.css']
 })
 
-export class EventThumbnailComponent {
+export class EmployeeThumbnailComponent {
     @Input() employee:any;
 }
