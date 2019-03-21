@@ -1,15 +1,7 @@
 <html>
     <div class="thumbnails_div">
-        <ng-container *ngIf="noRowSep==0">
-            <ng-container *ngFor="let col of getArrayFromAToB((noRowSep),(noRowSep+5))">
-                <employee-thumbnail [employee]="employees[col]"></employee-thumbnail>
-            </ng-container>
-        </ng-container>
-        <ng-container *ngIf="noRowSep!=0">
-            <ng-container *ngFor="let col of getArrayFromAToB((noRowSep+1),(noRowSep+6))">
-                <employee-thumbnail [employee]="employees[col]"></employee-thumbnail>
-            </ng-container>
+        <ng-container *ngFor="let index of getArrayFromAToB((noRowSep),(noRowSep+6))">
+            <employee-thumbnail [employee]="employees[index]"></employee-thumbnail>
         </ng-container>
     </div>
 </html>
-

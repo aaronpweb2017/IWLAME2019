@@ -1,5 +1,6 @@
 import { Component} from '@angular/core';
 import { EmployeesService } from './shared/employees.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'employees-list',
@@ -10,11 +11,13 @@ import { EmployeesService } from './shared/employees.service';
 export class EmployeesListComponent {
   employees:any[];
   rows:any[]; cols:any[];
-  constructor(private employeesService:EmployeesService) { }
+  noRowSep:number;
+  constructor(private employeesService:EmployeesService, private route:ActivatedRoute) { }
   ngOnInit() {
     this.employeesService.ngOnInit();
     this.employees=this.employeesService.getEmployees();
     setTimeout(()=>{this.employees=this.employeesService.getEmployees();}, 1000);
+    this.noRowSep=this.route.snapshot.params['pg'];
   }
   
   getArrayFromAToB(a:number,b:number) {
@@ -24,5 +27,8 @@ export class EmployeesListComponent {
       colsArray[i]=a+i;
     }
     return colsArray;
+  }
+  wtfFunction(){
+    console.log("you make click here.")
   }
 }

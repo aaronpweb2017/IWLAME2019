@@ -1,14 +1,12 @@
 <html>
     <div>
-        <employees-div [employees]="employees" [noRowSep]="0"></employees-div>
+        <h1 style="font-style: oblique; font-weight: bold;">Employees Records:</h1> 
+        <employees-div [employees]="employees" [noRowSep]="(noRowSep-1)*5"></employees-div>
         <div class="paginate-container codesearch-pagination-container">
-            <div class="d-flex d-md-inline-block pagination" data-pjax="true">
-                <a [attr.href]="employees-div" class="previous_page" rel="prev" href="">Prev</a>                
-                <a class="current" [attr.href]="employees-div">1</a>
-                <ng-container *ngFor="let np of getArrayFromAToB(2,21)">
-                    <a href="">{{np}}</a>
+            <div class="d-flex d-md-inline-block pagination" data-pjax="true">             
+                <ng-container *ngFor="let np of getArrayFromAToB(1,11)">
+                    <a class="current" [routerLink]="['/employees',np]">{{np}}</a>
                 </ng-container>
-                <a class="next_page" rel="next" href="">Next</a>
             </div>
         </div>
     </div>

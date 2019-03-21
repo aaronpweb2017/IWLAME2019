@@ -8,6 +8,9 @@ import { EmployeesListComponent } from './employees/employees-list.component';
 import { EmployeesDivComponent } from './employees/employees-div.component';
 import { EmployeeThumbnailComponent } from './employees/employee-thumbnail.component';
 import { EmployeesService } from './employees/shared/employees.service';
+import { appRoutes } from './routes';
+import { RouterModule } from '@angular/router';
+
 
 @NgModule({
   declarations: [EmployeesAppComponent,
@@ -15,7 +18,7 @@ import { EmployeesService } from './employees/shared/employees.service';
     EmployeesDivComponent,
     EmployeeThumbnailComponent],
   imports: [BrowserModule,
-    HttpClientModule],
+    HttpClientModule,RouterModule.forRoot(appRoutes)],
   providers: [JSONClientService,
     XMLClientService,
     EmployeesService],
