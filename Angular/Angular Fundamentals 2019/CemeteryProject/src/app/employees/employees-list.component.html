@@ -1,9 +1,16 @@
 <html>
     <div>
         <ng-container *ngFor="let row of getArrayFromZeroToN(employees?.length)">
-            <div style="width: 2000px; height: 400px; margin-bottom: 10px; border-width: 1px; border-style: none; border-color: none; display: inline-flex;">
-                <ng-container *ngFor="let col of getArrayFromAToB(row,(row+10))">
-                    <employee-thumbnail [employee]="employees[col]"></employee-thumbnail>
+            <div style="width: auto; height: 333px; margin-bottom: 10px; display: inline-flex;">
+                <ng-container *ngIf="row==0">
+                    <ng-container *ngFor="let col of getArrayFromAToB((row),(row+5))">
+                        <employee-thumbnail [employee]="employees[col]"></employee-thumbnail>
+                    </ng-container>
+                </ng-container>
+                <ng-container *ngIf="row!=0">
+                    <ng-container *ngFor="let col of getArrayFromAToB((row+1),(row+6))">
+                        <employee-thumbnail [employee]="employees[col]"></employee-thumbnail>
+                    </ng-container>
                 </ng-container>
             </div>
         </ng-container>
