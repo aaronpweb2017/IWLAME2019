@@ -1,0 +1,33 @@
+.thumbnail_item {
+    border-radius: 10px;
+    margin-left: 20px;
+    width: 260px;
+    height: 350px;
+    box-shadow: 10px 10px rgb(35, 50, 65);
+}
+
+.crossRotate {
+    -webkit-transition-duration: 1s;
+    -moz-transition-duration: 1s;
+    -o-transition-duration: 1s;
+     transition-duration: 1s;
+    -webkit-transition-property: -webkit-transform;
+    -moz-transition-property: -moz-transform;
+    -o-transition-property: -o-transform;
+     transition-property: transform;
+}
+
+.crossRotate:hover {
+     transform: scale(1.1);
+}
+
+.span_attribute {
+    display:block;
+    margin-left: 20px;
+}
+
+.employee_id {
+    font-weight: bold;
+    text-decoration: underline gray;
+    font-size: 20px;
+}

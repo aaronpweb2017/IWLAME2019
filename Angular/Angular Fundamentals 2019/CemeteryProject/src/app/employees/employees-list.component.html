@@ -1,7 +1,7 @@
 <html>
     <div>
         <ng-container *ngFor="let row of getArrayFromZeroToN(employees?.length)">
-            <div style="width: auto; height: 333px; margin-bottom: 10px; display: inline-flex;">
+            <div style="width: auto; height: 360px; margin-bottom: 10px; display: inline-flex;">
                 <ng-container *ngIf="row==0">
                     <ng-container *ngFor="let col of getArrayFromAToB((row),(row+5))">
                         <employee-thumbnail [employee]="employees[col]"></employee-thumbnail>

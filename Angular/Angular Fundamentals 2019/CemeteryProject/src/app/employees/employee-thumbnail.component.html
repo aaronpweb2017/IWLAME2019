@@ -1,14 +1,14 @@
 <html>
-    <div class="well hoverwell" style="border-radius: 10px; margin-left: 20px; width: 300px; height: 320px;">
-        <h4 style="font-weight: bold;">Employee {{employee?.id_empleadoN}}:</h4>
-        <span style="display:block; margin-left: 20px;"><h5><strong>Jefe: </strong>{{employee?.id_empleadoJ}}</h5></span>
-        <span style="display:block; margin-left: 20px;"><h5><strong>Tipo: </strong>{{employee?.tipo_empleado}}</h5></span>
-        <span style="display:block; margin-left: 20px;"><h5><strong>Nombre: </strong>{{employee?.nombre}} </h5></span>
-        <span style="display:block; margin-left: 20px;"><h5><strong>Apellido: </strong>{{employee?.apellido}}</h5></span>
-        <span style="display:block; margin-left: 20px;"><h5><strong>Dirección: </strong>{{employee?.direccion}}</h5></span>
-        <span style="display:block; margin-left: 20px;"><h5><strong>Antiguedad: </strong>{{employee?.antiguedad}}</h5></span>
-        <span style="display:block; margin-left: 20px;"><h5><strong>Contrato: </strong>{{employee?.fecha_contrato}}</h5></span>
-        <span style="display:block; margin-left: 20px;"><h5><strong>Telefono: </strong>{{employee?.telefono}}</h5></span>
-        <span style="display:block; margin-left: 20px;"><h5><strong>Salario: </strong>{{employee?.salario}}</h5></span>  
+    <div class="well hoverwell thumbnail_item crossRotate">
+        <span class="employee_id">Employee {{employee?.id_empleadoN}}:</span>
+        <span class="span_attribute"><h5><strong>Jefe: </strong>{{employee?.id_empleadoJ}}</h5></span>
+        <span class="span_attribute"><h5><strong>Tipo: </strong>{{employee?.tipo_empleado}}</h5></span>
+        <span class="span_attribute"><h5><strong>Nombre: </strong>{{employee?.nombre}} </h5></span>
+        <span class="span_attribute"><h5><strong>Apellido: </strong>{{employee?.apellido}}</h5></span>
+        <span class="span_attribute"><h5><strong>Dirección: </strong>{{employee?.direccion}}</h5></span>
+        <span class="span_attribute"><h5><strong>Antiguedad: </strong>{{employee?.antiguedad}}</h5></span>
+        <span class="span_attribute"><h5><strong>Contrato: </strong>{{employee?.fecha_contrato}}</h5></span>
+        <span class="span_attribute"><h5><strong>Telefono: </strong>{{employee?.telefono}}</h5></span>
+        <span class="span_attribute"><h5><strong>Salario: </strong>${{employee?.salario}}</h5></span>  
     </div>
 </html>
