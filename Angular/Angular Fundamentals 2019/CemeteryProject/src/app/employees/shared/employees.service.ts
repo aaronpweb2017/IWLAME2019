@@ -6,10 +6,12 @@ import { XMLClientService } from 'src/app/xml-client.service';
 export class EmployeesService {
     public employees:any[];
     public xmlcontent:string;
+    
     constructor(private ngxXml2jsonService:NgxXml2jsonService, private xmlClientService:XMLClientService) { }
+    
     ngOnInit() {
         this.xmlClientService.getTextFile('assets/employees.xml').subscribe(data => {
-        const xmlFileContent=data; 
+        const xmlFileContent=data;
         this.xmlcontent=xmlFileContent;
         const parser=new DOMParser();
         const xml=parser.parseFromString(xmlFileContent,'text/xml');
@@ -17,10 +19,8 @@ export class EmployeesService {
         this.employees=Object.values(Object.values(obj)[0])[1];
       }); 
     }
+
     getEmployees() {
       return this.employees;
-    }
-    getEmployee(id:number) {
-      return this.employees.find(employee => employee.id_empleadoN==id);
     }
 }

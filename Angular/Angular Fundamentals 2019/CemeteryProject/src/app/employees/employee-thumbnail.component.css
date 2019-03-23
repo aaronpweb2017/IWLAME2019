@@ -1,3 +1,9 @@
+.well {
+    background-color: rgb(153, 113, 113);
+    color: #24292e;
+    line-height: 1.5;
+}
+
 .thumbnail_item {
     border-radius: 10px;
     margin-left: 20px;

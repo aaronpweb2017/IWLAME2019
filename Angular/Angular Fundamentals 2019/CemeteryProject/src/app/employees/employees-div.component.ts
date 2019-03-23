@@ -1,4 +1,4 @@
-import { Component, Input} from '@angular/core'
+import { Component, Input} from '@angular/core';
 
 @Component({
     selector: 'employees-div',
@@ -12,9 +12,8 @@ export class EmployeesDivComponent {
     
     getArrayFromAToB(a:number,b:number) {
         let colsArray:number[]=[];
-        let index:number=0;
-        for(let i=0; i<(b-a); i++) {
-          colsArray[i]=a+i;
+        for(let index=0; index<(b-a); index++) {
+          colsArray[index]=a+index;
         }
         return colsArray;
     }

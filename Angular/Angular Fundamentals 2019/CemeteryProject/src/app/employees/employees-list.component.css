@@ -1,7 +1,6 @@
-.well {
-    background-color: rgb(153, 113, 113);
-    color: #24292e;
-    line-height: 1.5;
+.employees_list_title {
+    font-style: oblique;
+    font-weight: bold;
 }
 
 .paginate-container {
