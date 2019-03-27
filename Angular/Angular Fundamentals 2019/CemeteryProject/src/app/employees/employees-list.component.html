@@ -1,13 +1,11 @@
 <html>
     <div>
-        <h1 class="employees_list_title">Employees Records:</h1> 
+        <h1 class="employees_list_title">Employees Records:</h1>
         <employees-div [employees]="employees" [noRowSep]="(noRowSep-1)*5"></employees-div>
-        <div class="paginate-container codesearch-pagination-container">
-            <div class="d-flex d-md-inline-block pagination" data-pjax="true">
-                <ng-container *ngFor="let np of getArrayFromAToB(1,11)">
-                    <a class="current" [routerLink]="['/employees',np]">{{np}}</a>
-                </ng-container>
-            </div>
-        </div>
+       <div class="paginate-container">
+            <ng-container *ngFor="let np of getArrayFromAToB(1,11)">
+                <input type="button" value="{{np}}" class="pagination-btn" [class.current]="np==noSelectedBtn" (click)="redirectEmployeePage(np,np)">
+            </ng-container>
+       </div>
     </div>
 </html>
