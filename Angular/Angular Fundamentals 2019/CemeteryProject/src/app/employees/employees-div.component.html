@@ -1,7 +1,7 @@
 <html>
     <div class="employee_thumbnail_div">
-        <ng-container *ngFor="let j of getArrayFromAToB(noRowSep,(noRowSep+5))">
-            <employee-thumbnail [employee]="employees[j]"></employee-thumbnail>
+        <ng-container *ngFor="let index of getArrayFromAToB(noRowSep, (noRowSep+5))">
+            <employee-thumbnail *ngIf="employees" [employee]="employees[index]"></employee-thumbnail>
         </ng-container>
     </div>
 </html>

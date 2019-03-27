@@ -9,12 +9,11 @@ import { Component, Input} from '@angular/core';
 export class EmployeesDivComponent {
     @Input() employees:any[];
     @Input() noRowSep:number;
-     
+
     getArrayFromAToB(a:number,b:number) {
         let colsArray:number[]=[];
-        for(let index=0; index<(b-a); index++) {
+        for(let index=0; index<(b-a); index++) 
           colsArray[index]=a+index;
-        }
         return colsArray;
     }
 }

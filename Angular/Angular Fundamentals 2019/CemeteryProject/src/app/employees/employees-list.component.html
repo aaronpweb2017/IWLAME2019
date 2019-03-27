@@ -1,10 +1,11 @@
 <html>
     <div>
-        <h1 class="employees_list_title">Employees Records:</h1>
-        <employees-div [employees]="employees" [noRowSep]="(noRowSep-1)*5"></employees-div>
+        <h1 class="employees_list_title">Employee Records:</h1>
+        <employees-div [employees]="employees" [noRowSep]="(noPage-1)*5"></employees-div>
        <div class="paginate-container">
-            <ng-container *ngFor="let np of getArrayFromAToB(1,11)">
-                <input type="button" value="{{np}}" class="pagination-btn" [class.current]="np==noSelectedBtn" (click)="redirectEmployeePage(np,np)">
+            <ng-container *ngFor="let np of page_indexes">
+                <input type="button" value="{{np}}" class="pagination-btn"
+                [class.current]="np==noSelBtn" (click)="redirectEmployeePage(np,np)">
             </ng-container>
        </div>
     </div>
