@@ -3,6 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Proyecto } from 'src/app/interfaces/proyecto';
 import { ProyectosService } from 'src/app/services/proyectos-service';
+import { FechasService } from 'src/app/services/fechas-service';
 
 @Component({
   selector: 'proyectos-delete',
@@ -12,11 +13,12 @@ import { ProyectosService } from 'src/app/services/proyectos-service';
 
 export class ProyectosDeleteComponent implements OnInit {
   id_proyecto: number;
-  proyecto: Proyecto
+  proyecto: Proyecto;
   fecha_inicio: string;
   fecha_fin: string;
-  constructor(private proyectosService: ProyectosService, private toastrService:
-    ToastrService, private router: Router, private route: ActivatedRoute) { }
+  
+  constructor(private proyectosService: ProyectosService, private fechasService: FechasService,
+    private toastrService: ToastrService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.proyecto = {
@@ -29,8 +31,8 @@ export class ProyectosDeleteComponent implements OnInit {
       this.proyecto.id_proyecto = Number(Object.values(data)[0]);
       this.proyecto.nombre = (Object.values(data)[1]).toString();
       this.proyecto.descripcion = (Object.values(data)[2]).toString();
-      this.fecha_inicio = this.GetDateYMD((Object.values(data)[3]).toString());
-      this.fecha_fin = this.GetDateYMD((Object.values(data)[4]).toString());
+      this.fecha_inicio = this.fechasService.GetDateYMD(Object.values(data)[3].toString());
+      this.fecha_fin = this.fechasService.GetDateYMD(Object.values(data)[4].toString());
       this.proyecto.status = Number(Object.values(data)[5]);
     });
   }
@@ -48,9 +50,5 @@ export class ProyectosDeleteComponent implements OnInit {
 
   RegresarProyectos() {
     this.router.navigate(['/proyectos/index']);
-  }
-
-  GetDateYMD(stringDate: String): string {
-    return this.proyectosService.GetDateYMD(stringDate);
   }
 }

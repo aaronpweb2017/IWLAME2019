@@ -29,13 +29,13 @@ export class EmpleadosEditComponent implements OnInit
     };
     this.id_empleado = this.route.snapshot.params['id_empleado'];
     this.empleadosService.GetEmpleado(this.id_empleado).subscribe(data => {
-      this.empleado.id_empleado = Number(Object.values(Object.values(data))[0]);
-      this.empleado.nombre = (Object.values(Object.values(data))[1]).toString();
-      this.empleado.apellido = (Object.values(Object.values(data))[2]).toString();
-      this.empleado.direccion = (Object.values(Object.values(data))[3]).toString();
-      this.empleado.telefono = (Object.values(Object.values(data))[4]).toString();
-      this.empleado.sueldo = Number(Object.values(Object.values(data))[5]);
-      this.empleado.status = Number(Object.values(Object.values(data))[6]);
+      this.empleado.id_empleado = Number(Object.values(data)[0]);
+      this.empleado.nombre = Object.values(data)[1].toString();
+      this.empleado.apellido = Object.values(data)[2].toString();
+      this.empleado.direccion = Object.values(data)[3].toString();
+      this.empleado.telefono = Object.values(data)[4].toString();
+      this.empleado.sueldo = Number(Object.values(data)[5]);
+      this.empleado.status = Number(Object.values(data)[6]);
     });
   }
 

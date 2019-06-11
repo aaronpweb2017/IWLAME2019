@@ -25,8 +25,8 @@
                         <tr>
                             <td>{{asignacion.id_asignacion}}</td>
                             <td>{{proyectosnames[i]}}</td> <td>{{empleadosnames[i]}}</td>
-                            <td>{{this.GetDateDMY(asignacion.fecha_asignado)}}</td>
-                            <td>{{this.GetDateDMY(asignacion.fecha_desasignado)}}</td>
+                            <td>{{this.fechasService.GetDateDMY(asignacion.fecha_asignado)}}</td>
+                            <td>{{this.fechasService.GetDateDMY(asignacion.fecha_desasignado)}}</td>
                             <td>
                                 <input class="btn btn-primary" type="button" value="Editar" (click)="EditarAsignacion(asignacion.id_asignacion);"> |
                                 <input class="btn btn-danger" type="button" value="Borrar" (click)="BorrarAsignacion(asignacion.id_asignacion);">

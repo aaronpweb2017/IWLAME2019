@@ -60,14 +60,4 @@ export class AsignacionesService {
         + "/BorrarAsignacion/?id_asignacion="+id_asignacion;
         return this.http.delete(this.ApiDeleteAsignacionUrl);
     }
-
-    GetDateDMY(stringDate): string {
-        const [year, month, day] = stringDate.substring(0,10).split("-")
-        return day +"-"+ month +"-"+ year;
-    }
-    
-    GetDateYMD(stringDate): string {
-        const [year, month, day] = stringDate.substring(0,10).split("-")
-        return year +"-"+ month +"-"+ day;
-    }
 }

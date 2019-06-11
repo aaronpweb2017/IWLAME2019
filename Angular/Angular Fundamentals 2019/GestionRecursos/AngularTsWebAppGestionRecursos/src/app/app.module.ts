@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
+import { FechasService } from './services/fechas-service';
 import { EmpleadosService } from './services/empleados-service';
 import { ProyectosService } from './services/proyectos-service';
 import { NavBarComponent } from './components/nav/navbar.component';
@@ -57,7 +58,7 @@ import { AsignacionesDeleteComponent } from './components/asignaciones/asignacio
     BrowserModule,
     BrowserAnimationsModule],
   providers: [EmpleadosService,
-    ProyectosService, AsignacionesService],
+    ProyectosService, AsignacionesService, FechasService],
   bootstrap: [LogInComponent]
 })
 

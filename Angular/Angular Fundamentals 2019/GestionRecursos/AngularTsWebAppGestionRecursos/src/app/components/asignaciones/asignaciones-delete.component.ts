@@ -5,6 +5,7 @@ import { Asignacion } from 'src/app/interfaces/asignacion';
 import { AsignacionesService } from 'src/app/services/asignaciones-service';
 import { ProyectosService } from 'src/app/services/proyectos-service';
 import { EmpleadosService } from 'src/app/services/empleados-service';
+import { FechasService } from 'src/app/services/fechas-service';
 
 @Component({
   selector: 'asignaciones-delete',
@@ -24,6 +25,7 @@ export class AsignacionesDeleteComponent implements OnInit {
   constructor(private projectsService: ProyectosService,
     private employeeService: EmpleadosService,
     private assignmentsService: AsignacionesService,
+    private fechasService: FechasService,
     private toastrService: ToastrService,
     private router: Router, private route: ActivatedRoute) { }
 
@@ -37,29 +39,29 @@ export class AsignacionesDeleteComponent implements OnInit {
     this.proyecto_nombre = ""; this.empleado_nombre = "";
     this.id_asignacion = this.route.snapshot.params['id_asignacion'];
     this.assignmentsService.GetAsignacion(this.id_asignacion).subscribe(data => {
-      this.asignacion.id_asignacion = Number(Object.values(Object.values(data))[0]);
-      this.asignacion.id_proyecto = Number(Object.values(Object.values(data))[1]);
-      this.asignacion.id_empleado = Number(Object.values(Object.values(data))[2]);
-      this.fecha_asignado = this.GetDateFromSQLDate((Object.values(Object.values(data))[3]).toString());
-      this.fecha_desasignado = this.GetDateFromSQLDate((Object.values(Object.values(data))[4]).toString());
+      this.asignacion.id_asignacion = Number(Object.values(data)[0]);
+      this.asignacion.id_proyecto = Number(Object.values(data)[1]);
+      this.asignacion.id_empleado = Number(Object.values(data)[2]);
+      this.fecha_asignado = this.fechasService.GetDateYMD(Object.values(data)[3]).toString();
+      this.fecha_desasignado = this.fechasService.GetDateYMD(Object.values(data)[4]).toString();
       this.projectsService.GetProyectos().subscribe(data => {
         let project_id: number = 0;
         for (let i = 0; i < Object.values(data).length; i++) {
-          project_id = Number(Object.values(Object.values(Object.values(data))[i])[0]);
+          project_id = Number(Object.values(Object.values(data)[i])[0])
           if (this.asignacion.id_proyecto == project_id) {
-            this.proyecto_nombre = Number(Object.values(Object.values(Object.values(data))[i])[0]) + ".- "
-              + Object.values(Object.values(Object.values(data))[i])[1].toString(); break;
+            this.proyecto_nombre = Number(Object.values(Object.values(data)[i])[0])
+              + ".- " + Object.values(Object.values(data)[i])[1].toString(); break;
           }
         }
       });
       this.employeeService.GetEmpleados().subscribe(data => {
         let employee_id: number = 0;
         for (let i = 0; i < Object.values(data).length; i++) {
-          employee_id = Number(Object.values(Object.values(Object.values(data))[i])[0]);
+          employee_id = Number(Object.values(Object.values(data)[i])[0]);
           if (this.asignacion.id_empleado == employee_id) {
-            this.empleado_nombre = Number(Object.values(Object.values(Object.values(data))[i])[0]) + ".- "
-              + Object.values(Object.values(Object.values(data))[i])[1].toString()
-              + " " + Object.values(Object.values(Object.values(data))[i])[2].toString(); break;
+            this.empleado_nombre = Number(Object.values(Object.values(data)[i])[0])
+              + ".- " + Object.values(Object.values(data)[i])[1].toString()
+              + " " + Object.values(Object.values(data)[i])[2].toString(); break;
           }
         }
       });
@@ -79,10 +81,5 @@ export class AsignacionesDeleteComponent implements OnInit {
 
   RegresarAsignaciones() {
     this.router.navigate(['/asignaciones/index']);
-  }
-
-  GetDateFromSQLDate(dateString): string {
-    const [year, month, day] = dateString.substring(0, 10).split("-")
-    return year + "-" + month + "-" + day;
   }
 }

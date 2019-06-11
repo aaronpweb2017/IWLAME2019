@@ -4,6 +4,7 @@ import { Asignacion } from 'src/app/interfaces/asignacion';
 import { EmpleadosService } from 'src/app/services/empleados-service';
 import { ProyectosService } from 'src/app/services/proyectos-service';
 import { AsignacionesService } from 'src/app/services/asignaciones-service';
+import { FechasService } from 'src/app/services/fechas-service';
 
 @Component({
   selector: 'asignaciones-index',
@@ -19,7 +20,11 @@ export class AsignacionesIndexComponent implements OnInit {
   noPaginas: number;
   pageIndexes: number[];
 
-  constructor(private employeeService: EmpleadosService, private projectsService: ProyectosService, private assignmentsService: AsignacionesService, private router: Router) { }
+  constructor(private employeeService: EmpleadosService,
+    private projectsService: ProyectosService,
+    private assignmentsService: AsignacionesService,
+    private fechasService: FechasService,
+    private router: Router) { }
 
   ngOnInit() {
     this.proyectosnames = []; this.empleadosnames = [];
@@ -49,17 +54,13 @@ export class AsignacionesIndexComponent implements OnInit {
     this.router.navigate(['/asignaciones/delete', id_asignacion]);
   }
 
-  GetDateDMY(stringDate: String): string {
-    return this.assignmentsService.GetDateDMY(stringDate);
-  }
-
   MuestraPagina(no_pagina: number) {
     this.assignmentsService.GetAsignacionesPaginacion(no_pagina).subscribe(data => {
       this.asignaciones = Object.values(data);
       for (let i = 0; i < this.asignaciones.length; i++) {
         this.employeeService.GetEmpleado(this.asignaciones[i].id_empleado).subscribe(data => {
           this.empleadosnames[i] = Object.values(data)[1].toString()
-          + " " + Object.values(data)[2].toString();
+            + " " + Object.values(data)[2].toString();
         });
         this.projectsService.GetProyecto(this.asignaciones[i].id_proyecto).subscribe(data => {
           this.proyectosnames[i] = Object.values(data)[1].toString();

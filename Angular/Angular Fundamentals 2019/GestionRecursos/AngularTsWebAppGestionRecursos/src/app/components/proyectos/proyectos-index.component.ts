@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProyectosService } from 'src/app/services/proyectos-service';
 import { Proyecto } from 'src/app/interfaces/proyecto';
+import { FechasService } from 'src/app/services/fechas-service';
 
 @Component({
   selector: 'proyectos-index',
@@ -15,7 +16,7 @@ export class ProyectosIndexComponent implements OnInit {
   noPaginas: number;
   pageIndexes: number[];
 
-  constructor(private proyectosService: ProyectosService, private router: Router) { }
+  constructor(private proyectosService: ProyectosService, private fechasService: FechasService, private router: Router) { }
 
   ngOnInit() {
     this.noPaginas = 0; this.pageIndexes = [];
@@ -42,10 +43,6 @@ export class ProyectosIndexComponent implements OnInit {
 
   BorrarProyecto(id_proyecto: number) {
     this.router.navigate(['/proyectos/delete', id_proyecto]);
-  }
-
-  GetDateDMY(stringDate: String): string {
-    return this.proyectosService.GetDateDMY(stringDate);
   }
 
   MuestraPagina(no_pagina: number) {

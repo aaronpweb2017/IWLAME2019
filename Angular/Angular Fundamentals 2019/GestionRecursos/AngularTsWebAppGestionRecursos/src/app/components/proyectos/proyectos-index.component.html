@@ -25,10 +25,9 @@
                     <ng-container *ngFor="let proyecto of proyectos;">
                         <tr>
                             <td>{{proyecto.id_proyecto}}</td>
-                            <td>{{proyecto.nombre}}</td>
-                            <td>{{proyecto.descripcion}}</td>
-                            <td>{{this.GetDateDMY(proyecto.fecha_inicio)}}</td>
-                            <td>{{this.GetDateDMY(proyecto.fecha_fin)}}</td>
+                            <td>{{proyecto.nombre}}</td> <td>{{proyecto.descripcion}}</td>
+                            <td>{{this.fechasService.GetDateDMY(proyecto.fecha_inicio)}}</td>
+                            <td>{{this.fechasService.GetDateDMY(proyecto.fecha_fin)}}</td>
                             <td *ngIf="proyecto.status==0">Inactivo</td>
                             <td *ngIf="proyecto.status==1">En proceso</td>
                             <td *ngIf="proyecto.status==2">Terminado</td>

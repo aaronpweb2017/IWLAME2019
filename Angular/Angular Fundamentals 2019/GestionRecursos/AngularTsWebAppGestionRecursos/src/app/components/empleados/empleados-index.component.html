@@ -23,7 +23,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!--<ng-container *ngFor="let empleado of empleados; | paginate: { itemsPerPage: 10, currentPage: page }">-->
                     <ng-container *ngFor="let empleado of empleados;">
                         <tr>
                             <td>{{empleado.id_empleado}}</td>
@@ -42,7 +41,6 @@
                     </ng-container>
                 </tbody>
             </table>
-        <!--<pagination-controls (pageChange)="page = $event"></pagination-controls>-->
             <div style="text-align: center;">
                 <ng-container *ngFor="let pageIndex of pageIndexes;">
                     <input class="btn btn-secondary" type="button" value="{{pageIndex}}" (click)="MuestraPagina(pageIndex);" style="margin-left: 5px;">

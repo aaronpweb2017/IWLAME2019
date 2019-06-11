@@ -3,6 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { Proyecto } from 'src/app/interfaces/proyecto';
 import { ProyectosService } from 'src/app/services/proyectos-service';
+import { FechasService } from 'src/app/services/fechas-service';
 
 @Component({
   selector: 'proyectos-create',
@@ -16,7 +17,8 @@ export class ProyectosCreateComponent implements OnInit {
   fecha_inicio: string;
   fecha_fin: string;
 
-  constructor(private proyectosService: ProyectosService, private toastrService: ToastrService, private router: Router) { }
+  constructor(private proyectosService: ProyectosService, private fechasService:
+    FechasService, private toastrService: ToastrService, private router: Router) { }
 
   ngOnInit() {
     this.proyecto = {
@@ -24,11 +26,7 @@ export class ProyectosCreateComponent implements OnInit {
       descripcion: "", fecha_inicio: new Date(),
       fecha_fin: new Date(), status: 0
     };
-    let day: string = new Date().getDate().toString();
-    let month: string = (new Date().getMonth() + 1).toString();
-    let year: string = new Date().getFullYear().toString();
-    if (month.length < 10) month = "0" + month;
-    this.currtent_date = year + "-" + month + "-" + day;
+    this.currtent_date = this.fechasService.GetCurrentDate();
     this.fecha_inicio = this.currtent_date;
     this.fecha_fin = this.currtent_date;
   }

@@ -14,12 +14,11 @@ export class EmpleadosIndexComponent implements OnInit {
   empleados: Empleado[];
   noPaginas: number;
   pageIndexes: number[];
-  page: number;
 
   constructor(private employeeService: EmpleadosService, private router: Router) { }
 
   ngOnInit() {
-    this.noPaginas = 0; this.pageIndexes = []; this.page = 1;
+    this.noPaginas = 0; this.pageIndexes = [];
     this.employeeService.GetNoEmpleados().subscribe(data => {
       this.no_empleados = Number(Object.values(data));
       this.noPaginas = Math.trunc((this.no_empleados) / 10);

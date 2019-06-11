@@ -55,14 +55,4 @@ export class ProyectosService {
         + "/BorrarProyecto/?id_proyecto="+id_proyecto;
         return this.http.delete(this.ApiDeleteProyectoUrl);
     }
-
-    GetDateDMY(stringDate): string {
-        const [year, month, day] = stringDate.substring(0,10).split("-")
-        return day +"-"+ month +"-"+ year;
-    }
-    
-    GetDateYMD(stringDate): string {
-        const [year, month, day] = stringDate.substring(0,10).split("-")
-        return year +"-"+ month +"-"+ day;
-    }
 }

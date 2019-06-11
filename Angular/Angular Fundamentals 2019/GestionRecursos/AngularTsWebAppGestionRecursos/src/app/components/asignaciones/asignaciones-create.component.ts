@@ -7,6 +7,7 @@ import { EmpleadosService } from 'src/app/services/empleados-service';
 import { ProyectosService } from 'src/app/services/proyectos-service';
 import { Empleado } from 'src/app/interfaces/empleado';
 import { Proyecto } from 'src/app/interfaces/proyecto';
+import { FechasService } from 'src/app/services/fechas-service';
 
 @Component({
   selector: 'asignaciones-create',
@@ -22,9 +23,8 @@ export class AsignacionesCreateComponent implements OnInit {
   proyectos: Proyecto[];
   empleados: Empleado[];
 
-  constructor(private projectsService: ProyectosService,
-    private employeeService: EmpleadosService,
-    private assignmentsService: AsignacionesService,
+  constructor(private projectsService: ProyectosService, private employeeService: EmpleadosService,
+    private assignmentsService: AsignacionesService, private fechasService: FechasService,
     private toastrService: ToastrService, private router: Router) { }
 
   ngOnInit() {
@@ -33,11 +33,7 @@ export class AsignacionesCreateComponent implements OnInit {
       id_empleado: 0, fecha_asignado: new Date(),
       fecha_desasignado: new Date()
     };
-    let day: string = new Date().getDate().toString();
-    let month: string = (new Date().getMonth() + 1).toString();
-    let year: string = new Date().getFullYear().toString();
-    if (month.length < 10) month = "0" + month;
-    this.currtent_date = year + "-" + month + "-" + day;
+    this.currtent_date = this.fechasService.GetCurrentDate();
     this.fecha_asignado = this.currtent_date;
     this.fecha_desasignado = this.currtent_date;
     this.proyectos = []; this.empleados = [];
@@ -83,7 +79,6 @@ export class AsignacionesCreateComponent implements OnInit {
       || (new Date(this.fecha_asignado)) >= (new Date(this.fecha_desasignado))) {
       this.toastrService.error("Datos vacíos o inválidos."); return;
     }
-
     this.asignacion.fecha_asignado = new Date(this.fecha_asignado);
     this.asignacion.fecha_desasignado = new Date(this.fecha_desasignado);
     this.assignmentsService.PostAsignacion(this.asignacion).subscribe(data => {

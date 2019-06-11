@@ -40,7 +40,7 @@
                         <label class="text-light">Sueldo:</label>
                     </div>
                     <div class="col-md-6">
-                        <input [(ngModel)]="empleado.sueldo" [ngModelOptions]="{standalone: true}" onKeyPress="if(this.value.lengt>5) return false;" type="number" min=3000 step=1>
+                        <input [(ngModel)]="empleado.sueldo" [ngModelOptions]="{standalone: true}" type="number" onKeyPress="if(this.value.lengt>5) return false;" min=3000 step=1>
                     </div>
                 </div>
                 <div class="row">
