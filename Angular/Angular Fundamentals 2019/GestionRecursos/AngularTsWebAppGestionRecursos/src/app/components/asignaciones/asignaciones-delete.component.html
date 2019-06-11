@@ -1,0 +1,59 @@
+<html>
+    <body>
+        <h2>Estás seguro que deseas eliminar esta asignación???</h2><hr>
+        <div>
+            <form class="bg-dark">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label class="text-light">Código:</label>
+                    </div>
+                    <div class="col-md-6">
+                        <input [(ngModel)]="asignacion.id_asignacion" [ngModelOptions]="{standalone: true}" type="number" disabled>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label class="text-light">Proyecto:</label>
+                    </div>
+                    <div class="col-md-6">
+                        <input [(ngModel)]="proyecto_nombre" [ngModelOptions]="{standalone: true}" type="text" disabled>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label class="text-light">Empleado:</label>
+                    </div>
+                    <div class="col-md-6">
+                        <input [(ngModel)]="empleado_nombre" [ngModelOptions]="{standalone: true}" type="text" disabled>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label class="text-light">Asignado:</label>
+                    </div>
+                    <div class="col-md-6">
+                        <input [(ngModel)]="fecha_asignado" [ngModelOptions]="{standalone: true}" type="date" data-date="" data-date-format="MMMM DD YYYY" disabled>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label class="text-light">Desasignado:</label>
+                    </div>
+                    <div class="col-md-6">
+                        <input [(ngModel)]="fecha_desasignado" [ngModelOptions]="{standalone: true}" type="date" data-date="" data-date-format="MMMM DD YYYY" disabled>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn btn-danger" type="button" (click)="BorrarAsignacion();">Borrar</button>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-secondary" type="button" (click)="RegresarAsignaciones();">Regresar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

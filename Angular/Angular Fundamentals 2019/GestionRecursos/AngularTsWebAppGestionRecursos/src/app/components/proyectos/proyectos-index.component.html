@@ -1,0 +1,50 @@
+<html>
+    <body>
+        <div>
+            <div class="row">
+                <div class="col-md-10">
+                    <h2 class="text-dark">Catálogo de Proyectos:</h2 >
+                </div>
+                <div class="col-md-2">
+                    <input class="btn btn-success" type="button" value="Crear Nuevo" (click)="CrearProyecto();">
+                </div>
+            </div>
+            <table class="table table-sm table-dark">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                        <th>Descripcion</th>
+                        <th>Fecha inicio</th>
+                        <th>Fecha fin</th>
+                        <th>Estado</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let proyecto of proyectos;">
+                        <tr>
+                            <td>{{proyecto.id_proyecto}}</td>
+                            <td>{{proyecto.nombre}}</td>
+                            <td>{{proyecto.descripcion}}</td>
+                            <td>{{this.GetDateDMY(proyecto.fecha_inicio)}}</td>
+                            <td>{{this.GetDateDMY(proyecto.fecha_fin)}}</td>
+                            <td *ngIf="proyecto.status==0">Inactivo</td>
+                            <td *ngIf="proyecto.status==1">En proceso</td>
+                            <td *ngIf="proyecto.status==2">Terminado</td>
+                            <td>
+                                <input class="btn btn-primary" type="button" value="Editar" (click)="EditarProyecto(proyecto.id_proyecto);"> |
+                                <input class="btn btn-danger" type="button" value="Borrar" (click)="BorrarProyecto(proyecto.id_proyecto);">
+                            </td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+            <div style="text-align: center;">
+                <ng-container *ngFor="let pageIndex of pageIndexes;">
+                    <input class="btn btn-secondary" type="button" value="{{pageIndex}}" (click)="MuestraPagina(pageIndex);" style="margin-left: 5px;">
+                </ng-container>
+            </div>
+        </div>
+    </body>
+</html>

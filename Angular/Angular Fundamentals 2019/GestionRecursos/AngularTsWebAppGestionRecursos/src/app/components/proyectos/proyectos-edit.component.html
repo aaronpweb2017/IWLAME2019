@@ -1,0 +1,71 @@
+<html>
+    <body>
+        <h2>Ingrese los datos actualizados del proyecto:</h2><hr>
+        <div>
+            <form class="bg-dark">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label class="text-light">Código:</label>
+                    </div>
+                    <div class="col-md-6">
+                        <input [(ngModel)]="proyecto.id_proyecto" [ngModelOptions]="{standalone: true}" type="number" disabled>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label class="text-light">Nombre:</label>
+                    </div>
+                    <div class="col-md-6">
+                        <input [(ngModel)]="proyecto.nombre" [ngModelOptions]="{standalone: true}" type="text" maxlength="50">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label class="text-light">Descripción:</label>
+                    </div>
+                    <div class="col-md-6">
+                        <textarea [(ngModel)]="proyecto.descripcion" [ngModelOptions]="{standalone: true}" rows="4" cols="50" maxlength="200">{{proyecto.descripcion}}</textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label class="text-light">Fecha inicio:</label>
+                    </div>
+                    <div class="col-md-6">
+                        <input [(ngModel)]="fecha_inicio" [ngModelOptions]="{standalone: true}" type="date" data-format="DD-MM-YY" min="{{currtent_date}}" max="2020-12-31">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label class="text-light">Fecha fin:</label>
+                    </div>
+                    <div class="col-md-6">
+                        <input [(ngModel)]="fecha_fin" [ngModelOptions]="{standalone: true}" type="date" date-format="DD-MM-YY" min="{{currtent_date}}" max="2020-12-31">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label class="text-light">Estado:</label>
+                    </div>
+                    <div class="col-md-6">
+                        <select [(ngModel)]="proyecto.status" [ngModelOptions]="{standalone: true}">
+                            <option [value]="0">Inactivo</option>
+                            <option [value]="1">En Proceso</option>
+                            <option [value]="2">Terminado</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn btn-success" type="button" (click)="ActualizarProyecto();">Actualizar</button>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-secondary" type="button" (click)="RegresarProyectos();">Regresar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

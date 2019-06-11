@@ -1,0 +1,71 @@
+body {
+    background: url(/assets/log-in-background.jpg) no-repeat center top;
+    height: 100vh;
+    background-size: cover; 
+}
+
+body div div div h3 {
+    font-weight: bold;
+    margin-top: 15px;
+    margin-left: 15px;
+}
+
+body div div div input {
+    margin-top: 15px;
+    font-size: 22px;
+}
+
+.table {
+    border-radius: 5px 5px;
+    margin-top: 15px;
+    margin-left: 15px;
+    opacity: 0.9;
+    text-align: center;
+}
+
+.table thead tr th {
+    font-size: 20px;
+}
+
+.table tbody tr td {
+    font-size: 18px;
+}
+
+.table tbody tr td input {
+    font-style: oblique;
+}
+
+body h2 {
+    font-weight: bold;
+    margin-left: 20px;
+}
+
+body div form { 
+    max-width: 650px;
+    margin-left: 20px;
+    border-radius: 10px 10px;
+    opacity: 0.9;
+}
+
+body div form div div label {
+    margin-top: 15px;
+    margin-left: 15px;
+    font-size: 22px;
+    font-style: oblique;
+}
+
+body div form div div input, select {
+    margin-top: 15px;
+    margin-left: 15px;
+    border-radius: 5px 5px;
+    width: 500px;
+    font-size: 20px;
+}
+
+body div form div div button {
+    margin-top: 15px;
+    margin-left: 15px;
+    margin-bottom: 15px;
+    font-size: 22px;
+    color: white;
+}

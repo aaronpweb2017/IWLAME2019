@@ -1,0 +1,53 @@
+<html>
+    <body>
+        <div>
+            <div class="row">
+                <div class="col-md-10">
+                    <h2 class="text-dark">Catálogo de Empleados:</h2>
+                </div>
+                <div class="col-md-2">
+                    <input class="btn btn-success" type="button" value="Crear Nuevo" (click)="CrearEmpleado();">
+                </div>
+            </div>
+            <table class="table table-sm table-dark">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Dirección</th>
+                        <th>Teléfono</th>
+                        <th>Sueldo</th>
+                        <th>Estado</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--<ng-container *ngFor="let empleado of empleados; | paginate: { itemsPerPage: 10, currentPage: page }">-->
+                    <ng-container *ngFor="let empleado of empleados;">
+                        <tr>
+                            <td>{{empleado.id_empleado}}</td>
+                            <td>{{empleado.nombre}}</td>
+                            <td>{{empleado.apellido}}</td>
+                            <td>{{empleado.direccion}}</td>
+                            <td>{{empleado.telefono}}</td>
+                            <td>${{empleado.sueldo}}</td>
+                            <td *ngIf="empleado.status==0">Inactivo</td>
+                            <td *ngIf="empleado.status==1">Activo</td>
+                            <td>
+                                <input class="btn btn-primary" type="button" value="Editar" (click)="EditarEmpleado(empleado.id_empleado);"> |
+                                <input class="btn btn-danger" type="button" value="Borrar" (click)="BorrarEmpleado(empleado.id_empleado);">
+                            </td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+        <!--<pagination-controls (pageChange)="page = $event"></pagination-controls>-->
+            <div style="text-align: center;">
+                <ng-container *ngFor="let pageIndex of pageIndexes;">
+                    <input class="btn btn-secondary" type="button" value="{{pageIndex}}" (click)="MuestraPagina(pageIndex);" style="margin-left: 5px;">
+                </ng-container>
+            </div>
+        </div>
+    </body>
+</html>

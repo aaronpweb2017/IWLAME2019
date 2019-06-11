@@ -1,0 +1,45 @@
+<html>
+    <body>
+        <div>
+            <div class="row">
+                <div class="col-md-10">
+                    <h2 class="text-dark">Catálogo de Asignaciones:</h2>
+                </div>
+                <div class="col-md-2">
+                    <input class="btn btn-success" type="button" value="Crear Nueva" (click)="CrearAsignacion();">
+                </div>
+            </div>
+            <table class="table table-sm table-dark">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Proyecto</th>
+                        <th>Empleado</th>
+                        <th>Asignado</th>
+                        <th>Desasignado</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let asignacion of asignaciones; let i=index" [attr.data-index]="i">
+                        <tr>
+                            <td>{{asignacion.id_asignacion}}</td>
+                            <td>{{proyectosnames[i]}}</td> <td>{{empleadosnames[i]}}</td>
+                            <td>{{this.GetDateDMY(asignacion.fecha_asignado)}}</td>
+                            <td>{{this.GetDateDMY(asignacion.fecha_desasignado)}}</td>
+                            <td>
+                                <input class="btn btn-primary" type="button" value="Editar" (click)="EditarAsignacion(asignacion.id_asignacion);"> |
+                                <input class="btn btn-danger" type="button" value="Borrar" (click)="BorrarAsignacion(asignacion.id_asignacion);">
+                            </td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+            <div style="text-align: center;">
+                <ng-container *ngFor="let pageIndex of pageIndexes;">
+                    <input class="btn btn-secondary" type="button" value="{{pageIndex}}" (click)="MuestraPagina(pageIndex);" style="margin-left: 5px;">
+                </ng-container>
+            </div>
+        </div>
+    </body>
+</html>
