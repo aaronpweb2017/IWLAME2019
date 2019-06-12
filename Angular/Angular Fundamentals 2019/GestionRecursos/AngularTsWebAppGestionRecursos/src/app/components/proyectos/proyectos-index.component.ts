@@ -21,7 +21,7 @@ export class ProyectosIndexComponent implements OnInit {
   ngOnInit() {
     this.noPaginas = 0; this.pageIndexes = [];
     this.proyectosService.GetNoProyectos().subscribe(data => {
-      this.no_proyectos = Number(Object.values(data));
+      this.no_proyectos = Number(data);
       this.noPaginas = Math.trunc((this.no_proyectos) / 10);
       if ((this.no_proyectos) % 10 != 0) {
         this.noPaginas = this.noPaginas + 1;

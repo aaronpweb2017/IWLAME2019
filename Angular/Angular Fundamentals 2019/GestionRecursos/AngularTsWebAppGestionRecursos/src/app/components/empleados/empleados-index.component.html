@@ -9,8 +9,8 @@
                     <input class="btn btn-success" type="button" value="Crear Nuevo" (click)="CrearEmpleado();">
                 </div>
             </div>
-            <table class="table table-sm table-dark">
-                <thead>
+            <table class="table table-bordered">
+                <thead class="thead-light">
                     <tr>
                         <th>Código</th>
                         <th>Nombre</th>
@@ -28,7 +28,7 @@
                             <td>{{empleado.id_empleado}}</td>
                             <td>{{empleado.nombre}}</td>
                             <td>{{empleado.apellido}}</td>
-                            <td>{{empleado.direccion}}</td>
+                            <td style="max-width: 200px;">{{empleado.direccion}}</td>
                             <td>{{empleado.telefono}}</td>
                             <td>${{empleado.sueldo}}</td>
                             <td *ngIf="empleado.status==0">Inactivo</td>

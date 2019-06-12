@@ -13,6 +13,7 @@ import { ProyectosService } from './services/proyectos-service';
 import { NavBarComponent } from './components/nav/navbar.component';
 import { LogInComponent } from './components/login/log-in.component';
 import { AsignacionesService } from './services/asignaciones-service';
+import { ModalCreate } from './components/modales/modal-create.component';
 import { IndexMenuComponent } from './components/menu/index-menu.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EmpleadosIndexComponent } from './components/empleados/empleados-index.component';
@@ -44,7 +45,8 @@ import { AsignacionesDeleteComponent } from './components/asignaciones/asignacio
     AsignacionesCreateComponent,
     AsignacionesEditComponent,
     AsignacionesDeleteComponent,
-    NavBarComponent],
+    NavBarComponent,
+    ModalCreate],
   imports: [
     AlertModule.forRoot(),
     RouterModule.forRoot(appRoutes),

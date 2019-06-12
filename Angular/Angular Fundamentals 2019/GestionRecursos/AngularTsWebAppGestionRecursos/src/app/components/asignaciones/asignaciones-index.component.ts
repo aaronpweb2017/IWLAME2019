@@ -30,7 +30,7 @@ export class AsignacionesIndexComponent implements OnInit {
     this.proyectosnames = []; this.empleadosnames = [];
     this.noPaginas = 0; this.pageIndexes = [];
     this.assignmentsService.GetNoAsignaciones().subscribe(data => {
-      this.no_asignaciones = Number(Object.values(data));
+      this.no_asignaciones = Number(data);
       this.noPaginas = Math.trunc((this.no_asignaciones) / 10);
       if ((this.no_asignaciones) % 10 != 0) {
         this.noPaginas = this.noPaginas + 1;
@@ -59,11 +59,11 @@ export class AsignacionesIndexComponent implements OnInit {
       this.asignaciones = Object.values(data);
       for (let i = 0; i < this.asignaciones.length; i++) {
         this.employeeService.GetEmpleado(this.asignaciones[i].id_empleado).subscribe(data => {
-          this.empleadosnames[i] = Object.values(data)[1].toString()
-            + " " + Object.values(data)[2].toString();
+          this.empleadosnames[i] = Number(Object.values(data)[0])
+            + ".- " + Object.values(data)[1].toString() + " " + Object.values(data)[2].toString();
         });
         this.projectsService.GetProyecto(this.asignaciones[i].id_proyecto).subscribe(data => {
-          this.proyectosnames[i] = Object.values(data)[1].toString();
+          this.proyectosnames[i] = Number(Object.values(data)[0]) + ".- " + Object.values(data)[1].toString();
         });
       }
     });

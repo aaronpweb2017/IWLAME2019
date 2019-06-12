@@ -9,8 +9,8 @@
                     <input class="btn btn-success" type="button" value="Crear Nuevo" (click)="CrearProyecto();">
                 </div>
             </div>
-            <table class="table table-sm table-dark">
-                <thead>
+            <table class="table table-bordered">
+                <thead class="thead-light">
                     <tr>
                         <th>Código</th>
                         <th>Nombre</th>
@@ -24,8 +24,8 @@
                 <tbody>
                     <ng-container *ngFor="let proyecto of proyectos;">
                         <tr>
-                            <td>{{proyecto.id_proyecto}}</td>
-                            <td>{{proyecto.nombre}}</td> <td>{{proyecto.descripcion}}</td>
+                            <td>{{proyecto.id_proyecto}}</td> <td>{{proyecto.nombre}}</td>
+                            <td style="max-width: 200px;">{{proyecto.descripcion}}</td>
                             <td>{{this.fechasService.GetDateDMY(proyecto.fecha_inicio)}}</td>
                             <td>{{this.fechasService.GetDateDMY(proyecto.fecha_fin)}}</td>
                             <td *ngIf="proyecto.status==0">Inactivo</td>

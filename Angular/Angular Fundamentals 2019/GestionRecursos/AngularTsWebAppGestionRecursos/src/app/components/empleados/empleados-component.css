@@ -1,5 +1,6 @@
 body {
-    background: url(/assets/log-in-background.jpg) no-repeat center top;
+    /*background: url(/assets/log-in-background.jpg) no-repeat center top;*/
+    /*background:#e0e2e4;*/
     height: 100vh;
     background-size: cover; 
 }
@@ -29,6 +30,7 @@ body div div div input {
 
 .table tbody tr td {
     font-size: 18px;
+    overflow: hidden;
 }
 
 .table tbody tr td input {
@@ -62,10 +64,10 @@ body div form div div input, select {
     font-size: 20px;
 }
 
-body div form div div button {
+/*body div div div button {
     margin-top: 15px;
     margin-left: 15px;
     margin-bottom: 15px;
     font-size: 22px;
     color: white;
-}
+}*/

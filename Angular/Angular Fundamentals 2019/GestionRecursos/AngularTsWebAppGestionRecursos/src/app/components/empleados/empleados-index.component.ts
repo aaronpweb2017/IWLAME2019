@@ -20,7 +20,7 @@ export class EmpleadosIndexComponent implements OnInit {
   ngOnInit() {
     this.noPaginas = 0; this.pageIndexes = [];
     this.employeeService.GetNoEmpleados().subscribe(data => {
-      this.no_empleados = Number(Object.values(data));
+      this.no_empleados = Number(data);
       this.noPaginas = Math.trunc((this.no_empleados) / 10);
       if ((this.no_empleados) % 10 != 0) {
         this.noPaginas = this.noPaginas + 1;
