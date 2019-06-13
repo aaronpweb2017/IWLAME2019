@@ -5,27 +5,27 @@ import { EmpleadosService } from 'src/app/services/empleados-service';
 import { Empleado } from 'src/app/interfaces/empleado';
 
 @Component({
-    selector: 'empleados-edit',
-    templateUrl: './empleados-edit.component.html',
-    styleUrls: ['./empleados-component.css']
+  selector: 'empleados-edit',
+  templateUrl: './empleados-edit.component.html',
+  styleUrls: ['./empleados-component.css']
 })
 
-export class EmpleadosEditComponent implements OnInit
-{
-    empleadosService: EmpleadosService;
-    toastr: ToastrService;
-    id_empleado: number;
-    empleado: Empleado;
+export class EmpleadosEditComponent implements OnInit {
+  empleadosService: EmpleadosService;
+  toastr: ToastrService;
+  id_empleado: number;
+  empleado: Empleado;
 
   constructor(private employeeService: EmpleadosService, private toastrService:
-  ToastrService, private router: Router, private route: ActivatedRoute) { }
+    ToastrService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.empleadosService = this.employeeService;
     this.toastr = this.toastrService;
-    this.empleado = {id_empleado: 0, 
-        nombre: "", apellido: "", direccion: "", 
-        telefono: "", sueldo: 0, status: 0
+    this.empleado = {
+      id_empleado: 0,
+      nombre: "", apellido: "", direccion: "",
+      telefono: "", sueldo: 0, status: 0
     };
     this.id_empleado = this.route.snapshot.params['id_empleado'];
     this.empleadosService.GetEmpleado(this.id_empleado).subscribe(data => {
@@ -39,18 +39,20 @@ export class EmpleadosEditComponent implements OnInit
     });
   }
 
-  ActualizarEmpleado() {
-    if(this.empleado.nombre =="" || this.empleado.apellido =="" || this.empleado.direccion =="" 
-    || this.empleado.telefono =="" || this.empleado.sueldo < 3000 || this.empleado.status < 0) {
-      this.toastr.error("Datos vacíos o inválidos."); return;
+  ActualizarEmpleado(eventMessage: string) {
+    console.log("Mensaje del Evento: " + eventMessage);
+    if (this.empleado.nombre == "" || this.empleado.apellido == "" || this.empleado.direccion == ""
+      || this.empleado.telefono == "" || this.empleado.sueldo < 3000 || this.empleado.sueldo > 10000) {
+      this.toastrService.error("Datos vacíos o inválidos."); return;
     }
     this.employeeService.UpdateEmpleado(this.id_empleado, this.empleado).subscribe(data => {
-        if(Object.values(data)) {
-          this.toastr.success("Empleado actualizado con éxito.");
-          this.router.navigate(['/empleados/index']);
-        }
-        else
-          this.toastr.error("No se pudo actualizar el empleado.");
+      if (Object.values(data)) {
+        this.toastr.success("Empleado actualizado con éxito.");
+        this.router.navigate(['/empleados/index']);
+      }
+      else {
+        this.toastr.error("No se pudo actualizar el empleado.");
+      }
     });
   }
 

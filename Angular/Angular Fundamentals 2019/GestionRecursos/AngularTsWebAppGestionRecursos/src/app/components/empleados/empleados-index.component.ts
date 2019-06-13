@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EmpleadosService } from 'src/app/services/empleados-service';
 import { Empleado } from 'src/app/interfaces/empleado';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'empleados-index',
@@ -15,7 +16,8 @@ export class EmpleadosIndexComponent implements OnInit {
   noPaginas: number;
   pageIndexes: number[];
 
-  constructor(private employeeService: EmpleadosService, private router: Router) { }
+  constructor(private employeeService: EmpleadosService,
+    private toastrService: ToastrService, private router: Router) { }
 
   ngOnInit() {
     this.noPaginas = 0; this.pageIndexes = [];
@@ -40,9 +42,21 @@ export class EmpleadosIndexComponent implements OnInit {
     this.router.navigate(['/empleados/edit', id_empleado]);
   }
 
-  BorrarEmpleado(id_empleado: number) {
-    this.router.navigate(['/empleados/delete', id_empleado]);
+  BorrarEmpleado(eventMessage: string) {
+    console.log("Mensaje del Evento: " + eventMessage);
+    //this.employeeService.DeleteEmpleado(id_empleado).subscribe(data => {
+    //  if (Object.values(data)) {
+    //    this.toastrService.success("Empleado eliminado con éxito.");
+    //    this.router.navigate(['/empleados/index']);
+    //  }
+    //  else
+    //    this.toastrService.error("No se pudo actualizar el empleado.");
+    //});
   }
+
+  // BorrarEmpleado(id_empleado: number) {
+  //   this.router.navigate(['/empleados/delete', id_empleado]);
+  // }
 
   MuestraPagina(no_pagina: number) {
     this.employeeService.GetEmpleadosPaginacion(no_pagina).subscribe(data => {

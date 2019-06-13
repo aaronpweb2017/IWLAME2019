@@ -20,7 +20,6 @@ body div div div input {
     border-radius: 5px 5px;
     margin-top: 15px;
     margin-left: 15px;
-    opacity: 0.9;
     text-align: center;
 }
 
@@ -46,7 +45,6 @@ body div form {
     max-width: 650px;
     margin-left: 20px;
     border-radius: 10px 10px;
-    opacity: 0.9;
 }
 
 body div form div div label {
@@ -64,10 +62,8 @@ body div form div div input, select {
     font-size: 20px;
 }
 
-/*body div div div button {
-    margin-top: 15px;
+body div div div button {
     margin-left: 15px;
-    margin-bottom: 15px;
     font-size: 22px;
     color: white;
-}*/
+}

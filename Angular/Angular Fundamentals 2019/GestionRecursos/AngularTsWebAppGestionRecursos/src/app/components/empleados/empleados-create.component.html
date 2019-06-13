@@ -54,17 +54,17 @@
                         </select>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-2">
+                    </div>
+                    <div class="col-md-7">
+                        <modal-entity [modalRequest]="'crearEmpleado'" (modalEvent)="CrearEmpleado($event)"></modal-entity>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-secondary" type="button" (click)="RegresarEmpleados();">Regresar</button>
+                    </div>
+                </div>
             </form>
-            <div class="row">
-                <div class="col-md-3">
-                </div>
-                <div class="col-md-1">
-                    <modal-create [empleado]="this.empleado"></modal-create>
-                </div>
-                <div class="col-md-1">
-                    <button class="btn btn-secondary" type="button" (click)="RegresarEmpleados();">Regresar</button>
-                </div>
-            </div>
         </div>
     </body>
 </html>

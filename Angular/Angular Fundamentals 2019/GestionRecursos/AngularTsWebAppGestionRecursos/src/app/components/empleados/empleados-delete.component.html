@@ -64,7 +64,7 @@
                     <div class="col-md-2">
                     </div>
                     <div class="col-md-7">
-                        <button class="btn btn-danger" type="button" (click)="BorrarEmpleado();">Borrar</button>
+                        <modal-entity [modalRequest]="'borrarEmpleado'" (modalEvent)="BorrarEmpleado($event)"></modal-entity>
                     </div>
                     <div class="col-md-2">
                         <button class="btn btn-secondary" type="button" (click)="RegresarEmpleados();">Regresar</button>

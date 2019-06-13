@@ -39,7 +39,8 @@ export class EmpleadosDeleteComponent implements OnInit {
     });
   }
 
-  BorrarEmpleado() {
+  BorrarEmpleado(eventMessage: string) {
+    console.log("Mensaje del Evento: " + eventMessage);
     this.employeeService.DeleteEmpleado(this.id_empleado).subscribe(data => {
       if (Object.values(data)) {
         this.toastr.success("Empleado eliminado con éxito.");
