@@ -47,7 +47,7 @@
                 <div class="col-md-3">
                 </div>
                 <div class="col-md-6">
-                    <button class="btn btn-success" type="button" (click)="CrearAsignacion();">Crear</button>
+                    <modal-entity [modalRequest]="'CrearAsignacion'" (modalRequestEvent)="CrearAsignacion($event)"></modal-entity>
                 </div>
                 <div class="col-md-3">
                     <button class="btn btn-secondary" type="button" (click)="RegresarAsignaciones();">Regresar</button>

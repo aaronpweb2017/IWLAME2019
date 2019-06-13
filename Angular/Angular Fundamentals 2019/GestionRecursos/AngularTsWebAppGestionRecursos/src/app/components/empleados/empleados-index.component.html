@@ -35,8 +35,12 @@
                             <td *ngIf="empleado.status==1">Activo</td>
                             <td>
                                 <input class="btn btn-primary" type="button" value="Editar" (click)="EditarEmpleado(empleado.id_empleado);"> |
-                                <modal-entity [modalRequest]="'borrarEmpleado'" [modalEmpleado]="empleado.id_empleado" 
-                                (modalEmpleadoEvent)="ActualizaIdEmpleado($event);" (modalRequestEvent)="BorrarEmpleado($event);"></modal-entity>
+                                <modal-entity
+                                    [modalEntity]="empleado.id_empleado"
+                                    [modalRequest]="'BorrarEmpleado'"
+                                    (modalEntityEvent)="ActualizaIdEmpleado($event);"
+                                    (modalRequestEvent)="BorrarEmpleado($event);">
+                                </modal-entity>
                                 <!--<input class="btn btn-danger" type="button" value="Borrar" (click)="BorrarEmpleado(empleado.id_empleado);">-->
                             </td>
                         </tr>

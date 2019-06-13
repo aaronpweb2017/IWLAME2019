@@ -31,7 +31,8 @@ export class ProyectosCreateComponent implements OnInit {
     this.fecha_fin = this.currtent_date;
   }
 
-  CrearProyecto() {
+  CrearProyecto(eventMessage: string) {
+    console.log("Mensaje del Evento: " + eventMessage);
     if (this.proyecto.nombre == "" || this.proyecto.descripcion == "" || this.proyecto.status < 0
       || this.fecha_inicio == "" || this.fecha_fin == ""
       || (new Date(this.fecha_inicio)) >= (new Date(this.fecha_fin))) {

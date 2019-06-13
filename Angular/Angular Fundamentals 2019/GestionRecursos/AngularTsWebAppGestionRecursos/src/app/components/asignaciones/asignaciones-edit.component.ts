@@ -83,7 +83,8 @@ export class AsignacionesEditComponent implements OnInit {
     });
   }
 
-  ActualizarAsignacion() {
+  ActualizarAsignacion(eventMessage: string) {
+    console.log("Mensaje del Evento: " + eventMessage);
     if (this.asignacion.id_proyecto == 0 || this.asignacion.id_empleado == 0
       || this.fecha_asignado == "" || this.fecha_desasignado == ""
       || (new Date(this.fecha_asignado)) >= (new Date(this.fecha_desasignado))) {

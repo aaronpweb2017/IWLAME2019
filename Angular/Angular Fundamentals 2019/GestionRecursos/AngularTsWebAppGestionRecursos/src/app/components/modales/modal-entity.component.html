@@ -1,34 +1,40 @@
-<button *ngIf="modalRequest=='crearEmpleado'" class="btn btn-success" type="button" data-toggle="modal"
-  data-target="#entityModal" style="margin-left: 15px; font-size: 16px;">Crear</button>
-<button *ngIf="modalRequest=='actualizarEmpleado'" class="btn btn-success" type="button" data-toggle="modal"
+<button *ngIf="modalRequest=='CrearEmpleado' || modalRequest=='CrearProyecto' || modalRequest=='CrearAsignacion'" class="btn btn-success"
+type="button" data-toggle="modal" data-target="#entityModal" style="margin-left: 15px; font-size: 16px;">Crear</button>
+<button *ngIf="modalRequest=='ActualizarEmpleado' || modalRequest=='ActualizarProyecto' || modalRequest=='ActualizarAsignacion'" class="btn btn-success" type="button" data-toggle="modal"
   data-target="#entityModal" style="margin-left: 15px; font-size: 16px;">Actualizar</button>
-<button *ngIf="modalRequest=='borrarEmpleado'" class="btn btn-danger" type="button" data-toggle="modal"
-  data-target="#entityModal" style="margin-left: 15px; font-size: 16px;" (click)="emitirEventoIdEmpleado(modalEmpleado);">Borrar</button>
+<button *ngIf="modalRequest=='BorrarEmpleado' || modalRequest=='BorrarProyecto' || modalRequest=='BorrarAsignacion'" class="btn btn-danger" type="button"
+  data-toggle="modal" data-target="#entityModal" style="margin-left: 15px; font-size: 16px;" (click)="emitirEventoIdEntity(modalEntity);">Borrar</button>
 <div class="modal fade" id="entityModal" tabindex="-1" role="dialog" aria-labelledby="entityModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 *ngIf="modalRequest=='crearEmpleado'" class="modal-title" id="entityModalLabel">Creación de Empleado</h5>
-        <h5 *ngIf="modalRequest=='actualizarEmpleado'" class="modal-title" id="entityModalLabel">Actualización de
-          Empleado</h5>
-        <h5 *ngIf="modalRequest=='borrarEmpleado'" class="modal-title" id="entityModalLabel">Eliminación de Empleado
-        </h5> {{modalEmpleadoId}}
+        <h5 *ngIf="modalRequest=='CrearEmpleado'" class="modal-title" id="entityModalLabel">Creación de Empleado</h5>
+        <h5 *ngIf="modalRequest=='CrearProyecto'" class="modal-title" id="entityModalLabel">Creación de Proyecto</h5>
+        <h5 *ngIf="modalRequest=='CrearAsignacion'" class="modal-title" id="entityModalLabel">Creación de Asignación</h5>
+        <h5 *ngIf="modalRequest=='ActualizarEmpleado'" class="modal-title" id="entityModalLabel">Actualización de Empleado</h5>
+        <h5 *ngIf="modalRequest=='ActualizarProyecto'" class="modal-title" id="entityModalLabel">Actualización de Proyecto</h5>
+        <h5 *ngIf="modalRequest=='ActualizarAsignacion'" class="modal-title" id="entityModalLabel">Actualización de Asignación</h5>
+        <h5 *ngIf="modalRequest=='BorrarEmpleado'" class="modal-title" id="entityModalLabel">Eliminación de Empleado</h5>
+        <h5 *ngIf="modalRequest=='BorrarProyecto'" class="modal-title" id="entityModalLabel">Eliminación de Proyecto</h5>
+        <h5 *ngIf="modalRequest=='BorrarAsignacion'" class="modal-title" id="entityModalLabel">Eliminación de Asignación</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div *ngIf="modalRequest=='crearEmpleado'" class="modal-body">Deseas crear a este empleado???</div>
-      <div *ngIf="modalRequest=='actualizarEmpleado'" class="modal-body">Deseas actualizar a este empleado???</div>
-      <div *ngIf="modalRequest=='borrarEmpleado'" class="modal-body">Seguro que deseas eliminar este empleado???</div>
+      <div *ngIf="modalRequest=='CrearEmpleado'" class="modal-body">Deseas crear este empleado???</div>
+      <div *ngIf="modalRequest=='CrearProyecto'" class="modal-body">Deseas crear este proyecto???</div>
+      <div *ngIf="modalRequest=='CrearAsignacion'" class="modal-body">Deseas crear esta asignación???</div>
+      <div *ngIf="modalRequest=='ActualizarEmpleado'" class="modal-body">Deseas actualizar este empleado???</div>
+      <div *ngIf="modalRequest=='ActualizarProyecto'" class="modal-body">Deseas actualizar este proyecto???</div>
+      <div *ngIf="modalRequest=='ActualizarAsignacion'" class="modal-body">Deseas actualizar esta asignación???</div>
+      <div *ngIf="modalRequest=='BorrarEmpleado'" class="modal-body">Seguro que deseas eliminar este empleado???</div>
+      <div *ngIf="modalRequest=='BorrarProyecto'" class="modal-body">Seguro que deseas eliminar este proyecto???</div>
+      <div *ngIf="modalRequest=='BorrarAsignacion'" class="modal-body">Seguro que deseas eliminar esta asignación???</div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button *ngIf="modalRequest=='crearEmpleado'" type="button" class="btn btn-success" data-toggle="modal"
-          data-target="#entityModal" (click)="emitirEventoModalAction('ExecuteCrearEmpleadoFuction');">Aceptar</button>
-        <button *ngIf="modalRequest=='actualizarEmpleado'" type="button" class="btn btn-success" data-toggle="modal"
-          data-target="#entityModal" (click)="emitirEventoModalAction('ExecuteActualizarEmpleadoFuction');">Aceptar</button>
-        <button *ngIf="modalRequest=='borrarEmpleado'" type="button" class="btn btn-danger" data-toggle="modal"
-          data-target="#entityModal" (click)="emitirEventoModalAction('ExecuteBorrarEmpleadoFuction');">Aceptar</button>
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#entityModal"
+          (click)="emitirEventoModalAction('Execute'+modalRequest+'Fuction');">Aceptar </button>
       </div>
     </div>
   </div>

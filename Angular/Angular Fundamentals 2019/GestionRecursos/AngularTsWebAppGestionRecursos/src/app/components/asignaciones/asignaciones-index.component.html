@@ -29,7 +29,13 @@
                             <td>{{this.fechasService.GetDateDMY(asignacion.fecha_desasignado)}}</td>
                             <td>
                                 <input class="btn btn-primary" type="button" value="Editar" (click)="EditarAsignacion(asignacion.id_asignacion);"> |
-                                <input class="btn btn-danger" type="button" value="Borrar" (click)="BorrarAsignacion(asignacion.id_asignacion);">
+                                <modal-entity
+                                    [modalEntity]="asignacion.id_asignacion"
+                                    [modalRequest]="'BorrarAsignacion'"
+                                    (modalEntityEvent)="ActualizaIdAsignacion($event);"
+                                    (modalRequestEvent)="BorrarAsignacion($event);">
+                                </modal-entity>
+                                <!--<input class="btn btn-danger" type="button" value="Borrar" (click)="BorrarAsignacion(asignacion.id_asignacion);">-->
                             </td>
                         </tr>
                     </ng-container>

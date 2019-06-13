@@ -55,7 +55,7 @@ export class EmpleadosIndexComponent implements OnInit {
         this.router.navigate(['/empleados/index']);
       }
       else {
-        this.toastrService.error("No se pudo eliminar el empleado.");
+        this.toastrService.error("No se pudo eliminar el empleado seleccionado.");
       }
     });
   }

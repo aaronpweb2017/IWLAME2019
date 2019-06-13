@@ -5,6 +5,7 @@ import { EmpleadosService } from 'src/app/services/empleados-service';
 import { ProyectosService } from 'src/app/services/proyectos-service';
 import { AsignacionesService } from 'src/app/services/asignaciones-service';
 import { FechasService } from 'src/app/services/fechas-service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'asignaciones-index',
@@ -15,6 +16,7 @@ import { FechasService } from 'src/app/services/fechas-service';
 export class AsignacionesIndexComponent implements OnInit {
   no_asignaciones: number;
   asignaciones: Asignacion[];
+  id_asignacion: number;
   empleadosnames: string[];
   proyectosnames: string[];
   noPaginas: number;
@@ -24,6 +26,7 @@ export class AsignacionesIndexComponent implements OnInit {
     private projectsService: ProyectosService,
     private assignmentsService: AsignacionesService,
     private fechasService: FechasService,
+    private toastrService: ToastrService,
     private router: Router) { }
 
   ngOnInit() {
@@ -50,9 +53,25 @@ export class AsignacionesIndexComponent implements OnInit {
     this.router.navigate(['/asignaciones/edit', id_asignacion]);
   }
 
-  BorrarAsignacion(id_asignacion: number) {
-    this.router.navigate(['/asignaciones/delete', id_asignacion]);
+  ActualizaIdAsignacion(id_asignacion: number) {
+    this.id_asignacion = id_asignacion;
   }
+
+  BorrarAsignacion(eventMessage: string) {
+    console.log("Mensaje del Evento: " + eventMessage);
+    this.assignmentsService.DeleteAsignacion(this.id_asignacion).subscribe(data => {
+      if (data) {
+        this.toastrService.success("Asignación eliminada con éxito.");
+        this.router.navigate(['/asignaciones/index']);
+      }
+      else
+        this.toastrService.error("No se pudo eliminar la asignación.");
+    });
+  }
+
+  //BorrarAsignacion(id_asignacion: number) {
+  //  this.router.navigate(['/asignaciones/delete', id_asignacion]);
+  //}
 
   MuestraPagina(no_pagina: number) {
     this.assignmentsService.GetAsignacionesPaginacion(no_pagina).subscribe(data => {

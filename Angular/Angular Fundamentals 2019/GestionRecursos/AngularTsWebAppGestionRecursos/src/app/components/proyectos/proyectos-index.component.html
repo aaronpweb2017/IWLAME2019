@@ -33,7 +33,13 @@
                             <td *ngIf="proyecto.status==2">Terminado</td>
                             <td>
                                 <input class="btn btn-primary" type="button" value="Editar" (click)="EditarProyecto(proyecto.id_proyecto);"> |
-                                <input class="btn btn-danger" type="button" value="Borrar" (click)="BorrarProyecto(proyecto.id_proyecto);">
+                                <modal-entity
+                                    [modalEntity]="proyecto.id_proyecto"
+                                    [modalRequest]="'BorrarProyecto'"
+                                    (modalEntityEvent)="ActualizaIdProyecto($event);"
+                                    (modalRequestEvent)="BorrarProyecto($event);">
+                                </modal-entity>
+                                <!--<input class="btn btn-danger" type="button" value="Borrar" (click)="BorrarProyecto(proyecto.id_proyecto);">-->
                             </td>
                         </tr>
                     </ng-container>

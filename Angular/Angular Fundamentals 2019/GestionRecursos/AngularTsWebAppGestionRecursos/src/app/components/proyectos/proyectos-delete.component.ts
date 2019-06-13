@@ -39,7 +39,7 @@ export class ProyectosDeleteComponent implements OnInit {
 
   BorrarProyecto() {
     this.proyectosService.DeleteProyecto(this.id_proyecto).subscribe(data => {
-      if (Object.values(data)) {
+      if (data) {
         this.toastrService.success("Proyecto eliminado con éxito.");
         this.router.navigate(['/proyectos/index']);
       }

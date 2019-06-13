@@ -39,7 +39,8 @@ export class ProyectosEditComponent implements OnInit {
     });
   }
 
-  ActualizarProyecto() {
+  ActualizarProyecto(eventMessage: string) {
+    console.log("Mensaje del Evento: " + eventMessage);
     if (this.proyecto.nombre == "" || this.proyecto.descripcion == ""
       || this.proyecto.fecha_inicio == null || this.proyecto.fecha_fin == null
       || (new Date(this.fecha_inicio)) >= (new Date(this.fecha_fin))) {

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ProyectosService } from 'src/app/services/proyectos-service';
 import { Proyecto } from 'src/app/interfaces/proyecto';
 import { FechasService } from 'src/app/services/fechas-service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'proyectos-index',
@@ -13,13 +14,15 @@ import { FechasService } from 'src/app/services/fechas-service';
 export class ProyectosIndexComponent implements OnInit {
   no_proyectos: number;
   proyectos: Proyecto[];
+  id_proyecto: number;
   noPaginas: number;
   pageIndexes: number[];
 
-  constructor(private proyectosService: ProyectosService, private fechasService: FechasService, private router: Router) { }
+  constructor(private proyectosService: ProyectosService, private fechasService:
+    FechasService, private toastrService: ToastrService, private router: Router) { }
 
   ngOnInit() {
-    this.noPaginas = 0; this.pageIndexes = [];
+    this.id_proyecto = 0; this.noPaginas = 0; this.pageIndexes = [];
     this.proyectosService.GetNoProyectos().subscribe(data => {
       this.no_proyectos = Number(data);
       this.noPaginas = Math.trunc((this.no_proyectos) / 10);
@@ -41,9 +44,25 @@ export class ProyectosIndexComponent implements OnInit {
     this.router.navigate(['/proyectos/edit', id_proyecto]);
   }
 
-  BorrarProyecto(id_proyecto: number) {
-    this.router.navigate(['/proyectos/delete', id_proyecto]);
+  ActualizaIdProyecto(id_proyecto: number) {
+    this.id_proyecto = id_proyecto;
   }
+
+  BorrarProyecto(eventMessage: string) {
+    console.log("Mensaje del Evento: " + eventMessage);
+    this.proyectosService.DeleteProyecto(this.id_proyecto).subscribe(data => {
+     if (data) {
+       this.toastrService.success("Proyecto eliminado con éxito.");
+       this.router.navigate(['/proyectos/index']);
+     }
+     else
+       this.toastrService.error("No se pudo eliminar el proyecto.");
+    });
+  }
+
+  //BorrarProyecto(id_proyecto: number) {
+  //  this.router.navigate(['/proyectos/delete', id_proyecto]);
+  //}
 
   MuestraPagina(no_pagina: number) {
     this.proyectosService.GetProyectosPaginacion(no_pagina).subscribe(data => {
