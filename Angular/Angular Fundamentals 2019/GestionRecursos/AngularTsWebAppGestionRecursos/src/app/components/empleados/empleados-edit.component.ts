@@ -46,7 +46,7 @@ export class EmpleadosEditComponent implements OnInit {
       this.toastrService.error("Datos vacíos o inválidos."); return;
     }
     this.employeeService.UpdateEmpleado(this.id_empleado, this.empleado).subscribe(data => {
-      if (Object.values(data)) {
+      if (data) {
         this.toastr.success("Empleado actualizado con éxito.");
         this.router.navigate(['/empleados/index']);
       }

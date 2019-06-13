@@ -68,3 +68,17 @@ C:\Users\e-lmedina\Documents\IWLAME2019\Angular\Angular Fundamentals 2019\Gestio
 C:\Users\e-lmedina\Documents\IWLAME2019\Angular\Angular Fundamentals 2019\GestionRecursos\ASPNETCoreWebApiGestionRecursos\obj\Debug\netcoreapp2.2\ASPNETCoreWebApiORAGestionRecursos.RazorTargetAssemblyInfo.cache
 C:\Users\e-lmedina\Documents\IWLAME2019\Angular\Angular Fundamentals 2019\GestionRecursos\ASPNETCoreWebApiGestionRecursos\obj\Debug\netcoreapp2.2\ASPNETCoreWebApiORAGestionRecursos.dll
 C:\Users\e-lmedina\Documents\IWLAME2019\Angular\Angular Fundamentals 2019\GestionRecursos\ASPNETCoreWebApiGestionRecursos\obj\Debug\netcoreapp2.2\ASPNETCoreWebApiORAGestionRecursos.pdb
+C:\Users\Lenovo\Documents\IWLAME2019\Angular\Angular Fundamentals 2019\GestionRecursos\ASPNETCoreWebApiGestionRecursos\bin\Debug\netcoreapp2.2\ASPNETCoreWebApiORAGestionRecursos.deps.json
+C:\Users\Lenovo\Documents\IWLAME2019\Angular\Angular Fundamentals 2019\GestionRecursos\ASPNETCoreWebApiGestionRecursos\bin\Debug\netcoreapp2.2\ASPNETCoreWebApiORAGestionRecursos.runtimeconfig.json
+C:\Users\Lenovo\Documents\IWLAME2019\Angular\Angular Fundamentals 2019\GestionRecursos\ASPNETCoreWebApiGestionRecursos\bin\Debug\netcoreapp2.2\ASPNETCoreWebApiORAGestionRecursos.runtimeconfig.dev.json
+C:\Users\Lenovo\Documents\IWLAME2019\Angular\Angular Fundamentals 2019\GestionRecursos\ASPNETCoreWebApiGestionRecursos\bin\Debug\netcoreapp2.2\ASPNETCoreWebApiORAGestionRecursos.dll
+C:\Users\Lenovo\Documents\IWLAME2019\Angular\Angular Fundamentals 2019\GestionRecursos\ASPNETCoreWebApiGestionRecursos\bin\Debug\netcoreapp2.2\ASPNETCoreWebApiORAGestionRecursos.pdb
+C:\Users\Lenovo\Documents\IWLAME2019\Angular\Angular Fundamentals 2019\GestionRecursos\ASPNETCoreWebApiGestionRecursos\obj\Debug\netcoreapp2.2\ASPNETCoreWebApiORAGestionRecursos.csprojAssemblyReference.cache
+C:\Users\Lenovo\Documents\IWLAME2019\Angular\Angular Fundamentals 2019\GestionRecursos\ASPNETCoreWebApiGestionRecursos\obj\Debug\netcoreapp2.2\ASPNETCoreWebApiORAGestionRecursos.csproj.CoreCompileInputs.cache
+C:\Users\Lenovo\Documents\IWLAME2019\Angular\Angular Fundamentals 2019\GestionRecursos\ASPNETCoreWebApiGestionRecursos\obj\Debug\netcoreapp2.2\ASPNETCoreWebApiORAGestionRecursos.RazorAssemblyInfo.cache
+C:\Users\Lenovo\Documents\IWLAME2019\Angular\Angular Fundamentals 2019\GestionRecursos\ASPNETCoreWebApiGestionRecursos\obj\Debug\netcoreapp2.2\ASPNETCoreWebApiORAGestionRecursos.RazorAssemblyInfo.cs
+C:\Users\Lenovo\Documents\IWLAME2019\Angular\Angular Fundamentals 2019\GestionRecursos\ASPNETCoreWebApiGestionRecursos\obj\Debug\netcoreapp2.2\ASPNETCoreWebApiORAGestionRecursos.AssemblyInfoInputs.cache
+C:\Users\Lenovo\Documents\IWLAME2019\Angular\Angular Fundamentals 2019\GestionRecursos\ASPNETCoreWebApiGestionRecursos\obj\Debug\netcoreapp2.2\ASPNETCoreWebApiORAGestionRecursos.AssemblyInfo.cs
+C:\Users\Lenovo\Documents\IWLAME2019\Angular\Angular Fundamentals 2019\GestionRecursos\ASPNETCoreWebApiGestionRecursos\obj\Debug\netcoreapp2.2\ASPNETCoreWebApiORAGestionRecursos.RazorTargetAssemblyInfo.cache
+C:\Users\Lenovo\Documents\IWLAME2019\Angular\Angular Fundamentals 2019\GestionRecursos\ASPNETCoreWebApiGestionRecursos\obj\Debug\netcoreapp2.2\ASPNETCoreWebApiORAGestionRecursos.dll
+C:\Users\Lenovo\Documents\IWLAME2019\Angular\Angular Fundamentals 2019\GestionRecursos\ASPNETCoreWebApiGestionRecursos\obj\Debug\netcoreapp2.2\ASPNETCoreWebApiORAGestionRecursos.pdb

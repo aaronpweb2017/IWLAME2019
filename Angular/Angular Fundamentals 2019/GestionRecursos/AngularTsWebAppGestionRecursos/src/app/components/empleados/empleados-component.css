@@ -32,10 +32,6 @@ body div div div input {
     overflow: hidden;
 }
 
-.table tbody tr td input {
-    font-style: oblique;
-}
-
 body h2 {
     font-weight: bold;
     margin-left: 20px;
@@ -64,6 +60,5 @@ body div form div div input, select {
 
 body div div div button {
     margin-left: 15px;
-    font-size: 22px;
-    color: white;
+    font-size: 16px;
 }

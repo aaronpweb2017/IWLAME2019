@@ -30,7 +30,7 @@ export class EmpleadosCreateComponent implements OnInit {
       this.toastrService.error("Datos vacíos o inválidos."); return;
     }
     this.employeeService.PostEmpleado(this.empleado).subscribe(data => {
-      if (Object.values(data)) {
+      if (data) {
         this.toastrService.success("Empleado creado con éxito.");
         this.router.navigate(['/empleados/index']);
       }

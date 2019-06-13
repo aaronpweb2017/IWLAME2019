@@ -42,7 +42,7 @@ export class EmpleadosDeleteComponent implements OnInit {
   BorrarEmpleado(eventMessage: string) {
     console.log("Mensaje del Evento: " + eventMessage);
     this.employeeService.DeleteEmpleado(this.id_empleado).subscribe(data => {
-      if (Object.values(data)) {
+      if (data) {
         this.toastr.success("Empleado eliminado con éxito.");
         this.router.navigate(['/empleados/index']);
       }

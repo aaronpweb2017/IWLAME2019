@@ -1,9 +1,9 @@
 <button *ngIf="modalRequest=='crearEmpleado'" class="btn btn-success" type="button" data-toggle="modal"
-  data-target="#entityModal" style="margin-left: 15px; font-size: 22px;">Crear</button>
+  data-target="#entityModal" style="margin-left: 15px; font-size: 16px;">Crear</button>
 <button *ngIf="modalRequest=='actualizarEmpleado'" class="btn btn-success" type="button" data-toggle="modal"
-  data-target="#entityModal" style="margin-left: 15px; font-size: 22px;">Actualizar</button>
+  data-target="#entityModal" style="margin-left: 15px; font-size: 16px;">Actualizar</button>
 <button *ngIf="modalRequest=='borrarEmpleado'" class="btn btn-danger" type="button" data-toggle="modal"
-  data-target="#entityModal" style="margin-left: 15px; font-size: 22px;" (click)="MuestraIdEmpleado(modalEmpleadoId);">Borrar</button>
+  data-target="#entityModal" style="margin-left: 15px; font-size: 16px;" (click)="emitirEventoIdEmpleado(modalEmpleado);">Borrar</button>
 <div class="modal fade" id="entityModal" tabindex="-1" role="dialog" aria-labelledby="entityModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -24,11 +24,11 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
         <button *ngIf="modalRequest=='crearEmpleado'" type="button" class="btn btn-success" data-toggle="modal"
-          data-target="#entityModal" (click)="emitirEventoModal('ExecuteCrearEmpleadoFuction');">Aceptar</button>
+          data-target="#entityModal" (click)="emitirEventoModalAction('ExecuteCrearEmpleadoFuction');">Aceptar</button>
         <button *ngIf="modalRequest=='actualizarEmpleado'" type="button" class="btn btn-success" data-toggle="modal"
-          data-target="#entityModal" (click)="emitirEventoModal('ExecuteActualizarEmpleadoFuction');">Aceptar</button>
+          data-target="#entityModal" (click)="emitirEventoModalAction('ExecuteActualizarEmpleadoFuction');">Aceptar</button>
         <button *ngIf="modalRequest=='borrarEmpleado'" type="button" class="btn btn-danger" data-toggle="modal"
-          data-target="#entityModal" (click)="emitirEventoModal('ExecuteBorrarEmpleadoFuction');">Aceptar</button>
+          data-target="#entityModal" (click)="emitirEventoModalAction('ExecuteBorrarEmpleadoFuction');">Aceptar</button>
       </div>
     </div>
   </div>

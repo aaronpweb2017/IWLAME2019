@@ -6,24 +6,19 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 })
 
 export class ModalEntity implements OnInit {
-    id_empleado: number;
     @Input() modalRequest: string;
-    @Input() modalEmpleadoId: number;
-    @Output() modalEvent = new EventEmitter();
+    @Output() modalRequestEvent = new EventEmitter();
+    @Input() modalEmpleado: number;
+    @Output() modalEmpleadoEvent = new EventEmitter();
 
-    ngOnInit(): void {
-        //console.log("modalEmpleadoId: "+this.modalEmpleadoId);
-        this.id_empleado = 0;
+    ngOnInit() {
     }
 
-    MuestraIdEmpleado(id_empleado_clickeado: number) {
-        //this.id_empleado = id_empleado_clickeado;
-        //console.log("id_empleado_clickeado 1: " + this.id_empleado);
-        this.modalEvent.emit(id_empleado_clickeado);
+    emitirEventoIdEmpleado(id_empleado: number) {
+        this.modalEmpleadoEvent.emit(id_empleado);
     }
 
-    emitirEventoModal(eventMessage: string) {
-        console.log("id_empleado_clickeado 2: " + this.id_empleado);
-        this.modalEvent.emit(eventMessage);
+    emitirEventoModalAction(eventMessage: string) {
+        this.modalRequestEvent.emit(eventMessage);
     }
 }

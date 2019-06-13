@@ -13,6 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 export class EmpleadosIndexComponent implements OnInit {
   no_empleados: number;
   empleados: Empleado[];
+  id_empleado: number;
   noPaginas: number;
   pageIndexes: number[];
 
@@ -20,7 +21,7 @@ export class EmpleadosIndexComponent implements OnInit {
     private toastrService: ToastrService, private router: Router) { }
 
   ngOnInit() {
-    this.noPaginas = 0; this.pageIndexes = [];
+    this.id_empleado = 0; this.noPaginas = 0; this.pageIndexes = [];
     this.employeeService.GetNoEmpleados().subscribe(data => {
       this.no_empleados = Number(data);
       this.noPaginas = Math.trunc((this.no_empleados) / 10);
@@ -42,21 +43,26 @@ export class EmpleadosIndexComponent implements OnInit {
     this.router.navigate(['/empleados/edit', id_empleado]);
   }
 
-  BorrarEmpleado(eventMessage: string) {
-    console.log("Mensaje del Evento: " + eventMessage);
-    //this.employeeService.DeleteEmpleado(id_empleado).subscribe(data => {
-    //  if (Object.values(data)) {
-    //    this.toastrService.success("Empleado eliminado con éxito.");
-    //    this.router.navigate(['/empleados/index']);
-    //  }
-    //  else
-    //    this.toastrService.error("No se pudo actualizar el empleado.");
-    //});
+  ActualizaIdEmpleado(id_empleado: number) {
+    this.id_empleado = id_empleado;
   }
 
-  // BorrarEmpleado(id_empleado: number) {
-  //   this.router.navigate(['/empleados/delete', id_empleado]);
-  // }
+  BorrarEmpleado(eventMessage: string) {
+    console.log("Mensaje del Evento: " + eventMessage);
+    this.employeeService.DeleteEmpleado(this.id_empleado).subscribe(data => {
+      if (data) {
+        this.toastrService.success("Empleado eliminado con éxito.");
+        this.router.navigate(['/empleados/index']);
+      }
+      else {
+        this.toastrService.error("No se pudo eliminar el empleado.");
+      }
+    });
+  }
+
+  //BorrarEmpleado(id_empleado: number) {
+  //  this.router.navigate(['/empleados/delete', id_empleado]);
+  //}
 
   MuestraPagina(no_pagina: number) {
     this.employeeService.GetEmpleadosPaginacion(no_pagina).subscribe(data => {
