@@ -1,60 +1,58 @@
 <html>
-
-<body>
-    <h2>Ingrese los datos de la asignación:</h2>
-    <hr>
-    <div>
-        <form class="bg-dark">
-            <div class="row">
-                <div class="col-md-3">
-                    <label class="text-light">Proyecto:</label>
+    <body>
+        <h2>Ingrese los datos de la asignación:</h2>
+        <hr>
+        <div>
+            <form class="bg-dark">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label class="text-light">Proyecto:</label>
+                    </div>
+                    <div class="col-md-6">
+                        <select [(ngModel)]="asignacion.id_proyecto" [ngModelOptions]="{standalone: true}">
+                            <option *ngFor="let proyecto of proyectos" [value]="proyecto.id_proyecto">
+                                {{proyecto.id_proyecto}}.- {{proyecto.nombre}}</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <select [(ngModel)]="asignacion.id_proyecto" [ngModelOptions]="{standalone: true}">
-                        <option *ngFor="let proyecto of proyectos" [value]="proyecto.id_proyecto">
-                            {{proyecto.id_proyecto}}.- {{proyecto.nombre}}</option>
-                    </select>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label class="text-light">Empleado:</label>
+                    </div>
+                    <div class="col-md-6">
+                        <select [(ngModel)]="asignacion.id_empleado" [ngModelOptions]="{standalone: true}">
+                            <option *ngFor="let empleado of empleados" [value]="empleado.id_empleado">
+                                {{empleado.id_empleado}}.- {{empleado.nombre}} {{empleado.apellido}}</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <label class="text-light">Empleado:</label>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label class="text-light">Asignado:</label>
+                    </div>
+                    <div class="col-md-6">
+                        <input [(ngModel)]="fecha_asignado" [ngModelOptions]="{standalone: true}" type="date" data-format="DD-MM-YY" min="{{currtent_date}}" max="2020-12-31">
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <select [(ngModel)]="asignacion.id_empleado" [ngModelOptions]="{standalone: true}">
-                        <option *ngFor="let empleado of empleados" [value]="empleado.id_empleado">
-                            {{empleado.id_empleado}}.- {{empleado.nombre}} {{empleado.apellido}}</option>
-                    </select>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label class="text-light">Desasignado:</label>
+                    </div>
+                    <div class="col-md-6">
+                        <input [(ngModel)]="fecha_desasignado" [ngModelOptions]="{standalone: true}" type="date" date-format="DD-MM-YY" min="{{currtent_date}}" max="2020-12-31">
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <label class="text-light">Asignado:</label>
+                <div class="row">
+                    <div class="col-md-3">
+                    </div>
+                    <div class="col-md-6">
+                        <modal-entity [modalRequest]="'CrearAsignacion'" (modalRequestEvent)="CrearAsignacion($event)"></modal-entity>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-secondary" type="button" (click)="RegresarAsignaciones();">Regresar</button>
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <input [(ngModel)]="fecha_asignado" [ngModelOptions]="{standalone: true}" type="date" data-format="DD-MM-YY" min="{{currtent_date}}" max="2020-12-31">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <label class="text-light">Desasignado:</label>
-                </div>
-                <div class="col-md-6">
-                    <input [(ngModel)]="fecha_desasignado" [ngModelOptions]="{standalone: true}" type="date" date-format="DD-MM-YY" min="{{currtent_date}}" max="2020-12-31">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3">
-                </div>
-                <div class="col-md-6">
-                    <modal-entity [modalRequest]="'CrearAsignacion'" (modalRequestEvent)="CrearAsignacion($event)"></modal-entity>
-                </div>
-                <div class="col-md-3">
-                    <button class="btn btn-secondary" type="button" (click)="RegresarAsignaciones();">Regresar</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</body>
-
+            </form>
+        </div>
+    </body>
 </html>

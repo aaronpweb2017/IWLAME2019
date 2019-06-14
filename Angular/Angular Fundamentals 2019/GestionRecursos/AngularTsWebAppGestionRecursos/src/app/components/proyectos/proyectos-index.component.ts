@@ -17,6 +17,7 @@ export class ProyectosIndexComponent implements OnInit {
   id_proyecto: number;
   noPaginas: number;
   pageIndexes: number[];
+  curernt_page: number = 1;
 
   constructor(private proyectosService: ProyectosService, private fechasService:
     FechasService, private toastrService: ToastrService, private router: Router) { }
@@ -32,7 +33,7 @@ export class ProyectosIndexComponent implements OnInit {
       for (let i: number = 0; i < this.noPaginas; i++) {
         this.pageIndexes[i] = (i + 1);
       }
-      this.MuestraPagina(1);
+      this.MuestraPagina(this.curernt_page);
     });
   }
 
@@ -51,12 +52,21 @@ export class ProyectosIndexComponent implements OnInit {
   BorrarProyecto(eventMessage: string) {
     console.log("Mensaje del Evento: " + eventMessage);
     this.proyectosService.DeleteProyecto(this.id_proyecto).subscribe(data => {
-     if (data) {
-       this.toastrService.success("Proyecto eliminado con éxito.");
-       this.router.navigate(['/proyectos/index']);
-     }
-     else
-       this.toastrService.error("No se pudo eliminar el proyecto.");
+      if (data) {
+        this.toastrService.success("Proyecto eliminado con éxito.");
+        if (this.proyectos.length == 1 && this.pageIndexes.length > 1) {
+          this.curernt_page = this.curernt_page - 1; this.ngOnInit();
+        }
+        else if (this.proyectos.length > 1) {
+          this.MuestraPagina(this.curernt_page);
+        }
+        else {
+          this.ngOnInit();
+        }
+      }
+      else {
+        this.toastrService.error("No se pudo eliminar el proyecto.");
+      }
     });
   }
 
@@ -65,6 +75,7 @@ export class ProyectosIndexComponent implements OnInit {
   //}
 
   MuestraPagina(no_pagina: number) {
+    this.curernt_page = no_pagina;
     this.proyectosService.GetProyectosPaginacion(no_pagina).subscribe(data => {
       this.proyectos = Object.values(data);
     });

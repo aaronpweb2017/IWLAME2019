@@ -16,6 +16,7 @@ export class EmpleadosIndexComponent implements OnInit {
   id_empleado: number;
   noPaginas: number;
   pageIndexes: number[];
+  curernt_page: number = 1;
 
   constructor(private employeeService: EmpleadosService,
     private toastrService: ToastrService, private router: Router) { }
@@ -31,7 +32,7 @@ export class EmpleadosIndexComponent implements OnInit {
       for (let i = 0; i < this.noPaginas; i++) {
         this.pageIndexes[i] = (i + 1);
       }
-      this.MuestraPagina(1);
+      this.MuestraPagina(this.curernt_page);
     });
   }
 
@@ -50,9 +51,17 @@ export class EmpleadosIndexComponent implements OnInit {
   BorrarEmpleado(eventMessage: string) {
     console.log("Mensaje del Evento: " + eventMessage);
     this.employeeService.DeleteEmpleado(this.id_empleado).subscribe(data => {
-      if (data) {
+      if (Boolean(data)) {
         this.toastrService.success("Empleado eliminado con éxito.");
-        this.router.navigate(['/empleados/index']);
+        if (this.empleados.length == 1 && this.pageIndexes.length > 1) {
+          this.curernt_page = this.curernt_page - 1; this.ngOnInit();
+        }
+        else if (this.empleados.length > 1) {
+          this.MuestraPagina(this.curernt_page);
+        }
+        else {
+          this.ngOnInit();
+        }
       }
       else {
         this.toastrService.error("No se pudo eliminar el empleado seleccionado.");
@@ -65,6 +74,7 @@ export class EmpleadosIndexComponent implements OnInit {
   //}
 
   MuestraPagina(no_pagina: number) {
+    this.curernt_page = no_pagina;
     this.employeeService.GetEmpleadosPaginacion(no_pagina).subscribe(data => {
       this.empleados = Object.values(data);
     });

@@ -21,6 +21,7 @@ export class AsignacionesIndexComponent implements OnInit {
   proyectosnames: string[];
   noPaginas: number;
   pageIndexes: number[];
+  curernt_page: number = 1;
 
   constructor(private employeeService: EmpleadosService,
     private projectsService: ProyectosService,
@@ -31,7 +32,7 @@ export class AsignacionesIndexComponent implements OnInit {
 
   ngOnInit() {
     this.proyectosnames = []; this.empleadosnames = [];
-    this.noPaginas = 0; this.pageIndexes = [];
+    this.id_asignacion = 0; this.noPaginas = 0; this.pageIndexes = [];
     this.assignmentsService.GetNoAsignaciones().subscribe(data => {
       this.no_asignaciones = Number(data);
       this.noPaginas = Math.trunc((this.no_asignaciones) / 10);
@@ -41,7 +42,7 @@ export class AsignacionesIndexComponent implements OnInit {
       for (let i = 0; i < this.noPaginas; i++) {
         this.pageIndexes[i] = (i + 1);
       }
-      this.MuestraPagina(1);
+      this.MuestraPagina(this.curernt_page);
     });
   }
 
@@ -60,9 +61,17 @@ export class AsignacionesIndexComponent implements OnInit {
   BorrarAsignacion(eventMessage: string) {
     console.log("Mensaje del Evento: " + eventMessage);
     this.assignmentsService.DeleteAsignacion(this.id_asignacion).subscribe(data => {
-      if (data) {
+      if (Boolean(data)) {
         this.toastrService.success("Asignación eliminada con éxito.");
-        this.router.navigate(['/asignaciones/index']);
+        if (this.asignaciones.length == 1 && this.pageIndexes.length > 1) {
+          this.curernt_page = this.curernt_page - 1; this.ngOnInit();
+        }
+        else if (this.asignaciones.length > 1) {
+          this.MuestraPagina(this.curernt_page);
+        }
+        else {
+          this.ngOnInit();
+        }
       }
       else
         this.toastrService.error("No se pudo eliminar la asignación.");
@@ -74,6 +83,7 @@ export class AsignacionesIndexComponent implements OnInit {
   //}
 
   MuestraPagina(no_pagina: number) {
+    this.curernt_page = no_pagina;
     this.assignmentsService.GetAsignacionesPaginacion(no_pagina).subscribe(data => {
       this.asignaciones = Object.values(data);
       for (let i = 0; i < this.asignaciones.length; i++) {

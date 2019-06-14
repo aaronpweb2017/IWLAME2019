@@ -33,8 +33,10 @@ type="button" data-toggle="modal" data-target="#entityModal" style="margin-left:
       <div *ngIf="modalRequest=='BorrarAsignacion'" class="modal-body">Seguro que deseas eliminar esta asignación???</div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#entityModal"
-          (click)="emitirEventoModalAction('Execute'+modalRequest+'Fuction');">Aceptar </button>
+        <button *ngIf="modalRequest.search('Borrar')==-1" type="button" class="btn btn-success" data-toggle="modal"
+        data-target="#entityModal" (click)="emitirEventoModalAction('Execute'+modalRequest+'Fuction');">Aceptar</button>
+        <button *ngIf="modalRequest.search('Borrar')!=-1" type="button" class="btn btn-danger" data-toggle="modal"
+        data-target="#entityModal" (click)="emitirEventoModalAction('Execute'+modalRequest+'Fuction');">Aceptar</button>
       </div>
     </div>
   </div>

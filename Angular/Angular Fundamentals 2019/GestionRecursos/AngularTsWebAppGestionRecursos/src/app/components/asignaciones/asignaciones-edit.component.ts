@@ -48,10 +48,11 @@ export class AsignacionesEditComponent implements OnInit {
     });
     this.proyectos = []; this.empleados = [];
     this.projectsService.GetProyectos().subscribe(data => {
-      let status: number = 0, index: number = 0;
+      let status: number = 0, index: number = 0; let fecha_fin: string = "";
       for (let i = 0; i < Object.values(data).length; i++) {
         status = Number(Object.values(Object.values(data)[i])[5]);
-        if (status == 1) {
+        fecha_fin = this.fechasService.GetDateYMD(Object.values(Object.values(data)[i])[4].toString());
+        if (status == 1 && (new Date(fecha_fin)) > (new Date(this.currtent_date))) {
           this.proyectos[index] = {
             id_proyecto: Number(Object.values(Object.values(data)[i])[0]),
             nombre: Object.values(Object.values(data)[i])[1].toString(),
@@ -85,20 +86,30 @@ export class AsignacionesEditComponent implements OnInit {
 
   ActualizarAsignacion(eventMessage: string) {
     console.log("Mensaje del Evento: " + eventMessage);
-    if (this.asignacion.id_proyecto == 0 || this.asignacion.id_empleado == 0
-      || this.fecha_asignado == "" || this.fecha_desasignado == ""
-      || (new Date(this.fecha_asignado)) >= (new Date(this.fecha_desasignado))) {
-      this.toastrService.error("Datos vacíos o inválidos."); return;
-    }
-    this.asignacion.fecha_asignado = new Date(this.fecha_asignado);
-    this.asignacion.fecha_desasignado = new Date(this.fecha_desasignado);
-    this.assignmentsService.UpdateAsignacion(this.id_asignacion, this.asignacion).subscribe(data => {
-      if (data) {
-        this.toastrService.success("Asignación actualizada con éxito.");
-        this.router.navigate(['/asignaciones/index']);
+    this.projectsService.GetProyecto(this.asignacion.id_proyecto).subscribe(data => {
+      let fecha_inicio: string = this.fechasService.GetDateYMD(Object.values(data)[3].toString());
+      let fecha_fin: string = this.fechasService.GetDateYMD(Object.values(data)[4].toString());
+      if ((new Date(this.fecha_asignado)) < (new Date(fecha_inicio))) {
+        this.toastrService.error("Inconsistencia en fecha de asignación."); return;
       }
-      else
-        this.toastrService.error("No se pudo actualizar la asignación.");
+      if ((new Date(fecha_fin)) <= (new Date(this.fecha_desasignado))) {
+        this.toastrService.error("Inconsistencia en fecha de desasignación."); return;
+      }
+      if (this.asignacion.id_proyecto == 0 || this.asignacion.id_empleado == 0
+        || this.fecha_asignado == "" || this.fecha_desasignado == "") {
+        this.toastrService.error("Datos vacíos o inválidos."); return;
+      }
+      this.asignacion.fecha_asignado = new Date(this.fecha_asignado);
+      this.asignacion.fecha_desasignado = new Date(this.fecha_desasignado);
+      this.assignmentsService.UpdateAsignacion(this.id_asignacion, this.asignacion).subscribe(data => {
+        if (Boolean(data)) {
+          this.toastrService.success("Asignación actualizada con éxito.");
+          this.router.navigate(['/asignaciones/index']);
+        }
+        else {
+          this.toastrService.error("No se pudo actualizar la asignación.");
+        }
+      });
     });
   }
 

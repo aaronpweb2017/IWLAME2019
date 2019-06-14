@@ -70,7 +70,7 @@ export class AsignacionesDeleteComponent implements OnInit {
 
   BorrarAsignacion() {
     this.assignmentsService.DeleteAsignacion(this.id_asignacion).subscribe(data => {
-      if (data) {
+      if (Boolean(data)) {
         this.toastrService.success("Asignación eliminada con éxito.");
         this.router.navigate(['/asignaciones/index']);
       }
