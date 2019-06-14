@@ -28,13 +28,21 @@ body div div div input {
 }
 
 .table tbody tr td {
-    font-size: 18px;
+    font-size: 16px;
+    font-family: Helvetica;
     overflow: hidden;
 }
 
+.table tbody tr td input {
+    margin-right: 15px;
+}
+
+/* Estilos de create edit y delete: */
+
 body h2 {
-    font-weight: bold;
     margin-left: 20px;
+    font-weight: bold;    
+    font-family: Helvetica;
 }
 
 body div form { 
