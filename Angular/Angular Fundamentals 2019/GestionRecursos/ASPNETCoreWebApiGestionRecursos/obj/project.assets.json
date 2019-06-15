@@ -4443,20 +4443,20 @@
   },
   "libraries": {
     "Microsoft.AspNet.WebApi.Client/5.2.6": {
-      "sha512": "owAlEIUZXWSnkK8Z1c+zR47A0X6ykF4XjbPok4lQKNuciUfHLGPd6QnI+rt/8KlQ17PmF+I4S3f+m+Qe4IvViw==",
+      "sha512": "91JMnE9zdIDphG00qgRvl8ZwKEjqAbNlJdfXUoMiIWPfpYyH7fyCsTSj6/aynRdw/Qr/K70xC7QC6MOJ1vFBJQ==",
       "type": "package",
       "path": "microsoft.aspnet.webapi.client/5.2.6",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "Microsoft.AspNet.WebApi.Client.5.2.6.nupkg.sha512",
-        "Microsoft.AspNet.WebApi.Client.nuspec",
         "lib/net45/System.Net.Http.Formatting.dll",
         "lib/net45/System.Net.Http.Formatting.xml",
         "lib/netstandard2.0/System.Net.Http.Formatting.dll",
         "lib/netstandard2.0/System.Net.Http.Formatting.xml",
         "lib/portable-wp8+netcore45+net45+wp81+wpa81/System.Net.Http.Formatting.dll",
-        "lib/portable-wp8+netcore45+net45+wp81+wpa81/System.Net.Http.Formatting.xml"
+        "lib/portable-wp8+netcore45+net45+wp81+wpa81/System.Net.Http.Formatting.xml",
+        "microsoft.aspnet.webapi.client.5.2.6.nupkg.sha512",
+        "microsoft.aspnet.webapi.client.nuspec"
       ]
     },
     "Microsoft.AspNetCore/2.2.0": {
@@ -12072,28 +12072,30 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\e-lmedina\\.nuget\\packages\\": {},
+    "C:\\Users\\Lenovo\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\e-lmedina\\Documents\\IWLAME2019\\Angular\\Angular Fundamentals 2019\\GestionRecursos\\ASPNETCoreWebApiGestionRecursos\\ASPNETCoreWebApiORAGestionRecursos.csproj",
+      "projectUniqueName": "c:\\Users\\Lenovo\\Documents\\IWLAME2019\\Angular\\Angular Fundamentals 2019\\GestionRecursos\\ASPNETCoreWebApiGestionRecursos\\ASPNETCoreWebApiORAGestionRecursos.csproj",
       "projectName": "ASPNETCoreWebApiORAGestionRecursos",
-      "projectPath": "C:\\Users\\e-lmedina\\Documents\\IWLAME2019\\Angular\\Angular Fundamentals 2019\\GestionRecursos\\ASPNETCoreWebApiGestionRecursos\\ASPNETCoreWebApiORAGestionRecursos.csproj",
-      "packagesPath": "C:\\Users\\e-lmedina\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\e-lmedina\\Documents\\IWLAME2019\\Angular\\Angular Fundamentals 2019\\GestionRecursos\\ASPNETCoreWebApiGestionRecursos\\obj\\",
+      "projectPath": "c:\\Users\\Lenovo\\Documents\\IWLAME2019\\Angular\\Angular Fundamentals 2019\\GestionRecursos\\ASPNETCoreWebApiGestionRecursos\\ASPNETCoreWebApiORAGestionRecursos.csproj",
+      "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
+      "outputPath": "c:\\Users\\Lenovo\\Documents\\IWLAME2019\\Angular\\Angular Fundamentals 2019\\GestionRecursos\\ASPNETCoreWebApiGestionRecursos\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\e-lmedina\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.2"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
