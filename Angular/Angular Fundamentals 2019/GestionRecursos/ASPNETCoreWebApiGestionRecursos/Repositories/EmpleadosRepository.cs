@@ -23,7 +23,7 @@ namespace ASPNETCoreWebApiORAGestionRecursos
         }
 
         public async Task<List<Empleado>> GetEmpleadosPaginacion(int no_pagina) {
-            return await empleadoContext.empleados.Skip((no_pagina-1)*10).Take(10).ToListAsync();
+            return await empleadoContext.empleados.Skip(5*(no_pagina-1)).Take(5).ToListAsync();
         }
 
         public async Task<Empleado> GetEmpleado(int id_empleado) {    

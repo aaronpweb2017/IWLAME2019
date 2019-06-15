@@ -25,8 +25,8 @@ export class EmpleadosIndexComponent implements OnInit {
     this.id_empleado = 0; this.noPaginas = 0; this.pageIndexes = [];
     this.employeeService.GetNoEmpleados().subscribe(data => {
       this.no_empleados = Number(data);
-      this.noPaginas = Math.trunc((this.no_empleados) / 10);
-      if ((this.no_empleados) % 10 != 0) {
+      this.noPaginas = Math.trunc((this.no_empleados) / 5);
+      if ((this.no_empleados) % 5 != 0) {
         this.noPaginas = this.noPaginas + 1;
       }
       for (let i = 0; i < this.noPaginas; i++) {

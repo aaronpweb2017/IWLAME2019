@@ -35,8 +35,8 @@ export class AsignacionesIndexComponent implements OnInit {
     this.id_asignacion = 0; this.noPaginas = 0; this.pageIndexes = [];
     this.assignmentsService.GetNoAsignaciones().subscribe(data => {
       this.no_asignaciones = Number(data);
-      this.noPaginas = Math.trunc((this.no_asignaciones) / 10);
-      if ((this.no_asignaciones) % 10 != 0) {
+      this.noPaginas = Math.trunc((this.no_asignaciones) / 5);
+      if ((this.no_asignaciones) % 5 != 0) {
         this.noPaginas = this.noPaginas + 1;
       }
       for (let i = 0; i < this.noPaginas; i++) {

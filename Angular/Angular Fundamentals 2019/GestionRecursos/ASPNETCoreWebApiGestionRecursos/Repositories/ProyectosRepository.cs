@@ -23,7 +23,7 @@ namespace ASPNETCoreWebApiORAGestionRecursos
         }
 
         public async Task<List<Proyecto>> GetProyectosPaginacion(int no_pagina) {
-            return await proyectoContext.proyectos.Skip((no_pagina-1)*10).Take(10).ToListAsync();
+            return await proyectoContext.proyectos.Skip(5*(no_pagina-1)).Take(5).ToListAsync();
         }
 
         public async Task<Proyecto> GetProyecto(int id_proyecto) {    
