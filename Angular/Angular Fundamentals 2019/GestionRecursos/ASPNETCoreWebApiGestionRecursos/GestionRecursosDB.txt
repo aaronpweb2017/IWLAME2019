@@ -1,0 +1,134 @@
+CREATE DATABASE GestionRecursos
+USE GestionRecursos
+
+----------------------------------------------------------------------------------------------------------------------------
+
+CREATE TABLE EMPLEADO (
+    ID_EMPLEADO INT IDENTITY(1,1) NOT NULL,
+    NOMBRE VARCHAR(20) NOT NULL,
+    APELLIDO VARCHAR(20) NOT NULL,
+    DIRECCION VARCHAR(100) NOT NULL,
+    TELEFONO VARCHAR(14) NOT NULL,
+    SUELDO INT NOT NULL,
+    STATUS INT NOT NULL
+)
+
+ALTER TABLE EMPLEADO ADD CONSTRAINT ID_EMPLEADO_PK_CONSTRAINT PRIMARY KEY(ID_EMPLEADO)
+
+INSERT INTO EMPLEADO VALUES
+('Aarón', 'Echeverría', 'Dirección 0001', '+5216671471431', 6000, 1), 
+('Jesús', 'Montoya', 'Dirección 0002', '+5216672485023', 6000, 1),
+('Daniel', 'Tejeda', 'Dirección 0003', '+5216673195467', 6000, 1),
+('Daniel', 'Carbajal', 'Dirección 0004', '+5216674178397', 6000, 1),
+('Wilfrido', 'Martinez', 'Dirección 0005', '+5216675128549', 6000, 1),
+('Karla', 'Rivera', 'Dirección 0006', '+5216676832508', 6000, 1),
+('Alejandro', 'Ríos', 'Dirección 0007', '+5216677832601', 6000, 1),
+('Daniel', 'Padilla', 'Dirección 0008', '+5216678935647', 6000, 1),
+('Yamileth', 'Padilla', 'Dirección 0009', '+5216679998873', 6000, 1),
+('Alberto', 'Lafarga', 'Dirección 0010', '+5216671710076', 6000, 1),
+('Quetzalli', 'Leon', 'Dirección 0011', '+5216672659934', 6000, 1),
+('Paul', 'Burgueño', 'Dirección 0012', '+5216673489623', 6000, 1),
+('Juampi', 'Meza', 'Dirección 0013', '+5216674781239', 6000, 1),
+('Carolina', 'Lopez', 'Dirección 0014', '+5216675648923', 6000, 1),
+('Alan', 'Galeana', 'Dirección 0015', '+5216676782336', 6000, 1),
+('Alexis', 'Malverde', 'Dirección 0016', '+5216677836459', 6000, 1),
+('Kevil', 'Lopez', 'Dirección 0017', '+5216678745629', 6000, 1),
+('Daniel', 'Aragon', 'Dirección 0018', '+5216678744874', 6000, 1),
+('Eduardo', 'Ruiz', 'Dirección 0019', '+5216679873456', 6000, 1),
+('Hugo', 'Zavala', 'Dirección 0020', '+5216671176529', 6000, 1),
+('Vicente', 'Parra', 'Dirección 0021', '+5216672857356', 6000, 1),
+('Ernesto', 'Cardenas', 'Dirección 0022', '+5216673485917', 6000, 1),
+('Luis', 'Ontiveros', 'Dirección 0023', '+5216674469219', 6000, 1)
+
+----------------------------------------------------------------------------------------------------------------------------
+
+
+----------------------------------------------------------------------------------------------------------------------------
+
+CREATE TABLE PROYECTO (
+    ID_PROYECTO INT IDENTITY(1,1) NOT NULL,
+    NOMBRE VARCHAR(50) NOT NULL,
+    DESCRIPCION VARCHAR(200) NOT NULL,
+    FECHA_INICIO DATE NOT NULL,
+    FECHA_FIN DATE NOT NULL,
+    STATUS INT NOT NULL
+);
+
+ALTER TABLE PROYECTO ADD CONSTRAINT ID_PROYECTO_PK_CONSTRAINT PRIMARY KEY(ID_PROYECTO)
+ALTER TABLE PROYECTO ADD CONSTRAINT DIFERENCIA_FECHAS_PROYECTO CHECK(FECHA_FIN > FECHA_INICIO)
+
+INSERT INTO PROYECTO VALUES
+('PROnuncia', 'Proyecto PROnuncia para PI-IW', '06-01-2019', '06-30-2019', 1),
+('HouseSecurity', 'Proyecto HouseSecurity para PI-IW', '06-01-2019', '06-30-2019', 1),
+('MechanicSolutions', 'Proyecto MechanicSolutions para PI-IW', '06-01-2019', '06-30-2019', 1),
+('BabiesGuarderia', 'Proyecto BabiesGuarderia para PI-IW', '06-01-2019', '06-30-2019', 1),
+('PetsGuarderia', 'Proyecto PetsGuarderia para PI-IW', '06-01-2019', '06-30-2019', 1),
+('RentasService', 'Proyecto RentasService para PI-IW', '06-01-2019', '06-30-2019', 1),
+('MIDE', 'Proyecto MIDE para BPD', '06-01-2019', '06-30-2019', 1)
+
+----------------------------------------------------------------------------------------------------------------------------
+
+
+----------------------------------------------------------------------------------------------------------------------------
+
+CREATE TABLE ASIGNACION (
+    ID_ASIGNACION INT IDENTITY(1,1),
+    ID_PROYECTO INT NOT NULL,
+    ID_EMPLEADO INT NOT NULL,
+    FECHA_ASIGNADO DATE NOT NULL,
+	FECHA_DESASIGNADO DATE NOT NULL
+)
+
+ALTER TABLE ASIGNACION ADD CONSTRAINT PROYECTO_EMPLEADO_PK_CONSTR
+PRIMARY KEY(ID_PROYECTO, ID_EMPLEADO)
+
+ALTER TABLE ASIGNACION ADD CONSTRAINT ID_PROYECTO_FK_CONSTRAINT
+FOREIGN KEY(ID_PROYECTO) REFERENCES PROYECTO(ID_PROYECTO)
+
+ALTER TABLE ASIGNACION ADD CONSTRAINT ID_EMPLEADO_FK_CONSTRAINT
+FOREIGN KEY(ID_EMPLEADO) REFERENCES EMPLEADO(ID_EMPLEADO)
+
+ALTER TABLE ASIGNACION ADD CONSTRAINT FECHA_ASIGNA_DESASIGNA CHECK(FECHA_DESASIGNADO > FECHA_ASIGNADO)
+
+INSERT INTO ASIGNACION VALUES
+(1, 1, '06-15-2019', '06-16-2019'),
+(1, 2, '06-15-2019', '06-17-2019'),
+(1, 3, '06-15-2019', '06-18-2019'),
+(1, 4, '06-15-2019', '06-19-2019'),
+(2, 5, '06-15-2019', '06-16-2019'),
+(2, 6, '06-15-2019', '06-17-2019'),
+(3, 7, '06-15-2019', '06-16-2019'),
+(3, 8, '06-15-2019', '06-17-2019'),
+(3, 9, '06-15-2019', '06-18-2019'),
+(3, 10, '06-15-2019', '06-19-2019'),
+(4, 11, '06-15-2019', '06-16-2019'),
+(4, 12, '06-15-2019', '06-17-2019'),
+(4, 13, '06-15-2019', '06-18-2019'),
+(5, 14, '06-15-2019', '06-16-2019'),
+(5, 15, '06-15-2019', '06-17-2019'),
+(5, 16, '06-15-2019', '06-18-2019'),
+(6, 17, '06-15-2019', '06-16-2019'),
+(6, 18, '06-15-2019', '06-17-2019'),
+(7, 19, '06-15-2019', '06-16-2019'),
+(7, 20, '06-15-2019', '06-17-2019'),
+(7, 21, '06-15-2019', '06-18-2019'),
+(7, 22, '06-15-2019', '06-19-2019'),
+(7, 23, '06-15-2019', '06-20-2019')
+
+----------------------------------------------------------------------------------------------------------------------------
+
+
+----------------------------------------------------------------------------------------------------------------------------
+
+SELECT * FROM EMPLEADO
+SELECT * FROM PROYECTO
+SELECT * FROM ASIGNACION
+
+DELETE FROM ASIGNACION
+DROP TABLE ASIGNACION
+DELETE FROM EMPLEADO
+DROP TABLE EMPLEADO
+DELETE FROM PROYECTO
+DROP TABLE PROYECTO
+
+DROP DATABASE GestionRecursos
