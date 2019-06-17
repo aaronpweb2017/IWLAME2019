@@ -1,6 +1,3 @@
-/obj
-/bin
-
-.vscode/
-
-Angular/Angular\ Fundamentals\ 2019/GestionRecursos/ASPNETCoreWebApiGestionRecursos/obj/ASPNETCoreWebApiORAGestionRecursos.csproj.nuget.cache
+"Angular/Angular Fundamentals 2019/GestionRecursos/ASPNETCoreWebApiGestionRecursos/obj"
+"Angular/Angular Fundamentals 2019/GestionRecursos/ASPNETCoreWebApiGestionRecursos/bin"
+"Angular/Angular Fundamentals 2019/GestionRecursos/ASPNETCoreWebApiGestionRecursos/.vscode"
