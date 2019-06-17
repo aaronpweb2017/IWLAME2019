@@ -1,7 +1,6 @@
 /obj
 /bin
 
-.vscode/*
-!.vscode/tasks.json
-!.vscode/launch.json
-.history/*
+.vscode/
+
+Angular/Angular\ Fundamentals\ 2019/GestionRecursos/ASPNETCoreWebApiGestionRecursos/obj/ASPNETCoreWebApiORAGestionRecursos.csproj.nuget.cache
