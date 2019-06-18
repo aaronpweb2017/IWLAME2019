@@ -1,7 +1,6 @@
 <html>
     <body>
-        <h2>Ingrese los datos de la asignación:</h2>
-        <hr>
+        <h2>Ingrese los datos de la asignación:</h2> <hr>
         <div>
             <form class="bg-dark">
                 <div class="row">
@@ -11,7 +10,8 @@
                     <div class="col-md-6">
                         <select [(ngModel)]="asignacion.id_proyecto" [ngModelOptions]="{standalone: true}">
                             <option *ngFor="let proyecto of proyectos" [value]="proyecto.id_proyecto">
-                                {{proyecto.id_proyecto}}.- {{proyecto.nombre}}</option>
+                                {{proyecto.id_proyecto}}.- {{proyecto.nombre}}
+                            </option>
                         </select>
                     </div>
                 </div>
@@ -22,7 +22,8 @@
                     <div class="col-md-6">
                         <select [(ngModel)]="asignacion.id_empleado" [ngModelOptions]="{standalone: true}">
                             <option *ngFor="let empleado of empleados" [value]="empleado.id_empleado">
-                                {{empleado.id_empleado}}.- {{empleado.nombre}} {{empleado.apellido}}</option>
+                                {{empleado.id_empleado}}.- {{empleado.nombre}} {{empleado.apellido}}
+                            </option>
                         </select>
                     </div>
                 </div>

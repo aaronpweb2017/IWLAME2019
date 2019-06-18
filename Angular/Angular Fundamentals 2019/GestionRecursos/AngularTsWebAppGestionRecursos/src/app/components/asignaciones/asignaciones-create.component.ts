@@ -43,7 +43,7 @@ export class AsignacionesCreateComponent implements OnInit {
       for (let i: number = 0; i < Object.values(data).length; i++) {
         status = Number(Object.values(Object.values(data)[i])[5]);
         fecha_fin = this.fechasService.GetDateYMD(Object.values(Object.values(data)[i])[4].toString());
-        if (status == 1 && (new Date(fecha_fin)) > (new Date(this.currtent_date))) {
+        if (status == 1 && (new Date(fecha_fin) > new Date(this.currtent_date))) {
           this.proyectos[index] = {
             id_proyecto: Number(Object.values(Object.values(data)[i])[0]),
             nombre: Object.values(Object.values(data)[i])[1].toString(),
@@ -85,7 +85,7 @@ export class AsignacionesCreateComponent implements OnInit {
         this.toastrService.error("Datos vacíos o inválidos."); return;
       }
       if ((new Date(this.fecha_asignado) < new Date(fecha_inicio))
-      || (new Date(this.fecha_asignado) < new Date(this.currtent_date))) {
+        || (new Date(this.fecha_asignado) < new Date(this.currtent_date))) {
         this.toastrService.error("Inconsistencia en fecha de asignación."); return;
       }
       if (new Date(fecha_fin) < new Date(this.fecha_desasignado)) {
@@ -98,7 +98,7 @@ export class AsignacionesCreateComponent implements OnInit {
           this.toastrService.success("Asignación creada con éxito.");
           this.router.navigate(['/asignaciones/index']); return;
         }
-          this.toastrService.error("No se pudo crear la asignación.");
+        this.toastrService.error("No se pudo crear la asignación.");
       });
     });
   }

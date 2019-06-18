@@ -47,10 +47,10 @@ export class AsignacionesEditComponent implements OnInit {
     this.proyectos = []; this.empleados = [];
     this.proyectosService.GetProyectos().subscribe(data => {
       let status: number = 0, index: number = 0; let fecha_fin: string = "";
-      for (let i = 0; i < Object.values(data).length; i++) {
+      for (let i: number = 0; i < Object.values(data).length; i++) {
         status = Number(Object.values(Object.values(data)[i])[5]);
         fecha_fin = this.fechasService.GetDateYMD(Object.values(Object.values(data)[i])[4].toString());
-        if (status == 1 && (new Date(fecha_fin)) > (new Date(this.currtent_date))) {
+        if (status == 1 && (new Date(fecha_fin) > new Date(this.currtent_date))) {
           this.proyectos[index] = {
             id_proyecto: Number(Object.values(Object.values(data)[i])[0]),
             nombre: Object.values(Object.values(data)[i])[1].toString(),
@@ -64,7 +64,7 @@ export class AsignacionesEditComponent implements OnInit {
     });
     this.empleadosService.GetEmpleados().subscribe(data => {
       let status: number = 0, index: number = 0;
-      for (let i = 0; i < Object.values(data).length; i++) {
+      for (let i: number = 0; i < Object.values(data).length; i++) {
         status = Number(Object.values(Object.values(data)[i])[6]);
         if (status == 1) {
           this.empleados[index] = {
@@ -91,8 +91,8 @@ export class AsignacionesEditComponent implements OnInit {
         || this.fecha_asignado == "" || this.fecha_desasignado == "") {
         this.toastrService.error("Datos vacíos o inválidos."); return;
       }
-      if ((new Date(this.fecha_asignado) < new Date(fecha_inicio)) ||
-        (new Date(this.fecha_asignado) < new Date(this.currtent_date))) {
+      if ((new Date(this.fecha_asignado) < new Date(fecha_inicio))
+      || (new Date(this.fecha_asignado) < new Date(this.currtent_date))) {
         this.toastrService.error("Inconsistencia en fecha de asignación."); return;
       }
       if (new Date(fecha_fin) < new Date(this.fecha_desasignado)) {
@@ -105,6 +105,7 @@ export class AsignacionesEditComponent implements OnInit {
           this.toastrService.success("Asignación actualizada con éxito.");
           this.router.navigate(['/asignaciones/index']); return;
         }
+        this.toastrService.error("No se pudo actualizar la asignación.");
       });
     });
   }

@@ -60,7 +60,7 @@ export class EmpleadosIndexComponent implements OnInit {
           this.ngOnInit();
         return;
       }
-      this.toastrService.error("No se pudo eliminar el empleado seleccionado.");
+      this.toastrService.error("No se pudo eliminar el empleado.");
     });
   }
 
