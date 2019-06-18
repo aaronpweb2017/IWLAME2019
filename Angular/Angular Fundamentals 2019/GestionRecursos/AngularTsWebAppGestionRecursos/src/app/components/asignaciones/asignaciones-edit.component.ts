@@ -24,12 +24,10 @@ export class AsignacionesEditComponent implements OnInit {
   proyectos: Proyecto[];
   empleados: Empleado[];
 
-  constructor(private projectsService: ProyectosService,
-    private employeeService: EmpleadosService,
-    private assignmentsService: AsignacionesService,
-    private fechasService: FechasService,
-    private toastrService: ToastrService,
-    private router: Router, private route: ActivatedRoute) { }
+  constructor(
+    private asignacionesService: AsignacionesService, private proyectosService: ProyectosService,
+    private empleadosService: EmpleadosService, private fechasService: FechasService,
+    private toastrService: ToastrService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.asignacion = {
@@ -38,7 +36,7 @@ export class AsignacionesEditComponent implements OnInit {
       fecha_desasignado: new Date()
     };
     this.id_asignacion = this.route.snapshot.params['id_asignacion'];
-    this.assignmentsService.GetAsignacion(this.id_asignacion).subscribe(data => {
+    this.asignacionesService.GetAsignacion(this.id_asignacion).subscribe(data => {
       this.asignacion.id_asignacion = Number(Object.values(data)[0]);
       this.asignacion.id_proyecto = Number(Object.values(data)[1]);
       this.asignacion.id_empleado = Number(Object.values(data)[2]);
@@ -47,7 +45,7 @@ export class AsignacionesEditComponent implements OnInit {
       this.currtent_date = this.fecha_asignado;
     });
     this.proyectos = []; this.empleados = [];
-    this.projectsService.GetProyectos().subscribe(data => {
+    this.proyectosService.GetProyectos().subscribe(data => {
       let status: number = 0, index: number = 0; let fecha_fin: string = "";
       for (let i = 0; i < Object.values(data).length; i++) {
         status = Number(Object.values(Object.values(data)[i])[5]);
@@ -64,7 +62,7 @@ export class AsignacionesEditComponent implements OnInit {
         }
       }
     });
-    this.employeeService.GetEmpleados().subscribe(data => {
+    this.empleadosService.GetEmpleados().subscribe(data => {
       let status: number = 0, index: number = 0;
       for (let i = 0; i < Object.values(data).length; i++) {
         status = Number(Object.values(Object.values(data)[i])[6]);
@@ -86,28 +84,26 @@ export class AsignacionesEditComponent implements OnInit {
 
   ActualizarAsignacion(eventMessage: string) {
     console.log("Mensaje del Evento: " + eventMessage);
-    this.projectsService.GetProyecto(this.asignacion.id_proyecto).subscribe(data => {
+    this.proyectosService.GetProyecto(this.asignacion.id_proyecto).subscribe(data => {
       let fecha_inicio: string = this.fechasService.GetDateYMD(Object.values(data)[3].toString());
       let fecha_fin: string = this.fechasService.GetDateYMD(Object.values(data)[4].toString());
-      if ((new Date(this.fecha_asignado)) < (new Date(fecha_inicio))) {
-        this.toastrService.error("Inconsistencia en fecha de asignación."); return;
-      }
-      if ((new Date(fecha_fin)) <= (new Date(this.fecha_desasignado))) {
-        this.toastrService.error("Inconsistencia en fecha de desasignación."); return;
-      }
       if (this.asignacion.id_proyecto == 0 || this.asignacion.id_empleado == 0
         || this.fecha_asignado == "" || this.fecha_desasignado == "") {
         this.toastrService.error("Datos vacíos o inválidos."); return;
       }
+      if ((new Date(this.fecha_asignado) < new Date(fecha_inicio)) ||
+        (new Date(this.fecha_asignado) < new Date(this.currtent_date))) {
+        this.toastrService.error("Inconsistencia en fecha de asignación."); return;
+      }
+      if (new Date(fecha_fin) < new Date(this.fecha_desasignado)) {
+        this.toastrService.error("Inconsistencia en fecha de desasignación."); return;
+      }
       this.asignacion.fecha_asignado = new Date(this.fecha_asignado);
       this.asignacion.fecha_desasignado = new Date(this.fecha_desasignado);
-      this.assignmentsService.UpdateAsignacion(this.id_asignacion, this.asignacion).subscribe(data => {
+      this.asignacionesService.UpdateAsignacion(this.id_asignacion, this.asignacion).subscribe(data => {
         if (Boolean(data)) {
           this.toastrService.success("Asignación actualizada con éxito.");
-          this.router.navigate(['/asignaciones/index']);
-        }
-        else {
-          this.toastrService.error("No se pudo actualizar la asignación.");
+          this.router.navigate(['/asignaciones/index']); return;
         }
       });
     });

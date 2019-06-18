@@ -6,16 +6,16 @@ import { Component, Input, Output, EventEmitter} from '@angular/core';
 })
 
 export class ModalEntity {
-    @Input() modalRequest: string;
-    @Output() modalRequestEvent = new EventEmitter();
     @Input() modalEntity: number;
     @Output() modalEntityEvent = new EventEmitter();
+    @Input() modalRequest: string;
+    @Output() modalRequestEvent = new EventEmitter();
 
-    emitirEventoIdEntity(id_entity: number) {
+    emitirEventoModalEntity(id_entity: number) {
         this.modalEntityEvent.emit(id_entity);
     }
 
-    emitirEventoModalAction(eventMessage: string) {
+    emitirEventoModalRequest(eventMessage: string) {
         this.modalRequestEvent.emit(eventMessage);
     }
 }

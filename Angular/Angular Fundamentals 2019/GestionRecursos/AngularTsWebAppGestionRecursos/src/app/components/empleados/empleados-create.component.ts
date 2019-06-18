@@ -13,7 +13,8 @@ import { Empleado } from 'src/app/interfaces/empleado';
 export class EmpleadosCreateComponent implements OnInit {
   empleado: Empleado;
 
-  constructor(private employeeService: EmpleadosService, private toastrService: ToastrService, private router: Router) { }
+  constructor(private empleadosService: EmpleadosService,
+    private toastrService: ToastrService, private router: Router) { }
 
   ngOnInit() {
     this.empleado = {
@@ -25,18 +26,17 @@ export class EmpleadosCreateComponent implements OnInit {
 
   CrearEmpleado(eventMessage: string) {
     console.log("Mensaje del Evento: " + eventMessage);
-    if (this.empleado.nombre == "" || this.empleado.apellido == "" || this.empleado.direccion == ""
-      || this.empleado.telefono == "" || this.empleado.sueldo < 3000 || this.empleado.sueldo > 10000) {
+    if (this.empleado.nombre == "" || this.empleado.apellido == ""
+      || this.empleado.direccion == "" || this.empleado.telefono == ""
+      || this.empleado.sueldo < 3000 || this.empleado.sueldo > 15000) {
       this.toastrService.error("Datos vacíos o inválidos."); return;
     }
-    this.employeeService.PostEmpleado(this.empleado).subscribe(data => {
-      if (data) {
+    this.empleadosService.PostEmpleado(this.empleado).subscribe(data => {
+      if (Boolean(data)) {
         this.toastrService.success("Empleado creado con éxito.");
-        this.router.navigate(['/empleados/index']);
+        this.router.navigate(['/empleados/index']); return;
       }
-      else {
-        this.toastrService.error("No se pudo crear el empleado.");
-      }
+      this.toastrService.error("No se pudo crear el empleado.");
     });
   }
 

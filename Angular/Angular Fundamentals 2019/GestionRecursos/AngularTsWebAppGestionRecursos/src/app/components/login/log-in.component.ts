@@ -36,7 +36,7 @@ export class LogInComponent implements OnInit {
       this.toastrService.error("Ingrese código o contraseña."); return;
     }
     this.empleadosService.GetEmpleado(this.id_empleado).subscribe(data => {
-      if (data == null) {
+      if (Object.values(data) == null) {
         this.toastrService.error("No se encontró al empleado."); return;
       }
       this.empleado.id_empleado = Number(Object.values(data)[0]);
@@ -45,13 +45,5 @@ export class LogInComponent implements OnInit {
       this.toastrService.success("Bienvenido " + this.empleado.nombre + " " + this.empleado.apellido);
       this.isLoggedIn = true; this.router.navigate(['/empleados/index']);
     });
-  }
-  
-  ValidaUsuario1() {
-    //this.empleadosService.GetEmpleados().subscribe(data => {
-      //Tamaño de data (array de objetos Empleado) --> Object.values(data).length;
-      //Objeto Empleado "i" --> Object.values(data)[i];
-      //Atributo j del Objeto "i" --> Object.values(Object.values(data)[i])[j]
-    //});
   }
 }

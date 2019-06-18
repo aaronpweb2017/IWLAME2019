@@ -19,15 +19,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EmpleadosIndexComponent } from './components/empleados/empleados-index.component';
 import { EmpleadosCreateComponent } from './components/empleados/empleados-create.component';
 import { EmpleadosEditComponent } from './components/empleados/empleados-edit.component';
-import { EmpleadosDeleteComponent } from './components/empleados/empleados-delete.component';
 import { ProyectosIndexComponent } from './components/proyectos/proyectos-index.component';
 import { ProyectosCreateComponent } from './components/proyectos/proyectos-create.component';
 import { ProyectosEditComponent } from './components/proyectos/proyectos-edit.component';
-import { ProyectosDeleteComponent } from './components/proyectos/proyectos-delete.component';
 import { AsignacionesIndexComponent } from './components/asignaciones/asignaciones-index.component';
 import { AsignacionesCreateComponent } from './components/asignaciones/asignaciones-create.component';
 import { AsignacionesEditComponent } from './components/asignaciones/asignaciones-edit.component';
-import { AsignacionesDeleteComponent } from './components/asignaciones/asignaciones-delete.component';
 
 @NgModule({
   declarations: [
@@ -36,15 +33,12 @@ import { AsignacionesDeleteComponent } from './components/asignaciones/asignacio
     EmpleadosIndexComponent,
     EmpleadosCreateComponent,
     EmpleadosEditComponent,
-    EmpleadosDeleteComponent,
     ProyectosIndexComponent,
     ProyectosCreateComponent,
     ProyectosEditComponent,
-    ProyectosDeleteComponent,
     AsignacionesIndexComponent,
     AsignacionesCreateComponent,
     AsignacionesEditComponent,
-    AsignacionesDeleteComponent,
     NavBarComponent,
     ModalEntity],
   imports: [

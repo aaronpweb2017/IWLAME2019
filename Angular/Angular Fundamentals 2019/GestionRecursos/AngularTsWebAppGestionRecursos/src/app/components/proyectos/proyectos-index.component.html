@@ -6,7 +6,8 @@
                     <h2 class="text-dark">Catálogo de Proyectos:</h2 >
                 </div>
                 <div class="col-md-2">
-                    <input class="btn btn-success" type="button" value="Crear Nuevo" (click)="CrearProyecto();">
+                    <input class="btn btn-success" type="button"
+                    value="Crear Nuevo" (click)="CrearProyecto();">
                 </div>
             </div>
             <table class="table table-bordered">
@@ -32,14 +33,14 @@
                             <td *ngIf="proyecto.status==1">En proceso</td>
                             <td *ngIf="proyecto.status==2">Terminado</td>
                             <td>
-                                <input class="btn btn-primary" type="button" value="Editar" (click)="EditarProyecto(proyecto.id_proyecto);"> |
+                                <input class="btn btn-primary" type="button" value="Editar"
+                                    (click)="EditarProyecto(proyecto.id_proyecto);"> |
                                 <modal-entity
                                     [modalEntity]="proyecto.id_proyecto"
                                     [modalRequest]="'BorrarProyecto'"
                                     (modalEntityEvent)="ActualizaIdProyecto($event);"
                                     (modalRequestEvent)="BorrarProyecto($event);">
                                 </modal-entity>
-                                <!--<input class="btn btn-danger" type="button" value="Borrar" (click)="BorrarProyecto(proyecto.id_proyecto);">-->
                             </td>
                         </tr>
                     </ng-container>
@@ -47,7 +48,8 @@
             </table>
             <div style="text-align: center;">
                 <ng-container *ngFor="let pageIndex of pageIndexes;">
-                    <input class="btn btn-secondary" type="button" value="{{pageIndex}}" (click)="MuestraPagina(pageIndex);" style="margin-left: 5px;">
+                    <input class="btn btn-secondary" type="button" value="{{pageIndex}}"
+                        (click)="MuestraPagina(pageIndex);" style="margin-left: 5px;">
                 </ng-container>
             </div>
         </div>

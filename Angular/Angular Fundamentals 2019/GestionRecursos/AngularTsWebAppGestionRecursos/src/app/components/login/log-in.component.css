@@ -1,15 +1,15 @@
-.form-signin{
+.form-signin {
 	width: 100%;
     max-width: 420px;
     padding: 15px;
     margin: 0 auto;
 }
 
-label
-{
+label {
     text-align:left;
 }
-.form-signin .form-control {
+
+.form-signin, .form-control {
     position: relative;
     box-sizing: border-box;
     height: auto;
@@ -22,7 +22,7 @@ body {
    background:#e0e2e4;
 }
 
-.form-label-group{
+.form-label-group {
 	padding-top: 10px;
 	position: relative;
     margin-bottom: 1rem;

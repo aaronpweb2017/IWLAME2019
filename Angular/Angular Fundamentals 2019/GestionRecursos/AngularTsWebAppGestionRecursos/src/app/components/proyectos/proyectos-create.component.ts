@@ -33,20 +33,24 @@ export class ProyectosCreateComponent implements OnInit {
 
   CrearProyecto(eventMessage: string) {
     console.log("Mensaje del Evento: " + eventMessage);
-    if (this.proyecto.nombre == "" || this.proyecto.descripcion == "" || this.proyecto.status < 0
-      || this.fecha_inicio == "" || this.fecha_fin == ""
-      || (new Date(this.fecha_inicio)) >= (new Date(this.fecha_fin))) {
+    if (this.proyecto.nombre == "" || this.proyecto.descripcion == ""
+      || this.proyecto.status < 0 || this.fecha_inicio == "" || this.fecha_fin == "") {
       this.toastrService.error("Datos vacíos o inválidos."); return;
+    }
+    if (new Date(this.fecha_inicio) < new Date(this.currtent_date)) {
+      this.toastrService.error("Inconsistencia en fecha de inicio."); return;
+    }
+    if (new Date(this.fecha_fin) > new Date("2020-12-31")) {
+      this.toastrService.error("Inconsistencia en fecha del final."); return;
     }
     this.proyecto.fecha_inicio = new Date(this.fecha_inicio);
     this.proyecto.fecha_fin = new Date(this.fecha_fin);
     this.proyectosService.PostProyecto(this.proyecto).subscribe(data => {
-      if (Object.values(data)) {
+      if (Boolean(data)) {
         this.toastrService.success("Proyecto creado con éxito.");
-        this.router.navigate(['/proyectos/index']);
+        this.router.navigate(['/proyectos/index']); return;
       }
-      else
-        this.toastrService.error("No se pudo crear el proyecto.");
+      this.toastrService.error("No se pudo crear el proyecto.");
     });
   }
 

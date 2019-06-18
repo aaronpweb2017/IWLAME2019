@@ -1,9 +1,10 @@
-<button *ngIf="modalRequest=='CrearEmpleado' || modalRequest=='CrearProyecto' || modalRequest=='CrearAsignacion'" class="btn btn-success"
-type="button" data-toggle="modal" data-target="#entityModal" style="margin-left: 15px; font-size: 16px;">Crear</button>
-<button *ngIf="modalRequest=='ActualizarEmpleado' || modalRequest=='ActualizarProyecto' || modalRequest=='ActualizarAsignacion'" class="btn btn-success" type="button" data-toggle="modal"
+<button *ngIf="modalRequest.search('Crear')!=-1" class="btn btn-success" type="button" data-toggle="modal"
+  data-target="#entityModal" style="margin-left: 15px; font-size: 16px;">Crear</button>
+<button *ngIf="modalRequest.search('Actualizar')!=-1" class="btn btn-success" type="button" data-toggle="modal"
   data-target="#entityModal" style="margin-left: 15px; font-size: 16px;">Actualizar</button>
-<button *ngIf="modalRequest=='BorrarEmpleado' || modalRequest=='BorrarProyecto' || modalRequest=='BorrarAsignacion'" class="btn btn-danger" type="button"
-  data-toggle="modal" data-target="#entityModal" style="margin-left: 15px; font-size: 16px;" (click)="emitirEventoIdEntity(modalEntity);">Borrar</button>
+<button *ngIf="modalRequest.search('Borrar')!=-1" class="btn btn-danger" type="button" data-toggle="modal"
+  data-target="#entityModal" style="margin-left: 15px; font-size: 16px;"
+  (click)="emitirEventoModalEntity(modalEntity);">Borrar</button>
 <div class="modal fade" id="entityModal" tabindex="-1" role="dialog" aria-labelledby="entityModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -34,9 +35,9 @@ type="button" data-toggle="modal" data-target="#entityModal" style="margin-left:
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
         <button *ngIf="modalRequest.search('Borrar')==-1" type="button" class="btn btn-success" data-toggle="modal"
-        data-target="#entityModal" (click)="emitirEventoModalAction('Execute'+modalRequest+'Fuction');">Aceptar</button>
+        data-target="#entityModal" (click)="emitirEventoModalRequest('Execute'+modalRequest+'Fuction');">Aceptar</button>
         <button *ngIf="modalRequest.search('Borrar')!=-1" type="button" class="btn btn-danger" data-toggle="modal"
-        data-target="#entityModal" (click)="emitirEventoModalAction('Execute'+modalRequest+'Fuction');">Aceptar</button>
+        data-target="#entityModal" (click)="emitirEventoModalRequest('Execute'+modalRequest+'Fuction');">Aceptar</button>
       </div>
     </div>
   </div>

@@ -16,23 +16,21 @@ export class EmpleadosIndexComponent implements OnInit {
   id_empleado: number;
   noPaginas: number;
   pageIndexes: number[];
-  curernt_page: number = 1;
+  curerntPage: number = 1;
 
-  constructor(private employeeService: EmpleadosService,
+  constructor(private empleadosService: EmpleadosService,
     private toastrService: ToastrService, private router: Router) { }
 
   ngOnInit() {
     this.id_empleado = 0; this.noPaginas = 0; this.pageIndexes = [];
-    this.employeeService.GetNoEmpleados().subscribe(data => {
+    this.empleadosService.GetNoEmpleados().subscribe(data => {
       this.no_empleados = Number(data);
       this.noPaginas = Math.trunc((this.no_empleados) / 5);
-      if ((this.no_empleados) % 5 != 0) {
+      if ((this.no_empleados) % 5 != 0)
         this.noPaginas = this.noPaginas + 1;
-      }
-      for (let i = 0; i < this.noPaginas; i++) {
+      for (let i: number = 0; i < this.noPaginas; i++)
         this.pageIndexes[i] = (i + 1);
-      }
-      this.MuestraPagina(this.curernt_page);
+      this.MuestraPagina(this.curerntPage);
     });
   }
 
@@ -50,32 +48,25 @@ export class EmpleadosIndexComponent implements OnInit {
 
   BorrarEmpleado(eventMessage: string) {
     console.log("Mensaje del Evento: " + eventMessage);
-    this.employeeService.DeleteEmpleado(this.id_empleado).subscribe(data => {
+    this.empleadosService.DeleteEmpleado(this.id_empleado).subscribe(data => {
       if (Boolean(data)) {
         this.toastrService.success("Empleado eliminado con éxito.");
         if (this.empleados.length == 1 && this.pageIndexes.length > 1) {
-          this.curernt_page = this.curernt_page - 1; this.ngOnInit();
+          this.curerntPage = this.curerntPage - 1; this.ngOnInit();
         }
-        else if (this.empleados.length > 1) {
-          this.MuestraPagina(this.curernt_page);
-        }
-        else {
+        else if (this.empleados.length > 1)
+          this.MuestraPagina(this.curerntPage);
+        else
           this.ngOnInit();
-        }
+        return;
       }
-      else {
-        this.toastrService.error("No se pudo eliminar el empleado seleccionado.");
-      }
+      this.toastrService.error("No se pudo eliminar el empleado seleccionado.");
     });
   }
 
-  //BorrarEmpleado(id_empleado: number) {
-  //  this.router.navigate(['/empleados/delete', id_empleado]);
-  //}
-
-  MuestraPagina(no_pagina: number) {
-    this.curernt_page = no_pagina;
-    this.employeeService.GetEmpleadosPaginacion(no_pagina).subscribe(data => {
+  MuestraPagina(noPagina: number) {
+    this.curerntPage = noPagina;
+    this.empleadosService.GetEmpleadosPaginacion(noPagina).subscribe(data => {
       this.empleados = Object.values(data);
     });
   }

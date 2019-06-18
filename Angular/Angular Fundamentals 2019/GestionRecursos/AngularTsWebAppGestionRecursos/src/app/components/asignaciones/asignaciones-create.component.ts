@@ -24,12 +24,9 @@ export class AsignacionesCreateComponent implements OnInit {
   empleados: Empleado[];
 
   constructor(
-    private assignmentsService: AsignacionesService,
-    private projectsService: ProyectosService,
-    private employeeService: EmpleadosService,
-    private fechasService: FechasService,
-    private toastrService: ToastrService,
-    private router: Router) { }
+    private asignacionesService: AsignacionesService, private proyectosService: ProyectosService,
+    private empleadosService: EmpleadosService, private fechasService: FechasService,
+    private toastrService: ToastrService, private router: Router) { }
 
   ngOnInit() {
     this.asignacion = {
@@ -41,9 +38,9 @@ export class AsignacionesCreateComponent implements OnInit {
     this.fecha_asignado = this.currtent_date;
     this.fecha_desasignado = this.currtent_date;
     this.proyectos = []; this.empleados = [];
-    this.projectsService.GetProyectos().subscribe(data => {
+    this.proyectosService.GetProyectos().subscribe(data => {
       let status: number = 0, index: number = 0; let fecha_fin: string = "";
-      for (let i = 0; i < Object.values(data).length; i++) {
+      for (let i: number = 0; i < Object.values(data).length; i++) {
         status = Number(Object.values(Object.values(data)[i])[5]);
         fecha_fin = this.fechasService.GetDateYMD(Object.values(Object.values(data)[i])[4].toString());
         if (status == 1 && (new Date(fecha_fin)) > (new Date(this.currtent_date))) {
@@ -58,9 +55,9 @@ export class AsignacionesCreateComponent implements OnInit {
         }
       }
     });
-    this.employeeService.GetEmpleados().subscribe(data => {
+    this.empleadosService.GetEmpleados().subscribe(data => {
       let status: number = 0, index: number = 0;
-      for (let i = 0; i < Object.values(data).length; i++) {
+      for (let i: number = 0; i < Object.values(data).length; i++) {
         status = Number(Object.values(Object.values(data)[i])[6]);
         if (status == 1) {
           this.empleados[index] = {
@@ -80,29 +77,28 @@ export class AsignacionesCreateComponent implements OnInit {
 
   CrearAsignacion(eventMessage: string) {
     console.log("Mensaje del Evento: " + eventMessage);
-    this.projectsService.GetProyecto(this.asignacion.id_proyecto).subscribe(data => {
+    this.proyectosService.GetProyecto(this.asignacion.id_proyecto).subscribe(data => {
       let fecha_inicio: string = this.fechasService.GetDateYMD(Object.values(data)[3].toString());
       let fecha_fin: string = this.fechasService.GetDateYMD(Object.values(data)[4].toString());
-      if ((new Date(this.fecha_asignado)) < (new Date(fecha_inicio))) {
-        this.toastrService.error("Inconsistencia en fecha de asignación."); return;
-      }
-      if ((new Date(fecha_fin)) <= (new Date(this.fecha_desasignado))) {
-        this.toastrService.error("Inconsistencia en fecha de desasignación."); return;
-      }
       if (this.asignacion.id_proyecto == 0 || this.asignacion.id_empleado == 0
         || this.fecha_asignado == "" || this.fecha_desasignado == "") {
         this.toastrService.error("Datos vacíos o inválidos."); return;
       }
+      if ((new Date(this.fecha_asignado) < new Date(fecha_inicio))
+      || (new Date(this.fecha_asignado) < new Date(this.currtent_date))) {
+        this.toastrService.error("Inconsistencia en fecha de asignación."); return;
+      }
+      if (new Date(fecha_fin) < new Date(this.fecha_desasignado)) {
+        this.toastrService.error("Inconsistencia en fecha de desasignación."); return;
+      }
       this.asignacion.fecha_asignado = new Date(this.fecha_asignado);
       this.asignacion.fecha_desasignado = new Date(this.fecha_desasignado);
-      this.assignmentsService.PostAsignacion(this.asignacion).subscribe(data => {
+      this.asignacionesService.PostAsignacion(this.asignacion).subscribe(data => {
         if (Boolean(data)) {
           this.toastrService.success("Asignación creada con éxito.");
-          this.router.navigate(['/asignaciones/index']);
+          this.router.navigate(['/asignaciones/index']); return;
         }
-        else {
           this.toastrService.error("No se pudo crear la asignación.");
-        }
       });
     });
   }

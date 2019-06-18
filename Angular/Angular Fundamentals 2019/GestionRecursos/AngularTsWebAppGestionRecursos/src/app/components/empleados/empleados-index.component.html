@@ -6,7 +6,8 @@
                     <h2 class="text-dark">Catálogo de Empleados:</h2>
                 </div>
                 <div class="col-md-2">
-                    <input class="btn btn-success" type="button" value="Crear Nuevo" (click)="CrearEmpleado();">
+                    <input class="btn btn-success" type="button"
+                    value="Crear Nuevo" (click)="CrearEmpleado();">
                 </div>
             </div>
             <table class="table table-bordered">
@@ -26,22 +27,20 @@
                     <ng-container *ngFor="let empleado of empleados;">
                         <tr>
                             <td>{{empleado.id_empleado}}</td>
-                            <td>{{empleado.nombre}}</td>
-                            <td>{{empleado.apellido}}</td>
+                            <td>{{empleado.nombre}}</td> <td>{{empleado.apellido}}</td>
                             <td style="max-width: 200px;">{{empleado.direccion}}</td>
-                            <td>{{empleado.telefono}}</td>
-                            <td>${{empleado.sueldo}}</td>
-                            <td *ngIf="empleado.status==0">Inactivo</td>
-                            <td *ngIf="empleado.status==1">Activo</td>
+                            <td>{{empleado.telefono}}</td> <td>${{empleado.sueldo}}</td>
+                            <td *ngIf="empleado.status == 0">Inactivo</td>
+                            <td *ngIf="empleado.status == 1">Activo</td>
                             <td>
-                                <input class="btn btn-primary" type="button" value="Editar" (click)="EditarEmpleado(empleado.id_empleado);"> |
+                                <input class="btn btn-primary" type="button" value="Editar"
+                                    (click)="EditarEmpleado(empleado.id_empleado);"> |
                                 <modal-entity
                                     [modalEntity]="empleado.id_empleado"
                                     [modalRequest]="'BorrarEmpleado'"
                                     (modalEntityEvent)="ActualizaIdEmpleado($event);"
                                     (modalRequestEvent)="BorrarEmpleado($event);">
                                 </modal-entity>
-                                <!--<input class="btn btn-danger" type="button" value="Borrar" (click)="BorrarEmpleado(empleado.id_empleado);">-->
                             </td>
                         </tr>
                     </ng-container>
@@ -49,7 +48,8 @@
             </table>
             <div style="text-align: center;">
                 <ng-container *ngFor="let pageIndex of pageIndexes;">
-                    <input class="btn btn-secondary" type="button" value="{{pageIndex}}" (click)="MuestraPagina(pageIndex);" style="margin-left: 5px;">
+                    <input class="btn btn-secondary" type="button" value="{{pageIndex}}"
+                        (click)="MuestraPagina(pageIndex);" style="margin-left: 5px;">
                 </ng-container>
             </div>
         </div>

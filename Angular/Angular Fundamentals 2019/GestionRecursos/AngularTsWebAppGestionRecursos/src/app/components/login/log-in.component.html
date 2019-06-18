@@ -1,21 +1,20 @@
 <nav-bar *ngIf="!isLoggedIn"></nav-bar>
-
 <body *ngIf="isLoggedIn">
     <form class="form-signin">
         <div style="text-align: center">
             <h1>{{title}}</h1>
-            <img alt="Angular Logo" src=".\assets\project-manager-logo.png">
+            <img src=".\assets\project-manager-logo.png">
         </div>
         <div class="form-label-group">
-            <input [(ngModel)]="id_empleado" [ngModelOptions]="{standalone: true}" class="form-control" type="number"
-                min="0" step="1" placeholder="Número de Empleado">
+            <input [(ngModel)]="id_empleado" [ngModelOptions]="{standalone: true}" class="form-control"
+            type="number" min="0" max="1000" step="1" maxlength="4" placeholder="Número de Empleado">
         </div>
         <div class="form-label-group">
-            <input [(ngModel)]="password" [ngModelOptions]="{standalone: true}" required="" class="form-control"
-                type="password" placeholder="Contraseña">
+            <input [(ngModel)]="password" [ngModelOptions]="{standalone: true}" required=""
+            class="form-control" type="password" maxlength="25" placeholder="Contraseña">
         </div>
         <div class="form-label-group">
-            <button class="btn btn-lg btn-primary btn-block" (click)="ValidaUsuario();">Iniciar Sesión</button>
+            <button class="btn btn-lg btn-primary btn-block" (click)="ValidaUsuario()">Iniciar Sesión</button>
         </div>
     </form>
 </body>

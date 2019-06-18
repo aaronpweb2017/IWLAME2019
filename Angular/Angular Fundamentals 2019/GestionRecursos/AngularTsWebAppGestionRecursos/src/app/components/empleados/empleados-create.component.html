@@ -40,7 +40,7 @@
                         <label class="text-light">Sueldo:</label>
                     </div>
                     <div class="col-md-6">
-                        <input [(ngModel)]="empleado.sueldo" [ngModelOptions]="{standalone: true}" type="number" onKeyPress="if(this.value.lengt>5) return false;" min=3000 step=1>
+                        <input [(ngModel)]="empleado.sueldo" [ngModelOptions]="{standalone: true}" type="number" min=3000 max="15000" step=1 maxlength="5">
                     </div>
                 </div>
                 <div class="row">
@@ -49,14 +49,12 @@
                     </div>
                     <div class="col-md-6">
                         <select [(ngModel)]="empleado.status" [ngModelOptions]="{standalone: true}">
-                            <option [value]="0">Inactivo</option>
-                            <option [value]="1">Activo</option>
+                            <option [value]="0">Inactivo</option> <option [value]="1">Activo</option>
                         </select>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-2">
-                    </div>
+                    <div class="col-md-2"> </div>
                     <div class="col-md-7">
                         <modal-entity [modalRequest]="'CrearEmpleado'" (modalRequestEvent)="CrearEmpleado($event)"></modal-entity>
                     </div>

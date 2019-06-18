@@ -6,7 +6,8 @@
                     <h2 class="text-dark">Catálogo de Asignaciones:</h2>
                 </div>
                 <div class="col-md-2">
-                    <input class="btn btn-success" type="button" value="Crear Nueva" (click)="CrearAsignacion();">
+                    <input class="btn btn-success" type="button"
+                    value="Crear Nueva" (click)="CrearAsignacion();">
                 </div>
             </div>
             <table class="table table-bordered">
@@ -21,21 +22,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <ng-container *ngFor="let asignacion of asignaciones; let i=index" [attr.data-index]="i">
+                    <ng-container *ngFor="let asignacion of asignaciones; let i=index;" [attr.data-index]="i">
                         <tr>
                             <td>{{asignacion.id_asignacion}}</td>
                             <td>{{proyectosnames[i]}}</td> <td>{{empleadosnames[i]}}</td>
                             <td>{{this.fechasService.GetDateDMY(asignacion.fecha_asignado)}}</td>
                             <td>{{this.fechasService.GetDateDMY(asignacion.fecha_desasignado)}}</td>
                             <td>
-                                <input class="btn btn-primary" type="button" value="Editar" (click)="EditarAsignacion(asignacion.id_asignacion);"> |
+                                <input class="btn btn-primary" type="button" value="Editar"
+                                    (click)="EditarAsignacion(asignacion.id_asignacion);"> |
                                 <modal-entity
                                     [modalEntity]="asignacion.id_asignacion"
                                     [modalRequest]="'BorrarAsignacion'"
                                     (modalEntityEvent)="ActualizaIdAsignacion($event);"
                                     (modalRequestEvent)="BorrarAsignacion($event);">
                                 </modal-entity>
-                                <!--<input class="btn btn-danger" type="button" value="Borrar" (click)="BorrarAsignacion(asignacion.id_asignacion);">-->
                             </td>
                         </tr>
                     </ng-container>
@@ -43,7 +44,8 @@
             </table>
             <div style="text-align: center;">
                 <ng-container *ngFor="let pageIndex of pageIndexes;" >
-                    <input class="btn btn-secondary" type="button" value="{{pageIndex}}" (click)="MuestraPagina(pageIndex);" style="margin-left: 5px;">
+                    <input class="btn btn-secondary" type="button" value="{{pageIndex}}"
+                        (click)="MuestraPagina(pageIndex);" style="margin-left: 5px;">
                 </ng-container>
             </div>
         </div>
