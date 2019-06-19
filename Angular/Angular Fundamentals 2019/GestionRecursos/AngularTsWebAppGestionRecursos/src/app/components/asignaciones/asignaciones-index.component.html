@@ -29,13 +29,18 @@
                             <td>{{this.fechasService.GetDateDMY(asignacion.fecha_asignado)}}</td>
                             <td>{{this.fechasService.GetDateDMY(asignacion.fecha_desasignado)}}</td>
                             <td>
-                                <input class="btn btn-primary" type="button" value="Editar"
-                                    (click)="EditarAsignacion(asignacion.id_asignacion);"> |
-                                <modal-entity
+                                <input *ngIf="proyectosestados[i]!=2" class="btn btn-primary"
+                                    type="button" value="Editar" (click)="EditarAsignacion(asignacion.id_asignacion);">
+                                <input *ngIf="proyectosestados[i]==2" class="btn btn-primary" type="button" value="Editar" disabled> |
+                                <modal-entity *ngIf="proyectosestados[i]!=2"
                                     [modalEntity]="asignacion.id_asignacion"
                                     [modalRequest]="'BorrarAsignacion'"
                                     (modalEntityEvent)="ActualizaIdAsignacion($event);"
                                     (modalRequestEvent)="BorrarAsignacion($event);">
+                                </modal-entity>
+                                <modal-entity *ngIf="proyectosestados[i]==2"
+                                    [modalRequest]="'BorrarAsignacion'"
+                                    [disabled]="'disabled'">
                                 </modal-entity>
                             </td>
                         </tr>

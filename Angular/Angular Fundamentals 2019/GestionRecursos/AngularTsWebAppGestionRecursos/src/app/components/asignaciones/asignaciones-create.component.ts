@@ -43,7 +43,7 @@ export class AsignacionesCreateComponent implements OnInit {
       for (let i: number = 0; i < Object.values(data).length; i++) {
         status = Number(Object.values(Object.values(data)[i])[5]);
         fecha_fin = this.fechasService.GetDateYMD(Object.values(Object.values(data)[i])[4].toString());
-        if (status == 1 && (new Date(fecha_fin) > new Date(this.currtent_date))) {
+        if (status != 2 && (new Date(this.currtent_date) < new Date(fecha_fin))) {
           this.proyectos[index] = {
             id_proyecto: Number(Object.values(Object.values(data)[i])[0]),
             nombre: Object.values(Object.values(data)[i])[1].toString(),
@@ -80,6 +80,7 @@ export class AsignacionesCreateComponent implements OnInit {
     this.proyectosService.GetProyecto(this.asignacion.id_proyecto).subscribe(data => {
       let fecha_inicio: string = this.fechasService.GetDateYMD(Object.values(data)[3].toString());
       let fecha_fin: string = this.fechasService.GetDateYMD(Object.values(data)[4].toString());
+      let estado: Number = Number(Object.values(data)[5]);
       if (this.asignacion.id_proyecto == 0 || this.asignacion.id_empleado == 0
         || this.fecha_asignado == "" || this.fecha_desasignado == "") {
         this.toastrService.error("Datos vacíos o inválidos."); return;
@@ -90,6 +91,22 @@ export class AsignacionesCreateComponent implements OnInit {
       }
       if (new Date(fecha_fin) < new Date(this.fecha_desasignado)) {
         this.toastrService.error("Inconsistencia en fecha de desasignación."); return;
+      }
+      if (estado == 0) {
+        let proyecto: Proyecto = {
+          id_proyecto: Number(Object.values(data)[0]),
+          nombre: Object.values(data)[1].toString(),
+          descripcion: Object.values(data)[2].toString(),
+          fecha_inicio: new Date(Object.values(data)[3].toString()),
+          fecha_fin: new Date(Object.values(data)[4].toString()), status: 1
+        };
+        this.proyectosService.UpdateProyecto(this.asignacion.id_proyecto, proyecto).subscribe(data => {
+          if (Boolean(data))
+            this.toastrService.success("Proyecto en estado proceso");
+          else {
+            this.toastrService.error("No se pudo procesar el proyecto."); return;
+          }
+        });
       }
       this.asignacion.fecha_asignado = new Date(this.fecha_asignado);
       this.asignacion.fecha_desasignado = new Date(this.fecha_desasignado);

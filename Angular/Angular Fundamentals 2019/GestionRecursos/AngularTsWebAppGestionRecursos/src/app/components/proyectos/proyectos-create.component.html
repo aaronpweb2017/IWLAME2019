@@ -8,7 +8,8 @@
                         <label class="text-light">Nombre:</label>
                     </div>
                     <div class="col-md-6">
-                        <input [(ngModel)]="proyecto.nombre" [ngModelOptions]="{standalone: true}" type="text" maxlength="50" placeholder="escribe el nombre">
+                        <input [(ngModel)]="proyecto.nombre" [ngModelOptions]="{standalone: true}" 
+                            type="text" maxlength="50" placeholder="escribe el nombre">
                     </div>
                 </div>
                 <div class="row">
@@ -16,7 +17,7 @@
                         <label class="text-light">Descripción:</label>
                     </div>
                     <div class="col-md-6">
-                        <textarea [(ngModel)]="proyecto.descripcion" [ngModelOptions]="{standalone: true}" rows="4" cols="50" maxlength="200">escribe la descripción</textarea>
+                        <textarea [(ngModel)]="proyecto.descripcion" [ngModelOptions]="{standalone: true}" rows="4" cols="50" maxlength="200"> </textarea>
                     </div>
                 </div>
                 <div class="row">
@@ -24,7 +25,8 @@
                         <label class="text-light">Fecha inicio:</label>
                     </div>
                     <div class="col-md-6">
-                        <input [(ngModel)]="fecha_inicio" [ngModelOptions]="{standalone: true}" type="date" data-format="DD-MM-YY" min="{{currtent_date}}" max="2020-12-31">
+                        <input [(ngModel)]="fecha_inicio" [ngModelOptions]="{standalone: true}"
+                        type="date" data-format="DD-MM-YY" min="{{currtent_date}}" max="2020-12-31">
                     </div>
                 </div>
                 <div class="row">
@@ -32,7 +34,8 @@
                         <label class="text-light">Fecha fin:</label>
                     </div>
                     <div class="col-md-6">
-                        <input [(ngModel)]="fecha_fin" [ngModelOptions]="{standalone: true}" type="date" date-format="DD-MM-YY" min="{{currtent_date}}" max="2020-12-31">
+                        <input [(ngModel)]="fecha_fin" [ngModelOptions]="{standalone: true}"
+                        type="date" date-format="DD-MM-YY" min="{{currtent_date}}" max="2020-12-31">
                     </div>
                 </div>
                 <div class="row">
