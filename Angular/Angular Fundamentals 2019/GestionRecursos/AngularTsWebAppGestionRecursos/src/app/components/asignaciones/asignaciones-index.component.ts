@@ -62,16 +62,16 @@ export class AsignacionesIndexComponent implements OnInit {
       this.asignacionesService.GetAsignaciones().subscribe(data => {
         let id_asignacion: number = 0;
         let id_proyecto: number = 0;
-        let asignado: Boolean = false;
+        let proyecto_asignado: Boolean = false;
         for (let i: number = 0; i < Object.values(data).length; i++) {
           id_asignacion = Number(Object.values(Object.values(data)[i])[0]);
           id_proyecto = Number(Object.values(Object.values(data)[i])[1]);
           if (id_asignacion != this.id_asignacion
             && id_proyecto == id_proyecto_asignacion) {
-            asignado = true; break;
+            proyecto_asignado = true; break;
           }
         }
-        if (!asignado) {
+        if (!proyecto_asignado) {
           this.proyectosService.GetProyecto(id_proyecto_asignacion).subscribe(data => {
             let proyecto: Proyecto = {
               id_proyecto: Number(Object.values(data)[0]),

@@ -1,0 +1,42 @@
+Validaciones:
+    Empleados:
+        Edición:
+            trabajando: Inactivo deshabilitado
+            !trabajando: Inactivo habilitado
+        Index:
+            empleadosasignados[i] == 0: Borrar habilitado
+            empleadosasignados[i] == 1: Borrar deshabilitado
+    Proyectos:
+        Creación:
+            fecha_inicio >= currtent_date
+            fecha_fin <= 2020-12-31 && fecha_fin > currtent_date
+        Edición:
+            fecha_inicio >= old_fecha_inicio
+            fecha_fin <= 2020-12-31 && fecha_fin > currtent_date
+            estado != 0: (fecha_inicio y fecha_fin) deshabilitadas.
+            estado == 0: (fecha_inicio y fecha_fin) habilitadas.
+            !asignado && !terminado || asignado && terminado: 
+                !asignado && !terminado: 'Inactivo' habilitada
+                asignado && terminado: 'Terminado' habilitada
+            !asignado && terminado || asignado && !terminado
+                !asignado && terminado: 'Inactivo' deshabilitada
+                asignado && !terminado: 'En Proceso' deshabilitada
+        Index:
+            status == 0: Borrar habilitado
+            status != 0: Borrar deshabilitado
+    Asignaciones:
+        Creación:
+            status (proyecto) != 2 && fecha_fin > currtent_date: Proyecto en Select.
+            status (empleado) == 1: Empleado mostrado en el Select.
+            fecha_asignado >= fecha_inicio && fecha_asignado >= currtent_date
+            fecha_fin >= fecha_desasignado
+        Edición:
+            status (proyecto) != 2 && fecha_fin > currtent_date: Proyecto en Select.
+            status (empleado) == 1: Empleado mostrado en el Select.
+            fecha_asignado >= fecha_inicio && fecha_asignado >= currtent_date
+            fecha_fin >= fecha_desasignado
+        Index:
+            proyectosestados[i] != 2: (Editar y Borrar)  habilitados
+            proyectosestados[i] == 2: (Editar y Borrar) deshabilitados
+            BorrarAsignacion():
+                !proyecto_asignado: Actualiza el estado del proyecto a 'Activo'

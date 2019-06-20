@@ -43,7 +43,7 @@ export class AsignacionesCreateComponent implements OnInit {
       for (let i: number = 0; i < Object.values(data).length; i++) {
         status = Number(Object.values(Object.values(data)[i])[5]);
         fecha_fin = this.fechasService.GetDateYMD(Object.values(Object.values(data)[i])[4].toString());
-        if (status != 2 && (new Date(this.currtent_date) < new Date(fecha_fin))) {
+        if (status != 2 && (new Date(fecha_fin) > new Date(this.currtent_date))) {
           this.proyectos[index] = {
             id_proyecto: Number(Object.values(Object.values(data)[i])[0]),
             nombre: Object.values(Object.values(data)[i])[1].toString(),

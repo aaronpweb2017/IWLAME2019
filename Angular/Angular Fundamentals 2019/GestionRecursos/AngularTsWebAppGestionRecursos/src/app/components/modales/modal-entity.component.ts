@@ -6,7 +6,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 })
 
 export class ModalEntity {
-    @Input() disabled: string = "";
+    @Input() disabled: string = "enabled";
     @Input() modalEntity: number;
     @Output() modalEntityEvent = new EventEmitter();
     @Input() modalRequest: string;

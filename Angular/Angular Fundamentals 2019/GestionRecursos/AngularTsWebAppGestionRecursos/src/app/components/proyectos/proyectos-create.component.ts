@@ -40,7 +40,8 @@ export class ProyectosCreateComponent implements OnInit {
     if (new Date(this.fecha_inicio) < new Date(this.currtent_date)) {
       this.toastrService.error("Inconsistencia en fecha de inicio."); return;
     }
-    if (new Date(this.fecha_fin) > new Date("2020-12-31")) {
+    if ((new Date(this.fecha_fin) > new Date("2020-12-31"))
+      || (new Date(this.fecha_fin) <= new Date(this.currtent_date))) {
       this.toastrService.error("Inconsistencia en fecha del final."); return;
     }
     this.proyecto.fecha_inicio = new Date(this.fecha_inicio);

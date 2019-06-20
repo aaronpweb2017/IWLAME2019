@@ -17,7 +17,7 @@ export class ProyectosEditComponent implements OnInit {
   id_proyecto: number;
   proyecto: Proyecto;
   currtent_date: string;
-  old_start_date: string;
+  old_fecha_inicio: string;
   fecha_inicio: string;
   fecha_fin: string;
   asignado: boolean;
@@ -42,9 +42,9 @@ export class ProyectosEditComponent implements OnInit {
       this.fecha_fin = this.fechasService.GetDateYMD(Object.values(data)[4].toString());
       this.proyecto.status = Number(Object.values(data)[5]);
       this.currtent_date = this.fechasService.GetCurrentDate();
-      this.old_start_date = this.fecha_inicio;
+      this.old_fecha_inicio = this.fecha_inicio;
       this.asignacionesService.GetAsignaciones().subscribe(data => {
-        let id_proyecto : number= 0; this.asignado = false; this.terminado = false;
+        let id_proyecto: number = 0; this.asignado = false; this.terminado = false;
         for (let i: number = 0; i < Object.values(data).length; i++) {
           id_proyecto = Number(Object.values(Object.values(data)[i])[1]);
           if (this.id_proyecto == id_proyecto) { this.asignado = true; break; }
@@ -58,16 +58,15 @@ export class ProyectosEditComponent implements OnInit {
 
   ActualizarProyecto(eventMessage: string) {
     console.log("Mensaje del Evento: " + eventMessage);
-
-
     if (this.proyecto.nombre == "" || this.proyecto.descripcion == ""
       || this.proyecto.status < 0 || this.fecha_inicio == "" || this.fecha_fin == "") {
       this.toastrService.error("Datos vacíos o inválidos."); return;
     }
-    if (new Date(this.fecha_inicio) < new Date(this.old_start_date)) {
+    if (new Date(this.fecha_inicio) < new Date(this.old_fecha_inicio)) {
       this.toastrService.error("Inconsistencia en fecha de inicio."); return;
     }
-    if (new Date(this.fecha_fin) > new Date("2020-12-31")) {
+    if ((new Date(this.fecha_fin) > new Date("2020-12-31"))
+      || (new Date(this.fecha_fin) <= new Date(this.currtent_date) && this.proyecto.status != 2)) {
       this.toastrService.error("Inconsistencia en fecha del final."); return;
     }
     this.proyecto.fecha_inicio = new Date(this.fecha_inicio);

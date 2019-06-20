@@ -20,11 +20,11 @@
                         <th>Teléfono</th>
                         <th>Sueldo</th>
                         <th>Estado</th>
-                        <th></th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <ng-container *ngFor="let empleado of empleados;">
+                    <ng-container *ngFor="let empleado of empleados; let i=index;" [attr.data-index]="i">
                         <tr>
                             <td>{{empleado.id_empleado}}</td>
                             <td>{{empleado.nombre}}</td> <td>{{empleado.apellido}}</td>
@@ -35,11 +35,15 @@
                             <td>
                                 <input class="btn btn-primary" type="button" value="Editar"
                                     (click)="EditarEmpleado(empleado.id_empleado);"> |
-                                <modal-entity
+                                <modal-entity *ngIf="empleadosasignados[i]==0"
                                     [modalEntity]="empleado.id_empleado"
                                     [modalRequest]="'BorrarEmpleado'"
                                     (modalEntityEvent)="ActualizaIdEmpleado($event);"
                                     (modalRequestEvent)="BorrarEmpleado($event);">
+                                </modal-entity>
+                                <modal-entity *ngIf="empleadosasignados[i]==1"
+                                    [modalRequest]="'BorrarEmpleado'"
+                                    [disabled]="'disabled'">
                                 </modal-entity>
                             </td>
                         </tr>
