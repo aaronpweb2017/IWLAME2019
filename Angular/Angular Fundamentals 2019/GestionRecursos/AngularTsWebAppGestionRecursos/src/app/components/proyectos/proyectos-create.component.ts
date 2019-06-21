@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { Proyecto } from 'src/app/interfaces/proyecto';
 import { ProyectosService } from 'src/app/services/proyectos-service';
 import { FechasService } from 'src/app/services/fechas-service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'proyectos-create',
@@ -32,9 +32,9 @@ export class ProyectosCreateComponent implements OnInit {
   }
 
   CrearProyecto(eventMessage: string) {
-    console.log("Mensaje del Evento: " + eventMessage);
+    //console.log("Mensaje del Evento: " + eventMessage);
     if (this.proyecto.nombre == "" || this.proyecto.descripcion == ""
-      || this.proyecto.status < 0 || this.fecha_inicio == "" || this.fecha_fin == "") {
+      || this.fecha_inicio == "" || this.fecha_fin == "") {
       this.toastrService.error("Datos vacíos o inválidos."); return;
     }
     if (new Date(this.fecha_inicio) < new Date(this.currtent_date)) {

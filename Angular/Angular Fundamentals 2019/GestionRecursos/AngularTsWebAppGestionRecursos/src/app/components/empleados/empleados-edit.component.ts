@@ -25,23 +25,24 @@ export class EmpleadosEditComponent implements OnInit {
 
   ngOnInit() {
     this.empleado = {
-      id_empleado: 0,
-      nombre: "", apellido: "", direccion: "",
-      telefono: "", sueldo: 0, status: 0
+      id_empleado: 0, nombre: "", apellido: "",
+      direccion: "", telefono: "",
+      sueldo: 0, status: 0
     };
     this.id_empleado = this.route.snapshot.params['id_empleado'];
     this.empleadosService.GetEmpleado(this.id_empleado).subscribe(data => {
       this.empleado = data as Empleado; this.trabajando = false;
-      this.proyectosService.GetProyectos().subscribe(data => {
-        let proyectos: Proyecto[] = Object.values(data);
-        this.asignacionesService.GetAsignaciones().subscribe(data => {
-          let asignaciones: Asignacion[] = Object.values(data);
-          for (let i: number = 0; i < asignaciones.length; i++) {
-            if (this.trabajando) break;
-            if (this.id_empleado == asignaciones[i].id_empleado) {
-              let proyecto: Proyecto = proyectos.find(project =>
-                project.id_proyecto === asignaciones[i].id_proyecto);
-              if (proyecto.status != 2) this.trabajando = true;
+      this.asignacionesService.GetAsignaciones().subscribe(data => {
+        let asignaciones: Asignacion[] = Object.values(data);
+        let assignments: Asignacion[] = asignaciones.filter(assignment =>
+          assignment.id_empleado === this.empleado.id_empleado);
+        this.proyectosService.GetProyectos().subscribe(data => {
+          let proyectos: Proyecto[] = Object.values(data);
+          for (let i: number = 0; i < assignments.length; i++) {
+            let proyecto: Proyecto = proyectos.find(project =>
+              project.id_proyecto === assignments[i].id_proyecto);
+            if (proyecto.status != 2) {
+              this.trabajando = true; break;
             }
           }
         });
@@ -50,7 +51,7 @@ export class EmpleadosEditComponent implements OnInit {
   }
 
   ActualizarEmpleado(eventMessage: string) {
-    console.log("Mensaje del Evento: " + eventMessage);
+    //console.log("Mensaje del Evento: " + eventMessage);
     if (this.empleado.nombre == "" || this.empleado.apellido == ""
       || this.empleado.direccion == "" || this.empleado.telefono == ""
       || this.empleado.sueldo < 3000 || this.empleado.sueldo > 15000) {

@@ -8,7 +8,7 @@
   data-target="#entityModal" style="margin-left: 15px; font-size: 16px;" (click)="emitirEventoModalEntity(modalEntity);">Borrar
 </button>
 <button *ngIf="modalRequest.search('Borrar')!=-1 && disabled=='disabled'" class="btn btn-danger" type="button"
-  data-toggle="modal" data-target="#entityModal" style="margin-left: 15px; font-size: 16px;" disabled>Borrar
+  data-toggle="modal" data-target="#entityModal" style="margin-left: 15px; font-size: 16px; cursor: not-allowed;" disabled>Borrar
 </button>
 <div class="modal fade" id="entityModal" tabindex="-1" role="dialog" aria-labelledby="entityModalLabel"
   aria-hidden="true">

@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Proyecto } from 'src/app/interfaces/proyecto';
+import { Asignacion } from 'src/app/interfaces/asignacion';
 import { ProyectosService } from 'src/app/services/proyectos-service';
 import { AsignacionesService } from 'src/app/services/asignaciones-service';
 import { FechasService } from 'src/app/services/fechas-service';
-import { Asignacion } from 'src/app/interfaces/asignacion';
-
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'proyectos-edit',
@@ -46,7 +45,7 @@ export class ProyectosEditComponent implements OnInit {
         let asignaciones: Asignacion[] = Object.values(data);
         let asignacion: Asignacion = asignaciones.find(assignment =>
           assignment.id_proyecto === this.proyecto.id_proyecto);
-        if(asignacion!=null) this.asignado = true;
+        if (asignacion != null) this.asignado = true;
         if (new Date(this.currtent_date) >= new Date(this.fecha_fin)) {
           this.terminado = true;
         }
@@ -55,9 +54,9 @@ export class ProyectosEditComponent implements OnInit {
   }
 
   ActualizarProyecto(eventMessage: string) {
-    console.log("Mensaje del Evento: " + eventMessage);
+    //console.log("Mensaje del Evento: " + eventMessage);
     if (this.proyecto.nombre == "" || this.proyecto.descripcion == ""
-      || this.proyecto.status < 0 || this.fecha_inicio == "" || this.fecha_fin == "") {
+      || this.fecha_inicio == "" || this.fecha_fin == "") {
       this.toastrService.error("Datos vacíos o inválidos."); return;
     }
     if (new Date(this.fecha_inicio) < new Date(this.old_fecha_inicio)) {

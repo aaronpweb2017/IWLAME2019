@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Asignacion } from 'src/app/interfaces/asignacion';
 import { Empleado } from 'src/app/interfaces/empleado';
-import { AsignacionesService } from 'src/app/services/asignaciones-service';
+import { Asignacion } from 'src/app/interfaces/asignacion';
 import { EmpleadosService } from 'src/app/services/empleados-service';
+import { AsignacionesService } from 'src/app/services/asignaciones-service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -15,7 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 export class EmpleadosIndexComponent implements OnInit {
   no_empleados: number;
   empleados: Empleado[];
-  empleadosasignados: Number[];
+  empleadosAsignados: Number[];
   id_empleado: number;
   noPaginas: number;
   pageIndexes: number[];
@@ -26,14 +26,14 @@ export class EmpleadosIndexComponent implements OnInit {
 
   ngOnInit() {
     this.id_empleado = 0; this.noPaginas = 0;
-    this.pageIndexes = []; this.empleadosasignados = [];
+    this.pageIndexes = []; this.empleadosAsignados = [];
     this.empleadosService.GetNoEmpleados().subscribe(data => {
       this.no_empleados = Number(data);
-      this.noPaginas = Math.trunc((this.no_empleados) / 5);
-      if ((this.no_empleados) % 5 != 0)
+      this.noPaginas = Math.trunc(this.no_empleados / 5);
+      if (this.no_empleados % 5 != 0)
         this.noPaginas = this.noPaginas + 1;
       for (let i: number = 0; i < this.noPaginas; i++)
-        this.pageIndexes[i] = (i + 1);
+        this.pageIndexes[i] = i + 1;
       this.MuestraPagina(this.curerntPage);
     });
   }
@@ -51,7 +51,7 @@ export class EmpleadosIndexComponent implements OnInit {
   }
 
   BorrarEmpleado(eventMessage: string) {
-    console.log("Mensaje del Evento: " + eventMessage);
+    //console.log("Mensaje del Evento: " + eventMessage);
     this.empleadosService.DeleteEmpleado(this.id_empleado).subscribe(data => {
       if (Boolean(data)) {
         this.toastrService.success("Empleado eliminado con éxito.");
@@ -69,16 +69,16 @@ export class EmpleadosIndexComponent implements OnInit {
   }
 
   MuestraPagina(noPagina: number) {
-    this.curerntPage = noPagina; this.empleadosasignados = [];
+    this.curerntPage = noPagina; this.empleadosAsignados = [];
     this.empleadosService.GetEmpleadosPaginacion(noPagina).subscribe(data => {
       this.empleados = Object.values(data); let asignacion: Asignacion;
       this.asignacionesService.GetAsignaciones().subscribe(data => {
         let asignaciones: Asignacion[] = Object.values(data);
         for (let i: number = 0; i < asignaciones.length; i++) {
-          asignacion = asignaciones.find(asignacion =>
-            asignacion.id_empleado === this.empleados[i].id_empleado)
-          if (asignacion != null) { this.empleadosasignados[i] = 1; continue; }
-          this.empleadosasignados[i] = 0;
+          asignacion = asignaciones.find(assignment =>
+            assignment.id_empleado === this.empleados[i].id_empleado)
+          if (asignacion != null) { this.empleadosAsignados[i] = 1; continue; }
+          this.empleadosAsignados[i] = 0;
         }
       });
     });

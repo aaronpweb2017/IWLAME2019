@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Asignacion } from 'src/app/interfaces/asignacion';
-import { AsignacionesService } from 'src/app/services/asignaciones-service';
 import { Proyecto } from 'src/app/interfaces/proyecto';
 import { Empleado } from 'src/app/interfaces/empleado';
+import { AsignacionesService } from 'src/app/services/asignaciones-service';
 import { ProyectosService } from 'src/app/services/proyectos-service';
 import { EmpleadosService } from 'src/app/services/empleados-service';
 import { FechasService } from 'src/app/services/fechas-service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'asignaciones-edit',
@@ -40,35 +40,34 @@ export class AsignacionesEditComponent implements OnInit {
       this.asignacion = data as Asignacion; this.fecha_asignado = ""; this.fecha_desasignado = ""
       this.fecha_asignado = this.fechasService.GetDateYMD(this.asignacion.fecha_asignado);
       this.fecha_desasignado = this.fechasService.GetDateYMD(this.asignacion.fecha_desasignado);
-      this.currtent_date = this.fecha_asignado;
-    });
-    this.proyectos = []; this.empleados = [];
-    this.proyectosService.GetProyectos().subscribe(data => {
-      let status: number = 0, index: number = 0; let fecha_fin: string = "";
-      let proyectos: Proyecto[] = Object.values(data);
-      for (let i: number = 0; i < proyectos.length; i++) {
-        status = proyectos[i].status;
-        fecha_fin = this.fechasService.GetDateYMD(proyectos[i].fecha_fin);
-        if (status != 2 && (new Date(fecha_fin) > new Date(this.currtent_date))) {
-          this.proyectos[index] = proyectos[i]; index++;
+      this.currtent_date = this.fecha_asignado; this.proyectos = []; this.empleados = [];
+      this.proyectosService.GetProyectos().subscribe(data => {
+        let index: number = 0; let fecha_fin: string = "";
+        let proyectos: Proyecto[] = Object.values(data);
+        for (let i: number = 0; i < proyectos.length; i++) {
+          let status: number = proyectos[i].status;
+          fecha_fin = this.fechasService.GetDateYMD(proyectos[i].fecha_fin);
+          if (status != 2 && new Date(fecha_fin) > new Date(this.currtent_date)) {
+            this.proyectos[index] = proyectos[i]; index++;
+          }
         }
-      }
-    });
-    this.empleadosService.GetEmpleados().subscribe(data => {
-      let status: number = 0, index: number = 0;
-      let empleados: Empleado[] = Object.values(data);
-      for (let i: number = 0; i < empleados.length; i++) {
-        status = empleados[i].status;
-        if (status == 1) {
-          this.empleados[index] = empleados[i];
-          index++;
-        }
-      }
+        this.empleadosService.GetEmpleados().subscribe(data => {
+          let status: number = 0, index: number = 0;
+          let empleados: Empleado[] = Object.values(data);
+          for (let i: number = 0; i < empleados.length; i++) {
+            status = empleados[i].status;
+            if (status == 1) {
+              this.empleados[index] = empleados[i];
+              index++;
+            }
+          }
+        });
+      });
     });
   }
 
   ActualizarAsignacion(eventMessage: string) {
-    console.log("Mensaje del Evento: " + eventMessage);
+    //console.log("Mensaje del Evento: " + eventMessage);
     if (this.asignacion.id_proyecto == 0 || this.asignacion.id_empleado == 0
       || this.fecha_asignado == "" || this.fecha_desasignado == "") {
       this.toastrService.error("Datos vacíos o inválidos."); return;

@@ -18,14 +18,14 @@ export class EmpleadosCreateComponent implements OnInit {
 
   ngOnInit() {
     this.empleado = {
-      id_empleado: 0,
-      nombre: "", apellido: "", direccion: "",
-      telefono: "", sueldo: 0, status: 0
+      id_empleado: 0, nombre: "", apellido: "",
+      direccion: "", telefono: "",
+      sueldo: 0, status: 0
     };
   }
 
   CrearEmpleado(eventMessage: string) {
-    console.log("Mensaje del Evento: " + eventMessage);
+    //console.log("Mensaje del Evento: " + eventMessage);
     if (this.empleado.nombre == "" || this.empleado.apellido == ""
       || this.empleado.direccion == "" || this.empleado.telefono == ""
       || this.empleado.sueldo < 3000 || this.empleado.sueldo > 15000) {

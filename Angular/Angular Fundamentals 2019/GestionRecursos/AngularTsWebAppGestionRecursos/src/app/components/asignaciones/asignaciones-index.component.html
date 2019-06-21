@@ -32,7 +32,7 @@
                                 <input *ngIf="proyectosEstados[i]!=2" class="btn btn-primary" type="button"
                                     value="Editar" (click)="EditarAsignacion(asignacion.id_asignacion);">
                                 <input *ngIf="proyectosEstados[i]==2" class="btn btn-primary"
-                                    type="button" value="Editar" disabled> |
+                                    type="button" value="Editar" style="cursor: not-allowed;" disabled> |
                                 <modal-entity
                                     *ngIf="proyectosEstados[i]!=2"
                                     [modalEntity]="asignacion.id_asignacion"

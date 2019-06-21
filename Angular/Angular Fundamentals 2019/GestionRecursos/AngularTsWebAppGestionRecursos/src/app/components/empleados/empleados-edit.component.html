@@ -48,7 +48,8 @@
                         <label class="text-light">Sueldo:</label>
                     </div>
                     <div class="col-md-6">
-                        <input [(ngModel)]="empleado.sueldo" [ngModelOptions]="{standalone: true}" type="number" min=3000 max="15000" step=1 maxlength="5">
+                        <input [(ngModel)]="empleado.sueldo" [ngModelOptions]="{standalone: true}" type="number" min=3000 max="15000" step=1 maxLength="5"
+                            oninput="typescript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
                     </div>
                 </div>
                 <div class="row">
