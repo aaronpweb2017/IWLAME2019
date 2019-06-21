@@ -5,6 +5,7 @@ import { Proyecto } from 'src/app/interfaces/proyecto';
 import { ProyectosService } from 'src/app/services/proyectos-service';
 import { AsignacionesService } from 'src/app/services/asignaciones-service';
 import { FechasService } from 'src/app/services/fechas-service';
+import { Asignacion } from 'src/app/interfaces/asignacion';
 
 
 @Component({
@@ -35,20 +36,17 @@ export class ProyectosEditComponent implements OnInit {
     };
     this.id_proyecto = this.route.snapshot.params['id_proyecto'];
     this.proyectosService.GetProyecto(this.id_proyecto).subscribe(data => {
-      this.proyecto.id_proyecto = Number(Object.values(data)[0]);
-      this.proyecto.nombre = Object.values(data)[1].toString();
-      this.proyecto.descripcion = Object.values(data)[2].toString();
-      this.fecha_inicio = this.fechasService.GetDateYMD(Object.values(data)[3].toString());
-      this.fecha_fin = this.fechasService.GetDateYMD(Object.values(data)[4].toString());
-      this.proyecto.status = Number(Object.values(data)[5]);
+      this.proyecto = data as Proyecto;
+      this.fecha_inicio = this.fechasService.GetDateYMD(this.proyecto.fecha_inicio);
+      this.fecha_fin = this.fechasService.GetDateYMD(this.proyecto.fecha_fin);
       this.currtent_date = this.fechasService.GetCurrentDate();
       this.old_fecha_inicio = this.fecha_inicio;
+      this.asignado = false; this.terminado = false;
       this.asignacionesService.GetAsignaciones().subscribe(data => {
-        let id_proyecto: number = 0; this.asignado = false; this.terminado = false;
-        for (let i: number = 0; i < Object.values(data).length; i++) {
-          id_proyecto = Number(Object.values(Object.values(data)[i])[1]);
-          if (this.id_proyecto == id_proyecto) { this.asignado = true; break; }
-        }
+        let asignaciones: Asignacion[] = Object.values(data);
+        let asignacion: Asignacion = asignaciones.find(assignment =>
+          assignment.id_proyecto === this.proyecto.id_proyecto);
+        if(asignacion!=null) this.asignado = true;
         if (new Date(this.currtent_date) >= new Date(this.fecha_fin)) {
           this.terminado = true;
         }

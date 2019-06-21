@@ -30,9 +30,9 @@ namespace ASPNETCoreWebApiORAGestionRecursos
             String SQLHomeConnectionString = Configuration.GetConnectionString("SQLHomeConnectionString");
             String SQLWorkConnectionString = Configuration.GetConnectionString("SQLWorkConnectionString");
             
-            services.AddDbContext<EmpleadoContext>(options => options.UseSqlServer(SQLHomeConnectionString));
-            services.AddDbContext<ProyectoContext>(options => options.UseSqlServer(SQLHomeConnectionString));
-            services.AddDbContext<AsignacionContext>(options => options.UseSqlServer(SQLHomeConnectionString));
+            services.AddDbContext<EmpleadoContext>(options => options.UseSqlServer(SQLWorkConnectionString));
+            services.AddDbContext<ProyectoContext>(options => options.UseSqlServer(SQLWorkConnectionString));
+            services.AddDbContext<AsignacionContext>(options => options.UseSqlServer(SQLWorkConnectionString));
             
             services.AddScoped<IEmpleadosManager, EmpleadosManager>();
             services.AddScoped<IProyectosManager, ProyectosManager>();

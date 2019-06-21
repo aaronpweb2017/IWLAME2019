@@ -25,22 +25,27 @@
                     <ng-container *ngFor="let asignacion of asignaciones; let i=index;" [attr.data-index]="i">
                         <tr>
                             <td>{{asignacion.id_asignacion}}</td>
-                            <td>{{proyectosnames[i]}}</td> <td>{{empleadosnames[i]}}</td>
+                            <td>{{proyectosNames[i]}}</td> <td>{{empleadosNames[i]}}</td>
                             <td>{{this.fechasService.GetDateDMY(asignacion.fecha_asignado)}}</td>
                             <td>{{this.fechasService.GetDateDMY(asignacion.fecha_desasignado)}}</td>
                             <td>
-                                <input *ngIf="proyectosestados[i]!=2" class="btn btn-primary" type="button"
+                                <input *ngIf="proyectosEstados[i]!=2" class="btn btn-primary" type="button"
                                     value="Editar" (click)="EditarAsignacion(asignacion.id_asignacion);">
-                                <input *ngIf="proyectosestados[i]==2" class="btn btn-primary"
+                                <input *ngIf="proyectosEstados[i]==2" class="btn btn-primary"
                                     type="button" value="Editar" disabled> |
-                                <modal-entity *ngIf="proyectosestados[i]!=2"
+                                <modal-entity
+                                    *ngIf="proyectosEstados[i]!=2"
                                     [modalEntity]="asignacion.id_asignacion"
                                     [modalRequest]="'BorrarAsignacion'"
                                     (modalEntityEvent)="ActualizaIdAsignacion($event);"
                                     (modalRequestEvent)="BorrarAsignacion($event);">
                                 </modal-entity>
-                                <modal-entity *ngIf="proyectosestados[i]==2"
+                                <modal-entity
+                                    *ngIf="proyectosEstados[i]==2"
+                                    [modalEntity]="asignacion.id_asignacion"
                                     [modalRequest]="'BorrarAsignacion'"
+                                    (modalEntityEvent)="ActualizaIdAsignacion($event);"
+                                    (modalRequestEvent)="BorrarAsignacion($event);"
                                     [disabled]="'disabled'">
                                 </modal-entity>
                             </td>

@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
-import { EmpleadosService } from 'src/app/services/empleados-service';
-import { ProyectosService } from 'src/app/services/proyectos-service';
-import { AsignacionesService } from 'src/app/services/asignaciones-service';
+import { Asignacion } from 'src/app/interfaces/asignacion';
 import { Empleado } from 'src/app/interfaces/empleado';
+import { AsignacionesService } from 'src/app/services/asignaciones-service';
+import { ProyectosService } from 'src/app/services/proyectos-service';
+import { EmpleadosService } from 'src/app/services/empleados-service';
+import { Proyecto } from 'src/app/interfaces/proyecto';
 
 @Component({
   selector: 'empleados-edit',
@@ -19,7 +21,7 @@ export class EmpleadosEditComponent implements OnInit {
 
   constructor(private empleadosService: EmpleadosService, private proyectosService:
     ProyectosService, private asignacionesService: AsignacionesService, private toastrService:
-    ToastrService, private router: Router, private route: ActivatedRoute) { }
+      ToastrService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.empleado = {
@@ -29,27 +31,20 @@ export class EmpleadosEditComponent implements OnInit {
     };
     this.id_empleado = this.route.snapshot.params['id_empleado'];
     this.empleadosService.GetEmpleado(this.id_empleado).subscribe(data => {
-      this.empleado.id_empleado = Number(Object.values(data)[0]);
-      this.empleado.nombre = Object.values(data)[1].toString();
-      this.empleado.apellido = Object.values(data)[2].toString();
-      this.empleado.direccion = Object.values(data)[3].toString();
-      this.empleado.telefono = Object.values(data)[4].toString();
-      this.empleado.sueldo = Number(Object.values(data)[5]);
-      this.empleado.status = Number(Object.values(data)[6]);
-      this.trabajando = false;
-      this.asignacionesService.GetAsignaciones().subscribe(data => {
-        let id_proyecto: number = 0; let id_empleado: number = 0; 
-        for (let i: number = 0; i < Object.values(data).length; i++) {
-          if(this.trabajando) break;
-          id_empleado = Number(Object.values(Object.values(data)[i])[2]);
-          if (this.id_empleado == id_empleado) {
-            id_proyecto = Number(Object.values(Object.values(data)[i])[1]);
-            this.proyectosService.GetProyecto(id_proyecto).subscribe(data => {
-              let status: Number = Number(Object.values(data)[5]);
-              if(status!=2) { this.trabajando = true; }
-            });
+      this.empleado = data as Empleado; this.trabajando = false;
+      this.proyectosService.GetProyectos().subscribe(data => {
+        let proyectos: Proyecto[] = Object.values(data);
+        this.asignacionesService.GetAsignaciones().subscribe(data => {
+          let asignaciones: Asignacion[] = Object.values(data);
+          for (let i: number = 0; i < asignaciones.length; i++) {
+            if (this.trabajando) break;
+            if (this.id_empleado == asignaciones[i].id_empleado) {
+              let proyecto: Proyecto = proyectos.find(project =>
+                project.id_proyecto === asignaciones[i].id_proyecto);
+              if (proyecto.status != 2) this.trabajando = true;
+            }
           }
-        }
+        });
       });
     });
   }
@@ -66,7 +61,7 @@ export class EmpleadosEditComponent implements OnInit {
         this.toastrService.success("Empleado actualizado con éxito.");
         this.router.navigate(['/empleados/index']); return;
       }
-        this.toastrService.error("No se pudo actualizar el empleado.");
+      this.toastrService.error("No se pudo actualizar el empleado.");
     });
   }
 

@@ -35,14 +35,19 @@
                             <td>
                                 <input class="btn btn-primary" type="button" value="Editar"
                                     (click)="EditarEmpleado(empleado.id_empleado);"> |
-                                <modal-entity *ngIf="empleadosasignados[i]==0"
+                                <modal-entity
+                                    *ngIf="empleadosasignados[i]==0"
                                     [modalEntity]="empleado.id_empleado"
                                     [modalRequest]="'BorrarEmpleado'"
                                     (modalEntityEvent)="ActualizaIdEmpleado($event);"
                                     (modalRequestEvent)="BorrarEmpleado($event);">
                                 </modal-entity>
-                                <modal-entity *ngIf="empleadosasignados[i]==1"
+                                <modal-entity
+                                    *ngIf="empleadosasignados[i]==1"
+                                    [modalEntity]="empleado.id_empleado"
                                     [modalRequest]="'BorrarEmpleado'"
+                                    (modalEntityEvent)="ActualizaIdEmpleado($event);"
+                                    (modalRequestEvent)="BorrarEmpleado($event);"
                                     [disabled]="'disabled'">
                                 </modal-entity>
                             </td>

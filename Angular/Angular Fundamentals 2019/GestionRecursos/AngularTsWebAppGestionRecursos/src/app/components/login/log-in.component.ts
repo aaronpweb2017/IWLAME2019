@@ -36,12 +36,10 @@ export class LogInComponent implements OnInit {
       this.toastrService.error("Ingrese código o contraseña."); return;
     }
     this.empleadosService.GetEmpleado(this.id_empleado).subscribe(data => {
-      if (Object.values(data) == null) {
+      if ((data as Empleado) == null) {
         this.toastrService.error("No se encontró al empleado."); return;
       }
-      this.empleado.id_empleado = Number(Object.values(data)[0]);
-      this.empleado.nombre = (Object.values(data)[1]).toString();
-      this.empleado.apellido = (Object.values(data)[2]).toString();
+      this.empleado = data as Empleado;
       this.toastrService.success("Bienvenido " + this.empleado.nombre + " " + this.empleado.apellido);
       this.isLoggedIn = true; this.router.navigate(['/empleados/index']);
     });
