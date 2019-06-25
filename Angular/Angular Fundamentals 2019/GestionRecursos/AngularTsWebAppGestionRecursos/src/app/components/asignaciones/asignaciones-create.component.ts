@@ -39,25 +39,12 @@ export class AsignacionesCreateComponent implements OnInit {
     this.fecha_desasignado = this.currtent_date;
     this.proyectos = []; this.empleados = [];
     this.proyectosService.GetProyectos().subscribe(data => {
-      let index: number = 0; let fecha_fin: string = "";
-      let proyectos: Proyecto[] = Object.values(data);
-      for (let i: number = 0; i < proyectos.length; i++) {
-        let status: number = proyectos[i].status;
-        fecha_fin = this.fechasService.GetDateYMD(proyectos[i].fecha_fin);
-        if (status != 2 && new Date(fecha_fin) > new Date(this.currtent_date)) {
-          this.proyectos[index] = proyectos[i]; index++;
-        }
-      }
+      let proyectos: Proyecto[] = data as Proyecto[];
+      this.proyectos = proyectos.filter(proyecto => (proyecto.status === 1 &&
+        new Date(this.fechasService.GetDateYMD(proyecto.fecha_fin)) > new Date(this.currtent_date)));
       this.empleadosService.GetEmpleados().subscribe(data => {
-        let status: number = 0, index: number = 0;
-        let empleados: Empleado[] = Object.values(data);
-        for (let i: number = 0; i < empleados.length; i++) {
-          status = empleados[i].status;
-          if (status == 1) {
-            this.empleados[index] = empleados[i];
-            index++;
-          }
-        }
+        let empleados: Empleado[] = data as Empleado[];
+        this.empleados = empleados.filter(empleado => empleado.status === 1);
       });
     });
   }
