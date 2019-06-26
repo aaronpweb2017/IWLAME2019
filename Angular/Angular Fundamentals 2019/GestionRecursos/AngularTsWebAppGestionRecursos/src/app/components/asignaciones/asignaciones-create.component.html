@@ -32,7 +32,8 @@
                         <label class="text-light">Asignado:</label>
                     </div>
                     <div class="col-md-6">
-                        <input [(ngModel)]="fecha_asignado" [ngModelOptions]="{standalone: true}" type="date" data-format="DD-MM-YY" min="{{currtent_date}}" max="2020-12-31">
+                        <input [(ngModel)]="fecha_asignado" [ngModelOptions]="{standalone: true}"
+                        type="date" data-format="DD-MM-YY" min="{{currtent_date}}" max="2020-12-31">
                     </div>
                 </div>
                 <div class="row">
@@ -40,17 +41,22 @@
                         <label class="text-light">Desasignado:</label>
                     </div>
                     <div class="col-md-6">
-                        <input [(ngModel)]="fecha_desasignado" [ngModelOptions]="{standalone: true}" type="date" date-format="DD-MM-YY" min="{{currtent_date}}" max="2020-12-31">
+                        <input [(ngModel)]="fecha_desasignado" [ngModelOptions]="{standalone: true}"
+                        type="date" date-format="DD-MM-YY" min="{{currtent_date}}" max="2020-12-31">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-3">
                     </div>
                     <div class="col-md-6">
-                        <modal-entity [modalRequest]="'CrearAsignacion'" (modalRequestEvent)="CrearAsignacion($event)"></modal-entity>
+                        <modal-entity [modalRequest]="'CrearAsignacion'"
+                            (modalRequestEvent)="CrearAsignacion($event)">
+                        </modal-entity>
                     </div>
                     <div class="col-md-3">
-                        <button class="btn btn-secondary" type="button" (click)="RegresarAsignaciones();">Regresar</button>
+                        <button class="btn btn-secondary" type="button" 
+                            (click)="RegresarAsignaciones();">Regresar
+                        </button>
                     </div>
                 </div>
             </form>

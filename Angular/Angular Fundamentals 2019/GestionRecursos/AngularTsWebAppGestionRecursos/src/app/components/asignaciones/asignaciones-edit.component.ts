@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
 import { Asignacion } from 'src/app/interfaces/asignacion';
 import { Proyecto } from 'src/app/interfaces/proyecto';
 import { Empleado } from 'src/app/interfaces/empleado';
@@ -8,6 +7,7 @@ import { ProyectosService } from 'src/app/services/proyectos-service';
 import { EmpleadosService } from 'src/app/services/empleados-service';
 import { FechasService } from 'src/app/services/fechas-service';
 import { ToastrService } from 'ngx-toastr';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'asignaciones-edit',
@@ -43,8 +43,7 @@ export class AsignacionesEditComponent implements OnInit {
       this.currtent_date = this.fecha_asignado; this.proyectos = []; this.empleados = [];
       this.proyectosService.GetProyectos().subscribe(data => {
         let proyectos: Proyecto[] = data as Proyecto[];
-        this.proyectos = proyectos.filter(proyecto => (proyecto.status === 1
-          && new Date(this.fechasService.GetDateYMD(proyecto.fecha_fin.toString())) > new Date(this.currtent_date)));
+        this.proyectos = proyectos.filter(proyecto => proyecto.status === 1);
         this.empleadosService.GetEmpleados().subscribe(data => {
           let empleados: Empleado[] = data as Empleado[];
           this.empleados = empleados.filter(empleado => empleado.status === 1);

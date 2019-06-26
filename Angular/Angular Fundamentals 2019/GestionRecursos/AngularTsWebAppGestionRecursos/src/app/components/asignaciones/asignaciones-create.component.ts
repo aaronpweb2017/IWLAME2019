@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Asignacion } from 'src/app/interfaces/asignacion';
 import { Proyecto } from 'src/app/interfaces/proyecto';
 import { Empleado } from 'src/app/interfaces/empleado';
@@ -8,6 +7,7 @@ import { ProyectosService } from 'src/app/services/proyectos-service';
 import { EmpleadosService } from 'src/app/services/empleados-service';
 import { FechasService } from 'src/app/services/fechas-service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'asignaciones-create',
@@ -16,12 +16,9 @@ import { ToastrService } from 'ngx-toastr';
 })
 
 export class AsignacionesCreateComponent implements OnInit {
-  asignacion: Asignacion;
-  currtent_date: string;
-  fecha_asignado: string;
-  fecha_desasignado: string;
-  proyectos: Proyecto[];
-  empleados: Empleado[];
+  asignacion: Asignacion; currtent_date: string;
+  fecha_asignado: string; fecha_desasignado: string;
+  proyectos: Proyecto[]; empleados: Empleado[];
 
   constructor(
     private asignacionesService: AsignacionesService, private proyectosService: ProyectosService,
@@ -40,11 +37,10 @@ export class AsignacionesCreateComponent implements OnInit {
     this.proyectos = []; this.empleados = [];
     this.proyectosService.GetProyectos().subscribe(data => {
       let proyectos: Proyecto[] = data as Proyecto[];
-      this.proyectos = proyectos.filter(proyecto => (proyecto.status === 1 &&
-        new Date(this.fechasService.GetDateYMD(proyecto.fecha_fin.toString())) > new Date(this.currtent_date)));
+      this.proyectos = proyectos.filter(project => project.status === 1);
       this.empleadosService.GetEmpleados().subscribe(data => {
         let empleados: Empleado[] = data as Empleado[];
-        this.empleados = empleados.filter(empleado => empleado.status === 1);
+        this.empleados = empleados.filter(employee => employee.status === 1);
       });
     });
   }

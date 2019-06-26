@@ -1,10 +1,7 @@
 /* Estilos de index: */
 
 body {
-    /*background: url(/assets/log-in-background.jpg) no-repeat center top;*/
-    /*background: #e0e2e4;*/
-    height: 100vh;
-    background-size: cover; 
+    background-color: #ffffff;
 }
 
 body div div div h3 {

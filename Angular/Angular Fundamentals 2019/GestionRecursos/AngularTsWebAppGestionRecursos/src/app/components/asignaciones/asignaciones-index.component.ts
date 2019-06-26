@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Asignacion } from 'src/app/interfaces/asignacion';
 import { Proyecto } from 'src/app/interfaces/proyecto';
 import { Empleado } from 'src/app/interfaces/empleado';
@@ -8,6 +7,7 @@ import { ProyectosService } from 'src/app/services/proyectos-service';
 import { EmpleadosService } from 'src/app/services/empleados-service';
 import { FechasService } from 'src/app/services/fechas-service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'asignaciones-index',
@@ -16,15 +16,9 @@ import { ToastrService } from 'ngx-toastr';
 })
 
 export class AsignacionesIndexComponent implements OnInit {
-  no_asignaciones: number;
-  asignaciones: Asignacion[];
-  id_asignacion: number;
-  proyectosNames: string[];
-  proyectosEstados: Number[];
-  empleadosNames: string[];
-  noPaginas: number;
-  pageIndexes: number[];
-  curerntPage: number = 1;
+  NoAsignaciones: number; asignaciones: Asignacion[]; id_asignacion: number;
+  proyectosNames: string[]; proyectosEstados: number[]; empleadosNames: string[];
+  NoPaginas: number; pageIndexes: number[]; curerntPage: number = 1;
 
   constructor(private asignacionesService: AsignacionesService, private proyectosService:
     ProyectosService, private empleadosService: EmpleadosService, private fechasService:
@@ -32,13 +26,13 @@ export class AsignacionesIndexComponent implements OnInit {
 
   ngOnInit() {
     this.proyectosNames = []; this.proyectosEstados = []; this.empleadosNames = [];
-    this.id_asignacion = 0; this.noPaginas = 0; this.pageIndexes = [];
+    this.id_asignacion = 0; this.NoPaginas = 0; this.pageIndexes = [];
     this.asignacionesService.GetNoAsignaciones().subscribe(data => {
-      this.no_asignaciones = Number(data);
-      this.noPaginas = Math.trunc(this.no_asignaciones / 5);
-      if (this.no_asignaciones % 5 != 0)
-        this.noPaginas = this.noPaginas + 1;
-      for (let i: number = 0; i < this.noPaginas; i++)
+      this.NoAsignaciones = Number(data);
+      this.NoPaginas = Math.trunc(this.NoAsignaciones / 5);
+      if (this.NoAsignaciones % 5 != 0)
+        this.NoPaginas = this.NoPaginas + 1;
+      for (let i: number = 0; i < this.NoPaginas; i++)
         this.pageIndexes[i] = i + 1;
       this.MuestraPagina(this.curerntPage);
     });
@@ -74,9 +68,9 @@ export class AsignacionesIndexComponent implements OnInit {
     });
   }
 
-  MuestraPagina(noPagina: number) {
-    this.curerntPage = noPagina;
-    this.asignacionesService.GetAsignacionesPaginacion(noPagina).subscribe(data => {
+  MuestraPagina(NoPagina: number) {
+    this.curerntPage = NoPagina;
+    this.asignacionesService.GetAsignacionesPaginacion(NoPagina).subscribe(data => {
       this.asignaciones = data as Asignacion[];
       this.proyectosService.GetProyectos().subscribe(data => {
         let proyectos: Proyecto[] = data as Proyecto[];
@@ -85,7 +79,8 @@ export class AsignacionesIndexComponent implements OnInit {
           for (let i: number = 0; i < this.asignaciones.length; i++) {
             let proyecto: Proyecto = proyectos.find(project =>
               project.id_proyecto === this.asignaciones[i].id_proyecto);
-            this.proyectosNames[i] = proyecto.id_proyecto + ".- " + proyecto.nombre;
+            this.proyectosNames[i] = proyecto.id_proyecto+ ".-";
+            this.proyectosNames[i] += " " + proyecto.nombre;
             this.proyectosEstados[i] = proyecto.status;
             let empleado: Empleado = empleados.find(employee =>
               employee.id_empleado === this.asignaciones[i].id_empleado);
