@@ -5,54 +5,55 @@ import { Empleado } from '../interfaces/empleado';
 
 @Injectable()
 export class EmpleadosService {
-    ApiEmpleadosUrl: string;
-    ApiGetNoEmpleadosUrl: string;
-    ApiGetEmpleadosUrl: string;
-    GetEmpleadosPaginacionUrl: string;
-    ApiGetEmpleadoUrl: string;
-    ApiPostEmpleadoUrl: string;
-    ApiUpdateEmpleadoUrl: string;
-    ApiDeleteEmpleadoUrl: string;
+    ApiEmpleadosURL: string;
+    ApiGetNoEmpleadosURL: string;
+    ApiGetEmpleadosURL: string;
+    GetEmpleadosPaginacionURL: string;
+    ApiGetEmpleadoURL: string;
+    ApiPostEmpleadoURL: string;
+    ApiUpdateEmpleadoURL: string;
+    ApiDeleteEmpleadoURL: string;
 
     constructor(private http: HttpClient) {
-        this.ApiEmpleadosUrl = "https://localhost:5001/Api/Empleados";
+        this.ApiEmpleadosURL = "https://localhost:5001/Api/Empleados";
     }
 
     GetNoEmpleados(): Observable<any> {
-        this.ApiGetNoEmpleadosUrl = this.ApiEmpleadosUrl+"/GetNoEmpleados"
-        return this.http.get(this.ApiGetNoEmpleadosUrl);
+        this.ApiGetNoEmpleadosURL = this.ApiEmpleadosURL+"/GetNoEmpleados";
+        return this.http.get(this.ApiGetNoEmpleadosURL);
     }
 
     GetEmpleados(): Observable<any> {
-        this.ApiGetEmpleadosUrl = this.ApiEmpleadosUrl+"/GetEmpleados"
-        return this.http.get(this.ApiGetEmpleadosUrl);
+        this.ApiGetEmpleadosURL = this.ApiEmpleadosURL+"/GetEmpleados";
+        return this.http.get(this.ApiGetEmpleadosURL);
     }
 
     GetEmpleadosPaginacion(no_pagina: number): Observable<any> {
-      this.GetEmpleadosPaginacionUrl =  this.ApiEmpleadosUrl+"/GetEmpleadosPaginacion/?no_pagina="+no_pagina;
-      return this.http.get(this.GetEmpleadosPaginacionUrl)
+      this.GetEmpleadosPaginacionURL =  this.ApiEmpleadosURL
+        +"/GetEmpleadosPaginacion/?no_pagina="+no_pagina;
+      return this.http.get(this.GetEmpleadosPaginacionURL)
     }
 
     GetEmpleado(id_empleado: number): Observable<any> {
-        this.ApiGetEmpleadoUrl = this.ApiEmpleadosUrl
+        this.ApiGetEmpleadoURL = this.ApiEmpleadosURL
         +"/GetEmpleado/?id_empleado="+id_empleado;
-        return this.http.get(this.ApiGetEmpleadoUrl);
+        return this.http.get(this.ApiGetEmpleadoURL);
     }
 
     PostEmpleado(empleado: Empleado): Observable<any> {
-        this.ApiPostEmpleadoUrl = this.ApiEmpleadosUrl + "/CrearEmpleado";
-        return this.http.post(this.ApiPostEmpleadoUrl, empleado);
+        this.ApiPostEmpleadoURL = this.ApiEmpleadosURL + "/CrearEmpleado";
+        return this.http.post(this.ApiPostEmpleadoURL, empleado);
     }
 
     UpdateEmpleado(id_empleado: number, empleado: Empleado): Observable<any> {
-        this.ApiUpdateEmpleadoUrl = this.ApiEmpleadosUrl
-        + "/ActualizarEmpleado/?id_empleado="+id_empleado;
-        return this.http.put(this.ApiUpdateEmpleadoUrl, empleado);
+        this.ApiUpdateEmpleadoURL = this.ApiEmpleadosURL
+            + "/ActualizarEmpleado/?id_empleado="+id_empleado;
+        return this.http.put(this.ApiUpdateEmpleadoURL, empleado);
     }
 
     DeleteEmpleado(id_empleado: number): Observable<any> {
-        this.ApiDeleteEmpleadoUrl = this.ApiEmpleadosUrl
+        this.ApiDeleteEmpleadoURL = this.ApiEmpleadosURL
         + "/BorrarEmpleado/?id_empleado="+id_empleado;
-        return this.http.delete(this.ApiDeleteEmpleadoUrl);
+        return this.http.delete(this.ApiDeleteEmpleadoURL);
     }
 }

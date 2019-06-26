@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
 import { Proyecto } from 'src/app/interfaces/proyecto';
 import { Asignacion } from 'src/app/interfaces/asignacion';
 import { ProyectosService } from 'src/app/services/proyectos-service';
 import { AsignacionesService } from 'src/app/services/asignaciones-service';
 import { FechasService } from 'src/app/services/fechas-service';
 import { ToastrService } from 'ngx-toastr';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'proyectos-edit',
@@ -14,14 +14,10 @@ import { ToastrService } from 'ngx-toastr';
 })
 
 export class ProyectosEditComponent implements OnInit {
-  id_proyecto: number;
-  proyecto: Proyecto;
-  currtent_date: string;
-  old_fecha_inicio: string;
-  fecha_inicio: string;
-  fecha_fin: string;
-  asignado: boolean;
-  terminado: boolean;
+  id_proyecto: number; proyecto: Proyecto;
+  currtent_date: string; old_fecha_inicio: string;
+  fecha_inicio: string; fecha_fin: string;
+  asignado: boolean; terminado: boolean;
 
   constructor(private proyectosService: ProyectosService, private asignacionesService:
     AsignacionesService, private fechasService: FechasService, private toastrService:
@@ -36,8 +32,8 @@ export class ProyectosEditComponent implements OnInit {
     this.id_proyecto = this.route.snapshot.params['id_proyecto'];
     this.proyectosService.GetProyecto(this.id_proyecto).subscribe(data => {
       this.proyecto = data as Proyecto;
-      this.fecha_inicio = this.fechasService.GetDateYMD(this.proyecto.fecha_inicio);
-      this.fecha_fin = this.fechasService.GetDateYMD(this.proyecto.fecha_fin);
+      this.fecha_inicio = this.fechasService.GetDateYMD(this.proyecto.fecha_inicio.toString());
+      this.fecha_fin = this.fechasService.GetDateYMD(this.proyecto.fecha_fin.toString());
       this.currtent_date = this.fechasService.GetCurrentDate();
       this.old_fecha_inicio = this.fecha_inicio;
       this.asignado = false; this.terminado = false;
@@ -59,13 +55,13 @@ export class ProyectosEditComponent implements OnInit {
       || this.fecha_inicio == "" || this.fecha_fin == "") {
       this.toastrService.error("Datos vacíos o inválidos."); return;
     }
-    if (new Date(this.fecha_inicio) < new Date(this.old_fecha_inicio)) {
-      this.toastrService.error("Inconsistencia en fecha de inicio."); return;
-    }
-    if ((new Date(this.fecha_fin) > new Date("2020-12-31"))
-      || (new Date(this.fecha_fin) <= new Date(this.currtent_date) && this.proyecto.status != 2)) {
-      this.toastrService.error("Inconsistencia en fecha del final."); return;
-    }
+    //if (new Date(this.fecha_inicio) < new Date(this.old_fecha_inicio)) {
+    //  this.toastrService.error("Inconsistencia en fecha de inicio."); return;
+    //}
+    //if ((new Date(this.fecha_fin) > new Date("2020-12-31"))
+    //  || (new Date(this.fecha_fin) <= new Date(this.currtent_date) && this.proyecto.status != 2)) {
+    //  this.toastrService.error("Inconsistencia en fecha del final."); return;
+    //}
     this.proyecto.fecha_inicio = new Date(this.fecha_inicio);
     this.proyecto.fecha_fin = new Date(this.fecha_fin);
     this.proyectosService.UpdateProyecto(this.id_proyecto, this.proyecto).subscribe(data => {

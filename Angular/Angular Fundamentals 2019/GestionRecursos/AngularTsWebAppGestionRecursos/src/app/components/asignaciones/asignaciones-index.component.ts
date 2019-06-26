@@ -77,11 +77,11 @@ export class AsignacionesIndexComponent implements OnInit {
   MuestraPagina(noPagina: number) {
     this.curerntPage = noPagina;
     this.asignacionesService.GetAsignacionesPaginacion(noPagina).subscribe(data => {
-      this.asignaciones = Object.values(data);
+      this.asignaciones = data as Asignacion[];
       this.proyectosService.GetProyectos().subscribe(data => {
-        let proyectos: Proyecto[] = Object.values(data);
+        let proyectos: Proyecto[] = data as Proyecto[];
         this.empleadosService.GetEmpleados().subscribe(data => {
-          let empleados: Empleado[] = Object.values(data);
+          let empleados: Empleado[] = data as Empleado[];
           for (let i: number = 0; i < this.asignaciones.length; i++) {
             let proyecto: Proyecto = proyectos.find(project =>
               project.id_proyecto === this.asignaciones[i].id_proyecto);

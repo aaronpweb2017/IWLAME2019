@@ -38,13 +38,13 @@ export class AsignacionesEditComponent implements OnInit {
     this.id_asignacion = this.route.snapshot.params['id_asignacion'];
     this.asignacionesService.GetAsignacion(this.id_asignacion).subscribe(data => {
       this.asignacion = data as Asignacion; this.fecha_asignado = ""; this.fecha_desasignado = ""
-      this.fecha_asignado = this.fechasService.GetDateYMD(this.asignacion.fecha_asignado);
-      this.fecha_desasignado = this.fechasService.GetDateYMD(this.asignacion.fecha_desasignado);
+      this.fecha_asignado = this.fechasService.GetDateYMD(this.asignacion.fecha_asignado.toString());
+      this.fecha_desasignado = this.fechasService.GetDateYMD(this.asignacion.fecha_desasignado.toString());
       this.currtent_date = this.fecha_asignado; this.proyectos = []; this.empleados = [];
       this.proyectosService.GetProyectos().subscribe(data => {
         let proyectos: Proyecto[] = data as Proyecto[];
-        this.proyectos = proyectos.filter(proyecto => (proyecto.status === 1 &&
-          new Date(this.fechasService.GetDateYMD(proyecto.fecha_fin)) > new Date(this.currtent_date)));
+        this.proyectos = proyectos.filter(proyecto => (proyecto.status === 1
+          && new Date(this.fechasService.GetDateYMD(proyecto.fecha_fin.toString())) > new Date(this.currtent_date)));
         this.empleadosService.GetEmpleados().subscribe(data => {
           let empleados: Empleado[] = data as Empleado[];
           this.empleados = empleados.filter(empleado => empleado.status === 1);
@@ -61,8 +61,8 @@ export class AsignacionesEditComponent implements OnInit {
     }
     let proyecto: Proyecto = this.proyectos.find(project =>
       project.id_proyecto === Number(this.asignacion.id_proyecto));
-    let fecha_inicio: string = this.fechasService.GetDateYMD(proyecto.fecha_inicio);
-    let fecha_fin: string = this.fechasService.GetDateYMD(proyecto.fecha_fin);
+    let fecha_inicio: string = this.fechasService.GetDateYMD(proyecto.fecha_inicio.toString());
+    let fecha_fin: string = this.fechasService.GetDateYMD(proyecto.fecha_fin.toString());
     if ((new Date(this.fecha_asignado) < new Date(fecha_inicio))
       || (new Date(this.fecha_asignado) < new Date(this.currtent_date))) {
       this.toastrService.error("Inconsistencia en fecha de asignación."); return;

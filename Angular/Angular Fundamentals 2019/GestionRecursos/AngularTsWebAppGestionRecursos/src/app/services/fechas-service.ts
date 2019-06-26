@@ -3,12 +3,12 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class FechasService {
     
-    GetDateDMY(stringDate): string {
+    GetDateDMY(stringDate: string): string {
         const [year, month, day] = stringDate.substring(0,10).split("-")
         return day +"-"+ month +"-"+ year;
     }
     
-    GetDateYMD(stringDate): string {
+    GetDateYMD(stringDate: string): string {
         const [year, month, day] = stringDate.substring(0,10).split("-")
         return year +"-"+ month +"-"+ day;
     }

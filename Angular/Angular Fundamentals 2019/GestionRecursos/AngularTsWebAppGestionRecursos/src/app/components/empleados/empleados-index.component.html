@@ -20,7 +20,7 @@
                         <th>Teléfono</th>
                         <th>Sueldo</th>
                         <th>Estado</th>
-                        <th>Acciones</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,14 +36,14 @@
                                 <input class="btn btn-primary" type="button" value="Editar"
                                     (click)="EditarEmpleado(empleado.id_empleado);"> |
                                 <modal-entity
-                                    *ngIf="empleadosAsignados[i]==0"
+                                    *ngIf="asignados[i]==0"
                                     [modalEntity]="empleado.id_empleado"
                                     [modalRequest]="'BorrarEmpleado'"
                                     (modalEntityEvent)="ActualizaIdEmpleado($event);"
                                     (modalRequestEvent)="BorrarEmpleado($event);">
                                 </modal-entity>
                                 <modal-entity
-                                    *ngIf="empleadosAsignados[i]==1"
+                                    *ngIf="asignados[i]==1"
                                     [modalEntity]="empleado.id_empleado"
                                     [modalRequest]="'BorrarEmpleado'"
                                     (modalEntityEvent)="ActualizaIdEmpleado($event);"

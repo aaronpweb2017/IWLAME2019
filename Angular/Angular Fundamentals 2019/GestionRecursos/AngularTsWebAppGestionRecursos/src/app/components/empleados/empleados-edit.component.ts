@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
-import { Router, ActivatedRoute } from '@angular/router';
 import { Asignacion } from 'src/app/interfaces/asignacion';
 import { Empleado } from 'src/app/interfaces/empleado';
+import { Proyecto } from 'src/app/interfaces/proyecto';
 import { AsignacionesService } from 'src/app/services/asignaciones-service';
 import { ProyectosService } from 'src/app/services/proyectos-service';
 import { EmpleadosService } from 'src/app/services/empleados-service';
-import { Proyecto } from 'src/app/interfaces/proyecto';
+import { ToastrService } from 'ngx-toastr';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'empleados-edit',
@@ -15,9 +15,7 @@ import { Proyecto } from 'src/app/interfaces/proyecto';
 })
 
 export class EmpleadosEditComponent implements OnInit {
-  id_empleado: number;
-  empleado: Empleado;
-  trabajando: Boolean;
+  id_empleado: number; empleado: Empleado; trabajando: Boolean;
 
   constructor(private empleadosService: EmpleadosService, private proyectosService:
     ProyectosService, private asignacionesService: AsignacionesService, private toastrService:
@@ -33,15 +31,15 @@ export class EmpleadosEditComponent implements OnInit {
     this.empleadosService.GetEmpleado(this.id_empleado).subscribe(data => {
       this.empleado = data as Empleado; this.trabajando = false;
       this.asignacionesService.GetAsignaciones().subscribe(data => {
-        let asignaciones: Asignacion[] = Object.values(data);
+        let asignaciones: Asignacion[] = data as Asignacion[];
         let assignments: Asignacion[] = asignaciones.filter(assignment =>
           assignment.id_empleado === this.empleado.id_empleado);
         this.proyectosService.GetProyectos().subscribe(data => {
-          let proyectos: Proyecto[] = Object.values(data);
+          let proyectos: Proyecto[] = data as Proyecto[];
           for (let i: number = 0; i < assignments.length; i++) {
             let proyecto: Proyecto = proyectos.find(project =>
               project.id_proyecto === assignments[i].id_proyecto);
-            if (proyecto.status != 2) {
+            if (proyecto.status == 1) {
               this.trabajando = true; break;
             }
           }

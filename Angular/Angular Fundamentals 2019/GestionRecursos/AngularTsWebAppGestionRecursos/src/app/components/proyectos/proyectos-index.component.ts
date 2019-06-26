@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { ProyectosService } from 'src/app/services/proyectos-service';
 import { Proyecto } from 'src/app/interfaces/proyecto';
 import { FechasService } from 'src/app/services/fechas-service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'proyectos-index',
@@ -12,24 +12,21 @@ import { ToastrService } from 'ngx-toastr';
 })
 
 export class ProyectosIndexComponent implements OnInit {
-  no_proyectos: number;
-  proyectos: Proyecto[];
-  id_proyecto: number;
-  noPaginas: number;
-  pageIndexes: number[];
-  curerntPage: number = 1;
+  NoProyectos: number; proyectos: Proyecto[];
+  id_proyecto: number; NoPaginas: number;
+  pageIndexes: number[]; curerntPage: number = 1;
 
   constructor(private proyectosService: ProyectosService, private fechasService:
     FechasService, private toastrService: ToastrService, private router: Router) { }
 
   ngOnInit() {
-    this.id_proyecto = 0; this.noPaginas = 0; this.pageIndexes = [];
+    this.id_proyecto = 0; this.NoPaginas = 0; this.pageIndexes = [];
     this.proyectosService.GetNoProyectos().subscribe(data => {
-      this.no_proyectos = Number(data);
-      this.noPaginas = Math.trunc(this.no_proyectos / 5);
-      if (this.no_proyectos % 5 != 0)
-        this.noPaginas = this.noPaginas + 1;
-      for (let i: number = 0; i < this.noPaginas; i++)
+      this.NoProyectos = Number(data);
+      this.NoPaginas = Math.trunc(this.NoProyectos / 5);
+      if (this.NoProyectos % 5 != 0)
+        this.NoPaginas = this.NoPaginas + 1;
+      for (let i: number = 0; i < this.NoPaginas; i++)
         this.pageIndexes[i] = i + 1;
       this.MuestraPagina(this.curerntPage);
     });

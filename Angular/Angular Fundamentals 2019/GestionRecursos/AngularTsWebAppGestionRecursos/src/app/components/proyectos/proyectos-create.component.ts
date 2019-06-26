@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Proyecto } from 'src/app/interfaces/proyecto';
 import { ProyectosService } from 'src/app/services/proyectos-service';
 import { FechasService } from 'src/app/services/fechas-service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'proyectos-create',
@@ -12,10 +12,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 
 export class ProyectosCreateComponent implements OnInit {
-  proyecto: Proyecto
-  currtent_date: string;
-  fecha_inicio: string;
-  fecha_fin: string;
+  proyecto: Proyecto; currtent_date: string;
+  fecha_inicio: string; fecha_fin: string;
 
   constructor(private proyectosService: ProyectosService, private fechasService:
     FechasService, private toastrService: ToastrService, private router: Router) { }
@@ -37,13 +35,13 @@ export class ProyectosCreateComponent implements OnInit {
       || this.fecha_inicio == "" || this.fecha_fin == "") {
       this.toastrService.error("Datos vacíos o inválidos."); return;
     }
-    if (new Date(this.fecha_inicio) < new Date(this.currtent_date)) {
-      this.toastrService.error("Inconsistencia en fecha de inicio."); return;
-    }
-    if ((new Date(this.fecha_fin) > new Date("2020-12-31"))
-      || (new Date(this.fecha_fin) <= new Date(this.currtent_date))) {
-      this.toastrService.error("Inconsistencia en fecha del final."); return;
-    }
+    //if (new Date(this.fecha_inicio) < new Date(this.currtent_date)) {
+    //  this.toastrService.error("Inconsistencia en fecha de inicio."); return;
+    //}
+    //if ((new Date(this.fecha_fin) > new Date("2020-12-31"))
+    //  || (new Date(this.fecha_fin) <= new Date(this.currtent_date))) {
+    //  this.toastrService.error("Inconsistencia en fecha del final."); return;
+    //}
     this.proyecto.fecha_inicio = new Date(this.fecha_inicio);
     this.proyecto.fecha_fin = new Date(this.fecha_fin);
     this.proyectosService.PostProyecto(this.proyecto).subscribe(data => {

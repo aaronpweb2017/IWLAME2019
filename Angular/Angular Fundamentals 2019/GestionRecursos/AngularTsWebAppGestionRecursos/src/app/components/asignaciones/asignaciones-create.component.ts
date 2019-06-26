@@ -41,7 +41,7 @@ export class AsignacionesCreateComponent implements OnInit {
     this.proyectosService.GetProyectos().subscribe(data => {
       let proyectos: Proyecto[] = data as Proyecto[];
       this.proyectos = proyectos.filter(proyecto => (proyecto.status === 1 &&
-        new Date(this.fechasService.GetDateYMD(proyecto.fecha_fin)) > new Date(this.currtent_date)));
+        new Date(this.fechasService.GetDateYMD(proyecto.fecha_fin.toString())) > new Date(this.currtent_date)));
       this.empleadosService.GetEmpleados().subscribe(data => {
         let empleados: Empleado[] = data as Empleado[];
         this.empleados = empleados.filter(empleado => empleado.status === 1);
@@ -57,8 +57,8 @@ export class AsignacionesCreateComponent implements OnInit {
     }
     let proyecto: Proyecto = this.proyectos.find(project =>
       project.id_proyecto === Number(this.asignacion.id_proyecto));
-    let fecha_inicio: string = this.fechasService.GetDateYMD(proyecto.fecha_inicio);
-    let fecha_fin: string = this.fechasService.GetDateYMD(proyecto.fecha_fin);
+    let fecha_inicio: string = this.fechasService.GetDateYMD(proyecto.fecha_inicio.toString());
+    let fecha_fin: string = this.fechasService.GetDateYMD(proyecto.fecha_fin.toString());
     if ((new Date(this.fecha_asignado) < new Date(fecha_inicio))
       || (new Date(this.fecha_asignado) < new Date(this.currtent_date))) {
       this.toastrService.error("Inconsistencia en fecha de asignación."); return;

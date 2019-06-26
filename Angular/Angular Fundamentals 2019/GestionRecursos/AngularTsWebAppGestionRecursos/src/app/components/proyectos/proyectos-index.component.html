@@ -13,13 +13,9 @@
             <table class="table table-bordered">
                 <thead class="thead-light">
                     <tr>
-                        <th>Código</th>
-                        <th>Nombre</th>
-                        <th>Descripcion</th>
-                        <th>Fecha inicio</th>
-                        <th>Fecha fin</th>
-                        <th>Estado</th>
-                        <th></th>
+                        <th>Código</th> <th>Nombre</th>
+                        <th>Descripcion</th> <th>Fecha inicio</th>
+                        <th>Fecha fin</th> <th>Estado</th> <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -27,8 +23,8 @@
                         <tr>
                             <td>{{proyecto.id_proyecto}}</td> <td>{{proyecto.nombre}}</td>
                             <td style="max-width: 200px;">{{proyecto.descripcion}}</td>
-                            <td>{{this.fechasService.GetDateDMY(proyecto.fecha_inicio)}}</td>
-                            <td>{{this.fechasService.GetDateDMY(proyecto.fecha_fin)}}</td>
+                            <td>{{this.fechasService.GetDateDMY(proyecto.fecha_inicio.toString())}}</td>
+                            <td>{{this.fechasService.GetDateDMY(proyecto.fecha_fin.toString())}}</td>
                             <td *ngIf="proyecto.status==0">Inactivo</td>
                             <td *ngIf="proyecto.status==1">En proceso</td>
                             <td *ngIf="proyecto.status==2">Terminado</td>

@@ -2,10 +2,10 @@
     <body>
         <h2>Ingrese los datos del proyecto:</h2><hr>
         <div>
-            <form class="bg-dark">
+            <form class="bg-light rounded border border-secondary">
                 <div class="row">
                     <div class="col-md-3">
-                        <label class="text-light">Nombre:</label>
+                        <label class="text-dark">Nombre:</label>
                     </div>
                     <div class="col-md-6">
                         <input [(ngModel)]="proyecto.nombre" [ngModelOptions]="{standalone: true}" 
@@ -14,7 +14,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <label class="text-light">Descripción:</label>
+                        <label class="text-dark">Descripción:</label>
                     </div>
                     <div class="col-md-6">
                         <textarea [(ngModel)]="proyecto.descripcion" [ngModelOptions]="{standalone: true}" rows="4" cols="50" maxlength="200"> </textarea>
@@ -22,7 +22,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <label class="text-light">Fecha inicio:</label>
+                        <label class="text-dark">Fecha inicio:</label>
                     </div>
                     <div class="col-md-6">
                         <input [(ngModel)]="fecha_inicio" [ngModelOptions]="{standalone: true}"
@@ -31,7 +31,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <label class="text-light">Fecha fin:</label>
+                        <label class="text-dark">Fecha fin:</label>
                     </div>
                     <div class="col-md-6">
                         <input [(ngModel)]="fecha_fin" [ngModelOptions]="{standalone: true}"
@@ -40,7 +40,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <label class="text-light">Estado:</label>
+                        <label class="text-dark">Estado:</label>
                     </div>
                     <div class="col-md-6">
                         <select [(ngModel)]="proyecto.status" [ngModelOptions]="{standalone: true}">

@@ -2,51 +2,56 @@
     <body>
         <h2 class="text-dark">Ingrese los datos del empleado:</h2><hr>
         <div>
-            <form class="bg-dark">
+            <form class="bg-light rounded border border-secondary">
                 <div class="row">
                     <div class="col-md-2">
-                        <label class="text-light">Nombre:</label>
+                        <label class="text-dark">Nombre:</label>
                     </div>
                     <div class="col-md-6">
-                        <input [(ngModel)]="empleado.nombre" [ngModelOptions]="{standalone: true}" type="text" maxlength="20" placeholder="escribe el nombre">
+                        <input [(ngModel)]="empleado.nombre" [ngModelOptions]="{standalone: true}"
+                            type="text" maxlength="20" placeholder="escribe el nombre">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-2">
-                        <label class="text-light">Apellido:</label>
+                        <label class="text-dark">Apellido:</label>
                     </div>
                     <div class="col-md-6">
-                        <input [(ngModel)]="empleado.apellido" [ngModelOptions]="{standalone: true}" type="text" maxlength="20" placeholder="escribe el apellido">
+                        <input [(ngModel)]="empleado.apellido" [ngModelOptions]="{standalone: true}"
+                            type="text" maxlength="20" placeholder="escribe el apellido">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-2">
-                        <label class="text-light">Dirección:</label>
+                        <label class="text-dark">Dirección:</label>
                     </div>
                     <div class="col-md-6">
-                        <input [(ngModel)]="empleado.direccion" [ngModelOptions]="{standalone: true}" type="text" maxlength="100" placeholder="escribe el dirección">
+                        <input [(ngModel)]="empleado.direccion" [ngModelOptions]="{standalone: true}"
+                            type="text" maxlength="100" placeholder="escribe el dirección">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-2">
-                        <label class="text-light">Teléfono:</label>
+                        <label class="text-dark">Teléfono:</label>
                     </div>
                     <div class="col-md-6">
-                        <input [(ngModel)]="empleado.telefono" [ngModelOptions]="{standalone: true}" type="text" maxlength="14" placeholder="escribe el teléfono">
+                        <input [(ngModel)]="empleado.telefono" [ngModelOptions]="{standalone: true}"
+                        type="text" maxlength="14" placeholder="escribe el teléfono">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-2">
-                        <label class="text-light">Sueldo:</label>
+                        <label class="text-dark">Sueldo:</label>
                     </div>
                     <div class="col-md-6">
-                        <input [(ngModel)]="empleado.sueldo" [ngModelOptions]="{standalone: true}" type="number" min=3000 max="15000" step=1 maxlength="5"
-                            oninput="typescript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+                        <input [(ngModel)]="empleado.sueldo" [ngModelOptions]="{standalone: true}"
+                        type="number" min=3000 max="15000" step=1 maxlength="5" oninput="typescript:
+                        if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-2">
-                        <label class="text-light">Estado:</label>
+                        <label class="text-dark">Estado:</label>
                     </div>
                     <div class="col-md-6">
                         <select [(ngModel)]="empleado.status" [ngModelOptions]="{standalone: true}">

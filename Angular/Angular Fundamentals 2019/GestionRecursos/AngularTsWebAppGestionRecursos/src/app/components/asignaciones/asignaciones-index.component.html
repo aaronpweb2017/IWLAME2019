@@ -26,22 +26,22 @@
                         <tr>
                             <td>{{asignacion.id_asignacion}}</td>
                             <td>{{proyectosNames[i]}}</td> <td>{{empleadosNames[i]}}</td>
-                            <td>{{this.fechasService.GetDateDMY(asignacion.fecha_asignado)}}</td>
-                            <td>{{this.fechasService.GetDateDMY(asignacion.fecha_desasignado)}}</td>
+                            <td>{{this.fechasService.GetDateDMY(asignacion.fecha_asignado.toString())}}</td>
+                            <td>{{this.fechasService.GetDateDMY(asignacion.fecha_desasignado.toString())}}</td>
                             <td>
                                 <input *ngIf="proyectosEstados[i]!=2" class="btn btn-primary" type="button"
                                     value="Editar" (click)="EditarAsignacion(asignacion.id_asignacion);">
                                 <input *ngIf="proyectosEstados[i]==2" class="btn btn-primary"
                                     type="button" value="Editar" style="cursor: not-allowed;" disabled> |
                                 <modal-entity
-                                    *ngIf="proyectosEstados[i]!=2"
+                                    *ngIf="proyectosEstados[i]==0"
                                     [modalEntity]="asignacion.id_asignacion"
                                     [modalRequest]="'BorrarAsignacion'"
-                                    (modalEntityEvent)="ActualizaIdAsignacion($event);"
+                                    ( modalEntityEvent)="ActualizaIdAsignacion($event);"
                                     (modalRequestEvent)="BorrarAsignacion($event);">
                                 </modal-entity>
                                 <modal-entity
-                                    *ngIf="proyectosEstados[i]==2"
+                                    *ngIf="proyectosEstados[i]!=0"
                                     [modalEntity]="asignacion.id_asignacion"
                                     [modalRequest]="'BorrarAsignacion'"
                                     (modalEntityEvent)="ActualizaIdAsignacion($event);"

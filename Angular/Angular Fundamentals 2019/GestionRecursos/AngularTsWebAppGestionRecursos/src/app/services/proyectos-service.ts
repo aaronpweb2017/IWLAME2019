@@ -5,54 +5,55 @@ import { Proyecto } from '../interfaces/proyecto';
 
 @Injectable()
 export class ProyectosService {
-    ApiProyectosUrl: string;
-    ApiGetNoProyectosUrl: string;
-    ApiGetProyectosUrl: string;
-    GetProyectosPaginacionUrl: string;    
-    ApiGetProyectoUrl: string;
-    ApiPostProyectoUrl: string;
-    ApiUpdateProyectoUrl: string;
-    ApiDeleteProyectoUrl: string;
+    ApiProyectosURL: string;
+    ApiGetNoProyectosURL: string;
+    ApiGetProyectosURL: string;
+    GetProyectosPaginacionURL: string;    
+    ApiGetProyectoURL: string;
+    ApiPostProyectoURL: string;
+    ApiUpdateProyectoURL: string;
+    ApiDeleteProyectoURL: string;
 
     constructor(private http: HttpClient) {
-        this.ApiProyectosUrl = "https://localhost:5001/Api/Proyectos"; 
+        this.ApiProyectosURL = "https://localhost:5001/Api/Proyectos"; 
     }
 
     GetNoProyectos(): Observable<any> {
-        this.ApiGetNoProyectosUrl = this.ApiProyectosUrl+"/GetNoProyectos"
-        return this.http.get(this.ApiGetNoProyectosUrl);
+        this.ApiGetNoProyectosURL = this.ApiProyectosURL+"/GetNoProyectos";
+        return this.http.get(this.ApiGetNoProyectosURL);
     }
 
     GetProyectos(): Observable<any> {
-        this.ApiGetProyectosUrl = this.ApiProyectosUrl+"/GetProyectos"
-        return this.http.get(this.ApiGetProyectosUrl);
+        this.ApiGetProyectosURL = this.ApiProyectosURL+"/GetProyectos";
+        return this.http.get(this.ApiGetProyectosURL);
     }
 
     GetProyectosPaginacion(no_pagina: number): Observable<any> {
-        this.GetProyectosPaginacionUrl =  this.ApiProyectosUrl+"/GetProyectosPaginacion/?no_pagina="+no_pagina;
-        return this.http.get(this.GetProyectosPaginacionUrl)
+        this.GetProyectosPaginacionURL =  this.ApiProyectosURL
+            +"/GetProyectosPaginacion/?no_pagina="+no_pagina;
+        return this.http.get(this.GetProyectosPaginacionURL)
     }    
 
     GetProyecto(id_proyecto: number): Observable<any> {
-        this.ApiGetProyectoUrl = this.ApiProyectosUrl
+        this.ApiGetProyectoURL = this.ApiProyectosURL
         +"/GetProyecto/?id_proyecto="+id_proyecto;
-        return this.http.get(this.ApiGetProyectoUrl);
+        return this.http.get(this.ApiGetProyectoURL);
     }
 
     PostProyecto(proyecto: Proyecto): Observable<any> {
-        this.ApiPostProyectoUrl = this.ApiProyectosUrl + "/CrearProyecto";
-        return this.http.post(this.ApiPostProyectoUrl, proyecto);
+        this.ApiPostProyectoURL = this.ApiProyectosURL + "/CrearProyecto";
+        return this.http.post(this.ApiPostProyectoURL, proyecto);
     }
 
     UpdateProyecto(id_proyecto: number, proyecto: Proyecto): Observable<any> {
-        this.ApiUpdateProyectoUrl = this.ApiProyectosUrl
+        this.ApiUpdateProyectoURL = this.ApiProyectosURL
         + "/ActualizarProyecto/?id_proyecto="+id_proyecto;
-        return this.http.put(this.ApiUpdateProyectoUrl, proyecto);
+        return this.http.put(this.ApiUpdateProyectoURL, proyecto);
     }
 
     DeleteProyecto(id_proyecto: number): Observable<any> {
-        this.ApiDeleteProyectoUrl = this.ApiProyectosUrl
+        this.ApiDeleteProyectoURL = this.ApiProyectosURL
         + "/BorrarProyecto/?id_proyecto="+id_proyecto;
-        return this.http.delete(this.ApiDeleteProyectoUrl);
+        return this.http.delete(this.ApiDeleteProyectoURL);
     }
 }

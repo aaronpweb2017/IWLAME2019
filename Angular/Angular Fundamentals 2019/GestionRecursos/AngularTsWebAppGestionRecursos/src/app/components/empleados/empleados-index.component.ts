@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Empleado } from 'src/app/interfaces/empleado';
 import { Asignacion } from 'src/app/interfaces/asignacion';
 import { EmpleadosService } from 'src/app/services/empleados-service';
 import { AsignacionesService } from 'src/app/services/asignaciones-service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'empleados-index',
@@ -13,26 +13,23 @@ import { ToastrService } from 'ngx-toastr';
 })
 
 export class EmpleadosIndexComponent implements OnInit {
-  no_empleados: number;
-  empleados: Empleado[];
-  empleadosAsignados: Number[];
-  id_empleado: number;
-  noPaginas: number;
-  pageIndexes: number[];
+  NoEmpleados: number; empleados: Empleado[];
+  id_empleado: number; asignados: number[];
+  NoPaginas: number; pageIndexes: number[];
   curerntPage: number = 1;
-  
+
   constructor(private empleadosService: EmpleadosService, private asignacionesService:
     AsignacionesService, private toastrService: ToastrService, private router: Router) { }
 
   ngOnInit() {
-    this.id_empleado = 0; this.noPaginas = 0;
-    this.pageIndexes = []; this.empleadosAsignados = [];
+    this.id_empleado = 0; this.NoPaginas = 0;
+    this.pageIndexes = []; this.asignados = [];
     this.empleadosService.GetNoEmpleados().subscribe(data => {
-      this.no_empleados = Number(data);
-      this.noPaginas = Math.trunc(this.no_empleados / 5);
-      if (this.no_empleados % 5 != 0)
-        this.noPaginas = this.noPaginas + 1;
-      for (let i: number = 0; i < this.noPaginas; i++)
+      this.NoEmpleados = Number(data);
+      this.NoPaginas = Math.trunc(this.NoEmpleados / 5);
+      if (this.NoEmpleados % 5 != 0)
+        this.NoPaginas = this.NoPaginas + 1;
+      for (let i: number = 0; i < this.NoPaginas; i++)
         this.pageIndexes[i] = i + 1;
       this.MuestraPagina(this.curerntPage);
     });
@@ -68,17 +65,18 @@ export class EmpleadosIndexComponent implements OnInit {
     });
   }
 
-  MuestraPagina(noPagina: number) {
-    this.curerntPage = noPagina; this.empleadosAsignados = [];
-    this.empleadosService.GetEmpleadosPaginacion(noPagina).subscribe(data => {
-      this.empleados = Object.values(data); let asignacion: Asignacion;
+  MuestraPagina(NoPagina: number) {
+    this.curerntPage = NoPagina; this.asignados = [];
+    this.empleadosService.GetEmpleadosPaginacion(NoPagina).subscribe(data => {
+      this.empleados = data as Empleado[]; let asignacion: Asignacion;
       this.asignacionesService.GetAsignaciones().subscribe(data => {
-        let asignaciones: Asignacion[] = Object.values(data);
-        for (let i: number = 0; i < asignaciones.length; i++) {
+        let asignaciones: Asignacion[] = data as Asignacion[];
+        this.asignados = Array<number>(this.empleados.length).fill(0);
+        for (let i: number = 0; i < this.empleados.length; i++) {
           asignacion = asignaciones.find(assignment =>
-            assignment.id_empleado === this.empleados[i].id_empleado)
-          if (asignacion != null) { this.empleadosAsignados[i] = 1; continue; }
-          this.empleadosAsignados[i] = 0;
+            assignment.id_empleado === this.empleados[i].id_empleado);
+          if (asignacion != null)
+            this.asignados[i] = 1;
         }
       });
     });

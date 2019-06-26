@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
 import { EmpleadosService } from 'src/app/services/empleados-service';
 import { Empleado } from 'src/app/interfaces/empleado';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'empleados-create',
