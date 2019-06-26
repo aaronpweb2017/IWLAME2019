@@ -63,11 +63,11 @@ export class AsignacionesEditComponent implements OnInit {
     let fecha_inicio: string = this.fechasService.GetDateYMD(proyecto.fecha_inicio.toString());
     let fecha_fin: string = this.fechasService.GetDateYMD(proyecto.fecha_fin.toString());
     if ((new Date(this.fecha_asignado) < new Date(fecha_inicio))
-      || (new Date(this.fecha_asignado) < new Date(this.currtent_date))) {
-      this.toastrService.error("Inconsistencia en fecha de asignación."); return;
+     || (new Date(this.fecha_asignado) < new Date(this.currtent_date))) {
+     this.toastrService.error("Inconsistencia en fecha de asignación."); return;
     }
     if (new Date(fecha_fin) < new Date(this.fecha_desasignado)) {
-      this.toastrService.error("Inconsistencia en fecha de desasignación."); return;
+     this.toastrService.error("Inconsistencia en fecha de desasignación."); return;
     }
     this.asignacion.fecha_asignado = new Date(this.fecha_asignado);
     this.asignacion.fecha_desasignado = new Date(this.fecha_desasignado);

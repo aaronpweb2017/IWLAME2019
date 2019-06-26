@@ -37,7 +37,7 @@
                                     *ngIf="proyectosEstados[i]!=2"
                                     [modalEntity]="asignacion.id_asignacion"
                                     [modalRequest]="'BorrarAsignacion'"
-                                    ( modalEntityEvent)="ActualizaIdAsignacion($event);"
+                                    (modalEntityEvent)="ActualizaIdAsignacion($event);"
                                     (modalRequestEvent)="BorrarAsignacion($event);">
                                 </modal-entity>
                                 <modal-entity

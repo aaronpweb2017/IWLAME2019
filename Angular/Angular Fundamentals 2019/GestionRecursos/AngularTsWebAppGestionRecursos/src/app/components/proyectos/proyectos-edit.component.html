@@ -35,7 +35,7 @@
                         <input *ngIf="!terminado" [(ngModel)]="fecha_inicio" [ngModelOptions]="{standalone: true}"
                             type="date" data-format="DD-MM-YY" min="{{old_fecha_inicio}}" max="2020-12-31">
                         <input *ngIf="terminado" [(ngModel)]="fecha_inicio" [ngModelOptions]="{standalone: true}"
-                            type="date" data-format="DD-MM-YY" min="{{old_fecha_inicio}}" max="2020-12-31" >
+                            type="date" data-format="DD-MM-YY" min="{{old_fecha_inicio}}" max="2020-12-31" disabled>
                     </div>
                 </div>
                 <div class="row">
@@ -43,10 +43,10 @@
                         <label class="text-dark">Fecha fin:</label>
                     </div>
                     <div class="col-md-6">
-                        <input *ngIf="proyecto.status!=2 && !terminado" [(ngModel)]="fecha_fin" [ngModelOptions]="{standalone: true}"
+                        <input *ngIf="!terminado" [(ngModel)]="fecha_fin" [ngModelOptions]="{standalone: true}"
                             type="date" date-format="DD-MM-YY" min="{{old_fecha_inicio}}" max="2020-12-31">
-                        <input *ngIf="proyecto.status==2 || terminado" [(ngModel)]="fecha_fin" [ngModelOptions]="{standalone: true}"
-                            type="date" date-format="DD-MM-YY" min="{{old_fecha_inicio}}" max="2020-12-31" >
+                        <input *ngIf="terminado" [(ngModel)]="fecha_fin" [ngModelOptions]="{standalone: true}"
+                            type="date" date-format="DD-MM-YY" min="{{old_fecha_inicio}}" max="2020-12-31" disabled>
                     </div>
                 </div>
                 <div class="row">
@@ -54,17 +54,19 @@
                         <label class="text-dark">Estado:</label>
                     </div>
                     <div class="col-md-6">
-                        <select *ngIf="(!asignado && !terminado) || (asignado && terminado)"
+                        <select *ngIf="(!asignado && !terminado) || (asignado && !terminado)"
                         [(ngModel)]="proyecto.status" [ngModelOptions]="{standalone: true}">
-                            <option *ngIf="!asignado && !terminado" [value]="0">Inactivo</option>
-                            <option *ngIf="proyecto.status==1" [value]="1">En Proceso</option>
-                            <option *ngIf="proyecto.status==2" [value]="1" disabled>En Proceso</option>
-                            <option *ngIf="asignado && terminado" [value]="2">Terminado</option>
+                            <option [value]="0">Inactivo</option> <option [value]="1">En Proceso</option>
                         </select>
-                        <select *ngIf="(!asignado && terminado) || (asignado && !terminado)"
-                            [(ngModel)]="proyecto.status" [ngModelOptions]="{standalone: true}" disabled>
-                            <option *ngIf="!asignado && terminado" [value]="0">Inactivo</option>
-                            <option *ngIf="asignado && !terminado" [value]="1">En Proceso</option>
+                        <select *ngIf="!asignado && terminado"
+                        [(ngModel)]="proyecto.status" [ngModelOptions]="{standalone: true}">
+                            <option *ngIf="proyecto.status==0" [value]="0" disabled>Inactivo</option>    
+                            <option *ngIf="proyecto.status==1 || proyecto.status==2" [value]="0">Inactivo</option>
+                        </select>
+                        <select *ngIf="asignado && terminado"
+                        [(ngModel)]="proyecto.status" [ngModelOptions]="{standalone: true}">
+                            <option *ngIf="proyecto.status==0 || proyecto.status==1" [value]="2">Terminado</option>
+                            <option *ngIf="proyecto.status==2" [value]="2" disabled>Terminado</option>
                         </select>
                     </div>
                 </div>

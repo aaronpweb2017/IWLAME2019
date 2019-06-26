@@ -55,13 +55,13 @@ export class ProyectosEditComponent implements OnInit {
       || this.fecha_inicio == "" || this.fecha_fin == "") {
       this.toastrService.error("Datos vacíos o inválidos."); return;
     }
-    //if (new Date(this.fecha_inicio) < new Date(this.old_fecha_inicio)) {
-    //  this.toastrService.error("Inconsistencia en fecha de inicio."); return;
-    //}
-    //if ((new Date(this.fecha_fin) > new Date("2020-12-31"))
-    //  || (new Date(this.fecha_fin) <= new Date(this.currtent_date) && this.proyecto.status != 2)) {
-    //  this.toastrService.error("Inconsistencia en fecha del final."); return;
-    //}
+    if (new Date(this.fecha_inicio) < new Date(this.old_fecha_inicio)) {
+     this.toastrService.error("Inconsistencia en fecha de inicio."); return;
+    }
+    if ((new Date(this.fecha_fin) > new Date("2020-12-31"))
+     || (new Date(this.fecha_fin) <= new Date(this.currtent_date) && this.proyecto.status != 2)) {
+     this.toastrService.error("Inconsistencia en fecha del final."); return;
+    }
     this.proyecto.fecha_inicio = new Date(this.fecha_inicio);
     this.proyecto.fecha_fin = new Date(this.fecha_fin);
     this.proyectosService.UpdateProyecto(this.id_proyecto, this.proyecto).subscribe(data => {

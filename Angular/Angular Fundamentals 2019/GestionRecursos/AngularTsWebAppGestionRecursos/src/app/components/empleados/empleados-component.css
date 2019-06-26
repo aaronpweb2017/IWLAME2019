@@ -1,14 +1,7 @@
-body {
-    /*background: url(/assets/log-in-background.jpg) no-repeat center top;*/
-    /*background:#e0e2e4;*/
-    height: 100vh;
-    background-size: cover; 
-}
+/* Estilos de index: */
 
-body div div div h3 {
-    font-weight: bold;
-    margin-top: 15px;
-    margin-left: 15px;
+body {
+    background-color: #ffffff;
 }
 
 body div div div input {
@@ -37,7 +30,7 @@ body div div div input {
     margin-right: 15px;
 }
 
-/* Estilos de create edit y delete: */
+/* Estilos de create y edit: */
 
 body h2 {
     margin-left: 20px;
@@ -49,6 +42,7 @@ body div form {
     max-width: 650px;
     margin-left: 20px;
     border-radius: 10px 10px;
+    padding-bottom: 0.6em;
 }
 
 body div form div div label {
@@ -60,7 +54,6 @@ body div form div div label {
 
 body div form div div input, select {
     margin-top: 15px;
-    margin-left: 15px;
     border-radius: 5px 5px;
     width: 500px;
     font-size: 20px;

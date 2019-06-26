@@ -4,12 +4,6 @@ body {
     background-color: #ffffff;
 }
 
-body div div div h3 {
-    font-weight: bold;
-    margin-top: 15px;
-    margin-left: 15px;
-}
-
 body div div div input {
     margin-top: 15px;
     font-size: 22px;
@@ -36,7 +30,7 @@ body div div div input {
     margin-right: 15px;
 }
 
-/* Estilos de create edit y delete: */
+/* Estilos de create y edit: */
 
 body h2 {
     margin-left: 20px;
@@ -48,6 +42,7 @@ body div form {
     max-width: 720px;
     margin-left: 20px;
     border-radius: 10px 10px;
+    padding-bottom: 0.6em;
 }
 
 body div form div div label {
