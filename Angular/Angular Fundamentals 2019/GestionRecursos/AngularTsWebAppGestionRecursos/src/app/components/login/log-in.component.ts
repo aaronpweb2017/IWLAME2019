@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { EmpleadosService } from '../../services/empleados-service';
-import { Empleado } from "../../interfaces/Empleado";
+import { Empleado } from 'src/app/interfaces/empleado';
+import { EmpleadosService } from 'src/app/services/empleados-service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 

@@ -1,8 +1,6 @@
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 using ASPNETCoreWebApiORAGestionRecursos.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace ASPNETCoreWebApiORAGestionRecursos 
 {
@@ -23,6 +21,10 @@ namespace ASPNETCoreWebApiORAGestionRecursos
 
         public async Task<List<Asignacion>> GetAsignacionesPaginacion(int no_pagina) {
             return await asignacionesDAO.GetAsignacionesPaginacion(no_pagina);
+        }
+
+        public async Task<List<Asignacion>> GetAsignacionesEmpleados(int [] ids_empleados) {
+            return await asignacionesDAO.GetAsignacionesEmpleados(ids_empleados);
         }
 
         public async Task<Asignacion> GetAsignacion(int id_asignacion) {

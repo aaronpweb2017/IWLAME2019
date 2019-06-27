@@ -1,10 +1,10 @@
-using System;
+//using System;
 using System.Collections.Generic;
-using System.Linq;
+//using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ASPNETCoreWebApiORAGestionRecursos.Models;
-using Microsoft.EntityFrameworkCore;
+//using Microsoft.EntityFrameworkCore;
 
 namespace ASPNETCoreWebApiORAGestionRecursos.Controllers
 {
@@ -33,6 +33,12 @@ namespace ASPNETCoreWebApiORAGestionRecursos.Controllers
         [HttpGet] [ActionName("GetAsignacionesPaginacion")]
         public Task<List<Asignacion>> GetAsignacionesPaginationAsync(int no_pagina) {
             return asignacionesManager.GetAsignacionesPaginacion(no_pagina);
+        }
+
+        //GET: https://localhost:5001/Api/Asignaciones/GetAsignacionesEmpleados
+        [HttpGet] [ActionName("GetAsignacionesEmpleados")]
+        public Task<List<Asignacion>> GetAsignacionesEmpleadosAsync([FromBody] int [] ids_empleados) {
+            return asignacionesManager.GetAsignacionesEmpleados(ids_empleados);
         }
 
         //GET: https://localhost:5001/Api/Asignaciones/GetAsignacion/?id_asignacion=value
