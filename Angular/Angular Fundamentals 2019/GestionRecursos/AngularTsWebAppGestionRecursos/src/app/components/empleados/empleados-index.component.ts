@@ -69,13 +69,16 @@ export class EmpleadosIndexComponent implements OnInit {
     this.curerntPage = NoPagina; this.asignados = [];
     this.empleadosService.GetEmpleadosPaginacion(NoPagina).subscribe(data => {
       this.empleados = data as Empleado[]; let asignacion: Asignacion;
-      //let ids_empleados: number[] = this.empleados.map(employee => Number(employee.id_empleado));
+      this.asignados = Array<number>(this.empleados.length).fill(0);
+      //let ids_empleados: number[] = this.empleados.map(employee => employee.id_empleado);
       //this.asignacionesService.GetAsignacionesEmpleados(ids_empleados).subscribe(data => {
-      //  console.log("información recivida mediante data"); console.log(data);
+      //  let asignaciones: Asignacion[] = data as Asignacion[];
+      //  for (let i: number = 0; i < asignaciones.length; i++) {
+      //    if(asignaciones[i]!=null) this.asignados[i] = 1;
+      //  }
       //});
       this.asignacionesService.GetAsignaciones().subscribe(data => {
         let asignaciones: Asignacion[] = data as Asignacion[];
-        this.asignados = Array<number>(this.empleados.length).fill(0);
         for (let i: number = 0; i < this.empleados.length; i++) {
           asignacion = asignaciones.find(assignment =>
             assignment.id_empleado === this.empleados[i].id_empleado);

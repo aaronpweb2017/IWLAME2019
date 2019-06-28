@@ -20,37 +20,30 @@ namespace ASPNETCoreWebApiORAGestionRecursos
 
         public void ConfigureServices(IServiceCollection services) {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            string ConnectionString;
-            string CurrentUserName = WindowsIdentity.GetCurrent().Name;
-            //Console.WriteLine("Current UserName: "+CurrentUserName);
+            string CurrentUserName = ""; string ConnectionString = "";
+            CurrentUserName = WindowsIdentity.GetCurrent().Name;
             if(CurrentUserName.Equals("DESKTOP-E7CRFE9\\Lenovo"))
                 ConnectionString = Configuration.GetConnectionString("SQLHomeConnectionString");
-            else
+            if(CurrentUserName.Equals("NEORIS\\e-lmedina"))
                 ConnectionString = Configuration.GetConnectionString("SQLWorkConnectionString");
-            services.AddDbContext<EmpleadoContext>(options => options.UseSqlServer(ConnectionString));
-            services.AddDbContext<ProyectoContext>(options => options.UseSqlServer(ConnectionString));
             services.AddDbContext<AsignacionContext>(options => options.UseSqlServer(ConnectionString));
-            
-            services.AddScoped<IEmpleadosManager, EmpleadosManager>();
-            services.AddScoped<IProyectosManager, ProyectosManager>();
+            services.AddDbContext<ProyectoContext>(options => options.UseSqlServer(ConnectionString));
+            services.AddDbContext<EmpleadoContext>(options => options.UseSqlServer(ConnectionString));
             services.AddScoped<IAsignacionesManager, AsignacionesManager>();
-
-            services.AddCors(options => {
-                options.AddPolicy("Access-Control-Allow-Origin",
+            services.AddScoped<IProyectosManager, ProyectosManager>();
+            services.AddScoped<IEmpleadosManager, EmpleadosManager>();
+            services.AddCors(options => { options.AddPolicy("Access-Control-Allow-Origin",
                 builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod());
             });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
-            if (env.IsDevelopment()) {
+            if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
-            }
-            else {
+            else
                 app.UseHsts();
-            }
             app.UseCors("Access-Control-Allow-Origin");
-            app.UseHttpsRedirection();
-            app.UseMvc();
+            app.UseHttpsRedirection(); app.UseMvc();
         }
     }
 }

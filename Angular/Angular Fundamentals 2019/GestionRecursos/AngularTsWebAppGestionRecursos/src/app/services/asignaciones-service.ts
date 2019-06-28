@@ -5,16 +5,11 @@ import { Asignacion } from '../interfaces/asignacion';
 
 @Injectable()
 export class AsignacionesService {
-    ApiAsignacionesURL: string;
-    ApiGetNoAsignacionesURL: string;
-    ApiGetAsignacionesURL: string;
-    GetAsignacionesPaginacionURL: string;
-    GetAsignacionesEmpleadosURL: string;
-    ApiGetAsignacionURL: string;
-    ApiPostAsignacionURL: string;
-    ApiUpdateAsignacionURL: string;
-    ApiDeleteAsignacionURL: string;
-    asignacion: Asignacion;
+    ApiAsignacionesURL: string; ApiGetNoAsignacionesURL: string;
+    ApiGetAsignacionesURL: string; GetAsignacionesPaginacionURL: string;
+    GetAsignacionesEmpleadosURL: string; ApiGetAsignacionURL: string;
+    ApiPostAsignacionURL: string; ApiUpdateAsignacionURL: string;
+    ApiDeleteAsignacionURL: string; asignacion: Asignacion;
 
     constructor(private http: HttpClient) {
         this.ApiAsignacionesURL = "https://localhost:5001/Api/Asignaciones";
@@ -48,7 +43,7 @@ export class AsignacionesService {
             headers: new HttpHeaders({'Content-Type': 
             'application/json'}), body: ids_empleados
         };
-        return this.http.get(this.GetAsignacionesEmpleadosURL, httpOptions);
+        return this.http.get(this.GetAsignacionesEmpleadosURL, httpOptions); 
         //let parameters: HttpParams = new HttpParams();
         //parameters = parameters.append("ids_empleados", JSON.stringify(ids_empleados));
         //return this.http.get(this.GetAsignacionesEmpleadosURL, {params: parameters});
