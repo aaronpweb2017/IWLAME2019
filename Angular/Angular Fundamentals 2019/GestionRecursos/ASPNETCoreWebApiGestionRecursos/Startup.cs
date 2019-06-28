@@ -1,18 +1,12 @@
 ﻿using System;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ASPNETCoreWebApiORAGestionRecursos.Models;
+using System.Security.Principal;
 
 namespace ASPNETCoreWebApiORAGestionRecursos
 {
@@ -26,13 +20,16 @@ namespace ASPNETCoreWebApiORAGestionRecursos
 
         public void ConfigureServices(IServiceCollection services) {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            
-            String SQLHomeConnectionString = Configuration.GetConnectionString("SQLHomeConnectionString");
-            String SQLWorkConnectionString = Configuration.GetConnectionString("SQLWorkConnectionString");
-            
-            services.AddDbContext<EmpleadoContext>(options => options.UseSqlServer(SQLWorkConnectionString));
-            services.AddDbContext<ProyectoContext>(options => options.UseSqlServer(SQLWorkConnectionString));
-            services.AddDbContext<AsignacionContext>(options => options.UseSqlServer(SQLWorkConnectionString));
+            string ConnectionString;
+            string CurrentUserName = WindowsIdentity.GetCurrent().Name;
+            //Console.WriteLine("Current UserName: "+CurrentUserName);
+            if(CurrentUserName.Equals("DESKTOP-E7CRFE9\\Lenovo"))
+                ConnectionString = Configuration.GetConnectionString("SQLHomeConnectionString");
+            else
+                ConnectionString = Configuration.GetConnectionString("SQLWorkConnectionString");
+            services.AddDbContext<EmpleadoContext>(options => options.UseSqlServer(ConnectionString));
+            services.AddDbContext<ProyectoContext>(options => options.UseSqlServer(ConnectionString));
+            services.AddDbContext<AsignacionContext>(options => options.UseSqlServer(ConnectionString));
             
             services.AddScoped<IEmpleadosManager, EmpleadosManager>();
             services.AddScoped<IProyectosManager, ProyectosManager>();
