@@ -1,8 +1,6 @@
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 using ASPNETCoreWebApiORAGestionRecursos.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace ASPNETCoreWebApiORAGestionRecursos 
 {

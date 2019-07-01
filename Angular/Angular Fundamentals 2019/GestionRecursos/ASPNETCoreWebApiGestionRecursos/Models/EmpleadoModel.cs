@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -31,7 +30,5 @@ namespace ASPNETCoreWebApiORAGestionRecursos.Models {
         [Column(TypeName="INT")]
         [DisplayName("status")]
         public int status { get; set; }
-
-        //[ForeignKey("StandardRefId")]
     }
 }

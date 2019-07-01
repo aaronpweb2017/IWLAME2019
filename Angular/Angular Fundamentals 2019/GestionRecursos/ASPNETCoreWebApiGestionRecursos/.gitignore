@@ -2,6 +2,7 @@
 "Angular/Angular Fundamentals 2019/GestionRecursos/ASPNETCoreWebApiGestionRecursos/bin"
 "Angular/Angular Fundamentals 2019/GestionRecursos/ASPNETCoreWebApiGestionRecursos/.vscode"
 
+#gitignore comments:
 #git rm -r --cached "Angular/Angular Fundamentals 2019/GestionRecursos/ASPNETCoreWebApiGestionRecursos/obj"
 #git rm -r --cached "Angular/Angular Fundamentals 2019/GestionRecursos/ASPNETCoreWebApiGestionRecursos/bin"
 #git rm -r --cached "Angular/Angular Fundamentals 2019/GestionRecursos/ASPNETCoreWebApiGestionRecursos/.vscode"

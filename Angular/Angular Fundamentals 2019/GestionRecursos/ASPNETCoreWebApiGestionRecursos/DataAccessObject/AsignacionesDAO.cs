@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using ASPNETCoreWebApiORAGestionRecursos.Models;
 
-namespace ASPNETCoreWebApiORAGestionRecursos 
+namespace ASPNETCoreWebApiORAGestionRecursos
 {
     public class AsignacionesDAO
     {
