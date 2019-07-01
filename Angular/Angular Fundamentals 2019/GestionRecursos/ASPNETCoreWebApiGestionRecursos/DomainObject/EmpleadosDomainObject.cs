@@ -7,8 +7,11 @@ namespace ASPNETCoreWebApiORAGestionRecursos
     public class EmpleadosDomainObject
     {
         EmpleadosDAO empleadosDAO;
-        public EmpleadosDomainObject(EmpleadoContext empleadoContext) {
-            empleadosDAO = new EmpleadosDAO(empleadoContext);
+
+        public EmpleadosDomainObject(EmpleadoContext empleadoContext,
+        AsignacionContext asignacionContext, ProyectoContext proyectoContext) {
+            empleadosDAO = new EmpleadosDAO(empleadoContext,
+                asignacionContext, proyectoContext);
         }
         
         public async Task<int> GetNoEmpleados() {    
@@ -19,12 +22,24 @@ namespace ASPNETCoreWebApiORAGestionRecursos
             return await empleadosDAO.GetEmpleados();
         }
 
+        public async Task<List<Empleado>> GetEmpleadosActivos() {    
+            return await empleadosDAO.GetEmpleadosActivos();
+        }
+
+        public async Task<int[]> GetAsignadosPaginacion(int no_pagina) {    
+            return await empleadosDAO.GetAsignadosPaginacion(no_pagina);
+        }
+
         public async Task<List<Empleado>> GetEmpleadosPaginacion(int no_pagina) {
             return await empleadosDAO.GetEmpleadosPaginacion(no_pagina);
         }
 
-        public async Task<Empleado> GetEmpleado(int id_empleado) {    
+        public async Task<Empleado> GetEmpleado(int id_empleado) {
             return await empleadosDAO.GetEmpleado(id_empleado);
+        }
+
+        public async Task<bool> GetEmpleadoTrabajando(int id_empleado) {
+            return await empleadosDAO.GetEmpleadoTrabajando(id_empleado);
         }
         
         public async Task<bool> CrearEmpleado(Empleado empleado) {    

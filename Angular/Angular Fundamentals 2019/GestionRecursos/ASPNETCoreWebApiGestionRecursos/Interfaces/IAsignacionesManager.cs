@@ -9,7 +9,6 @@ namespace ASPNETCoreWebApiORAGestionRecursos
         Task<int> GetNoAsignaciones();
         Task<List<Asignacion>> GetAsignaciones();
         Task<List<Asignacion>> GetAsignacionesPaginacion(int no_pagina);
-        Task<List<Asignacion>> GetAsignacionesEmpleados(int [] ids_empleados);
         Task<Asignacion> GetAsignacion(int id_asignacion);
         Task<bool> CrearAsignacion(Asignacion asignacion);
         Task<bool> ActualizarAsignacion(int id_asignacion, Asignacion asignacion);

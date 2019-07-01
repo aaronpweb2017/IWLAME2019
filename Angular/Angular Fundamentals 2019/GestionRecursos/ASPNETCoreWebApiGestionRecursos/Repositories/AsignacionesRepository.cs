@@ -26,15 +26,6 @@ namespace ASPNETCoreWebApiORAGestionRecursos
             return await asignacionContext.asignaciones.Skip(5*(no_pagina-1)).Take(5).ToListAsync();
         }
 
-        public async Task<List<Asignacion>> GetAsignacionesEmpleados(int [] ids_empleados) {
-            List<Asignacion> asignaciones = new List<Asignacion>();
-            foreach(int id_empleado in ids_empleados) {
-                asignaciones.Add(await asignacionContext.asignaciones.Where(asignacion =>
-                    asignacion.id_empleado == id_empleado).FirstOrDefaultAsync());
-            }
-            return asignaciones;
-        }
-
         public async Task<Asignacion> GetAsignacion(int id_asignacion) {  
             return await asignacionContext.asignaciones.FindAsync(id_asignacion);
         }

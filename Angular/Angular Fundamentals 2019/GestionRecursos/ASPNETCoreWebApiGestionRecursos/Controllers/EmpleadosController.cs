@@ -26,6 +26,18 @@ namespace ASPNETCoreWebApiORAGestionRecursos.Controllers
             return empleadosManager.GetEmpleados();
         }
 
+        //GET: https://localhost:5001/Api/Empleados/GetEmpleadosActivos
+        [HttpGet] [ActionName("GetEmpleadosActivos")]
+        public Task<List<Empleado>> GetEmpleadosActivosAsync() {
+            return empleadosManager.GetEmpleadosActivos();
+        }
+
+        //GET: https://localhost:5001/Api/Empleados/GetAsignadosPaginacion/?no_pagina=[value]
+        [HttpGet] [ActionName("GetAsignadosPaginacion")]
+        public Task<int[]> GetAsignadosPaginacionAsync(int no_pagina) {
+            return empleadosManager.GetAsignadosPaginacion(no_pagina);
+        }
+
         //GET: https://localhost:5001/Api/Empleados/GetEmpleadosPaginacion/?no_pagina=[value]
         [HttpGet] [ActionName("GetEmpleadosPaginacion")]
         public Task<List<Empleado>> GetEmpleadosPaginationAsync(int no_pagina) {
@@ -36,6 +48,12 @@ namespace ASPNETCoreWebApiORAGestionRecursos.Controllers
         [HttpGet] [ActionName("GetEmpleado")]
         public Task<Empleado> GetEmpleadoAsync(int id_empleado) {
             return empleadosManager.GetEmpleado(id_empleado);
+        }
+
+        //GET: https://localhost:5001/Api/Empleados/GetEmpleadoTrabajando/?id_empleado=[value]
+        [HttpGet] [ActionName("GetEmpleadoTrabajando")]
+        public Task<bool> GetEmpleadoTrabajandoAsync(int id_empleado) {
+            return empleadosManager.GetEmpleadoTrabajando(id_empleado);
         }
 
         //POST: https://localhost:5001/Api/Empleados/CrearEmpleado

@@ -18,19 +18,24 @@ namespace ASPNETCoreWebApiORAGestionRecursos
             return await proyectoContext.proyectos.CountAsync();
         }        
 
-        public async Task<List<Proyecto>> GetProyectos() {    
+        public async Task<List<Proyecto>> GetProyectos() {
             return await proyectoContext.proyectos.ToListAsync();
+        }
+
+        public async Task<List<Proyecto>> GetProyectosActivos() {
+            return await proyectoContext.proyectos.Where(
+            proyecto => proyecto.status==1).ToListAsync();
         }
 
         public async Task<List<Proyecto>> GetProyectosPaginacion(int no_pagina) {
             return await proyectoContext.proyectos.Skip(5*(no_pagina-1)).Take(5).ToListAsync();
         }
 
-        public async Task<Proyecto> GetProyecto(int id_proyecto) {    
+        public async Task<Proyecto> GetProyecto(int id_proyecto) {
             return await proyectoContext.proyectos.FindAsync(id_proyecto);
         }
         
-        public async Task<bool> CrearProyecto(Proyecto proyecto) {    
+        public async Task<bool> CrearProyecto(Proyecto proyecto) {
             bool response = false;
             try {
                 await proyectoContext.AddAsync(proyecto);

@@ -41,12 +41,10 @@ export class AsignacionesEditComponent implements OnInit {
       this.fecha_asignado = this.fechasService.GetDateYMD(this.asignacion.fecha_asignado.toString());
       this.fecha_desasignado = this.fechasService.GetDateYMD(this.asignacion.fecha_desasignado.toString());
       this.currtent_date = this.fecha_asignado; this.proyectos = []; this.empleados = [];
-      this.proyectosService.GetProyectos().subscribe(data => {
-        let proyectos: Proyecto[] = data as Proyecto[];
-        this.proyectos = proyectos.filter(proyecto => proyecto.status === 1);
-        this.empleadosService.GetEmpleados().subscribe(data => {
-          let empleados: Empleado[] = data as Empleado[];
-          this.empleados = empleados.filter(empleado => empleado.status === 1);
+      this.proyectosService.GetProyectosActivos().subscribe(data => {
+        this.proyectos = data as Proyecto[];
+        this.empleadosService.GetEmpleadosActivos().subscribe(data => {
+          this.empleados = data as Empleado[];
         });
       });
     });
@@ -63,11 +61,11 @@ export class AsignacionesEditComponent implements OnInit {
     let fecha_inicio: string = this.fechasService.GetDateYMD(proyecto.fecha_inicio.toString());
     let fecha_fin: string = this.fechasService.GetDateYMD(proyecto.fecha_fin.toString());
     if ((new Date(this.fecha_asignado) < new Date(fecha_inicio))
-     || (new Date(this.fecha_asignado) < new Date(this.currtent_date))) {
-     this.toastrService.error("Inconsistencia en fecha de asignación."); return;
+      || (new Date(this.fecha_asignado) < new Date(this.currtent_date))) {
+      this.toastrService.error("Inconsistencia en fecha de asignación."); return;
     }
     if (new Date(fecha_fin) < new Date(this.fecha_desasignado)) {
-     this.toastrService.error("Inconsistencia en fecha de desasignación."); return;
+      this.toastrService.error("Inconsistencia en fecha de desasignación."); return;
     }
     this.asignacion.fecha_asignado = new Date(this.fecha_asignado);
     this.asignacion.fecha_desasignado = new Date(this.fecha_desasignado);

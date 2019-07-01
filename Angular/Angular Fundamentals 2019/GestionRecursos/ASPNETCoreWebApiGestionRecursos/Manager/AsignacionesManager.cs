@@ -23,10 +23,6 @@ namespace ASPNETCoreWebApiORAGestionRecursos
             return await asignacionesDO.GetAsignacionesPaginacion(no_pagina);
         }
 
-        public async Task<List<Asignacion>> GetAsignacionesEmpleados(int [] ids_empleados) {
-            return await asignacionesDO.GetAsignacionesEmpleados(ids_empleados);
-        }
-
         public async Task<Asignacion> GetAsignacion(int id_asignacion) {
             return await asignacionesDO.GetAsignacion(id_asignacion);
         }

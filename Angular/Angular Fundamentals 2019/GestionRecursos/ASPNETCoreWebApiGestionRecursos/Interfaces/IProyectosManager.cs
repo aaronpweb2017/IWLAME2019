@@ -8,6 +8,7 @@ namespace ASPNETCoreWebApiORAGestionRecursos
     {
         Task<int> GetNoProyectos();
         Task<List<Proyecto>> GetProyectos();
+        Task<List<Proyecto>> GetProyectosActivos();
         Task<List<Proyecto>> GetProyectosPaginacion(int no_pagina);        
         Task<Proyecto> GetProyecto(int id_proyecto);
         Task<bool> CrearProyecto(Proyecto proyecto);

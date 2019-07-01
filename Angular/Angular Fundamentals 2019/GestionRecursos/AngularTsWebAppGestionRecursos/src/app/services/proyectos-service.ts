@@ -8,6 +8,7 @@ export class ProyectosService {
     ApiProyectosURL: string;
     ApiGetNoProyectosURL: string;
     ApiGetProyectosURL: string;
+    ApiGetProyectosActivosURL: string;
     GetProyectosPaginacionURL: string;    
     ApiGetProyectoURL: string;
     ApiPostProyectoURL: string;
@@ -26,6 +27,11 @@ export class ProyectosService {
     GetProyectos(): Observable<any> {
         this.ApiGetProyectosURL = this.ApiProyectosURL+"/GetProyectos";
         return this.http.get(this.ApiGetProyectosURL);
+    }
+ 
+    GetProyectosActivos(): Observable<any> {
+        this.ApiGetProyectosActivosURL = this.ApiProyectosURL+"/GetProyectosActivos";
+        return this.http.get(this.ApiGetProyectosActivosURL);
     }
 
     GetProyectosPaginacion(no_pagina: number): Observable<any> {

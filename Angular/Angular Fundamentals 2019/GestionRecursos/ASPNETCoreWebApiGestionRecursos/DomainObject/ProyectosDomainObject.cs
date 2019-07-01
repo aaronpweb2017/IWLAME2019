@@ -18,6 +18,10 @@ namespace ASPNETCoreWebApiORAGestionRecursos
         public async Task<List<Proyecto>> GetProyectos() {
             return await proyectosDAO.GetProyectos();
         }
+
+        public async Task<List<Proyecto>> GetProyectosActivos() {
+            return await proyectosDAO.GetProyectosActivos();
+        }
         
         public async Task<List<Proyecto>> GetProyectosPaginacion(int no_pagina) {
             return await proyectosDAO.GetProyectosPaginacion(no_pagina);

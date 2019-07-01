@@ -30,20 +30,8 @@ export class EmpleadosEditComponent implements OnInit {
     this.id_empleado = this.route.snapshot.params['id_empleado'];
     this.empleadosService.GetEmpleado(this.id_empleado).subscribe(data => {
       this.empleado = data as Empleado; this.trabajando = false;
-      this.asignacionesService.GetAsignaciones().subscribe(data => {
-        let asignaciones: Asignacion[] = data as Asignacion[];
-        let assignments: Asignacion[] = asignaciones.filter(assignment =>
-          assignment.id_empleado === this.empleado.id_empleado);
-        this.proyectosService.GetProyectos().subscribe(data => {
-          let proyectos: Proyecto[] = data as Proyecto[];
-          for (let i: number = 0; i < assignments.length; i++) {
-            let proyecto: Proyecto = proyectos.find(project =>
-              project.id_proyecto === assignments[i].id_proyecto);
-            if (proyecto.status == 1) {
-              this.trabajando = true; break;
-            }
-          }
-        });
+      this.empleadosService.GetEmpleadoTrabajando(this.id_empleado).subscribe(data => {
+        this.trabajando = data as boolean;
       });
     });
   }

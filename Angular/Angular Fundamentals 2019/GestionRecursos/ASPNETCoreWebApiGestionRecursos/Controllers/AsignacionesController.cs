@@ -32,12 +32,6 @@ namespace ASPNETCoreWebApiORAGestionRecursos.Controllers
             return asignacionesManager.GetAsignacionesPaginacion(no_pagina);
         }
 
-        //GET: https://localhost:5001/Api/Asignaciones/GetAsignacionesEmpleados
-        [HttpGet] [ActionName("GetAsignacionesEmpleados")]
-        public Task<List<Asignacion>> GetAsignacionesEmpleadosAsync([FromBody] int [] ids_empleados) {
-            return asignacionesManager.GetAsignacionesEmpleados(ids_empleados);
-        }
-
         //GET: https://localhost:5001/Api/Asignaciones/GetAsignacion/?id_asignacion=value
         [HttpGet] [ActionName("GetAsignacion")]
         public Task<Asignacion> GetAsignacionAsync(int id_asignacion) {

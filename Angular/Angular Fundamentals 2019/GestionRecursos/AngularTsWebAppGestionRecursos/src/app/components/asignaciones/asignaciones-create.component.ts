@@ -35,12 +35,10 @@ export class AsignacionesCreateComponent implements OnInit {
     this.fecha_asignado = this.currtent_date;
     this.fecha_desasignado = this.currtent_date;
     this.proyectos = []; this.empleados = [];
-    this.proyectosService.GetProyectos().subscribe(data => {
-      let proyectos: Proyecto[] = data as Proyecto[];
-      this.proyectos = proyectos.filter(project => project.status === 1);
-      this.empleadosService.GetEmpleados().subscribe(data => {
-        let empleados: Empleado[] = data as Empleado[];
-        this.empleados = empleados.filter(employee => employee.status === 1);
+    this.proyectosService.GetProyectosActivos().subscribe(data => {
+      this.proyectos = data as Proyecto[];
+      this.empleadosService.GetEmpleadosActivos().subscribe(data => {
+        this.empleados = data as Empleado[];
       });
     });
   }

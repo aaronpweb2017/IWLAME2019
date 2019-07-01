@@ -26,6 +26,12 @@ namespace ASPNETCoreWebApiORAGestionRecursos.Controllers
             return proyectosManager.GetProyectos();
         }
 
+        //GET: https://localhost:5001/Api/Proyectos/GetProyectosActivos
+        [HttpGet] [ActionName("GetProyectosActivos")]
+        public Task<List<Proyecto>> GetProyectosActivosAsync() {
+            return proyectosManager.GetProyectosActivos();
+        }
+
         //GET: https://localhost:5001/Api/Proyectos/GetProyectosPaginacion/?no_pagina=[value]
         [HttpGet] [ActionName("GetProyectosPaginacion")]
         public Task<List<Proyecto>> GetEmpleadosPaginationAsync(int no_pagina) {
