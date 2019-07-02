@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ProyectosService } from 'src/app/services/proyectos-service';
 import { Proyecto } from 'src/app/interfaces/proyecto';
+import { ProyectosService } from 'src/app/services/proyectos-service';
 import { FechasService } from 'src/app/services/fechas-service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';

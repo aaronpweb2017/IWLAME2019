@@ -1,23 +1,23 @@
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Asignacion } from '../interfaces/asignacion';
 
 @Injectable()
 export class AsignacionesService {
-    ApiAsignacionesURL: string; ApiGetNoAsignacionesURL: string;
-    ApiGetAsignacionesURL: string; GetAsignacionesPaginacionURL: string;
-    GetAsignacionesEmpleadosURL: string; ApiGetAsignacionURL: string;
-    ApiPostAsignacionURL: string; ApiUpdateAsignacionURL: string;
-    ApiDeleteAsignacionURL: string; asignacion: Asignacion;
+    ApiAsignacionesURL: string;
+    ApiGetNoAsignacionesURL: string;
+    ApiGetAsignacionesURL: string;
+    ApiGetAsignacionesPaginacionURL: string;
+    ApiGetProyectosPaginacionURL: string;
+    ApiGetEmpleadosPaginacionURL: string;
+    ApiGetAsignacionURL: string;
+    ApiPostAsignacionURL: string;
+    ApiUpdateAsignacionURL: string;
+    ApiDeleteAsignacionURL: string;
 
     constructor(private http: HttpClient) {
         this.ApiAsignacionesURL = "https://localhost:5001/Api/Asignaciones";
-        this.asignacion = {
-            id_asignacion: 0, id_proyecto: 0,
-            id_empleado: 0, fecha_asignado: new Date(),
-            fecha_desasignado: new Date()
-        };
     }
 
     GetNoAsignaciones(): Observable<any> {
@@ -31,22 +31,21 @@ export class AsignacionesService {
     }
 
     GetAsignacionesPaginacion(no_pagina: number): Observable<any> {
-        this.GetAsignacionesPaginacionURL = this.ApiAsignacionesURL
+        this.ApiGetAsignacionesPaginacionURL = this.ApiAsignacionesURL
             + "/GetAsignacionesPaginacion/?no_pagina=" + no_pagina;
-        return this.http.get(this.GetAsignacionesPaginacionURL)
+        return this.http.get(this.ApiGetAsignacionesPaginacionURL)
     }
 
-    GetAsignacionesEmpleados(ids_empleados: number[]): Observable<any> {
-        this.GetAsignacionesEmpleadosURL = this.ApiAsignacionesURL
-        + "/GetAsignacionesEmpleados";
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 
-            'application/json'}), body: ids_empleados
-        };
-        return this.http.get(this.GetAsignacionesEmpleadosURL, httpOptions); 
-        //let parameters: HttpParams = new HttpParams();
-        //parameters = parameters.append("ids_empleados", JSON.stringify(ids_empleados));
-        //return this.http.get(this.GetAsignacionesEmpleadosURL, {params: parameters});
+    GetProyectosPaginacion(no_pagina: number): Observable<any> {
+        this.ApiGetProyectosPaginacionURL = this.ApiAsignacionesURL
+        + "/GetProyectosPaginacion/?no_pagina=" + no_pagina;
+        return this.http.get(this.ApiGetProyectosPaginacionURL);
+    }
+
+    GetEmpleadosPaginacion(no_pagina: number): Observable<any> {
+        this.ApiGetEmpleadosPaginacionURL = this.ApiAsignacionesURL
+        + "/GetEmpleadosPaginacion/?no_pagina=" + no_pagina;
+        return this.http.get(this.ApiGetEmpleadosPaginacionURL);
     }
 
     GetAsignacion(id_asignacion: number): Observable<any> {

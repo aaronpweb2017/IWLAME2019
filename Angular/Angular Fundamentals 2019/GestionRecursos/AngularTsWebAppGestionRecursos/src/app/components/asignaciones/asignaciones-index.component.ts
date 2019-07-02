@@ -16,16 +16,17 @@ import { Router } from '@angular/router';
 })
 
 export class AsignacionesIndexComponent implements OnInit {
-  NoAsignaciones: number; asignaciones: Asignacion[]; id_asignacion: number;
-  proyectosNames: string[]; proyectosEstados: number[]; empleadosNames: string[];
-  NoPaginas: number; pageIndexes: number[]; curerntPage: number = 1;
+  NoAsignaciones: number; asignaciones: Asignacion[];
+  id_asignacion: number; proyectos: Proyecto[];
+  empleados: Empleado[]; NoPaginas: number;
+  pageIndexes: number[]; curerntPage: number = 1;
 
   constructor(private asignacionesService: AsignacionesService, private proyectosService:
     ProyectosService, private empleadosService: EmpleadosService, private fechasService:
       FechasService, private toastrService: ToastrService, private router: Router) { }
 
   ngOnInit() {
-    this.proyectosNames = []; this.proyectosEstados = []; this.empleadosNames = [];
+    this.proyectos = []; this.empleados = [];
     this.id_asignacion = 0; this.NoPaginas = 0; this.pageIndexes = [];
     this.asignacionesService.GetNoAsignaciones().subscribe(data => {
       this.NoAsignaciones = Number(data);
@@ -72,21 +73,10 @@ export class AsignacionesIndexComponent implements OnInit {
     this.curerntPage = NoPagina;
     this.asignacionesService.GetAsignacionesPaginacion(NoPagina).subscribe(data => {
       this.asignaciones = data as Asignacion[];
-      this.proyectosService.GetProyectos().subscribe(data => {
-        let proyectos: Proyecto[] = data as Proyecto[];
-        this.empleadosService.GetEmpleados().subscribe(data => {
-          let empleados: Empleado[] = data as Empleado[];
-          for (let i: number = 0; i < this.asignaciones.length; i++) {
-            let proyecto: Proyecto = proyectos.find(project =>
-              project.id_proyecto === this.asignaciones[i].id_proyecto);
-            this.proyectosNames[i] = proyecto.id_proyecto+ ".-";
-            this.proyectosNames[i] += " " + proyecto.nombre;
-            this.proyectosEstados[i] = proyecto.status;
-            let empleado: Empleado = empleados.find(employee =>
-              employee.id_empleado === this.asignaciones[i].id_empleado);
-            this.empleadosNames[i] = empleado.id_empleado + ".- "
-              + empleado.nombre + " " + empleado.apellido;
-          }
+      this.asignacionesService.GetProyectosPaginacion(NoPagina).subscribe(data => {
+        this.proyectos = data as Proyecto[];
+        this.asignacionesService.GetEmpleadosPaginacion(NoPagina).subscribe(data => {
+          this.empleados = data as Empleado[];
         });
       });
     });

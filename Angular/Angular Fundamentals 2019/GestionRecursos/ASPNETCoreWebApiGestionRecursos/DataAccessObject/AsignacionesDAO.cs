@@ -7,8 +7,10 @@ namespace ASPNETCoreWebApiORAGestionRecursos
     public class AsignacionesDAO
     {
         AsignacionesRepository asignacionesRepository;
-        public AsignacionesDAO(AsignacionContext asignacionContext) {
-            asignacionesRepository = new AsignacionesRepository(asignacionContext);
+        public AsignacionesDAO(AsignacionContext asignacionContext,
+        ProyectoContext proyectoContext, EmpleadoContext empleadoContext) {
+            asignacionesRepository = new AsignacionesRepository(
+            asignacionContext, proyectoContext, empleadoContext);
         }
 
         public async Task<int> GetNoAsignaciones() {    
@@ -21,6 +23,14 @@ namespace ASPNETCoreWebApiORAGestionRecursos
 
         public async Task<List<Asignacion>> GetAsignacionesPaginacion(int no_pagina) {
             return await asignacionesRepository.GetAsignacionesPaginacion(no_pagina);
+        }
+
+        public async Task<List<Proyecto>> GetProyectosPaginacion(int no_pagina) {
+            return await asignacionesRepository.GetProyectosPaginacion(no_pagina);
+        }
+
+        public async Task<List<Empleado>> GetEmpleadosPaginacion(int no_pagina) {
+            return await asignacionesRepository.GetEmpleadosPaginacion(no_pagina);
         }
 
         public async Task<Asignacion> GetAsignacion(int id_asignacion) {

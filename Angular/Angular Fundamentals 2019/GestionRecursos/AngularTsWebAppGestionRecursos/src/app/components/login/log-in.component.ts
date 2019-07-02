@@ -40,8 +40,9 @@ export class LogInComponent implements OnInit {
         this.toastrService.error("No se encontró al empleado."); return;
       }
       this.empleado = data as Empleado;
-      this.toastrService.success("Bienvenido " + this.empleado.nombre + " " + this.empleado.apellido);
-      this.isLoggedIn = true; this.router.navigate(['/empleados/index']);
+      this.toastrService.success("Bienvenido " + this.empleado.nombre
+        + " " + this.empleado.apellido); this.isLoggedIn = true;
+      this.router.navigate(['/empleados/index']);
     });
   }
 }

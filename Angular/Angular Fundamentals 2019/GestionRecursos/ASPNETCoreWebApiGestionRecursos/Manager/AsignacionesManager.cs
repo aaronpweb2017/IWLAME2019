@@ -7,8 +7,10 @@ namespace ASPNETCoreWebApiORAGestionRecursos
     public class AsignacionesManager : IAsignacionesManager
     {
         AsignacionesDomainObject asignacionesDO;
-        public AsignacionesManager(AsignacionContext asignacionContext) {
-            asignacionesDO = new AsignacionesDomainObject(asignacionContext);
+        public AsignacionesManager(AsignacionContext asignacionContext,
+        ProyectoContext proyectoContext, EmpleadoContext empleadoContext) {
+            asignacionesDO = new AsignacionesDomainObject(
+            asignacionContext, proyectoContext, empleadoContext);
         }
 
         public async Task<int> GetNoAsignaciones() {    
@@ -21,6 +23,14 @@ namespace ASPNETCoreWebApiORAGestionRecursos
 
         public async Task<List<Asignacion>> GetAsignacionesPaginacion(int no_pagina) {
             return await asignacionesDO.GetAsignacionesPaginacion(no_pagina);
+        }
+
+        public async Task<List<Proyecto>> GetProyectosPaginacion(int no_pagina) {
+            return await asignacionesDO.GetProyectosPaginacion(no_pagina);
+        }
+
+        public async Task<List<Empleado>> GetEmpleadosPaginacion(int no_pagina) {
+            return await asignacionesDO.GetEmpleadosPaginacion(no_pagina);
         }
 
         public async Task<Asignacion> GetAsignacion(int id_asignacion) {

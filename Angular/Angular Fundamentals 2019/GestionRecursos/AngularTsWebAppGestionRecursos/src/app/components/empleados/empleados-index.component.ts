@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Empleado } from 'src/app/interfaces/empleado';
-import { Asignacion } from 'src/app/interfaces/asignacion';
 import { EmpleadosService } from 'src/app/services/empleados-service';
-import { AsignacionesService } from 'src/app/services/asignaciones-service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 
@@ -18,8 +16,8 @@ export class EmpleadosIndexComponent implements OnInit {
   NoPaginas: number; pageIndexes: number[];
   curerntPage: number = 1;
 
-  constructor(private empleadosService: EmpleadosService, private asignacionesService:
-    AsignacionesService, private toastrService: ToastrService, private router: Router) { }
+  constructor(private empleadosService: EmpleadosService,
+    private toastrService: ToastrService, private router: Router) { }
 
   ngOnInit() {
     this.id_empleado = 0; this.NoPaginas = 0;

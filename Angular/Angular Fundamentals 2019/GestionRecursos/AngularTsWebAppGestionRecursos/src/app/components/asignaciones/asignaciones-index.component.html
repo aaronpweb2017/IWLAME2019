@@ -25,23 +25,24 @@
                     <ng-container *ngFor="let asignacion of asignaciones; let i=index;" [attr.data-index]="i">
                         <tr>
                             <td>{{asignacion.id_asignacion}}</td>
-                            <td>{{proyectosNames[i]}}</td> <td>{{empleadosNames[i]}}</td>
-                            <td>{{this.fechasService.GetDateDMY(asignacion.fecha_asignado)}}</td>
-                            <td>{{this.fechasService.GetDateDMY(asignacion.fecha_desasignado)}}</td>
+                            <td>{{proyectos[i]?.id_proyecto}}.- {{proyectos[i]?.nombre}}</td>
+                            <td>{{empleados[i]?.id_empleado}}.- {{empleados[i]?.nombre}} {{empleados[i]?.apellido}}</td>
+                            <td>{{this.fechasService.GetDateDMY(asignacion.fecha_asignado.toString())}}</td>
+                            <td>{{this.fechasService.GetDateDMY(asignacion.fecha_desasignado.toString())}}</td>
                             <td>
-                                <input *ngIf="proyectosEstados[i]!=2" class="btn btn-primary" type="button"
+                                <input *ngIf="proyectos[i]?.status!=2" class="btn btn-primary" type="button"
                                     value="Editar" (click)="EditarAsignacion(asignacion.id_asignacion);">
-                                <input *ngIf="proyectosEstados[i]==2" class="btn btn-primary"
+                                <input *ngIf="proyectos[i]?.status==2" class="btn btn-primary"
                                     type="button" value="Editar" style="cursor: not-allowed;" disabled> |
                                 <modal-entity
-                                    *ngIf="proyectosEstados[i]!=2"
+                                    *ngIf="proyectos[i]?.status!=2"
                                     [modalEntity]="asignacion.id_asignacion"
                                     [modalRequest]="'BorrarAsignacion'"
                                     (modalEntityEvent)="ActualizaIdAsignacion($event);"
                                     (modalRequestEvent)="BorrarAsignacion($event);">
                                 </modal-entity>
                                 <modal-entity
-                                    *ngIf="proyectosEstados[i]==2"
+                                    *ngIf="proyectos[i]?.status==2"
                                     [modalEntity]="asignacion.id_asignacion"
                                     [modalRequest]="'BorrarAsignacion'"
                                     (modalEntityEvent)="ActualizaIdAsignacion($event);"

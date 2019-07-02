@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Asignacion } from 'src/app/interfaces/asignacion';
 import { Empleado } from 'src/app/interfaces/empleado';
-import { Proyecto } from 'src/app/interfaces/proyecto';
-import { AsignacionesService } from 'src/app/services/asignaciones-service';
-import { ProyectosService } from 'src/app/services/proyectos-service';
 import { EmpleadosService } from 'src/app/services/empleados-service';
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -15,11 +11,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 
 export class EmpleadosEditComponent implements OnInit {
-  id_empleado: number; empleado: Empleado; trabajando: Boolean;
+  id_empleado: number; empleado: Empleado; trabajando: boolean;
 
-  constructor(private empleadosService: EmpleadosService, private proyectosService:
-    ProyectosService, private asignacionesService: AsignacionesService, private toastrService:
-      ToastrService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private empleadosService: EmpleadosService, private toastrService:
+    ToastrService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.empleado = {
@@ -31,7 +26,7 @@ export class EmpleadosEditComponent implements OnInit {
     this.empleadosService.GetEmpleado(this.id_empleado).subscribe(data => {
       this.empleado = data as Empleado; this.trabajando = false;
       this.empleadosService.GetEmpleadoTrabajando(this.id_empleado).subscribe(data => {
-        this.trabajando = data as boolean;
+        this.trabajando = Boolean(data);
       });
     });
   }

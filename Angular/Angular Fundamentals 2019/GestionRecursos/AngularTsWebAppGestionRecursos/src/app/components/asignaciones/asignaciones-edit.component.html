@@ -2,10 +2,10 @@
     <body>
         <h2>Ingrese los datos actualizados de la asignación:</h2> <hr>
         <div>
-            <form class="bg-dark">
+            <form class="bg-light rounded border border-secondary">
                 <div class="row">
                     <div class="col-md-3">
-                        <label class="text-light">Código:</label>
+                        <label class="text-dark">Código:</label>
                     </div>
                     <div class="col-md-6">
                         <input [(ngModel)]="asignacion.id_asignacion"
@@ -15,7 +15,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <label class="text-light">Proyecto:</label>
+                        <label class="text-dark">Proyecto:</label>
                     </div>
                     <div class="col-md-6">
                         <select [(ngModel)]="asignacion.id_proyecto" [ngModelOptions]="{standalone: true}">
@@ -27,7 +27,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <label class="text-light">Empleado:</label>
+                        <label class="text-dark">Empleado:</label>
                     </div>
                     <div class="col-md-6">
                         <select [(ngModel)]="asignacion.id_empleado" [ngModelOptions]="{standalone: true}">
@@ -39,7 +39,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <label class="text-light">Asignado:</label>
+                        <label class="text-dark">Asignado:</label>
                     </div>
                     <div class="col-md-6">
                         <input [(ngModel)]="fecha_asignado" [ngModelOptions]="{standalone: true}"
@@ -48,7 +48,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <label class="text-light">Desasignado:</label>
+                        <label class="text-dark">Desasignado:</label>
                     </div>
                     <div class="col-md-6">
                         <input [(ngModel)]="fecha_desasignado" [ngModelOptions]="{standalone: true}"

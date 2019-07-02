@@ -10,7 +10,7 @@ export class EmpleadosService {
     ApiGetEmpleadosURL: string;
     ApiGetEmpleadosActivosURL: string;
     ApiGetAsignadosPaginacionURL: string;
-    GetEmpleadosPaginacionURL: string;
+    ApiGetEmpleadosPaginacionURL: string;
     ApiGetEmpleadoURL: string;
     ApiEmpleadoTrabajandoURL: string;
     ApiPostEmpleadoURL: string;
@@ -43,9 +43,9 @@ export class EmpleadosService {
     }
 
     GetEmpleadosPaginacion(no_pagina: number): Observable<any> {
-      this.GetEmpleadosPaginacionURL =  this.ApiEmpleadosURL
+      this.ApiGetEmpleadosPaginacionURL =  this.ApiEmpleadosURL
         +"/GetEmpleadosPaginacion/?no_pagina="+no_pagina;
-      return this.http.get(this.GetEmpleadosPaginacionURL)
+      return this.http.get(this.ApiGetEmpleadosPaginacionURL)
     }
 
     GetEmpleado(id_empleado: number): Observable<any> {

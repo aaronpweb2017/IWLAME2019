@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Proyecto } from 'src/app/interfaces/proyecto';
-import { Asignacion } from 'src/app/interfaces/asignacion';
 import { ProyectosService } from 'src/app/services/proyectos-service';
-import { AsignacionesService } from 'src/app/services/asignaciones-service';
 import { FechasService } from 'src/app/services/fechas-service';
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -19,9 +17,9 @@ export class ProyectosEditComponent implements OnInit {
   fecha_inicio: string; fecha_fin: string;
   asignado: boolean; terminado: boolean;
 
-  constructor(private proyectosService: ProyectosService, private asignacionesService:
-    AsignacionesService, private fechasService: FechasService, private toastrService:
-      ToastrService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private proyectosService: ProyectosService, 
+    private fechasService: FechasService, private toastrService:
+    ToastrService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.proyecto = {
@@ -36,10 +34,9 @@ export class ProyectosEditComponent implements OnInit {
       this.fecha_fin = this.fechasService.GetDateYMD(this.proyecto.fecha_fin.toString());
       this.currtent_date = this.fechasService.GetCurrentDate();
       this.old_fecha_inicio = this.fecha_inicio;
-      if (new Date(this.currtent_date) >= new Date(this.fecha_fin))
-        this.terminado = true;
+      if (new Date(this.currtent_date) >= new Date(this.fecha_fin)) this.terminado = true;
       this.proyectosService.GetProyectoAsignado(this.id_proyecto).subscribe(data => {
-        this.asignado = data as boolean;
+        this.asignado = Boolean(data);
       });
     });
   }
