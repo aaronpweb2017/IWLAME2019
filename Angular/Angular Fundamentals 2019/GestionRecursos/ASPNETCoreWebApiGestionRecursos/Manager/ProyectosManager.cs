@@ -7,8 +7,8 @@ namespace ASPNETCoreWebApiORAGestionRecursos
     public class ProyectosManager : IProyectosManager
     {
         ProyectosDomainObject proyectosDO;
-        public ProyectosManager(ProyectoContext proyectoContext) {
-            proyectosDO = new ProyectosDomainObject(proyectoContext);
+        public ProyectosManager(ProyectoContext proyectoContext, AsignacionContext asignacionContext) {
+            proyectosDO = new ProyectosDomainObject(proyectoContext, asignacionContext);
         }
 
         public async Task<int> GetNoProyectos() {    
@@ -29,6 +29,10 @@ namespace ASPNETCoreWebApiORAGestionRecursos
 
         public async Task<Proyecto> GetProyecto(int id_proyecto) {
             return await proyectosDO.GetProyecto(id_proyecto);
+        }
+
+        public async Task<bool> GetProyectoAsignado(int id_proyecto) {
+            return await proyectosDO.GetProyectoAsignado(id_proyecto);
         }
         
         public async Task<bool> CrearProyecto(Proyecto proyecto) {

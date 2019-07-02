@@ -11,6 +11,7 @@ export class ProyectosService {
     ApiGetProyectosActivosURL: string;
     GetProyectosPaginacionURL: string;    
     ApiGetProyectoURL: string;
+    ApiGetProyectoAsignadoURL: string;
     ApiPostProyectoURL: string;
     ApiUpdateProyectoURL: string;
     ApiDeleteProyectoURL: string;
@@ -44,6 +45,12 @@ export class ProyectosService {
         this.ApiGetProyectoURL = this.ApiProyectosURL
         +"/GetProyecto/?id_proyecto="+id_proyecto;
         return this.http.get(this.ApiGetProyectoURL);
+    }
+
+    GetProyectoAsignado(id_proyecto: number): Observable<any> {
+        this.ApiGetProyectoAsignadoURL = this.ApiProyectosURL
+        +"/GetProyectoAsignado/?id_proyecto="+id_proyecto;
+        return this.http.get(this.ApiGetProyectoAsignadoURL);
     }
 
     PostProyecto(proyecto: Proyecto): Observable<any> {

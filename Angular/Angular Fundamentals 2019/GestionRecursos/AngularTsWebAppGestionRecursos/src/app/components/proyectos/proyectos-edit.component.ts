@@ -31,20 +31,15 @@ export class ProyectosEditComponent implements OnInit {
     };
     this.id_proyecto = this.route.snapshot.params['id_proyecto'];
     this.proyectosService.GetProyecto(this.id_proyecto).subscribe(data => {
-      this.proyecto = data as Proyecto;
+      this.proyecto = data as Proyecto; this.asignado = false; this.terminado = false;
       this.fecha_inicio = this.fechasService.GetDateYMD(this.proyecto.fecha_inicio.toString());
       this.fecha_fin = this.fechasService.GetDateYMD(this.proyecto.fecha_fin.toString());
       this.currtent_date = this.fechasService.GetCurrentDate();
       this.old_fecha_inicio = this.fecha_inicio;
-      this.asignado = false; this.terminado = false;
-      this.asignacionesService.GetAsignaciones().subscribe(data => {
-        let asignaciones: Asignacion[] = Object.values(data);
-        let asignacion: Asignacion = asignaciones.find(assignment =>
-          assignment.id_proyecto === this.proyecto.id_proyecto);
-        if (asignacion != null) this.asignado = true;
-        if (new Date(this.currtent_date) >= new Date(this.fecha_fin)) {
-          this.terminado = true;
-        }
+      if (new Date(this.currtent_date) >= new Date(this.fecha_fin))
+        this.terminado = true;
+      this.proyectosService.GetProyectoAsignado(this.id_proyecto).subscribe(data => {
+        this.asignado = data as boolean;
       });
     });
   }
@@ -56,11 +51,11 @@ export class ProyectosEditComponent implements OnInit {
       this.toastrService.error("Datos vacíos o inválidos."); return;
     }
     if (new Date(this.fecha_inicio) < new Date(this.old_fecha_inicio)) {
-     this.toastrService.error("Inconsistencia en fecha de inicio."); return;
+      this.toastrService.error("Inconsistencia en fecha de inicio."); return;
     }
     if ((new Date(this.fecha_fin) > new Date("2020-12-31"))
-     || (new Date(this.fecha_fin) <= new Date(this.currtent_date) && this.proyecto.status != 2)) {
-     this.toastrService.error("Inconsistencia en fecha del final."); return;
+      || (new Date(this.fecha_fin) <= new Date(this.currtent_date) && this.proyecto.status != 2)) {
+      this.toastrService.error("Inconsistencia en fecha del final."); return;
     }
     this.proyecto.fecha_inicio = new Date(this.fecha_inicio);
     this.proyecto.fecha_fin = new Date(this.fecha_fin);

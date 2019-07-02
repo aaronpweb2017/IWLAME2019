@@ -44,6 +44,12 @@ namespace ASPNETCoreWebApiORAGestionRecursos.Controllers
             return proyectosManager.GetProyecto(id_proyecto);
         }
 
+        //GET: https://localhost:5001/Api/Proyectos/GetProyectoAsignado/?id_proyecto=value
+        [HttpGet] [ActionName("GetProyectoAsignado")]
+        public Task<bool> GetProyectoAsignadoAsync(int id_proyecto) {
+            return proyectosManager.GetProyectoAsignado(id_proyecto);
+        }
+
         //POST: https://localhost:5001/Api/Proyectos/CrearProyecto
         [HttpPost] [ActionName("CrearProyecto")]
         public Task<bool> CrearProyectoAsync([FromBody] Proyecto proyecto) {

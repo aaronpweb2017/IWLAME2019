@@ -7,8 +7,8 @@ namespace ASPNETCoreWebApiORAGestionRecursos
     public class ProyectosDAO
     {
         ProyectosRepository proyectosRepository;
-        public ProyectosDAO(ProyectoContext proyectoContext) {
-            proyectosRepository = new ProyectosRepository(proyectoContext);
+        public ProyectosDAO(ProyectoContext proyectoContext, AsignacionContext asignacionContext) {
+            proyectosRepository = new ProyectosRepository(proyectoContext, asignacionContext);
         }
 
         public async Task<int> GetNoProyectos() {    
@@ -29,6 +29,10 @@ namespace ASPNETCoreWebApiORAGestionRecursos
 
         public async Task<Proyecto> GetProyecto(int id_proyecto) {
             return await proyectosRepository.GetProyecto(id_proyecto);
+        }
+
+        public async Task<bool> GetProyectoAsignado(int id_proyecto) {
+            return await proyectosRepository.GetProyectoAsignado(id_proyecto);
         }
         
         public async Task<bool> CrearProyecto(Proyecto proyecto) {

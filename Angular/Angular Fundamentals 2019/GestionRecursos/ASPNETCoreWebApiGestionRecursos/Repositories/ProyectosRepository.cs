@@ -10,8 +10,9 @@ namespace ASPNETCoreWebApiORAGestionRecursos
     public class ProyectosRepository
     {
         private readonly ProyectoContext proyectoContext;
-        public ProyectosRepository(ProyectoContext proyectoContext) {
-            this.proyectoContext = proyectoContext;
+        private readonly AsignacionContext asignacionContext;
+        public ProyectosRepository(ProyectoContext proyectoContext, AsignacionContext asignacionContext) {
+            this.proyectoContext = proyectoContext; this.asignacionContext = asignacionContext;
         }
 
         public async Task<int> GetNoProyectos() {
@@ -35,6 +36,13 @@ namespace ASPNETCoreWebApiORAGestionRecursos
             return await proyectoContext.proyectos.FindAsync(id_proyecto);
         }
         
+        public async Task<bool> GetProyectoAsignado(int id_proyecto) {
+            bool asignado = false; Asignacion asignacion = null;
+            asignacion = await asignacionContext.asignaciones.Where(assignment =>
+                assignment.id_proyecto == id_proyecto).FirstOrDefaultAsync();
+            if(asignacion != null) asignado = true; return asignado;
+        }
+
         public async Task<bool> CrearProyecto(Proyecto proyecto) {
             bool response = false;
             try {
