@@ -1,11 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Text;
+using Microsoft.AspNetCore.Mvc;
 using System.Security.Principal;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
+using ASPNETCoreWebApiGestionRecursos.Helpers;
+using ASPNETCoreWebApiGestionRecursos.Services;
 using Microsoft.Extensions.DependencyInjection;
 using ASPNETCoreWebApiORAGestionRecursos.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace ASPNETCoreWebApiORAGestionRecursos
 {
@@ -31,8 +36,29 @@ namespace ASPNETCoreWebApiORAGestionRecursos
             services.AddScoped<IAsignacionesManager, AsignacionesManager>();
             services.AddScoped<IProyectosManager, ProyectosManager>();
             services.AddScoped<IEmpleadosManager, EmpleadosManager>();
+            services.AddScoped<IUserService, UserService>();
             services.AddCors(options => { options.AddPolicy("Access-Control-Allow-Origin",
                 builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod());
+            });
+
+            //Configure strongly typed Settings Objects:
+            IConfigurationSection appSettingsSection = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appSettingsSection);
+
+            //Configure JWT Authentication:
+            AppSettings appSettings = appSettingsSection.Get<AppSettings>();
+            byte[] key = Encoding.ASCII.GetBytes(appSettings.Secret);
+            services.AddAuthentication(x => {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(x => {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false, ValidateAudience = false
+                };
             });
         }
 
@@ -42,7 +68,9 @@ namespace ASPNETCoreWebApiORAGestionRecursos
             else
                 app.UseHsts();
             app.UseCors("Access-Control-Allow-Origin");
-            app.UseHttpsRedirection(); app.UseMvc();
+            app.UseHttpsRedirection();
+            app.UseAuthentication();
+            app.UseMvc();
         }
     }
 }
