@@ -3,6 +3,7 @@ import { Empleado } from 'src/app/interfaces/empleado';
 import { EmpleadosService } from 'src/app/services/empleados-service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { token } from 'src/app/tokens';
 
 @Component({
   selector: 'log-in',
