@@ -1,1 +1,0 @@
-export const token: string="Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEiLCJuYmYiOjE1NjIyODMyOTksImV4cCI6MTU2Mjg4ODA5OSwiaWF0IjoxNTYyMjgzMjk5fQ.xkvAVPPOHco81xgByTpDI1gUA3vSDlzd_nDQQCbO4NI";

@@ -1,11 +1,12 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 using ASPNETCoreWebApiORAGestionRecursos.Models;
 
 namespace ASPNETCoreWebApiORAGestionRecursos.Controllers
 {
-    [Route("Api/[controller]/[action]")] [ApiController]
+    [Route("Api/[controller]/[action]")] [ApiController] [Authorize]
     public class ProyectosController: ControllerBase
     {
         private readonly IProyectosManager proyectosManager;

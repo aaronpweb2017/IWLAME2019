@@ -4,6 +4,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { AlertModule } from 'ngx-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { TokenService } from './token-service';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
@@ -54,7 +55,7 @@ import { AsignacionesEditComponent } from './components/asignaciones/asignacione
     BrowserModule,
     BrowserAnimationsModule],
   providers: [EmpleadosService,
-    ProyectosService, AsignacionesService, FechasService],
+    ProyectosService, AsignacionesService, FechasService, TokenService],
   bootstrap: [LogInComponent]
 })
 
