@@ -34,7 +34,7 @@ export class LogInComponent implements OnInit {
   }
 
   ValidaUsuario() {
-    if (this.id_empleado <= 0 || this.password == "") {
+    if (this.id_empleado <= 0 || this.password.length == 0) {
       this.toastrService.error("Ingrese código o contraseña."); return;
     }
     this.empleado.id_empleado = this.id_empleado;
@@ -42,14 +42,15 @@ export class LogInComponent implements OnInit {
       let tokenValue: string = data as string;
       this.tokenService.SetTokenValue(tokenValue);
       this.empleadosService.GetEmpleado(this.id_empleado).subscribe(data => {
-        if (data == null) {
-          this.toastrService.error("No se encontró al empleado."); return;
-        }
         this.empleado = data as Empleado;
         this.toastrService.success("Bienvenido " + this.empleado.nombre
           + " " + this.empleado.apellido); this.isLoggedIn = true;
         this.router.navigate(['/empleados/index']);
-      });
+      },
+        (error) => {
+          this.toastrService.error("Error: " + error.name
+          + " (" + error.status + "): " + error.statusText);
+        });
     });
   }
 }

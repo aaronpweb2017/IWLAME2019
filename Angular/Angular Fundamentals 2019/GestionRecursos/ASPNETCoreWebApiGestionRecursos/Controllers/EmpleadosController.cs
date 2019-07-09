@@ -47,8 +47,10 @@ namespace ASPNETCoreWebApiORAGestionRecursos.Controllers
 
         //GET: https://localhost:5001/Api/Empleados/GetEmpleado/?id_empleado=[value]
         [HttpGet] [ActionName("GetEmpleado")]
-        public Task<Empleado> GetEmpleadoAsync(int id_empleado) {
-            return empleadosManager.GetEmpleado(id_empleado);
+        public IActionResult GetEmpleadoAsync(int id_empleado) {
+            Empleado empleado = empleadosManager.GetEmpleado(id_empleado).Result;
+            if (empleado != null) { return Ok(empleado); } return NotFound();
+            //return empleadosManager.GetEmpleado(id_empleado);
         }
 
         //GET: https://localhost:5001/Api/Empleados/GetEmpleadoTrabajando/?id_empleado=[value]

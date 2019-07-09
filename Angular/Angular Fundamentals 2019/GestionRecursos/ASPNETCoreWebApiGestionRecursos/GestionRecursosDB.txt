@@ -46,9 +46,9 @@ ALTER TABLE PROYECTO ADD CONSTRAINT ID_PROYECTO_PK_CONSTRAINT PRIMARY KEY(ID_PRO
 ALTER TABLE PROYECTO ADD CONSTRAINT DIFERENCIA_FECHAS_PROYECTO CHECK(FECHA_FIN > FECHA_INICIO)
 
 INSERT INTO PROYECTO VALUES
-('PROnuncia', 'Proyecto PROnuncia para PI-IW', '01-28-2019', '06-07-2019', 0),
-('HouseSecurity', 'Proyecto HouseSecurity para PI-IW', '01-28-2019', '06-07-2019', 0),
-('MIDE', 'Proyecto MIDE para BPD', '07-15-2018', '05-15-2019', 0)
+('PROnuncia', 'Proyecto PROnuncia para PI-IW', '01-28-2019', '06-07-2019', 2),
+('HouseSecurity', 'Proyecto HouseSecurity para PI-IW', '01-28-2019', '06-07-2019', 2),
+('MIDE', 'Proyecto MIDE para BPD', '07-15-2018', '05-15-2019', 2)
 
 ----------------------------------------------------------------------------------------------------------------------------
 
