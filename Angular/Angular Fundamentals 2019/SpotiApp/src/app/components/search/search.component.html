@@ -1,0 +1,22 @@
+<div *ngIf="loading" class="d-flex justify-content-center">
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+<div *ngIf="!loading" class="row">
+  <div class="col">
+    <input [(ngModel)]="termino" type="text" class="form-control"
+    placeholder="buscar" (keyup.enter)="buscar()">
+  </div>
+</div>
+<div *ngIf="!loading" class="card-columns m-5">
+  <div class="card animated fadeIn fast" *ngFor="let artist of artists;">
+    <img *ngIf="artist.images.length>0" class="card-img-top"
+    src="{{artist.images[0].url}}" alt="{{artist.name}}">
+    <img *ngIf="artist.images.length==0" class="card-img-top"
+    src=".\assets\img\noimage.png" alt="{{artist.name}}">
+    <div  class="card-body puntero" (click)="verArtista(artist)">
+      <h5 class="card-title">{{artist.name}}</h5>
+    </div>
+  </div>
+</div>

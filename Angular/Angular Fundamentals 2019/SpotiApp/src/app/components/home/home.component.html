@@ -1,0 +1,20 @@
+<div *ngIf="loading" class="d-flex justify-content-center">
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+<div *ngIf="!loading" class="card-columns">
+  <div class="card animated fadeIn fast" *ngFor="let release of releases;">
+    <img class="card-img-top" src="{{release.images[0].url}}" alt="{{release.name}}">
+    <div class="card-body">
+      <h5 class="card-title">{{release.name}}</h5>
+      <p class="card-text">
+        <span *ngFor="let artist of release.artists; let i=index;"
+        class="badge badge-pill badge-primary puntero"
+        (click)="verArtista(release,i)">
+          {{artist.name}}
+        </span>
+      </p>
+    </div>
+  </div>
+</div>
