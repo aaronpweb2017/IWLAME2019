@@ -238,3 +238,159 @@ INNER JOIN RelacionAspecto RA ON DT.id_relacion_aspecto = RA.id_relacion_aspecto
 DROP TABLE DetalleTecnico
 
 ------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------
+
+CREATE TABLE Servidor(
+    id_servidor INT IDENTITY(1,1) NOT NULL,
+    nombre_servidor VARCHAR(15) NOT NULL,
+    sitio_servidor VARCHAR(30) NOT NULL
+)
+
+ALTER TABLE Servidor ADD CONSTRAINT
+id_servidor_PK_CSTR PRIMARY KEY(id_servidor)
+
+INSERT INTO Servidor(nombre_servidor, sitio_servidor) VALUES
+('Zooqle','https://zooqle.com'),
+('Mega','https://mega.nz'),
+('Google Drive','https://www.google.com/drive'),
+('Uptobox','https://www.uptoboxsearch.com'),
+('btdb','http://btdb.to'),
+('Mediafire','https://www.mediafire.com'),
+('Odnoklassniki','https://ok.ru'),
+('Openload','https://oload.fun'),
+('RapidVideo','https://www.rapidvideo.com'),
+('Uqload','https://uqload.com')
+
+SELECT id_servidor, nombre_servidor,
+sitio_servidor FROM Servidor
+
+DROP TABLE DetalleTecnico
+
+------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------
+
+CREATE TABLE TipoArchivo(
+    id_tipo_archivo INT IDENTITY(1,1) NOT NULL,
+    nombre_tipo_archivo VARCHAR(5) NOT NULL
+)
+
+ALTER TABLE TipoArchivo ADD CONSTRAINT
+id_tipo_archivo_PK_CSTR PRIMARY KEY(id_tipo_archivo)
+
+INSERT INTO TipoArchivo(nombre_tipo_archivo) VALUES
+('Audio'),
+('Video')
+
+SELECT id_tipo_archivo,
+nombre_tipo_archivo
+FROM TipoArchivo
+
+DROP TABLE TipoArchivo
+
+------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------
+
+CREATE TABLE Vigencia(
+    id_vigencia INT IDENTITY(1,1) NOT NULL,
+    valor_vigencia VARCHAR(10) NOT NULL
+)
+
+ALTER TABLE Vigencia ADD CONSTRAINT
+id_vigencia_PK_CSTR PRIMARY KEY(id_vigencia)
+
+INSERT INTO Vigencia(valor_vigencia) VALUES
+('Activo'),
+('Inactivo')
+
+SELECT id_vigencia,
+valor_vigencia
+FROM Vigencia
+
+DROP TABLE Vigencia
+
+------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------
+
+CREATE TABLE Descarga(
+    id_descarga INT IDENTITY(1,1) NOT NULL,
+    password VARCHAR(30) NULL,
+    --id_pelicula INT NOT NULL,
+    id_tipo_archivo INT NOT NULL,
+    id_servidor INT NOT NULL
+)
+
+ALTER TABLE Descarga ADD CONSTRAINT
+id_descarga_PK_CSTR PRIMARY KEY(id_descarga)
+
+--ALTER TABLE Descarga ADD CONSTRAINT id_pelicula_FK_CSTR
+--FOREIGN KEY(id_pelicula) REFERENCES Pelicula(id_pelicula)
+
+ALTER TABLE Descarga ADD CONSTRAINT id_tipo_archivo_FK_CSTR
+FOREIGN KEY(id_tipo_archivo) REFERENCES TipoArchivo(id_tipo_archivo)
+
+ALTER TABLE Descarga ADD CONSTRAINT id_servidor_FK_CSTR
+FOREIGN KEY(id_servidor) REFERENCES Servidor(id_servidor)
+
+INSERT INTO Descarga(password, id_tipo_archivo, id_servidor) VALUES
+('cinemaniahdd.com', 1,3),
+('', 2,1)
+
+SELECT DS.id_descarga, DS.password, TA.nombre_tipo_archivo,
+SE.nombre_servidor FROM Descarga DS 
+INNER JOIN TipoArchivo TA
+ON DS.id_tipo_archivo = TA.id_tipo_archivo
+INNER JOIN Servidor SE 
+ON DS.id_servidor = SE.id_servidor
+
+DROP TABLE Descarga
+
+------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------
+
+CREATE TABLE Enlace(
+    id_enlace INT IDENTITY(1,1) NOT NULL,
+    valor_enlace VARCHAR(150) NOT NULL,
+    id_descarga INT NOT NULL,
+    id_vigencia INT NOT NULL
+)
+
+ALTER TABLE Enlace ADD CONSTRAINT
+id_enlace_PK_CSTR PRIMARY KEY(id_enlace)
+
+ALTER TABLE Enlace ADD CONSTRAINT id_descarga_FK_CSTR
+FOREIGN KEY(id_descarga) REFERENCES Descarga(id_descarga)
+
+ALTER TABLE Enlace ADD CONSTRAINT id_vigencia_FK_CSTR
+FOREIGN KEY(id_vigencia) REFERENCES Vigencia(id_vigencia)
+
+INSERT INTO Enlace(valor_enlace, id_descarga, id_vigencia) VALUES
+('https://drive.google.com/file/d/1o_fpc9LtrShykbH8etJ74W1hOKTrAFSl', 1, 1),
+('https://drive.google.com/file/d/1BWFO5lZGBGZdHWFIH-ZHzDU2MsTXZN1m', 1, 1),
+('https://drive.google.com/file/d/140hZyW0uweaY6eiXgRUt1cmtFc46NFBx', 1, 1),
+('https://drive.google.com/file/d/1R5-FJhPTmVG5NSQNLGbhFsMacad34_30', 1, 1),
+('https://drive.google.com/file/d/1epnhufmybFalUvHMv-BiqvzraGTLiOXC', 1, 1),
+('https://zooqle.com/titanic-1997-open-matte-1080p-brrip-6ch-wd0av.html',2,1)
+
+SELECT EL.id_enlace, EL.valor_enlace, EL.id_descarga, VG.valor_vigencia FROM Enlace
+FROM Enlace EL INNER JOIN Vigencia VG ON EL.id_vigencia = VG.id_vigencia
+
+SELECT DS.id_descarga, DS.password, TA.nombre_tipo_archivo,
+SE.nombre_servidor, EL.valor_enlace, VG.valor_vigencia FROM Descarga DS
+INNER JOIN Enlace EL ON DS.id_descarga = EL.id_descarga
+INNER JOIN Vigencia VG ON EL.id_vigencia = VG.id_vigencia
+INNER JOIN TipoArchivo TA ON DS.id_tipo_archivo = TA.id_tipo_archivo
+INNER JOIN Servidor SE ON DS.id_servidor = SE.id_servidor
+
+DROP TABLE Enlace
+
+------------------------------------------------------------------------------------------------------
