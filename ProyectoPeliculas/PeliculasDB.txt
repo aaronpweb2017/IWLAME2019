@@ -1,0 +1,174 @@
+CREATE DATABASE Peliculas
+
+USE Peliculas
+
+------------------------------------------------------------------------------------------------------
+
+CREATE TABLE TipoResolucion(
+    id_tipo_resolucion INT IDENTITY(1,1) NOT NULL,
+    nombre_tipo_resolucion VARCHAR(10) NOT NULL,
+    porcentaje_visualizacion DECIMAL(6,3) NOT NULL,
+    porcentaje_perdida DECIMAL(6,3) NOT NULL
+)
+
+ALTER TABLE TipoResolucion ADD CONSTRAINT
+id_tipo_resolucion_PK_CSTR PRIMARY KEY(id_tipo_resolucion)
+
+INSERT INTO TipoResolucion(nombre_tipo_resolucion, 
+porcentaje_visualizacion, porcentaje_perdida) VALUES
+('Clasica', 75.000, 25.000),
+('Standard', 74.075, 25.925),
+('Open Matte', 87.500, 12.500),
+('IMAX', 100.000, 0.000)
+
+SELECT id_tipo_resolucion, nombre_tipo_resolucion, 
+porcentaje_visualizacion, porcentaje_perdida FROM TipoResolucion
+
+DROP TABLE TipoResolucion
+
+------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------
+
+CREATE TABLE ValorResolucion(
+    id_valor_resolucion INT IDENTITY(1,1) NOT NULL,
+    valor_resolucion VARCHAR(9) NOT NULL,
+)
+
+ALTER TABLE ValorResolucion ADD CONSTRAINT
+id_valor_resolucion_PK_CSTR PRIMARY KEY(id_valor_resolucion)
+
+--ALTER TABLE ValorResolucion ADD CONSTRAINT
+--valor_resolucion_CK_CSTR CHECK(valor_resolucion LIKE '[624-1920]x[336-1080]')
+
+INSERT INTO ValorResolucion(valor_resolucion) VALUES
+('624x352'),
+('640x472'),
+('688x336'),
+('1024x576'),
+('1056x592'),
+('1152x648'),
+('1280x526'),
+('1280x534'),
+('1280x542'),
+('1280x690'),
+('1280x716'),
+('1280x720'),
+('1488x1080'),
+('1904x784'),
+('1920x800'),
+('1920x802'),
+('1920x804'),
+('1920x808'),
+('1920x816'),
+('1920x1012'),
+('1920x1024'),
+('1920x1032'),
+('1920x1036'),
+('1920x1040'),
+('1920x1072'),
+('1920x1080')
+
+SELECT id_valor_resolucion,
+valor_resolucion
+FROM ValorResolucion
+
+DROP TABLE ValorResolucion
+
+------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------
+
+CREATE TABLE RelacionAspecto(
+    id_relacion_aspecto INT IDENTITY(1,1) NOT NULL,
+    valor_relacion_aspecto VARCHAR(4) NOT NULL,
+)
+
+ALTER TABLE RelacionAspecto ADD CONSTRAINT
+id_relacion_aspecto_PK_CSTR PRIMARY KEY(id_relacion_aspecto)
+
+--ALTER TABLE RelacionAspecto ADD CONSTRAINT
+--valor_relacion_aspecto_CK_CSTR CHECK(valor_relacion_aspecto LIKE '[4-16]:[3-9]')
+
+INSERT INTO RelacionAspecto(valor_relacion_aspecto) VALUES
+('4:3'),
+('5:12'),
+('16:9')
+
+SELECT id_relacion_aspecto,
+valor_relacion_aspecto
+FROM RelacionAspecto
+
+DROP TABLE RelacionAspecto
+
+------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------
+
+CREATE TABLE TipoValorResolucion(
+    id_tipo_resolucion INT NOT NULL,
+    id_valor_resolucion INT NOT NULL,
+    id_relacion_aspecto INT NOT NULL
+)
+
+ALTER TABLE TipoValorResolucion ADD CONSTRAINT id_tipo_valor_relacion_PK_CSTR
+PRIMARY KEY(id_tipo_resolucion, id_valor_resolucion, id_relacion_aspecto)
+
+ALTER TABLE TipoValorResolucion ADD CONSTRAINT id_tipo_resolucion_FK_CSTR
+FOREIGN KEY(id_tipo_resolucion) REFERENCES TipoResolucion(id_tipo_resolucion)
+
+ALTER TABLE TipoValorResolucion ADD CONSTRAINT id_valor_resolucion_FK_CSTR
+FOREIGN KEY(id_valor_resolucion) REFERENCES ValorResolucion(id_valor_resolucion)
+
+ALTER TABLE TipoValorResolucion ADD CONSTRAINT id_relacion_aspecto_FK_CSTR
+FOREIGN KEY(id_relacion_aspecto) REFERENCES RelacionAspecto(id_relacion_aspecto)
+
+INSERT INTO TipoValorResolucion(id_tipo_resolucion,
+id_valor_resolucion, id_relacion_aspecto) VALUES
+(4, 1, 3),
+(1, 2, 1),
+(2, 3, 2),
+(3, 4, 3),
+(3, 5, 3),
+(3, 6, 3),
+(2, 7, 2),
+(2, 8, 2),
+(2, 9, 2),
+(4, 10, 3),
+(4, 11, 3),
+(3, 12, 3),
+(4, 12, 3),
+(1, 13, 1),
+(2, 14, 2),
+(2, 15, 2),
+(2, 16, 2),
+(2, 17, 2),
+(2, 18, 2),
+(2, 19, 2),
+(4, 20, 3),
+(4, 21, 3),
+(4, 22, 3),
+(4, 23, 3),
+(4, 24, 3),
+(4, 25, 3),
+(3, 26, 3),
+(4, 26, 3)
+
+SELECT id_tipo_resolucion, id_valor_resolucion,
+id_relacion_aspecto FROM TipoValorResolucion
+
+SELECT TR.nombre_tipo_resolucion, VR.valor_resolucion,
+RA.valor_relacion_aspecto FROM TipoValorResolucion TVR
+INNER JOIN TipoResolucion TR
+ON TVR.id_tipo_resolucion = TR.id_tipo_resolucion
+INNER JOIN ValorResolucion VR
+ON TVR.id_valor_resolucion = VR.id_valor_resolucion
+INNER JOIN RelacionAspecto RA
+ON TVR.id_relacion_aspecto = RA.id_relacion_aspecto
+
+DROP TABLE TipoValorResolucion
+
+------------------------------------------------------------------------------------------------------
