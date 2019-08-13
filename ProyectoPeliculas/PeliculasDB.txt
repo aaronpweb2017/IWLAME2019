@@ -431,3 +431,96 @@ INNER JOIN Servidor SE ON DS.id_servidor = SE.id_servidor
 DROP TABLE Enlace
 
 ------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------
+
+CREATE TABLE DetallePersona(
+    id_detalle_persona INT IDENTITY(1,1) NOT NULL,
+    nombre_persona VARCHAR(50) NOT NULL,
+    nacimiento_persona SMALLDATETIME NOT NULL,
+    fallecimiento_persona SMALLDATETIME NULL,
+    edad_persona INT NOT NULL,
+    nacionalidad_persona VARCHAR(25),
+    descripcion_persona VARCHAR(300) NOT NULL,
+    sitio_persona VARCHAR(35) NULL
+)
+
+ALTER TABLE DetallePersona ADD CONSTRAINT
+id_detalle_persona_PK_CSTR PRIMARY KEY(id_detalle_persona)
+
+INSERT INTO DetallePersona(nombre_persona, nacimiento_persona, fallecimiento_persona,
+edad_persona, nacionalidad_persona, descripcion_persona, sitio_persona) VALUES
+('Robert Downey Jr.', '1965-04-04', NULL, 54, 'Estadounidense', 'Después de estudiar en
+Los Ángeles, Robert Downey Jr. se mudó a Nueva York a la edad de 16 años para
+iniciar su carrera como actor. Se hizo especialmente famoso al participar
+regularmente en el programa de televisión Saturday night live.', 'https://robert-downeyjr.com'),
+('Chris Hemsworth', '1983-08-11', NULL, 36, 'Australiano', 'Nació en Melbourne, Victoria, Australia.
+Su padre Craig Hemsworth, se desempeñó como asistente social de protección de menores y su madre
+Leonie van Os, era profesora de idiomas.', 'https://www.chris-hemsworth.net')
+
+SELECT nombre_persona, nacimiento_persona, fallecimiento_persona, edad_persona,
+nacionalidad_persona, descripcion_persona, sitio_persona FROM DetallePersona
+
+DROP TABLE DetallePersona
+
+------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------
+
+CREATE TABLE Actor(
+    id_actor INT IDENTITY(1,1) NOT NULL,
+    id_detalle_persona INT NOT NULL
+)
+
+ALTER TABLE Actor ADD CONSTRAINT
+id_actor_PK_CSTR PRIMARY KEY(id_actor)
+
+ALTER TABLE Actor ADD CONSTRAINT id_detalle_persona_FK_CSTR
+FOREIGN KEY(id_detalle_persona) REFERENCES DetallePersona(id_detalle_persona)
+
+INSERT INTO Actor(id_detalle_persona) VALUES
+(1), (2)
+
+SELECT AC.id_actor, DP.nombre_persona, DP.nacimiento_persona,
+DP.fallecimiento_persona, DP.edad_persona, DP.nacionalidad_persona,
+DP.descripcion_persona, DP.sitio_persona FROM DetallePersona DP 
+INNER JOIN Actor AC ON DP.id_detalle_persona = AC.id_detalle_persona
+
+DROP TABLE Actor
+
+------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------
+
+CREATE TABLE PeliculaActor(
+    id_pelicula INT NOT NULL,
+    id_actor INT NOT NULL
+)
+
+ALTER TABLE PeliculaActor
+ADD CONSTRAINT id_pelicula_actor_PK_CSTR
+PRIMARY KEY(id_pelicula, id_actor)
+
+ALTER TABLE PeliculaActor ADD CONSTRAINT id_pelicula_pa_FK_CSTR
+FOREIGN KEY(id_pelicula) REFERENCES Pelicula(id_pelicula)
+
+ALTER TABLE PeliculaActor ADD CONSTRAINT id_actor_FK_CSTR
+FOREIGN KEY(id_actor) REFERENCES Actor(id_actor)
+
+INSERT INTO PeliculaActor(id_pelicula, id_actor) VALUES
+(2, 1),
+(2, 2)
+
+SELECT PE.nombre_pelicula, DP.nombre_persona,
+DP.nacimiento_persona, DP.fallecimiento_persona,
+DP.edad_persona, DP.nacionalidad_persona FROM PeliculaActor PA
+INNER JOIN Pelicula PE ON PA.id_pelicula = PE.id_pelicula
+INNER JOIN Actor AC ON PA.id_actor = AC.id_actor
+INNER JOIN DetallePersona DP ON AC.id_detalle_persona = DP.id_detalle_persona
+
+DROP TABLE PeliculaActor
+
+------------------------------------------------------------------------------------------------------
