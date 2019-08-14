@@ -524,3 +524,69 @@ INNER JOIN DetallePersona DP ON AC.id_detalle_persona = DP.id_detalle_persona
 DROP TABLE PeliculaActor
 
 ------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------
+
+CREATE TABLE Personaje(
+    id_personaje INT IDENTITY(1,1) NOT NULL,
+    nombre_personaje VARCHAR(50) NOT NULL,
+    descripcion_personaje VARCHAR(300) NOT NULL
+)
+
+ALTER TABLE Personaje ADD CONSTRAINT
+id_personaje_PK_CSTR PRIMARY KEY(id_personaje)
+
+INSERT INTO Personaje(nombre_personaje, descripcion_personaje) VALUES
+('Iron Man', 'Multimillonario, empresario e ingeniero, Tony Stark sufre una lesión 
+en el pecho durante un secuestro en el que sus captores tratan de obligarlo 
+a construir un arma de destrucción masiva. ... Luego utiliza la armadura 
+para proteger al mundo como Iron Man.'),
+('Thor', 'Thor uno de los dioses mas poderosos de todo Asgard, posee
+ciertas condiciones físicas que le perimitián hacer asañas
+asombrosas como levantar el Mjolnir.')
+
+SELECT id_personaje, nombre_personaje,
+descripcion_personaje FROM Personaje
+
+DROP TABLE Personaje
+
+------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------
+
+CREATE TABLE PeliculaActorPersonaje(
+    id_personaje INT NOT NULL,
+    id_pelicula INT NOT NULL,
+    id_actor INT NOT NULL
+)
+
+ALTER TABLE PeliculaActorPersonaje ADD CONSTRAINT
+id_personaje_pelicula_actor_PK_CSTR
+PRIMARY KEY(id_personaje, id_pelicula, id_actor)
+
+ALTER TABLE PeliculaActorPersonaje ADD CONSTRAINT
+id_personaje_FK_CSTR FOREIGN KEY(id_personaje)
+REFERENCES Personaje(id_personaje)
+
+ALTER TABLE PeliculaActorPersonaje ADD CONSTRAINT
+id_pelicula_actor_FK_CSTR FOREIGN KEY(id_pelicula, id_actor)
+REFERENCES PeliculaActor(id_pelicula, id_actor)
+
+INSERT INTO PeliculaActorPersonaje(id_personaje, id_pelicula, id_actor) VALUES
+(1, 2, 1),
+(2, 2, 2)
+
+SELECT PEL.nombre_pelicula, DP.nombre_persona,
+PER.nombre_personaje FROM PeliculaActorPersonaje PAP
+INNER JOIN Personaje PER ON PAP.id_personaje = PER.id_personaje
+INNER JOIN PeliculaActor PA ON PAP.id_pelicula = PA.id_pelicula
+AND PAP.id_actor = PA.id_actor 
+INNER JOIN Pelicula PEL ON PA.id_pelicula = PEL.id_pelicula
+INNER JOIN Actor AC ON PA.id_actor = AC.id_actor
+INNER JOIN DetallePersona DP ON AC.id_detalle_persona = DP.id_detalle_persona
+
+DROP TABLE PeliculaActorPersonaje
+
+------------------------------------------------------------------------------------------------------
