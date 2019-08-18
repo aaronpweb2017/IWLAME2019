@@ -5,7 +5,7 @@ USE Peliculas
 ------------------------------------------------------------------------------------------------------
 
 CREATE TABLE TipoResolucion(
-    id_tipo_resolucion INT IDENTITY(1,1) NOT NULL,
+    id_tipo_resolucion INT IDENTITY(1, 1) NOT NULL,
     nombre_tipo_resolucion VARCHAR(10) NOT NULL,
     porcentaje_visualizacion DECIMAL(6,3) NOT NULL,
     porcentaje_perdida DECIMAL(6,3) NOT NULL
@@ -33,7 +33,7 @@ DROP TABLE TipoResolucion
 ------------------------------------------------------------------------------------------------------
 
 CREATE TABLE ValorResolucion(
-    id_valor_resolucion INT IDENTITY(1,1) NOT NULL,
+    id_valor_resolucion INT IDENTITY(1, 1) NOT NULL,
     valor_resolucion VARCHAR(9) NOT NULL,
 )
 
@@ -83,7 +83,7 @@ DROP TABLE ValorResolucion
 ------------------------------------------------------------------------------------------------------
 
 CREATE TABLE RelacionAspecto(
-    id_relacion_aspecto INT IDENTITY(1,1) NOT NULL,
+    id_relacion_aspecto INT IDENTITY(1, 1) NOT NULL,
     valor_relacion_aspecto VARCHAR(4) NOT NULL,
 )
 
@@ -178,7 +178,7 @@ DROP TABLE Resolucion
 ------------------------------------------------------------------------------------------------------
 
 CREATE TABLE Formato(
-    id_formato INT IDENTITY(1,1) NOT NULL,
+    id_formato INT IDENTITY(1, 1) NOT NULL,
     nombre_formato VARCHAR(3) NOT NULL,
 )
 
@@ -200,7 +200,7 @@ DROP TABLE Formato
 ------------------------------------------------------------------------------------------------------
 
 CREATE TABLE DetalleTecnico(
-    id_detalle INT IDENTITY(1,1) NOT NULL,
+    id_detalle INT IDENTITY(1, 1) NOT NULL,
     id_formato INT NOT NULL,
     id_tipo_resolucion INT NOT NULL,
     id_valor_resolucion INT NOT NULL,
@@ -233,7 +233,7 @@ DROP TABLE DetalleTecnico
 ------------------------------------------------------------------------------------------------------
 
 CREATE TABLE Pelicula(
-    id_pelicula INT IDENTITY(1,1) NOT NULL,
+    id_pelicula INT IDENTITY(1, 1) NOT NULL,
     nombre_pelicula VARCHAR(50) NOT NULL,
     fecha_estreno SMALLDATETIME NOT NULL,
     presupuesto MONEY NULL,
@@ -250,13 +250,9 @@ FOREIGN KEY(id_detalle) REFERENCES DetalleTecnico(id_detalle)
 
 INSERT INTO Pelicula(nombre_pelicula, fecha_estreno,
 presupuesto, recaudacion, sinopsis, id_detalle) VALUES 
-('Titanic','1998-01-01', 200000000, 2187463944,'Una joven de la alta sociedad
-abandona a su arrogante pretendiente por un artista humilde en el 
-trasatlántico que se hundió durante su viaje inaugural.', 1),
-('Avengers Infinity War','2018-04-27', 300000000, 2048359754,'Los superhéroes se alían
-para vencer al poderoso Thanos, el peor enemigo al que se han enfrentado.
-Si Thanos logra reunir las seis gemas del infinito: poder, tiempo, alma,
-realidad, mente y espacio, nadie podrá detenerlo.', 1)
+('Titanic','1998-01-01', 200000000, 2187463944,'Una película de amor triste.', 1),
+('Avengers Infinity War','2018-04-27', 300000000, 2048359754,
+'Thanos desaparece a la mitad del universo.', 1)
 
 SELECT id_pelicula, nombre_pelicula, fecha_estreno,
 presupuesto, recaudacion, sinopsis, id_detalle FROM Pelicula
@@ -277,7 +273,7 @@ DROP TABLE Pelicula
 ------------------------------------------------------------------------------------------------------
 
 CREATE TABLE Servidor(
-    id_servidor INT IDENTITY(1,1) NOT NULL,
+    id_servidor INT IDENTITY(1, 1) NOT NULL,
     nombre_servidor VARCHAR(15) NOT NULL,
     sitio_servidor VARCHAR(30) NOT NULL
 )
@@ -308,7 +304,7 @@ DROP TABLE DetalleTecnico
 ------------------------------------------------------------------------------------------------------
 
 CREATE TABLE TipoArchivo(
-    id_tipo_archivo INT IDENTITY(1,1) NOT NULL,
+    id_tipo_archivo INT IDENTITY(1, 1) NOT NULL,
     nombre_tipo_archivo VARCHAR(5) NOT NULL
 )
 
@@ -331,7 +327,7 @@ DROP TABLE TipoArchivo
 ------------------------------------------------------------------------------------------------------
 
 CREATE TABLE Vigencia(
-    id_vigencia INT IDENTITY(1,1) NOT NULL,
+    id_vigencia INT IDENTITY(1, 1) NOT NULL,
     valor_vigencia VARCHAR(10) NOT NULL
 )
 
@@ -354,7 +350,7 @@ DROP TABLE Vigencia
 ------------------------------------------------------------------------------------------------------
 
 CREATE TABLE Descarga(
-    id_descarga INT IDENTITY(1,1) NOT NULL,
+    id_descarga INT IDENTITY(1, 1) NOT NULL,
     password VARCHAR(30) NULL,
     id_pelicula INT NOT NULL,
     id_tipo_archivo INT NOT NULL,
@@ -393,7 +389,7 @@ DROP TABLE Descarga
 ------------------------------------------------------------------------------------------------------
 
 CREATE TABLE Enlace(
-    id_enlace INT IDENTITY(1,1) NOT NULL,
+    id_enlace INT IDENTITY(1, 1) NOT NULL,
     valor_enlace VARCHAR(150) NOT NULL,
     id_descarga INT NOT NULL,
     id_vigencia INT NOT NULL
@@ -414,7 +410,7 @@ INSERT INTO Enlace(valor_enlace, id_descarga, id_vigencia) VALUES
 ('https://drive.google.com/file/d/140hZyW0uweaY6eiXgRUt1cmtFc46NFBx', 1, 1),
 ('https://drive.google.com/file/d/1R5-FJhPTmVG5NSQNLGbhFsMacad34_30', 1, 1),
 ('https://drive.google.com/file/d/1epnhufmybFalUvHMv-BiqvzraGTLiOXC', 1, 1),
-('https://zooqle.com/titanic-1997-open-matte-1080p-brrip-6ch-wd0av.html',2, 1),
+('https://zooqle.com/titanic-1997-open-matte-1080p-brrip-6ch-wd0av.html', 2, 1),
 ('https://mega.nz/#!MF80TIqD!dfwrcCQUqzg6nZW2H0fqALiiAi4vvEqe4ZwDjgiGjmw', 3, 1)
 
 SELECT EL.id_enlace, EL.valor_enlace, EL.id_descarga, VG.valor_vigencia
@@ -436,14 +432,14 @@ DROP TABLE Enlace
 ------------------------------------------------------------------------------------------------------
 
 CREATE TABLE DetallePersona(
-    id_detalle_persona INT IDENTITY(1,1) NOT NULL,
+    id_detalle_persona INT IDENTITY(1, 1) NOT NULL,
     nombre_persona VARCHAR(50) NOT NULL,
     nacimiento_persona SMALLDATETIME NOT NULL,
     fallecimiento_persona SMALLDATETIME NULL,
     edad_persona INT NOT NULL,
     nacionalidad_persona VARCHAR(25),
     descripcion_persona VARCHAR(300) NOT NULL,
-    sitio_persona VARCHAR(35) NULL
+    sitio_persona VARCHAR(50) NULL
 )
 
 ALTER TABLE DetallePersona ADD CONSTRAINT
@@ -451,16 +447,17 @@ id_detalle_persona_PK_CSTR PRIMARY KEY(id_detalle_persona)
 
 INSERT INTO DetallePersona(nombre_persona, nacimiento_persona, fallecimiento_persona,
 edad_persona, nacionalidad_persona, descripcion_persona, sitio_persona) VALUES
-('Robert Downey Jr.', '1965-04-04', NULL, 54, 'Estadounidense', 'Después de estudiar en
-Los Ángeles, Robert Downey Jr. se mudó a Nueva York a la edad de 16 años para
-iniciar su carrera como actor. Se hizo especialmente famoso al participar
-regularmente en el programa de televisión Saturday night live.', 'https://robert-downeyjr.com'),
-('Chris Hemsworth', '1983-08-11', NULL, 36, 'Australiano', 'Nació en Melbourne, Victoria, Australia.
-Su padre Craig Hemsworth, se desempeñó como asistente social de protección de menores y su madre
-Leonie van Os, era profesora de idiomas.', 'https://www.chris-hemsworth.net')
+('Robert Downey Jr.', '1965-04-04', NULL, 54, 'Estadounidense',
+'Robert Downey Jr. es Iron Man.', 'https://robert-downeyjr.com'),
+('Chris Hemsworth', '1983-08-11', NULL, 36, 'Australiano',
+'Chris Hemsworth es Thor.', 'https://www.chris-hemsworth.net'),
+('Anthony Russo', '1970-02-03', NULL, 49, 'Estadounidense',
+'Director de Infinity War y Endgame.', 'https://www.instagram.com/therussobrothers/'),
+('Joseph V. Russo', '1971-07-18', NULL, 48, 'Estadounidense',
+'Director de Infinity War y Endgame.', 'https://www.instagram.com/therussobrothers/')
 
-SELECT nombre_persona, nacimiento_persona, fallecimiento_persona, edad_persona,
-nacionalidad_persona, descripcion_persona, sitio_persona FROM DetallePersona
+SELECT id_detalle_persona, nombre_persona, nacimiento_persona, fallecimiento_persona,
+edad_persona, nacionalidad_persona, descripcion_persona, sitio_persona FROM DetallePersona
 
 DROP TABLE DetallePersona
 
@@ -470,21 +467,21 @@ DROP TABLE DetallePersona
 ------------------------------------------------------------------------------------------------------
 
 CREATE TABLE Actor(
-    id_actor INT IDENTITY(1,1) NOT NULL,
+    id_actor INT IDENTITY(1, 1) NOT NULL,
     id_detalle_persona INT NOT NULL
 )
 
 ALTER TABLE Actor ADD CONSTRAINT
 id_actor_PK_CSTR PRIMARY KEY(id_actor)
 
-ALTER TABLE Actor ADD CONSTRAINT id_detalle_persona_FK_CSTR
+ALTER TABLE Actor ADD CONSTRAINT id_detalle_persona_act_FK_CSTR
 FOREIGN KEY(id_detalle_persona) REFERENCES DetallePersona(id_detalle_persona)
 
 INSERT INTO Actor(id_detalle_persona) VALUES
 (1), (2)
 
 SELECT AC.id_actor, DP.nombre_persona, DP.nacimiento_persona,
-DP.fallecimiento_persona, DP.edad_persona, DP.nacionalidad_persona,
+DP.edad_persona, DP.nacionalidad_persona,
 DP.descripcion_persona, DP.sitio_persona FROM DetallePersona DP 
 INNER JOIN Actor AC ON DP.id_detalle_persona = AC.id_detalle_persona
 
@@ -514,8 +511,7 @@ INSERT INTO PeliculaActor(id_pelicula, id_actor) VALUES
 (2, 1),
 (2, 2)
 
-SELECT PE.nombre_pelicula, DP.nombre_persona,
-DP.nacimiento_persona, DP.fallecimiento_persona,
+SELECT PE.nombre_pelicula, DP.nombre_persona, DP.nacimiento_persona,
 DP.edad_persona, DP.nacionalidad_persona FROM PeliculaActor PA
 INNER JOIN Pelicula PE ON PA.id_pelicula = PE.id_pelicula
 INNER JOIN Actor AC ON PA.id_actor = AC.id_actor
@@ -529,7 +525,7 @@ DROP TABLE PeliculaActor
 ------------------------------------------------------------------------------------------------------
 
 CREATE TABLE Personaje(
-    id_personaje INT IDENTITY(1,1) NOT NULL,
+    id_personaje INT IDENTITY(1, 1) NOT NULL,
     nombre_personaje VARCHAR(50) NOT NULL,
     descripcion_personaje VARCHAR(300) NOT NULL
 )
@@ -538,13 +534,8 @@ ALTER TABLE Personaje ADD CONSTRAINT
 id_personaje_PK_CSTR PRIMARY KEY(id_personaje)
 
 INSERT INTO Personaje(nombre_personaje, descripcion_personaje) VALUES
-('Iron Man', 'Multimillonario, empresario e ingeniero, Tony Stark sufre una lesión 
-en el pecho durante un secuestro en el que sus captores tratan de obligarlo 
-a construir un arma de destrucción masiva. ... Luego utiliza la armadura 
-para proteger al mundo como Iron Man.'),
-('Thor', 'Thor uno de los dioses mas poderosos de todo Asgard, posee
-ciertas condiciones físicas que le perimitián hacer asañas
-asombrosas como levantar el Mjolnir.')
+('Iron Man', 'Iron Man salvó al universo de Thanos.'),
+('Thor', 'Thor debió haber muerto en EndGame.')
 
 SELECT id_personaje, nombre_personaje,
 descripcion_personaje FROM Personaje
@@ -588,5 +579,204 @@ INNER JOIN Actor AC ON PA.id_actor = AC.id_actor
 INNER JOIN DetallePersona DP ON AC.id_detalle_persona = DP.id_detalle_persona
 
 DROP TABLE PeliculaActorPersonaje
+
+------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------
+
+CREATE TABLE Director(
+    id_director INT IDENTITY(1, 1) NOT NULL,
+    id_detalle_persona INT NOT NULL
+)
+
+ALTER TABLE Director ADD CONSTRAINT
+id_director_PK_CSTR PRIMARY KEY(id_director)
+
+ALTER TABLE Director ADD CONSTRAINT id_detalle_persona_dir_FK_CSTR
+FOREIGN KEY(id_detalle_persona) REFERENCES DetallePersona(id_detalle_persona)
+
+INSERT INTO Director(id_detalle_persona) VALUES
+(3), (4)
+
+SELECT DIR.id_director, DP.nombre_persona,
+DP.nacimiento_persona, DP.edad_persona,
+DP.nacionalidad_persona, DP.descripcion_persona,
+DP.sitio_persona FROM Director DIR
+INNER JOIN DetallePersona DP
+ON DIR.id_detalle_persona = DP.id_detalle_persona
+
+DROP TABLE Director
+
+------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------
+
+CREATE TABLE PeliculaDirector(
+    id_pelicula INT NOT NULL,
+    id_director INT NOT NULL
+)
+
+ALTER TABLE PeliculaDirector
+ADD CONSTRAINT id_pelicula_director_PK_CSTR
+PRIMARY KEY(id_pelicula, id_director)
+
+ALTER TABLE PeliculaDirector ADD CONSTRAINT id_pelicula_pd_FK_CSTR
+FOREIGN KEY(id_pelicula) REFERENCES Pelicula(id_pelicula)
+
+ALTER TABLE PeliculaDirector ADD CONSTRAINT id_director_FK_CSTR
+FOREIGN KEY(id_director) REFERENCES Director(id_director)
+
+INSERT INTO PeliculaDirector(id_pelicula, id_director) VALUES
+(2, 1),
+(2, 2)
+
+SELECT PE.nombre_pelicula, DP.nombre_persona, DP.nacimiento_persona,
+DP.edad_persona, DP.nacionalidad_persona FROM PeliculaDirector PD
+INNER JOIN Pelicula PE ON PD.id_pelicula = PE.id_pelicula
+INNER JOIN Director DIR ON PD.id_director = DIR.id_director
+INNER JOIN DetallePersona DP ON DIR.id_detalle_persona = DP.id_detalle_persona
+
+DROP TABLE PeliculaActor
+
+------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------
+
+CREATE TABLE Productora(
+    id_productora INT IDENTITY(1, 1) NOT NULL,
+    nombre_productora VARCHAR(50) NOT NULL,
+    descripcion_productora VARCHAR(300) NOT NULL
+)
+
+ALTER TABLE Productora ADD CONSTRAINT
+id_productora_PK_CSTR PRIMARY KEY(id_productora)
+
+INSERT INTO Productora(nombre_productora, descripcion_productora) VALUES
+('Marvel Studios', 'Estudio cinematográfico en Walt Disney Studios')
+
+SELECT id_productora, nombre_productora, descripcion_productora
+FROM Productora
+
+DROP TABLE Productora
+
+------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------
+
+CREATE TABLE ProductoraPelicula(
+   id_productora INT NOT NULL,
+   id_pelicula INT NOT NULL
+)
+
+ALTER TABLE ProductoraPelicula
+ADD CONSTRAINT id_productora_pelicula_PK_CSTR
+PRIMARY KEY(id_productora, id_pelicula)
+
+ALTER TABLE ProductoraPelicula ADD CONSTRAINT id_productora_FK_CSTR
+FOREIGN KEY(id_productora) REFERENCES Productora(id_productora)
+
+ALTER TABLE ProductoraPelicula ADD CONSTRAINT id_pelicula_pp_FK_CSTR
+FOREIGN KEY(id_pelicula) REFERENCES Pelicula(id_pelicula)
+
+INSERT INTO ProductoraPelicula(id_productora, id_pelicula) VALUES
+(1, 2)
+
+SELECT PROD.nombre_productora, PE.nombre_pelicula FROM ProductoraPelicula PP
+INNER JOIN Productora PROD ON PP.id_productora = PROD.id_productora
+INNER JOIN Pelicula PE ON PP.id_pelicula = PE.id_pelicula
+
+DROP TABLE ProductoraPelicula
+
+------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------
+
+CREATE TABLE Idioma(
+    id_idioma INT IDENTITY(1, 1) NOT NULL,
+    nombre_idioma VARCHAR(50) NOT NULL
+)
+
+ALTER TABLE Idioma ADD CONSTRAINT
+id_idioma_PK_CSTR PRIMARY KEY(id_idioma)
+
+INSERT INTO Idioma(nombre_idioma) VALUES
+('Español'),
+('Inglés'),
+('Ruso'),
+('Frances')
+
+SELECT id_idioma, nombre_idioma
+FROM Idioma
+
+DROP TABLE Idioma
+
+------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------
+
+CREATE TABLE IdiomaPelicula(
+   id_idioma INT NOT NULL,
+   id_pelicula INT NOT NULL
+)
+
+ALTER TABLE IdiomaPelicula
+ADD CONSTRAINT id_idioma_pelicula_PK_CSTR
+PRIMARY KEY(id_idioma, id_pelicula)
+
+ALTER TABLE IdiomaPelicula ADD CONSTRAINT id_idioma_FK_CSTR
+FOREIGN KEY(id_idioma) REFERENCES Idioma(id_idioma)
+
+ALTER TABLE IdiomaPelicula ADD CONSTRAINT id_pelicula_ip_FK_CSTR
+FOREIGN KEY(id_pelicula) REFERENCES Pelicula(id_pelicula)
+
+INSERT INTO IdiomaPelicula(id_idioma, id_pelicula) VALUES
+(1, 2),
+(2, 2),
+(3, 2)
+
+SELECT PE.nombre_pelicula, ID.nombre_idioma FROM IdiomaPelicula IP
+INNER JOIN Idioma ID ON IP.id_idioma = ID.id_idioma
+INNER JOIN Pelicula PE ON IP.id_pelicula = PE.id_pelicula
+
+DROP TABLE IdiomaPelicula
+
+------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------
+
+CREATE TABLE Escena(
+    id_escena INT IDENTITY(1, 1) NOT NULL,
+    nombre_escena VARCHAR(50) NOT NULL,
+    critica_escena VARCHAR(250)  NOT NULL,
+    inicio_id_escena TIME NOT NULL,
+    fin_id_escena TIME NOT NULL,
+    calificacion INT NOT NULL,
+    id_pelicula INT NOT NULL
+)
+
+ALTER TABLE Escena ADD CONSTRAINT
+id_escena_PK_CSTR PRIMARY KEY(id_escena)
+
+ALTER TABLE Escena ADD CONSTRAINT id_pelicula_esc_FK_CSTR
+FOREIGN KEY(id_pelicula) REFERENCES Pelicula(id_pelicula)
+
+INSERT INTO Escena(nombre_escena, critica_escena, inicio_id_escena,
+fin_id_escena, calificacion, id_pelicula) VALUES
+('La emboscada de Thanos a la nave asgardiana.',
+'Gran dominio de Thanos, nadie puede detenerlo.',
+'00:00:45.327', '00:10:15.200', 100, 2)
+
+SELECT PE.nombre_pelicula, ESC.nombre_escena, ESC.critica_escena,
+ESC.inicio_id_escena, ESC.fin_id_escena, ESC.calificacion FROM Escena ESC
+INNER JOIN Pelicula PE ON ESC.id_pelicula = PE.id_pelicula
+
+DROP TABLE Escena
 
 ------------------------------------------------------------------------------------------------------
