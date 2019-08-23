@@ -806,6 +806,73 @@ DROP TABLE Escena
 
 ------------------------------------------------------------------------------------------------------
 
+CREATE TABLE Genero(
+    id_genero INT IDENTITY(1, 1) NOT NULL,
+    nombre_genero VARCHAR(30) NOT NULL
+)
+
+ALTER TABLE Genero ADD CONSTRAINT
+id_genero_PK_CSTR PRIMARY KEY(id_genero)
+
+INSERT INTO Genero(nombre_genero) VALUES
+('Fantasía'),
+('Ciencia Ficción'),
+('Suspenso'),
+('Policíaco'),
+('Acción'),
+('Drama'),
+('Culto'),
+('Misterio'),
+('Terror'),
+('Found Footage'),
+('Slasher'),
+('Bélico'),
+('Histórico'),
+('Catástrofe'),
+('Venganza')
+
+SELECT id_genero, nombre_genero
+FROM Genero
+
+DROP TABLE Genero
+
+------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------
+
+CREATE TABLE GeneroPelicula(
+   id_genero INT NOT NULL,
+   id_pelicula INT NOT NULL
+)
+
+ALTER TABLE GeneroPelicula
+ADD CONSTRAINT id_genero_pelicula_PK_CSTR
+PRIMARY KEY(id_genero, id_pelicula)
+
+ALTER TABLE GeneroPelicula ADD CONSTRAINT id_genero_FK_CSTR
+FOREIGN KEY(id_genero) REFERENCES Genero(id_genero)
+
+ALTER TABLE GeneroPelicula ADD CONSTRAINT id_pelicula_gp_FK_CSTR
+FOREIGN KEY(id_pelicula) REFERENCES Pelicula(id_pelicula)
+
+INSERT INTO GeneroPelicula(id_genero, id_pelicula) VALUES
+(1, 1),
+(2, 1)
+
+SELECT PEL.nombre_pelicula, GE.nombre_genero FROM GeneroPelicula GP
+INNER JOIN Genero ID ON GP.id_genero = GE.id_genero
+INNER JOIN Pelicula PEL ON GP.id_pelicula = PEL.id_pelicula
+GROUP BY PEL.nombre_pelicula, GE.nombre_genero
+ORDER BY PEL.nombre_pelicula ASC
+
+DROP TABLE GeneroPelicula
+
+------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------
+
 CREATE TRIGGER ActualizaCalificacionPelicula
 ON Escena AFTER INSERT, UPDATE, DELETE AS
 BEGIN
