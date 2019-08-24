@@ -877,10 +877,16 @@ CREATE TABLE Usuario(
    id_usuario INT IDENTITY(1, 1) NOT NULL,
    nombre_usuario VARCHAR(50) NOT NULL,
    correo_usuario VARCHAR(50) NOT NULL,
-   password_usuario VARCHAR(25) NOT NULL,
+   password_usuario VARCHAR(32) NOT NULL,
    tipo_usuario INT NOT NULL,
-   token VARCHAR(100) NULL
+   token_usuario VARCHAR(100) NULL
 )
+
+SELECT id_usuario, nombre_usuario, correo_usuario,
+password_usuario, tipo_usuario, token_usuario
+FROM Usuario
+
+DROP TABLE Usuario
 
 ------------------------------------------------------------------------------------------------------
 

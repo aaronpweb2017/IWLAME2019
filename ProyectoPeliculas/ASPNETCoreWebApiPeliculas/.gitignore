@@ -1,0 +1,9 @@
+"ProyectoPeliculas/ASPNETCoreWebApiPeliculas/obj"
+"ProyectoPeliculas/ASPNETCoreWebApiPeliculas/bin"
+"ProyectoPeliculas/ASPNETCoreWebApiPeliculas/.vscode"
+
+#gitignore comments:
+#After 'git add -A', execute these commands:
+#git rm -r --cached "ProyectoPeliculas/ASPNETCoreWebApiPeliculas/obj"
+#git rm -r --cached "ProyectoPeliculas/ASPNETCoreWebApiPeliculas/bin"
+#git rm -r --cached "ProyectoPeliculas/ASPNETCoreWebApiPeliculas/.vscode"
