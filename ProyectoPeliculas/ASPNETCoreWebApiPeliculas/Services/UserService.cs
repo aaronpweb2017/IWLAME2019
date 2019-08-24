@@ -8,6 +8,7 @@ using ASPNETCoreWebApiPeliculas.Helpers;
 using ASPNETCoreWebApiPeliculas.Models;
 using System.Security.Cryptography;
 using System.Security.Principal;
+using Microsoft.IdentityModel.Logging;
 
 namespace ASPNETCoreWebApiPeliculas.Services
 {
@@ -28,80 +29,64 @@ namespace ASPNETCoreWebApiPeliculas.Services
 
         public string GetTokenAuthentication(int id_usuario, string password_usuario) {
             Usuario user = usuarioContext.usuarios.FindAsync(id_usuario).Result;
-            if (user == null || !password_usuario.Equals(DecryptPassword(user.password_usuario))) return null;
-            if(ValidateTokenAuthentication(user.token_usuario)) {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("EL TOKEN NO HA EXPIRADO...");
-                Console.ForegroundColor = ConsoleColor.Green;
+            string decryptedPassword = DecryptPassword(user.password_usuario);
+            if (user == null || !password_usuario.Equals(decryptedPassword)) return null;
+            if(ValidateToken(user.token_usuario) != null) {
                 return user.token_usuario;
             }
-            else {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("EL TOKEN YA EXPIRÓ...");
-                Console.ForegroundColor = ConsoleColor.Green;
-            }
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("SOLICITANDO NUEVO TOKEN...");
-            Console.ForegroundColor = ConsoleColor.Green;
             JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
             byte[] key = Encoding.ASCII.GetBytes(appSettings.Secret);
             SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor {
                 Subject = new ClaimsIdentity(new Claim[] {
                     new Claim(ClaimTypes.Name, user.id_usuario.ToString())
                 }),
-                Expires = DateTime.UtcNow.AddMinutes(1),
-                //Expires = DateTime.UtcNow.AddDays(7),
+                Expires = DateTime.UtcNow.AddHours(1), //+ 5 extra minutes...
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
                 SecurityAlgorithms.HmacSha256Signature)
             };
             SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
+            Usuario UpdatedUser = usuarioContext.usuarios.FindAsync(user.id_usuario).Result;
+            UpdatedUser.token_usuario = tokenHandler.WriteToken(token);
+            usuarioContext.Update(UpdatedUser); usuarioContext.SaveChangesAsync();
             return tokenHandler.WriteToken(token);
         }
 
-        public bool ValidateTokenAuthentication(string authToken) {
-            try{
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var validationParameters = GetValidationParameters();
+        public ClaimsPrincipal ValidateToken(string jwtToken) {
+            try {
+                byte[] key = Encoding.ASCII.GetBytes(appSettings.Secret);
+                IdentityModelEventSource.ShowPII = true;
                 SecurityToken validatedToken;
-                IPrincipal principal = tokenHandler.ValidateToken(authToken,
-                validationParameters, out validatedToken);
-                return true;
-            }
-            catch(Exception exception) {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("exception: "+exception.Message);
-                Console.ForegroundColor = ConsoleColor.Green;
-                return false;
+                TokenValidationParameters validationParameters;
+                validationParameters = new TokenValidationParameters {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateLifetime = true
+                };
+                ClaimsPrincipal principal = new JwtSecurityTokenHandler().
+                ValidateToken(jwtToken, validationParameters, out validatedToken);
+                return principal;
+            } catch(Exception exception) { //Token has expired...
+                DateTime tokenExpiryDate = GetTokenExpiryDate(jwtToken);
+                //Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Token expired on: "+tokenExpiryDate
+                    +"Mensaje de la excepción: "+exception.Message);
+                //Console.ForegroundColor = ConsoleColor.Green;
+                return null;
             }
         }
 
-        public TokenValidationParameters GetValidationParameters() {
-            return new TokenValidationParameters() {
-                //ValidIssuer = "Sample",
-                //ValidAudience = "Sample",
-                ValidIssuer = appSettings.Secret,
-                ValidAudience = appSettings.Secret,
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidateLifetime = true,
-                LifetimeValidator = LifetimeValidator,
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(appSettings.Secret))
-            };
-        }
-
-        public bool LifetimeValidator(DateTime? notBefore, DateTime? expires, 
-            SecurityToken token, TokenValidationParameters @params) {
-            if (expires != null) {
-                return expires > DateTime.UtcNow;
-            }
-            return false;
+        public DateTime GetTokenExpiryDate(string jwtToken) {
+            JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
+            JwtSecurityToken token = handler.ReadToken(jwtToken) as JwtSecurityToken;
+            DateTime tokenExpiryDate = token.ValidTo;
+            return tokenExpiryDate.AddHours(-6);
         }
 
         public string EncryptPassword(string password) {
             byte[] data = UTF8Encoding.UTF8.GetBytes(password);
-            string source = "Hello World", hash = "";
+            string source = appSettings.Hash, hash;
             using (MD5 md5Hash = MD5.Create()) {
                 hash = GetMd5Hash(md5Hash, source);
             }
@@ -120,7 +105,7 @@ namespace ASPNETCoreWebApiPeliculas.Services
         public string DecryptPassword(string password) {
             byte[] data = Convert.FromBase64String(password);
             using (MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider()) {
-                string source = "Hello World", hash = "";
+                string source = appSettings.Hash, hash;
                 using (MD5 md5Hash = MD5.Create()) {
                     hash = GetMd5Hash(md5Hash, source);
                 }

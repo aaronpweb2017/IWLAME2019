@@ -42,7 +42,9 @@ namespace ASPNETCoreWebApiPeliculas
                 x.TokenValidationParameters = new TokenValidationParameters {
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false, ValidateAudience = false
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateLifetime = true
                 };
             });
         }
