@@ -7,13 +7,14 @@ using System.IdentityModel.Tokens.Jwt;
 using ASPNETCoreWebApiPeliculas.Helpers;
 using ASPNETCoreWebApiPeliculas.Models;
 using System.Security.Cryptography;
-using System.Security.Principal;
 using Microsoft.IdentityModel.Logging;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace ASPNETCoreWebApiPeliculas.Services
 {
     public interface IUserService {
-        string GetTokenAuthentication(int id_usuario, string password_usuario);
+        string GetTokenAuthentication(string userNameEmail, string password_usuario);
     }
 
     public class UserService : IUserService {
@@ -27,13 +28,12 @@ namespace ASPNETCoreWebApiPeliculas.Services
             this.appSettings = appSettings.Value;
         }
 
-        public string GetTokenAuthentication(int id_usuario, string password_usuario) {
-            Usuario user = usuarioContext.usuarios.FindAsync(id_usuario).Result;
+        public string GetTokenAuthentication(string userNameEmail, string password_usuario) {
+            Usuario user = usuarioContext.usuarios.Where(usuario => usuario.correo_usuario == userNameEmail
+                || usuario.nombre_usuario == userNameEmail).FirstOrDefaultAsync().Result;
             string decryptedPassword = DecryptPassword(user.password_usuario);
-            if (user == null || !password_usuario.Equals(decryptedPassword)) return null;
-            if(ValidateToken(user.token_usuario) != null) {
-                return user.token_usuario;
-            }
+            if (user == null || !password_usuario.Equals(decryptedPassword)) { return null; }
+            if(ValidateToken(user.token_usuario) != null) { return user.token_usuario; }
             JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
             byte[] key = Encoding.ASCII.GetBytes(appSettings.Secret);
             SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor {

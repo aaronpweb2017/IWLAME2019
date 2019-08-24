@@ -1,0 +1,7 @@
+After 'git add -A', execute these commands:
+git rm -r --cached "Angular/Angular Fundamentals 2019/GestionRecursos/ASPNETCoreWebApiGestionRecursos/obj"
+git rm -r --cached "Angular/Angular Fundamentals 2019/GestionRecursos/ASPNETCoreWebApiGestionRecursos/bin"
+git rm -r --cached "Angular/Angular Fundamentals 2019/GestionRecursos/ASPNETCoreWebApiGestionRecursos/.vscode"
+git rm -r --cached "ProyectoPeliculas/ASPNETCoreWebApiPeliculas/obj"
+git rm -r --cached "ProyectoPeliculas/ASPNETCoreWebApiPeliculas/bin"
+git rm -r --cached "ProyectoPeliculas/ASPNETCoreWebApiPeliculas/.vscode"

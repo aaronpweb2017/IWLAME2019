@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Mvc;
 using ASPNETCoreWebApiPeliculas.Services;
 using ASPNETCoreWebApiPeliculas.Models;
@@ -17,10 +18,15 @@ namespace ASPNETCoreWebApiPeliculas.Controllers
 
         //POST: https://localhost:5001/Api/Usuarios/GetTokenAuthentication
         [HttpPost] [ActionName("GetTokenAuthentication")]
-        public Task<string> TokenAuthentication([FromBody] Usuario user) {
-            string token = userService.GetTokenAuthentication(user.id_usuario, user.password_usuario);
+        public Task<string> TokenAuthenticationAsync([FromBody] Usuario user) {
+            string userNameEmail = "", token = "";
+            if(!String.IsNullOrEmpty(user.correo_usuario))
+                userNameEmail = user.correo_usuario;
+            else
+                userNameEmail = user.nombre_usuario;
+            token = userService.GetTokenAuthentication(userNameEmail, user.password_usuario);
             if (token == null)
-                return Task.FromResult("Id Incorrect.");
+                return Task.FromResult("Usuario o contraseña incorrectos.");
             return Task.FromResult(token);
         }
 
