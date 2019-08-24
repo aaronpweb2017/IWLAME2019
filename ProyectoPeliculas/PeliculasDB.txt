@@ -873,6 +873,20 @@ DROP TABLE GeneroPelicula
 
 ------------------------------------------------------------------------------------------------------
 
+CREATE TABLE Usuario(
+   id_usuario INT IDENTITY(1, 1) NOT NULL,
+   nombre_usuario VARCHAR(50) NOT NULL,
+   correo_usuario VARCHAR(50) NOT NULL,
+   password_usuario VARCHAR(25) NOT NULL,
+   tipo_usuario INT NOT NULL,
+   token VARCHAR(100) NULL
+)
+
+------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------
+
 CREATE TRIGGER ActualizaCalificacionPelicula
 ON Escena AFTER INSERT, UPDATE, DELETE AS
 BEGIN
