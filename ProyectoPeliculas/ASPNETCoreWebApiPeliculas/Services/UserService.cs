@@ -7,6 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 using ASPNETCoreWebApiPeliculas.Helpers;
 using ASPNETCoreWebApiPeliculas.Models;
 using System.Security.Cryptography;
+using System.Security.Principal;
 
 namespace ASPNETCoreWebApiPeliculas.Services
 {
@@ -28,22 +29,77 @@ namespace ASPNETCoreWebApiPeliculas.Services
         public string GetTokenAuthentication(int id_usuario, string password_usuario) {
             Usuario user = usuarioContext.usuarios.FindAsync(id_usuario).Result;
             if (user == null || !password_usuario.Equals(DecryptPassword(user.password_usuario))) return null;
+            if(ValidateTokenAuthentication(user.token_usuario)) {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("EL TOKEN NO HA EXPIRADO...");
+                Console.ForegroundColor = ConsoleColor.Green;
+                return user.token_usuario;
+            }
+            else {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("EL TOKEN YA EXPIRÓ...");
+                Console.ForegroundColor = ConsoleColor.Green;
+            }
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("SOLICITANDO NUEVO TOKEN...");
+            Console.ForegroundColor = ConsoleColor.Green;
             JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
             byte[] key = Encoding.ASCII.GetBytes(appSettings.Secret);
             SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor {
                 Subject = new ClaimsIdentity(new Claim[] {
                     new Claim(ClaimTypes.Name, user.id_usuario.ToString())
                 }),
-                Expires = DateTime.UtcNow.AddMinutes(5),
+                Expires = DateTime.UtcNow.AddMinutes(1),
                 //Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
                 SecurityAlgorithms.HmacSha256Signature)
             };
-            SecurityToken  token = tokenHandler.CreateToken(tokenDescriptor);
+            SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
 
-          public string EncryptPassword(string password) {
+        public bool ValidateTokenAuthentication(string authToken) {
+            try{
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var validationParameters = GetValidationParameters();
+                SecurityToken validatedToken;
+                IPrincipal principal = tokenHandler.ValidateToken(authToken,
+                validationParameters, out validatedToken);
+                return true;
+            }
+            catch(Exception exception) {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("exception: "+exception.Message);
+                Console.ForegroundColor = ConsoleColor.Green;
+                return false;
+            }
+        }
+
+        public TokenValidationParameters GetValidationParameters() {
+            return new TokenValidationParameters() {
+                //ValidIssuer = "Sample",
+                //ValidAudience = "Sample",
+                ValidIssuer = appSettings.Secret,
+                ValidAudience = appSettings.Secret,
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                LifetimeValidator = LifetimeValidator,
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(appSettings.Secret))
+            };
+        }
+
+        public bool LifetimeValidator(DateTime? notBefore, DateTime? expires, 
+            SecurityToken token, TokenValidationParameters @params) {
+            if (expires != null) {
+                return expires > DateTime.UtcNow;
+            }
+            return false;
+        }
+
+        public string EncryptPassword(string password) {
             byte[] data = UTF8Encoding.UTF8.GetBytes(password);
             string source = "Hello World", hash = "";
             using (MD5 md5Hash = MD5.Create()) {

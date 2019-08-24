@@ -6,10 +6,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
 using ASPNETCoreWebApiPeliculas.Helpers;
-//using ASPNETCoreWebApiPeliculas.Services;
 using Microsoft.Extensions.DependencyInjection;
 using ASPNETCoreWebApiPeliculas.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using ASPNETCoreWebApiPeliculas.Services;
 
 namespace ASPNETCoreWebApiPeliculas
 {
@@ -25,7 +25,7 @@ namespace ASPNETCoreWebApiPeliculas
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             string SQLConnectionString = Configuration.GetConnectionString("SQLServerConnectionString");
             services.AddDbContext<UsuarioContext>(options => options.UseSqlServer(SQLConnectionString));
-            //services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+            services.AddScoped<IUserService, UserService>();
             services.AddCors(options => { options.AddPolicy("Access-Control-Allow-Origin",
                 builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod());
             });

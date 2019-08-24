@@ -879,8 +879,12 @@ CREATE TABLE Usuario(
    correo_usuario VARCHAR(50) NOT NULL,
    password_usuario VARCHAR(32) NOT NULL,
    tipo_usuario INT NOT NULL,
-   token_usuario VARCHAR(100) NULL
+   token_usuario VARCHAR(200) NULL
 )
+
+INSERT INTO Usuario(nombre_usuario, correo_usuario,
+password_usuario, tipo_usuario, token_usuario) VALUES
+('admin', 'luis-aaron40@hotmail.com', 'etNIfck3LAFFw6P4K6BPng==', 1, NULL)
 
 SELECT id_usuario, nombre_usuario, correo_usuario,
 password_usuario, tipo_usuario, token_usuario
