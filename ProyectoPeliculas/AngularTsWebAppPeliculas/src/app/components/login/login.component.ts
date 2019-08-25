@@ -13,14 +13,12 @@ export class LoginComponent implements OnInit {
   nuevaCuenta: boolean;
   emailPattern: RegExp;
   userNameEmailLogIn: string;
-  emailSignIn: string;
   emailToSendPass: string;
   passwordLogIn: string;
   passwordSignIn1: string;
   passwordSignIn2: string;
-  userName: string;
   usuario: Usuario;
-  
+
   constructor(private usuariosService: UsuariosService,
     private toastrService: ToastrService) {
   }
@@ -30,12 +28,10 @@ export class LoginComponent implements OnInit {
     this.nuevaCuenta = false;
     this.emailPattern = /\b[a-z0-9-_.]+@[a-z0-9-_.]+(\.[a-z0-9]+)+/;
     this.userNameEmailLogIn = "";
-    this.emailSignIn = "";
     this.emailToSendPass = "";
     this.passwordLogIn = "";
     this.passwordSignIn1 = "";
     this.passwordSignIn2 = "";
-    this.userName = "";
     this.usuario = {
       id_usuario: 0, nombre_usuario: "",
       correo_usuario: "", password_usuario: "",
@@ -44,17 +40,17 @@ export class LoginComponent implements OnInit {
   }
 
   iniciarSesion() {
+    this.usuario.correo_usuario = ""; this.usuario.nombre_usuario = "";
     this.usuario.password_usuario = this.passwordLogIn;
-    if(String(this.userNameEmailLogIn).search(this.emailPattern) != -1) {
+    if (String(this.userNameEmailLogIn).search(this.emailPattern) != -1) {
       this.usuario.correo_usuario = this.userNameEmailLogIn;
     }
     else {
       this.usuario.nombre_usuario = this.userNameEmailLogIn;
     }
-    this.usuariosService.GetTokenAuthentication(this.usuario).subscribe(data => {
-      this.toastrService.success("resultado: "+data);
+    this.usuariosService.getTokenAuthentication(this.usuario).subscribe(data => {
+      console.log("token: " + data);
     });
-    
   }
 
   passwordOlvidada() {
@@ -65,11 +61,22 @@ export class LoginComponent implements OnInit {
     this.nuevaCuenta = false;
   }
 
-  crearCuentaNueva() {
+  verificarCrearCuentaNueva() {
     if (this.nuevaCuenta)
       this.nuevaCuenta = false;
     else
       this.nuevaCuenta = true;
     this.passOlvidada = false;
+  }
+
+  crearCuentaNueva() {
+    if(this.passwordSignIn1 != this.passwordSignIn2) {
+      this.toastrService.error("Contraseñas distintas.");
+      return;
+    }
+    this.usuario.password_usuario = this.passwordSignIn1;
+    this.usuariosService.crearUsuario(this.usuario).subscribe(data => {
+      console.log("result: " + data);
+    });
   }
 }

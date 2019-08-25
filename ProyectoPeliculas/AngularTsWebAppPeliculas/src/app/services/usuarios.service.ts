@@ -7,14 +7,19 @@ import { Usuario } from '../interfaces/usuario';
 export class UsuariosService {
   ApiUsuariosURL: string;
   ApiGetTokenAuthenticationURL: string;
+  ApiCrearUsuarioURL: string;
 
   constructor(private http: HttpClient) {
     this.ApiUsuariosURL = "https://localhost:5001/Api/Usuarios";
   }
 
-  GetTokenAuthentication(usuario: Usuario): Observable<any> {
+  getTokenAuthentication(usuario: Usuario): Observable<any> {
     this.ApiGetTokenAuthenticationURL = this.ApiUsuariosURL + "/GetTokenAuthentication";
-    return this.http.post(this.ApiGetTokenAuthenticationURL,
-      usuario, { responseType: 'text' });
+    return this.http.post(this.ApiGetTokenAuthenticationURL, usuario, { responseType: 'text' });
+  }
+
+  crearUsuario(usuario: Usuario): Observable<any> {
+    this.ApiCrearUsuarioURL = this.ApiUsuariosURL + "/CrearUsuario";
+    return this.http.post(this.ApiCrearUsuarioURL, usuario);
   }
 }

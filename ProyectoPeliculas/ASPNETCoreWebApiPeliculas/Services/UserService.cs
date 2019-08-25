@@ -15,6 +15,8 @@ namespace ASPNETCoreWebApiPeliculas.Services
 {
     public interface IUserService {
         string GetTokenAuthentication(string userNameEmail, string password_usuario);
+        string EncryptPassword(string password);
+        string DecryptPassword(string password);
     }
 
     public class UserService : IUserService {
@@ -69,11 +71,8 @@ namespace ASPNETCoreWebApiPeliculas.Services
                 return principal;
             } catch(Exception exception) { //Token has expired...
                 DateTime tokenExpiryDate = GetTokenExpiryDate(jwtToken);
-                //Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Token expired on: "+tokenExpiryDate
-                    +"Mensaje de la excepción: "+exception.Message);
-                //Console.ForegroundColor = ConsoleColor.Green;
-                return null;
+                Console.WriteLine("Token expired date: "+tokenExpiryDate);
+                Console.WriteLine("Message: "+exception.Message); return null;
             }
         }
 
