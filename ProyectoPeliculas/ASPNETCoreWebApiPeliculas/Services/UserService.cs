@@ -16,7 +16,6 @@ namespace ASPNETCoreWebApiPeliculas.Services
     public interface IUserService {
         string GetTokenAuthentication(string userNameEmail, string password_usuario);
         string EncryptPassword(string password);
-        string DecryptPassword(string password);
     }
 
     public class UserService : IUserService {
@@ -32,23 +31,36 @@ namespace ASPNETCoreWebApiPeliculas.Services
 
         public string GetTokenAuthentication(string userNameEmail, string password_usuario) {
             Usuario user = usuarioContext.usuarios.Where(usuario => usuario.correo_usuario == userNameEmail
-                || usuario.nombre_usuario == userNameEmail).FirstOrDefaultAsync().Result;
-            string decryptedPassword = DecryptPassword(user.password_usuario);
-            if (user == null || !password_usuario.Equals(decryptedPassword)) { return null; }
-            if(ValidateToken(user.token_usuario) != null) { return user.token_usuario; }
+                || usuario.nombre_usuario == userNameEmail).FirstOrDefaultAsync().Result; string response;
+            if (user == null) { 
+               response = "El usuario ingresado no existe."; return response;
+            }
+            string decryptedPassword = DecryptPassword(user.password_usuario); 
+            if (!password_usuario.Equals(decryptedPassword)) { 
+                response = "Contraseña incorrecta."; return response; 
+            }
+            if(ValidateToken(user.token_usuario) != null) { 
+                return user.token_usuario;
+            }
+            if(user.tipo_usuario == 2 && user.aprobacion_usuario == 0) {
+                response = "Tu token ha expirado, solicita un "
+                + "nuevo token al administrador."; return response;
+            }
             JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
             byte[] key = Encoding.ASCII.GetBytes(appSettings.Secret);
             SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor {
                 Subject = new ClaimsIdentity(new Claim[] {
                     new Claim(ClaimTypes.Name, user.id_usuario.ToString())
                 }),
+                //Expires = DateTime.UtcNow.AddMinutes(5), //+ 5 extra minutes...
                 Expires = DateTime.UtcNow.AddHours(1), //+ 5 extra minutes...
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
                 SecurityAlgorithms.HmacSha256Signature)
             };
             SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
-            Usuario UpdatedUser = usuarioContext.usuarios.FindAsync(user.id_usuario).Result;
+            Usuario UpdatedUser = usuarioContext.usuarios.FindAsync(user.id_usuario).Result;        
             UpdatedUser.token_usuario = tokenHandler.WriteToken(token);
+            UpdatedUser.solicitud_usuario = 0; UpdatedUser.aprobacion_usuario = 0;
             usuarioContext.Update(UpdatedUser); usuarioContext.SaveChangesAsync();
             return tokenHandler.WriteToken(token);
         }
@@ -72,7 +84,7 @@ namespace ASPNETCoreWebApiPeliculas.Services
             } catch(Exception exception) { //Token has expired...
                 DateTime tokenExpiryDate = GetTokenExpiryDate(jwtToken);
                 Console.WriteLine("Token expired date: "+tokenExpiryDate);
-                Console.WriteLine("Message: "+exception.Message); return null;
+                Console.WriteLine("Exception message: "+exception.Message); return null;
             }
         }
 

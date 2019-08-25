@@ -9,12 +9,12 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  passOlvidada: boolean;
-  nuevaCuenta: boolean;
   emailPattern: RegExp;
-  userNameEmailLogIn: string;
-  emailToSendPass: string;
+  flagForgottenPassword: boolean;
+  flagNuevaCuenta: boolean;
+  userNameEmail: string;
   passwordLogIn: string;
+  emailToSendPass: string;
   passwordSignIn1: string;
   passwordSignIn2: string;
   usuario: Usuario;
@@ -24,12 +24,12 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.passOlvidada = false;
-    this.nuevaCuenta = false;
     this.emailPattern = /\b[a-z0-9-_.]+@[a-z0-9-_.]+(\.[a-z0-9]+)+/;
-    this.userNameEmailLogIn = "";
-    this.emailToSendPass = "";
+    this.flagForgottenPassword = false;
+    this.flagNuevaCuenta = false;
+    this.userNameEmail = "";
     this.passwordLogIn = "";
+    this.emailToSendPass = "";
     this.passwordSignIn1 = "";
     this.passwordSignIn2 = "";
     this.usuario = {
@@ -39,34 +39,64 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  iniciarSesion() {
+  setUserLogInAttributes() {
     this.usuario.correo_usuario = ""; this.usuario.nombre_usuario = "";
-    this.usuario.password_usuario = this.passwordLogIn;
-    if (String(this.userNameEmailLogIn).search(this.emailPattern) != -1) {
-      this.usuario.correo_usuario = this.userNameEmailLogIn;
+    if(String(this.userNameEmail).search(this.emailPattern) != -1) {
+      this.usuario.correo_usuario = this.userNameEmail;
     }
     else {
-      this.usuario.nombre_usuario = this.userNameEmailLogIn;
+      this.usuario.nombre_usuario = this.userNameEmail;
     }
+    this.usuario.password_usuario = this.passwordLogIn;
+  }
+
+  iniciarSesion() {
+    this.setUserLogInAttributes();
     this.usuariosService.getTokenAuthentication(this.usuario).subscribe(data => {
-      console.log("token: " + data);
+      let response: string = data as string;
+      if(String(response).search("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9") != -1) {
+        this.toastrService.info("Token de navegación: " + response); return;
+      }
+      this.toastrService.error(response);
     });
   }
 
-  passwordOlvidada() {
-    if (this.passOlvidada)
-      this.passOlvidada = false;
-    else
-      this.passOlvidada = true;
-    this.nuevaCuenta = false;
+  setFlagForgottenPassword() {
+    if(this.flagForgottenPassword) {
+      this.flagForgottenPassword = false;
+      return;
+    }
+    this.flagForgottenPassword = true;
+    this.flagNuevaCuenta = false;
   }
 
-  verificarCrearCuentaNueva() {
-    if (this.nuevaCuenta)
-      this.nuevaCuenta = false;
-    else
-      this.nuevaCuenta = true;
-    this.passOlvidada = false;
+  solicitarToken() {
+    this.setUserLogInAttributes();
+    this.usuariosService.getTokenAuthentication(this.usuario).subscribe(data => {
+      let response: string = data as string;
+      console.log(data);
+      if(String(response).search("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9") != -1) {
+        this.toastrService.error("Tu token aún no ha expirado..."); return;
+      }
+      if(String(response).search("Tu token ha expirado") != -1) {
+        this.usuariosService.solicitudToken(this.usuario).subscribe(data => {
+          let response: boolean = data as boolean;
+          if(response) {
+            this.toastrService.success("Tu solicitud ha sido enviada."); return;
+          }
+          this.toastrService.error("Tu solicitud aún no es aprobada."); 
+        });
+      }
+    });
+  }
+
+  setFlagNuevaCuenta() {
+    if(this.flagNuevaCuenta) {
+      this.flagNuevaCuenta = false;
+      return;
+    }
+    this.flagNuevaCuenta = true;
+    this.flagForgottenPassword = false;
   }
 
   crearCuentaNueva() {
@@ -76,7 +106,11 @@ export class LoginComponent implements OnInit {
     }
     this.usuario.password_usuario = this.passwordSignIn1;
     this.usuariosService.crearUsuario(this.usuario).subscribe(data => {
-      console.log("result: " + data);
+      let response: boolean = data as boolean;
+      if(response) {
+        this.toastrService.success("Tu cuenta fue creada con éxito."); return;
+      }
+      this.toastrService.error("Tu cuenta no pudo ser creada."); 
     });
   }
 }

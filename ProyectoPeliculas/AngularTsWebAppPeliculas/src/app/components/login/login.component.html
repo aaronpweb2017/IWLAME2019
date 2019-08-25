@@ -1,43 +1,40 @@
 <div class="global-form bg-secondary">
-    <form class="form-signin bg-dark animated fadeIn fast">
+  <form class="form-signin bg-dark animated fadeIn fast">
       <h1 class="h3 font-weight-bold text-light titulologin">Iniciar Sesión</h1>
       <div class="form-group">
-          <label class="text-light" for="EmailUser">Usuario o dirección Email:</label>
-          <input [(ngModel)]="userNameEmailLogIn" [ngModelOptions]="{standalone: true}" type="text"
-          class="form-control" id="EmailUser"  placeholder="Username or Email" autofocus="">
+          <label class="text-light" for="user-email">Usuario o dirección Email:</label>
+          <input [(ngModel)]="userNameEmail" [ngModelOptions]="{standalone: true}" type="text"
+            class="form-control" id="user-email"  placeholder="Username or Email" autofocus="">
       </div>
-      <div class="form-group ">
-        <label class="text-light"for="password1">Contraseña:</label>
+      <div class="form-group">
+        <label class="text-light" for="password1">Contraseña:</label>
         <input [(ngModel)]="passwordLogIn" [ngModelOptions]="{standalone: true}"
           type="password" class="form-control" id="password1" placeholder="Password">
       </div>
-      <button class="btn btn-success btn-block" type="submit"
-        (click)="iniciarSesion();"><strong>Iniciar Sesión</strong>
-      </button>
-      <button class="btn btn-link" type="button" (click)="passwordOlvidada();">Olvidaste la contraseña?</button> <hr>
-      <button class="btn btn-primary btn-block" type="button"
-        (click)="verificarCrearCuentaNueva();">
-        <strong>Crear cuenta nueva</strong>
-      </button>
+      <button class="btn btn-success btn-block" type="submit"(click)="iniciarSesion();"><b>Iniciar Sesión</b></button>
+      <button class="btn btn-link" type="button" (click)="setFlagForgottenPassword();">Olvidaste la contraseña?</button>
+      <b style="color:white;">|</b>
+      <button class="btn btn-link" type="button" (click)="solicitarToken();">Solicitar Token </button><hr>
+      <button class="btn btn-primary btn-block" type="button" (click)="setFlagNuevaCuenta();">Crear cuenta nueva</button>
     </form>
-    <form *ngIf="passOlvidada" class="form-reset bg-dark animated fadeIn fast">
+    <form *ngIf="flagForgottenPassword" class="form-reset bg-dark animated fadeIn fast">
       <div class="form-group">
-        <label class="text-light"for="Email1">Dirección de Email:</label>
+        <label class="text-light" for="email1">Dirección de Email:</label>
         <input [(ngModel)]="emailToSendPass" [ngModelOptions]="{standalone: true}" type="email"
-          class="form-control" id="Email1" placeholder="Email Address" autofocus="">
+          class="form-control" id="email1" placeholder="Email Address" autofocus="">
       </div>
       <button class="btn btn-primary btn-block" type="submit"><strong>Enviar Contraseña</strong></button>
     </form>
-    <form *ngIf="nuevaCuenta" class="form-signup bg-dark animated fadeIn fast">            
+    <form *ngIf="flagNuevaCuenta" class="form-signup bg-dark animated fadeIn fast">            
         <div class="form-group">
-            <label class="text-light"for="UserName">Nombre de Usuario:</label>
+            <label class="text-light" for="userName">Nombre de Usuario:</label>
             <input [(ngModel)]="usuario.nombre_usuario" [ngModelOptions]="{standalone: true}" type="text"
-              class="form-control" id="UserName" placeholder="UserName" autofocus="">
+              class="form-control" id="userName" placeholder="UserName" autofocus="">
         </div>
         <div class="form-group">
-          <label class="text-light"for="Email2">Dirección de Email:</label>
+          <label class="text-light" for="email2">Dirección de Email:</label>
           <input [(ngModel)]="usuario.correo_usuario" [ngModelOptions]="{standalone: true}" type="email"
-            class="form-control" id="Email2" placeholder="Email Address">
+            class="form-control" id="email2" placeholder="Email Address">
         </div>
         <div class="form-group">
           <label class="text-light" for="password2">Contraseña:</label>
@@ -45,11 +42,11 @@
             type="password" class="form-control" id="password2" placeholder="Password">
         </div>
         <div class="form-group">
-          <label class="text-light"for="password3">Confirmar Contraseña:</label>
+          <label class="text-light" for="password3">Confirmar Contraseña:</label>
           <input [(ngModel)]="passwordSignIn2" [ngModelOptions]="{standalone: true}" type="password"
             class="form-control" id="password3" placeholder="Confirm Password">
         </div>
         <button class="btn btn-primary btn-block" type="submit"
-          (click)="crearCuentaNueva();"><strong>Crear Cuenta</strong></button>
+          (click)="crearCuentaNueva();">Crear Cuenta</button>
     </form>
 </div>

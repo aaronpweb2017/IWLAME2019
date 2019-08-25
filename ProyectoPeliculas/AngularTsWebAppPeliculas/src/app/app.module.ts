@@ -18,8 +18,8 @@ import { UsuariosService } from './services/usuarios.service';
   imports: [
     BrowserModule,
     ToastrModule.forRoot({
-      timeOut: 1000,
-      positionClass: 'toast-top-center',
+      timeOut: 1500,
+      positionClass: 'toast-top-full-width',
       preventDuplicates: true}),
     RouterModule.forRoot(appRoutes,
       { onSameUrlNavigation: 'reload' }),

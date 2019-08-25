@@ -5,9 +5,10 @@ import { Usuario } from '../interfaces/usuario';
 
 @Injectable()
 export class UsuariosService {
-  ApiUsuariosURL: string;
-  ApiGetTokenAuthenticationURL: string;
-  ApiCrearUsuarioURL: string;
+  private ApiUsuariosURL: string;
+  private ApiGetTokenAuthenticationURL: string;
+  private ApiCrearUsuarioURL: string;
+  private ApiSolicitudTokenURL: string;
 
   constructor(private http: HttpClient) {
     this.ApiUsuariosURL = "https://localhost:5001/Api/Usuarios";
@@ -21,5 +22,10 @@ export class UsuariosService {
   crearUsuario(usuario: Usuario): Observable<any> {
     this.ApiCrearUsuarioURL = this.ApiUsuariosURL + "/CrearUsuario";
     return this.http.post(this.ApiCrearUsuarioURL, usuario);
+  }
+
+  solicitudToken(usuario: Usuario): Observable<any> {
+    this.ApiSolicitudTokenURL = this.ApiUsuariosURL + "/SolicitudToken";
+    return this.http.post(this.ApiSolicitudTokenURL, usuario);
   }
 }
