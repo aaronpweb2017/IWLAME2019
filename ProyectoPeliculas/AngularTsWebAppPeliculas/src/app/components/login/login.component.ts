@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Usuario } from 'src/app/interfaces/usuario';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,7 @@ export class LoginComponent implements OnInit {
   usuario: Usuario;
 
   constructor(private usuariosService: UsuariosService,
-    private toastrService: ToastrService) {
+    private router: Router, private toastrService: ToastrService) {
   }
 
   ngOnInit() {
@@ -55,7 +56,9 @@ export class LoginComponent implements OnInit {
     this.usuariosService.getTokenAuthentication(this.usuario).subscribe(data => {
       let response: string = data as string;
       if(String(response).search("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9") != -1) {
-        this.toastrService.info("Token de navegación: " + response); return;
+        this.toastrService.info("Token de navegación: " + response); 
+        this.router.navigate(['/home']);
+        return;
       }
       this.toastrService.error(response);
     });
@@ -74,7 +77,6 @@ export class LoginComponent implements OnInit {
     this.setUserLogInAttributes();
     this.usuariosService.getTokenAuthentication(this.usuario).subscribe(data => {
       let response: string = data as string;
-      console.log(data);
       if(String(response).search("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9") != -1) {
         this.toastrService.error("Tu token aún no ha expirado..."); return;
       }
