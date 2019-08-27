@@ -3,7 +3,7 @@ body {
     background-size: cover;
 }
 
-hr {
+/* hr {
     border-color: white;
 }
 
@@ -14,25 +14,25 @@ hr {
 .img-circle {
     border-radius: 100%;
     width: 150px;
-}
+} */
 
-.card-title,
+/* .card-title,
 .card-text {
     color: black;
-}
-
+} */
+/* 
 .badge {
     margin-left: 5px;
 }
 
 .btn-outline-success {
     margin-left: 5px;
-}
+} */
 
-.img-thumb {
+/* .img-thumb {
     width: 50px;
     height: 50px;
-}
+} */
 
 .animated {
     -webkit-animation-duration: 1s;
@@ -42,9 +42,7 @@ hr {
 }
 
 .fast {
-    -webkit-animation-duration: 0.4s;
-    animation-duration: 0.4s;
-    -webkit-animation-fill-mode: both;
+    animation-duration: 1s;
     animation-fill-mode: both;
 }
 

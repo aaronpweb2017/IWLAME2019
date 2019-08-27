@@ -12,10 +12,14 @@ namespace ASPNETCoreWebApiPeliculas.Controllers
     public class UsuariosController : ControllerBase
     {
         private readonly UsuarioContext usuarioContext;
+        private readonly UsuarioSolicitudContext solicitudContext;
         private readonly IUserService userService;
 
-        public UsuariosController(UsuarioContext usuarioContext, IUserService userService) {
-            this.usuarioContext = usuarioContext; this.userService = userService;
+        public UsuariosController(UsuarioContext usuarioContext,
+            UsuarioSolicitudContext solicitudContext, IUserService userService) {
+            this.usuarioContext = usuarioContext;
+            this.solicitudContext = solicitudContext;
+            this.userService = userService;
         }
 
         //GET: https://localhost:5001/Api/Usuarios/GetUsuario/?id_usuario=[value]
@@ -37,9 +41,18 @@ namespace ASPNETCoreWebApiPeliculas.Controllers
                 Usuario UpdatedUser = usuarioContext.usuarios.
                 Where(usuario => usuario.correo_usuario == userNameEmail
                 || usuario.nombre_usuario == userNameEmail).FirstOrDefaultAsync().Result;
-                if(UpdatedUser.solicitud_usuario == 0) {
-                    UpdatedUser.solicitud_usuario = 1; usuarioContext.Update(UpdatedUser);
-                    usuarioContext.SaveChangesAsync(); response = true;
+                UsuarioSolicitud solicitudAnterior = solicitudContext.solicitudes.
+                Where(solicitud => solicitud.id_usuario == UpdatedUser.id_usuario
+                && solicitud.id_solicitud == 2 && solicitud.status_solicitud == 0).LastOrDefaultAsync().Result;
+                if(solicitudAnterior == null) {
+                    UsuarioSolicitud solicitudActual = new UsuarioSolicitud() {
+                        id_usuario = UpdatedUser.id_usuario,
+                        id_solicitud = 2,
+                        status_solicitud = 0,
+                        fecha_solicitud = DateTime.Parse(DateTime.UtcNow.AddHours(-6).ToString("yyyy-MM-dd HH:mm:ss"))
+                    };
+                    solicitudContext.AddAsync(solicitudActual);
+                    solicitudContext.SaveChangesAsync();   
                 }
             }
             catch(Exception exception) {
@@ -57,8 +70,8 @@ namespace ASPNETCoreWebApiPeliculas.Controllers
                 user.token_usuario = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6I"
                     +"jEiLCJuYmYiOjE1NjY2ODcyODIsImV4cCI6MTU2NjY5MDg4MiwiaWF0Ijo"
                     +"xNTY2Njg3MjgyfQ.n9F9Yw7xkv7G705SoLP9iLDTlm70LYfbYCcM4W_kc_g";
-                user.tipo_usuario = 2; user.solicitud_usuario = 0; user.aprobacion_usuario = 0; 
-                usuarioContext.AddAsync(user); usuarioContext.SaveChangesAsync(); response = true;
+                user.tipo_usuario = 2; usuarioContext.AddAsync(user);
+                usuarioContext.SaveChangesAsync(); response = true;
             }
             catch(Exception exception) {
                 Console.WriteLine(":"+exception.Message);

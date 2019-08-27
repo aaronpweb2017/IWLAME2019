@@ -22,16 +22,19 @@ namespace ASPNETCoreWebApiPeliculas.Services
 
         private readonly AppSettings appSettings;
         private readonly UsuarioContext usuarioContext;
+        private readonly UsuarioSolicitudContext solicitudContext;
 
         public UserService(IOptions<AppSettings> appSettings,
-        UsuarioContext usuarioContext) {
-            this.usuarioContext = usuarioContext;
+        UsuarioContext usuarioContext, UsuarioSolicitudContext solicitudContext) {
             this.appSettings = appSettings.Value;
+            this.usuarioContext = usuarioContext;
+            this.solicitudContext = solicitudContext;
         }
 
         public string GetTokenAuthentication(string userNameEmail, string password_usuario) {
+            string response; DateTime expiration;
             Usuario user = usuarioContext.usuarios.Where(usuario => usuario.correo_usuario == userNameEmail
-                || usuario.nombre_usuario == userNameEmail).FirstOrDefaultAsync().Result; string response;
+                || usuario.nombre_usuario == userNameEmail).FirstOrDefaultAsync().Result; 
             if (user == null) { 
                response = "El usuario ingresado no existe."; return response;
             }
@@ -42,26 +45,41 @@ namespace ASPNETCoreWebApiPeliculas.Services
             if(ValidateToken(user.token_usuario) != null) { 
                 return user.token_usuario;
             }
-            if(user.tipo_usuario == 2 && user.aprobacion_usuario == 0) {
+            UsuarioSolicitud request = solicitudContext.solicitudes.
+            Where(solicitud => solicitud.id_usuario == user.id_usuario
+            && solicitud.id_solicitud == 2).LastOrDefaultAsync().Result;
+            if(user.tipo_usuario == 2 && (request == null ||
+            (request != null && request.status_solicitud != 1))) {
                 response = "Tu token ha expirado, solicita un "
                 + "nuevo token al administrador."; return response;
             }
+            if(user.tipo_usuario == 1) {
+                expiration = DateTime.UtcNow.AddDays(7);
+            }
+            else {
+                expiration = DateTime.UtcNow.AddMinutes(5);
+                //expiration = DateTime.UtcNow.AddHours(1);
+            }
             JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
-            byte[] key = Encoding.ASCII.GetBytes(appSettings.Secret);
+            byte[] key = Encoding.ASCII.GetBytes(appSettings.Secret); 
             SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor {
                 Subject = new ClaimsIdentity(new Claim[] {
                     new Claim(ClaimTypes.Name, user.id_usuario.ToString())
                 }),
-                //Expires = DateTime.UtcNow.AddMinutes(5), //+ 5 extra minutes...
-                Expires = DateTime.UtcNow.AddHours(1), //+ 5 extra minutes...
+                Expires = expiration, //+ 5 extra minutes...
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
                 SecurityAlgorithms.HmacSha256Signature)
             };
             SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
             Usuario UpdatedUser = usuarioContext.usuarios.FindAsync(user.id_usuario).Result;        
             UpdatedUser.token_usuario = tokenHandler.WriteToken(token);
-            UpdatedUser.solicitud_usuario = 0; UpdatedUser.aprobacion_usuario = 0;
-            usuarioContext.Update(UpdatedUser); usuarioContext.SaveChangesAsync();
+            if(request != null && request.status_solicitud == 1) {
+                request.status_solicitud = 2;
+                solicitudContext.Update(request);
+                solicitudContext.SaveChangesAsync(); 
+            }
+            usuarioContext.Update(UpdatedUser);
+            usuarioContext.SaveChangesAsync();
             return tokenHandler.WriteToken(token);
         }
 

@@ -27,13 +27,5 @@ namespace ASPNETCoreWebApiPeliculas.Models {
         [Column(TypeName="VARCHAR(100)")]
         [DisplayName("token_usuario")]
         public string token_usuario { get; set; }
-
-        [Column(TypeName="INT")]
-        [DisplayName("solicitud_usuario")]
-        public int solicitud_usuario { get; set; }
-
-        [Column(TypeName="INT")]
-        [DisplayName("aprobacion_usuario")]
-        public int aprobacion_usuario { get; set; }
     }
 }

@@ -4,8 +4,8 @@ body {
 }
 
 .card {
-    margin-top: 50px;
-    width: 300px;
+    margin: 0 auto;
+    width: 320px;
     height: 500px;
     background: #000;
     overflow: hidden;

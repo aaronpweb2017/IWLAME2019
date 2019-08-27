@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.noPeliculas = [];
-    for(let i:number=0; i<6; i++)
+    for(let i:number=0; i<5; i++)
     this.noPeliculas[i] = i+1;
     console.log(this.noPeliculas)
   }

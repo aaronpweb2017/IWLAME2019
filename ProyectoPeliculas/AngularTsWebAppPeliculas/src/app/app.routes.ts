@@ -6,5 +6,5 @@ export const appRoutes: Routes = [
     {path: 'login', component: LoginComponent},
     {path: 'home', component: HomeComponent},
     //{path: 'model/:id', component: ModelComponent},
-    {path: '', redirectTo: '/home', pathMatch: 'full'}
+    {path: '', redirectTo: '/login', pathMatch: 'full'}
 ]

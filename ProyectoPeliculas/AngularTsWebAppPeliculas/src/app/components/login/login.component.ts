@@ -57,8 +57,7 @@ export class LoginComponent implements OnInit {
       let response: string = data as string;
       if(String(response).search("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9") != -1) {
         this.toastrService.info("Token de navegación: " + response); 
-        this.router.navigate(['/home']);
-        return;
+        this.router.navigate(['/home']); return;
       }
       this.toastrService.error(response);
     });
