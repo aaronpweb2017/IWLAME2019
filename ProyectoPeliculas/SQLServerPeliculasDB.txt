@@ -875,28 +875,43 @@ DROP TABLE GeneroPelicula
 
 CREATE TABLE Usuario(
    id_usuario INT IDENTITY(1, 1) NOT NULL,
-   nombre_usuario VARCHAR(50) NOT NULL,
+   nombre_usuario VARCHAR(70) NOT NULL,
    correo_usuario VARCHAR(50) NOT NULL,
    password_usuario VARCHAR(32) NOT NULL,
    tipo_usuario INT NOT NULL,
-   token_usuario VARCHAR(200) NULL,
-   solicitud_usuario INT NOT NULL,
-   aprobacion_usuario INT NOT NULL
 )
 
-ALTER TABLE Usuario
-ADD CONSTRAINT id_usuario_PK_CSTR PRIMARY KEY(id_usuario)
+ALTER TABLE Usuario ADD CONSTRAINT id_usuario_PK_CSTR PRIMARY KEY(id_usuario)
 
 INSERT INTO Usuario(nombre_usuario, correo_usuario,
-password_usuario, tipo_usuario, token_usuario) VALUES
-('admin', 'luis-aaron40@hotmail.com',
-'etNIfck3LAFFw6P4K6BPng==', 1, NULL)
+password_usuario, tipo_usuario) VALUES
+('admin', 'luis-aaron40@hotmail.com', 'Wc+gCD/DHyc=', 1)
 
 SELECT id_usuario, nombre_usuario, correo_usuario, 
-password_usuario, tipo_usuario, token_usuario,
-solicitud_usuario, aprobacion_usuario FROM Usuario
+password_usuario, tipo_usuario FROM Usuario
 
 DROP TABLE Usuario
+
+------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------
+
+CREATE TABLE Token(
+    id_token INT IDENTITY(1, 1) NOT NULL,
+    valor_token VARCHAR(175) NOT NULL,
+    emision_token DATETIME NOT NULL,
+    expiracion_token DATETIME NULL,
+    id_usuario INT NOT NULL
+)
+
+ALTER TABLE Token ADD CONSTRAINT id_token_PK_CSTR PRIMARY KEY(id_token)
+
+ALTER TABLE Token ADD CONSTRAINT id_usuario_tk_FK_CSTR
+FOREIGN KEY(id_usuario) REFERENCES Usuario(id_usuario)
+
+SELECT id_token, valor_token, emision_token,
+expiracion_token, id_usuario FROM Token 
 
 ------------------------------------------------------------------------------------------------------
 
@@ -911,13 +926,13 @@ CREATE TABLE Solicitud(
 ALTER TABLE Solicitud ADD CONSTRAINT
 id_solicitud_PK_CSTR PRIMARY KEY(id_solicitud)
 
-INSERT INTO Solicitud(nombre_solicitud,) VALUES
-('forgotten password')
+INSERT INTO Solicitud(nombre_solicitud) VALUES
+('forgotten password'),
 ('token request')
 
-SELECT id_solicitud,
-nombre_solicitud
-FROM Solicitud
+SELECT id_solicitud, nombre_solicitud FROM Solicitud
+
+DROP TABLE Solicitud
 
 ------------------------------------------------------------------------------------------------------
 
@@ -928,22 +943,24 @@ CREATE TABLE UsuarioSolicitud(
    id_usuario INT NOT NULL,
    id_solicitud INT NOT NULL,
    status_solicitud INT NOT NULL,
-   fecha_solicitud DATETIME NOT NULL,
-   fecha_aprobacion DATETIME NULL
+   emision_solicitud DATETIME NOT NULL,
+   aprobacion_solicitud DATETIME NULL
 )
 
-ALTER TABLE UsuarioSolicitud
-ADD CONSTRAINT id_usuario_solicitud_PK_CSTR
-PRIMARY KEY(id_usuario, id_solicitud)
+--ALTER TABLE UsuarioSolicitud
+--ADD CONSTRAINT id_usuario_solicitud_PK_CSTR
+--PRIMARY KEY(id_usuario, id_solicitud)
 
-ALTER TABLE UsuarioSolicitud ADD CONSTRAINT id_usuario_FK_CSTR
+ALTER TABLE UsuarioSolicitud ADD CONSTRAINT id_usuario_us_FK_CSTR
 FOREIGN KEY(id_usuario) REFERENCES Usuario(id_usuario)
 
 ALTER TABLE UsuarioSolicitud ADD CONSTRAINT id_solicitud_FK_CSTR
 FOREIGN KEY(id_solicitud) REFERENCES Solicitud(id_solicitud)
 
 SELECT id_usuario, id_solicitud, status_solicitud,
-fecha_solicitud, fecha_aprobacion FROM UsuarioSolicitud
+emision_solicitud, aprobacion_solicitud FROM UsuarioSolicitud
+
+DROP TABLE UsuarioSolicitud
 
 ------------------------------------------------------------------------------------------------------
 
