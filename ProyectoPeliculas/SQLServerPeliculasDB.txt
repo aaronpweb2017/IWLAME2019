@@ -911,7 +911,9 @@ ALTER TABLE Token ADD CONSTRAINT id_usuario_tk_FK_CSTR
 FOREIGN KEY(id_usuario) REFERENCES Usuario(id_usuario)
 
 SELECT id_token, valor_token, emision_token,
-expiracion_token, id_usuario FROM Token 
+expiracion_token, id_usuario FROM Token
+
+DROP TABLE Token
 
 ------------------------------------------------------------------------------------------------------
 
@@ -940,16 +942,17 @@ DROP TABLE Solicitud
 ------------------------------------------------------------------------------------------------------
 
 CREATE TABLE UsuarioSolicitud(
+   id_usuario_solicitud INT IDENTITY(1, 1) NOT NULL,
    id_usuario INT NOT NULL,
    id_solicitud INT NOT NULL,
    status_solicitud INT NOT NULL,
-   emision_solicitud DATETIME NOT NULL,
-   aprobacion_solicitud DATETIME NULL
+   emision_solicitud DATETIME2 NOT NULL,
+   aprobacion_solicitud DATETIME2 NULL
 )
 
---ALTER TABLE UsuarioSolicitud
---ADD CONSTRAINT id_usuario_solicitud_PK_CSTR
---PRIMARY KEY(id_usuario, id_solicitud)
+ALTER TABLE UsuarioSolicitud ADD CONSTRAINT
+id_usuario_solicitud_PK_CSTR
+PRIMARY KEY(id_usuario_solicitud)
 
 ALTER TABLE UsuarioSolicitud ADD CONSTRAINT id_usuario_us_FK_CSTR
 FOREIGN KEY(id_usuario) REFERENCES Usuario(id_usuario)
@@ -957,7 +960,7 @@ FOREIGN KEY(id_usuario) REFERENCES Usuario(id_usuario)
 ALTER TABLE UsuarioSolicitud ADD CONSTRAINT id_solicitud_FK_CSTR
 FOREIGN KEY(id_solicitud) REFERENCES Solicitud(id_solicitud)
 
-SELECT id_usuario, id_solicitud, status_solicitud,
+SELECT id_usuario_solicitud, id_usuario, id_solicitud, status_solicitud,
 emision_solicitud, aprobacion_solicitud FROM UsuarioSolicitud
 
 DROP TABLE UsuarioSolicitud

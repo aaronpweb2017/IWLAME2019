@@ -11,7 +11,7 @@ namespace ASPNETCoreWebApiPeliculas.Models {
             //Table Usuario Configuration:
             modelBuilder.Entity<Usuario>().ToTable("Usuario");
             modelBuilder.Entity<Usuario>().Property(u => u.id_usuario).
-            HasColumnName("id_usuario").HasColumnType("INT").IsRequired();
+            HasColumnName("id_usuario").HasColumnType("INT");
             modelBuilder.Entity<Usuario>().Property(u => u.nombre_usuario).
             HasColumnName("nombre_usuario").HasColumnType("VARCHAR").HasMaxLength(70).IsRequired();
             modelBuilder.Entity<Usuario>().Property(u => u.correo_usuario).
@@ -25,7 +25,7 @@ namespace ASPNETCoreWebApiPeliculas.Models {
             //Table Token Configuration:
             modelBuilder.Entity<Token>().ToTable("Token");
             modelBuilder.Entity<Token>().Property(t => t.id_token).
-            HasColumnName("id_token").HasColumnType("INT").IsRequired();
+            HasColumnName("id_token").HasColumnType("INT");
             modelBuilder.Entity<Token>().Property(t => t.valor_token).
             HasColumnName("valor_token").HasColumnType("VARCHAR").HasMaxLength(175).IsRequired();
             modelBuilder.Entity<Token>().Property(t => t.emision_token).
@@ -41,25 +41,26 @@ namespace ASPNETCoreWebApiPeliculas.Models {
             //Table Solicitud Configuration:
             modelBuilder.Entity<Solicitud>().ToTable("Solicitud");
             modelBuilder.Entity<Solicitud>().Property(s => s.id_solicitud).
-            HasColumnName("id_solicitud").HasColumnType("INT").IsRequired();
+            HasColumnName("id_solicitud").HasColumnType("INT");
             modelBuilder.Entity<Solicitud>().Property(s => s.nombre_solicitud).
             HasColumnName("nombre_solicitud").HasColumnType("VARCHAR").HasMaxLength(30).IsRequired();
             modelBuilder.Entity<Solicitud>().HasKey(s => s.id_solicitud).HasName("id_solicitud_PK_CSTR");
             
             //Table UsuarioSolicitud Configuration:
             modelBuilder.Entity<UsuarioSolicitud>().ToTable("UsuarioSolicitud");
-            modelBuilder.Entity<UsuarioSolicitud>().Property(us => us.id_solicitud).
-            HasColumnName("id_solicitud").HasColumnType("INT").IsRequired();
+            modelBuilder.Entity<UsuarioSolicitud>().Property(us => us.id_usuario_solicitud).
+            HasColumnName("id_usuario_solicitud").HasColumnType("INT");
             modelBuilder.Entity<UsuarioSolicitud>().Property(us => us.id_usuario).
             HasColumnName("id_usuario").HasColumnType("INT").IsRequired();
+            modelBuilder.Entity<UsuarioSolicitud>().Property(us => us.id_solicitud).
+            HasColumnName("id_solicitud").HasColumnType("INT").IsRequired();
             modelBuilder.Entity<UsuarioSolicitud>().Property(us => us.status_solicitud).
             HasColumnName("status_solicitud").HasColumnType("INT").IsRequired();
             modelBuilder.Entity<UsuarioSolicitud>().Property(us => us.emision_solicitud).
-            HasColumnName("emision_solicitud").HasColumnType("DATETIME").IsRequired();
+            HasColumnName("emision_solicitud").HasColumnType("DATETIME2").IsRequired();
             modelBuilder.Entity<UsuarioSolicitud>().Property(us => us.aprobacion_solicitud).
-            HasColumnName("aprobacion_solicitud").HasColumnType("DATETIME");
-            modelBuilder.Entity<UsuarioSolicitud>().HasKey(us => new { us.id_usuario,
-               us.id_solicitud}).HasName("id_usuario_solicitud_PK_CSTR");
+            HasColumnName("aprobacion_solicitud").HasColumnType("DATETIME2");
+            modelBuilder.Entity<UsuarioSolicitud>().HasKey(us => us.id_usuario_solicitud).HasName("id_usuario_solicitud_PK_CSTR");
             modelBuilder.Entity<UsuarioSolicitud>().HasOne(us => us.usuario).WithMany(u => u.usuario_solicitudes).
                 HasForeignKey(us => us.id_usuario).HasConstraintName("id_usuario_us_FK_CSTR");
             modelBuilder.Entity<UsuarioSolicitud>().HasOne(us => us.solicitud).WithMany(s => s.usuario_solicitudes).

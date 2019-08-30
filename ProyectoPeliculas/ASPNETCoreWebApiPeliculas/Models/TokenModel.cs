@@ -7,6 +7,6 @@ namespace ASPNETCoreWebApiPeliculas.Models {
         public DateTime emision_token { get; set; }
         public DateTime expiracion_token { get; set; }
         public int id_usuario { get; set; }
-        public Usuario usuario { get; set; }
+        public virtual Usuario usuario { get; set; }
     }
 }
