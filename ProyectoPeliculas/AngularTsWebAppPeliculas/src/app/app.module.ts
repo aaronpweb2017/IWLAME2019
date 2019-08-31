@@ -8,12 +8,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
+import { GlobalService } from './global.service';
 import { UsuariosService } from './services/usuarios.service';
 import { HomeComponent } from './components/home/home.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    NavbarComponent,
     LoginComponent,
     HomeComponent
   ],
@@ -29,7 +32,7 @@ import { HomeComponent } from './components/home/home.component';
     FormsModule,
     BrowserAnimationsModule
   ],
-  providers: [UsuariosService],
+  providers: [GlobalService, UsuariosService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

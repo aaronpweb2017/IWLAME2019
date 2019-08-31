@@ -899,7 +899,7 @@ DROP TABLE Usuario
 
 CREATE TABLE Token(
     id_token INT IDENTITY(1, 1) NOT NULL,
-    valor_token VARCHAR(175) NOT NULL,
+    valor_token VARCHAR(180) NOT NULL,
     emision_token DATETIME NOT NULL,
     expiracion_token DATETIME NULL,
     id_usuario INT NOT NULL

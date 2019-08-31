@@ -24,7 +24,8 @@
         <input [(ngModel)]="emailToSendPass" [ngModelOptions]="{standalone: true}" type="email"
           class="form-control" id="email1" placeholder="Email Address" autofocus="">
       </div>
-      <button class="btn btn-primary btn-block" type="submit"><strong>Enviar Contraseña</strong></button>
+      <button class="btn btn-primary btn-block" type="button"
+      (click)="sendForgottenPassword();"><strong>Enviar Contraseña</strong></button>
     </form>
     <form *ngIf="flagNuevaCuenta" class="form-signup bg-dark animated fadeIn fast">            
         <div class="form-group">

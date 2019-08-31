@@ -27,7 +27,7 @@ namespace ASPNETCoreWebApiPeliculas.Models {
             modelBuilder.Entity<Token>().Property(t => t.id_token).
             HasColumnName("id_token").HasColumnType("INT");
             modelBuilder.Entity<Token>().Property(t => t.valor_token).
-            HasColumnName("valor_token").HasColumnType("VARCHAR").HasMaxLength(175).IsRequired();
+            HasColumnName("valor_token").HasColumnType("VARCHAR").HasMaxLength(180).IsRequired();
             modelBuilder.Entity<Token>().Property(t => t.emision_token).
             HasColumnName("emision_token").HasColumnType("DATETIME").IsRequired();
             modelBuilder.Entity<Token>().Property(t => t.expiracion_token).

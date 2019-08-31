@@ -4,5 +4,4 @@ export interface Usuario {
     correo_usuario: string;
     password_usuario: string;
     tipo_usuario: number;
-    token_usuario: string;
 }
