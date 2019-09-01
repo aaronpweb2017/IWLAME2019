@@ -1,6 +1,43 @@
-<div style="border-style: solid; border-width: 1px; border-color: green;">
+<div class="home-container">
+  <div class="sidemenu">
+    <div class="menu">
+      <li class="item">
+          <button type="button" class="btn btn-block btn-menu" (click)="setFlagSubMenu(0);"><i class="far fa-envelope"></i>Buscar</button>
+        <div *ngIf="menuFlags[0]" class="smenu">
+            <button type="button" class="btn btn-link btn-block">Tipo de archivo</button>
+            <button type="button" class="btn btn-link btn-block">Tipo Resolución</button>
+            <button type="button" class="btn btn-link btn-block">Valor Resolución</button>
+            <button type="button" class="btn btn-link btn-block">Año de Estreno</button>
+            <button type="button" class="btn btn-link btn-block">Servidor</button>
+            <button type="button" class="btn btn-link btn-block">Idioma</button>
+            <button type="button" class="btn btn-link btn-block">Escena</button>
+            <button type="button" class="btn btn-link btn-block">Director</button>
+            <button type="button" class="btn btn-link btn-block">Productora</button>
+            <button type="button" class="btn btn-link btn-block">Actor</button>
+            <button type="button" class="btn btn-link btn-block">Personaje</button>
+            <button type="button" class="btn btn-link btn-block">Idioma</button>
+        </div>
+      </li>
+      <li class="item">
+        <button type="button" class="btn btn-block  btn-menu" (click)="setFlagSubMenu(1);"><i class="far fa-user"></i>Ordenar</button>
+        <div *ngIf="menuFlags[1]" class="smenu">
+          <button type="button" class="btn btn-link btn-block">Categoría</button>
+          <button type="button" class="btn btn-link btn-block">Resolución</button>
+          <button type="button" class="btn btn-link btn-block">Fecha de Estreno</button>
+          <button type="button" class="btn btn-link btn-block">Presupuesto</button>
+          <button type="button" class="btn btn-link btn-block">Calificación</button>
+          <button type="button" class="btn btn-link btn-block">Dirección</button>
+          <button type="button" class="btn btn-link btn-block">Producción</button>
+          <button type="button" class="btn btn-link btn-block">Actores</button>
+          <button type="button" class="btn btn-link btn-block">Descarga</button>
+          <button type="button" class="btn btn-link btn-block">Idioma</button>
+          <button type="button" class="btn btn-link btn-block">Duración</button>
+        </div>
+      </li>
+    </div>
+  </div>
   <div class="row">
-    <div class="col animated fadeIn fast" *ngFor="let a of noPeliculas" style="margin-top: 30px;">
+    <div class="column animated fadeIn fast" *ngFor="let a of noPeliculas">
       <div class="card animated fadeIn fast">
         <div class="poster">
           <img src="assets/imgAvengersEndGame.jpg">

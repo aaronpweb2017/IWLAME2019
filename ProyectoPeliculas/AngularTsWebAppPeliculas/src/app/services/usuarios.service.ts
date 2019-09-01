@@ -12,7 +12,6 @@ export class UsuariosService {
   private ApiGetTokenAuthenticationURL: string;
   private ApiSendForgottenPasswordURL: string;
   
-
   constructor(private http: HttpClient) {
     this.ApiUsuariosURL = "https://localhost:5001/Api/Usuarios";
   }
@@ -23,7 +22,8 @@ export class UsuariosService {
   }
 
   getUsuario(username_email: string): Observable<any> {
-    this.ApiGetUsuarioURL = this.ApiUsuariosURL + "/GetUsuario/?username_email="+username_email;
+    this.ApiGetUsuarioURL = this.ApiUsuariosURL
+    + "/GetUsuario/?username_email="+username_email;
     return this.http.get(this.ApiGetUsuarioURL); 
   }
 
@@ -38,10 +38,8 @@ export class UsuariosService {
   }
 
   getForgottenPassword(correo_usuario: string): Observable<any> {
-    //this.ApiSendForgottenPasswordURL = this.ApiUsuariosURL + "/SendForgottenPassword";
     this.ApiSendForgottenPasswordURL = this.ApiUsuariosURL
       + "/GetForgottenPassword/?correo_usuario="+correo_usuario;
     return this.http.get(this.ApiSendForgottenPasswordURL);
   }
-
 }

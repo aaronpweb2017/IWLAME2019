@@ -25,6 +25,7 @@ namespace ASPNETCoreWebApiPeliculas
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             string SQLConnectionString = Configuration.GetConnectionString("SQLServerConnectionString");
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(SQLConnectionString));
+            services.AddScoped<IUsuarios, UsuariosRepository>();
             services.AddScoped<IUserService, UserService>();
             services.AddCors(options => { options.AddPolicy("Access-Control-Allow-Origin",
                 builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod());

@@ -12,7 +12,7 @@
         <input [(ngModel)]="passwordLogIn" [ngModelOptions]="{standalone: true}"
           type="password" class="form-control" id="password1" placeholder="Password">
       </div>
-      <button class="btn btn-success btn-block" type="submit"(click)="iniciarSesion();"><b>Iniciar Sesión</b></button>
+      <button class="btn btn-success btn-block" type="submit" (click)="iniciarSesion();"><b>Iniciar Sesión</b></button>
       <button class="btn btn-link" type="button" (click)="setFlagForgottenPassword();">Olvidaste la contraseña?</button>
       <b style="color:white;">|</b>
       <button class="btn btn-link" type="button" (click)="solicitarToken();">Solicitar Token </button><hr>
