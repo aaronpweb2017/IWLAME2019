@@ -12,16 +12,21 @@ import { GlobalService } from './global.service';
 import { UsuariosService } from './services/usuarios.service';
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { SolicitudesComponent } from './components/solicitudes/solicitudes.component';
+import { SolicitudesService } from './services/solicitudes.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    SolicitudesComponent
   ],
   imports: [
     BrowserModule,
+    RouterModule.forRoot(appRoutes,
+      { onSameUrlNavigation: 'reload' }),
     ToastrModule.forRoot({
       timeOut: 1500,
       positionClass: 'toast-top-full-width',
@@ -32,7 +37,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     FormsModule,
     BrowserAnimationsModule
   ],
-  providers: [GlobalService, UsuariosService],
+  providers: [GlobalService, UsuariosService, SolicitudesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

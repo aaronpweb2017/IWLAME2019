@@ -10,15 +10,19 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-          <li class="nav-item" routerLinkActive="active">
-              <a class="nav-link" [routerLink]="['/home']">Administrador</a>
-          </li>
-          <li class="nav-item" routerLinkActive="active">
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> <span class="nav-label">Administrador</span> <span class="caret"></span></a>
+          <ul class="dropdown-menu" style="animation: slide-up 1s ease;">
+              <li><a [routerLink]="['/solicitudes']">Solicitudes</a></li>
+              <li><a >Resoluciones</a></li>
+          </ul>
+        </li>
+          <li class="nav-item">
               <a class="nav-link" [routerLink]="['/home']">Home</a>
           </li>
-          <li class="nav-item" routerLinkActive="active">
+          <li class="nav-item">
               <a class="nav-link" [routerLink]="['/home']">Buscar</a>
-          </li>
+          </li> 
       </ul>
       <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="search" placeholder="Buscar">

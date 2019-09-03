@@ -1,0 +1,45 @@
+<div class="container animated fadeIn fast">
+  <div class="row">
+    <table class="table table-bordered table-dark table-hover">
+      <thead>
+        <tr>
+          <th>id_usuario_solicitud</th>
+          <th>id_usuario</th>
+          <th>id_solicitud</th>
+          <th>status_solicitud</th>
+          <th>emision_solicitud</th>
+          <th>aprobacion_solicitud</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let solicitud of solicitudes;">
+          <tr>
+            <td>{{solicitud.id_usuario_solicitud}}</td>
+            <td>{{solicitud.id_usuario}}</td>
+            <td>{{solicitud.id_solicitud}}</td>
+            <td>{{solicitud.status_solicitud}}</td>
+            <td>{{solicitud.emision_solicitud | date: 'dd/MM/yyyy'}}
+                {{solicitud.emision_solicitud | date: 'mediumTime'}}
+            </td>
+            <td>
+              {{solicitud.aprobacion_solicitud | date: 'dd/MM/yyyy'}}
+              {{solicitud.aprobacion_solicitud | date: 'mediumTime'}}
+            <td>
+              <button *ngIf="solicitud.status_solicitud!=0" type="button"
+                class="btn btn-info" disabled>Aprobado</button>
+              <button *ngIf="solicitud.status_solicitud==0" type="button" class="btn btn-success" 
+                (click)="AprobarSolicitud(solicitud.id_usuario_solicitud);">Aprobar</button>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+  <div style="text-align: center;">
+    <ng-container *ngFor="let pageIndex of pageIndexes;">
+      <input class="btn btn-secondary" type="button" value="{{pageIndex}}"
+        (click)="MuestraPagina(pageIndex);" style="margin-left: 5px;">
+    </ng-container>
+  </div>
+</div>
