@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark" style="margin-bottom: 20px;">
   <a class="navbar-brand" href="#">
       <img src="assets/imgMovieIcon.png" width="30" 
       height="30" class="d-inline-block align-top">
@@ -12,9 +12,9 @@
       <ul class="navbar-nav mr-auto">
         <li class="nav-item dropdown">
           <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> <span class="nav-label">Administrador</span> <span class="caret"></span></a>
-          <ul class="dropdown-menu" style="animation: slide-up 1s ease;">
+          <ul class="dropdown-menu animated fadeIn fast">
               <li><a [routerLink]="['/solicitudes']">Solicitudes</a></li>
-              <li><a >Resoluciones</a></li>
+              <li><a [routerLink]="['/solicitudes']">Tokens</a></li>
           </ul>
         </li>
           <li class="nav-item">

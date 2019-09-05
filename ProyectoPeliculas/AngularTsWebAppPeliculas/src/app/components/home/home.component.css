@@ -4,7 +4,7 @@
 
 .sidemenu {
     position: sticky;
-    margin-top: 20px;
+    /* margin-top: 20px; */
     margin-right: 5px;
 }
 
@@ -44,7 +44,7 @@
 }
 
 .smenu {
-    animation: slide-up 1s ease;
+    /* animation: slide-up 1s ease; */
     background: #333;
     overflow: hidden; 
 }
@@ -57,7 +57,7 @@
 }
 
 .column {
-    margin-top: 20px;
+    /* margin-top: 20px; */
     margin-left: 20px;
 }
 

@@ -970,6 +970,26 @@ DROP TABLE UsuarioSolicitud
 
 ------------------------------------------------------------------------------------------------------
 
+CREATE VIEW VSolicitud AS
+	SELECT US.id_usuario_solicitud AS id, U.nombre_usuario AS usuario, S.nombre_solicitud AS tipo,
+	CASE US.status_solicitud
+		WHEN 0 THEN 'Solicitada' WHEN 1 THEN 'Aprobada' WHEN 2 THEN 'Terminada'
+	END AS status,
+	US.emision_solicitud AS emision,
+	US.aprobacion_solicitud AS aprobacion
+	FROM UsuarioSolicitud US
+	INNER JOIN Usuario U ON US.id_usuario = U.id_usuario
+	INNER JOIN Solicitud S ON US.id_solicitud = S.id_solicitud
+
+SELECT * FROM VSolicitud
+
+DROP VIEW VSolicitud
+
+------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------
+
 CREATE TRIGGER ActualizaCalificacionPelicula
 ON Escena AFTER INSERT, UPDATE, DELETE AS
 BEGIN

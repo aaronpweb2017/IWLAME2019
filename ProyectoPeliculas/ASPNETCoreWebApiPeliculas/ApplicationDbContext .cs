@@ -1,12 +1,15 @@
 using Microsoft.EntityFrameworkCore;
+using ASPNETCoreWebApiPeliculas.Models;
+using ASPNETCoreWebApiPeliculas.Views;
 
-namespace ASPNETCoreWebApiPeliculas.Models {
+namespace ASPNETCoreWebApiPeliculas {
     public class ApplicationDbContext: DbContext {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options): base(options) { }
         public DbSet<Usuario> usuarios { get; set; }
         public DbSet<Token> tokens { get; set; }
         public DbSet<Solicitud> solicitudes { get; set; }
         public DbSet<UsuarioSolicitud> usuariosSolicitudes { get; set; }
+        public DbSet<VSolicitud> vSolicitudes { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             //Table Usuario Configuration:
             modelBuilder.Entity<Usuario>().ToTable("Usuario");
@@ -65,6 +68,21 @@ namespace ASPNETCoreWebApiPeliculas.Models {
                 HasForeignKey(us => us.id_usuario).HasConstraintName("id_usuario_us_FK_CSTR");
             modelBuilder.Entity<UsuarioSolicitud>().HasOne(us => us.solicitud).WithMany(s => s.usuario_solicitudes).
                 HasForeignKey(us => us.id_solicitud).HasConstraintName("id_solicitud_FK_CSTR");
+
+            //View VSolicitud Configuration:
+            modelBuilder.Entity<VSolicitud>().ToTable("VSolicitud");
+            modelBuilder.Entity<VSolicitud>().Property(vs => vs.id).
+            HasColumnName("id").HasColumnType("INT");
+            modelBuilder.Entity<VSolicitud>().Property(vs => vs.usuario).
+            HasColumnName("usuario").HasColumnType("VARCHAR").HasMaxLength(70);
+            modelBuilder.Entity<VSolicitud>().Property(vs => vs.tipo).
+            HasColumnName("tipo").HasColumnType("VARCHAR").HasMaxLength(30);
+            modelBuilder.Entity<VSolicitud>().Property(vs => vs.status).
+            HasColumnName("status").HasColumnType("VARCHAR").HasMaxLength(20);
+            modelBuilder.Entity<VSolicitud>().Property(vs => vs.emision).
+            HasColumnName("emision").HasColumnType("DATETIME2");
+            modelBuilder.Entity<VSolicitud>().Property(vs => vs.aprobacion).
+            HasColumnName("aprobacion").HasColumnType("DATETIME2");
         }
     }
 }

@@ -3,7 +3,9 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ASPNETCoreWebApiPeliculas.Models;
+using ASPNETCoreWebApiPeliculas.Views;
 using Microsoft.EntityFrameworkCore;
+
 
 namespace ASPNETCoreWebApiPeliculas 
 {
@@ -18,11 +20,7 @@ namespace ASPNETCoreWebApiPeliculas
             return await AppDbContext.usuariosSolicitudes.CountAsync();
         }
 
-        public async Task<List<UsuarioSolicitud>> GetSolicitudesPaginacion(int no_pagina) {
-            return await AppDbContext.usuariosSolicitudes.Skip(10*(no_pagina-1)).Take(10).ToListAsync();
-        }
-
-        public async Task<bool> AprobarSolicitud(int id_usuario_solicitud)  {
+        public async Task<bool> AprobarSolicitud(int id_usuario_solicitud) {
             bool response = false;
             try {
                 UsuarioSolicitud solicitud = await AppDbContext.usuariosSolicitudes.FindAsync(id_usuario_solicitud);
@@ -34,6 +32,10 @@ namespace ASPNETCoreWebApiPeliculas
                 Console.WriteLine("Exception msj: "+exception.Message);
             }
             return response;
+        }
+
+        public async Task<List<VSolicitud>> GetSolicitudesViewPaginacion(int no_pagina) {
+            return await AppDbContext.vSolicitudes.Skip(10*(no_pagina-1)).Take(10).ToListAsync();
         }
     }
 }

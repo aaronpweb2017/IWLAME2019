@@ -19,6 +19,9 @@ export class SolicitudesComponent implements OnInit {
 
   constructor(private solicitudesService: SolicitudesService,
     private router: Router, private toastrService: ToastrService) {
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
+    };
   }
 
   ngOnInit() {
@@ -27,7 +30,7 @@ export class SolicitudesComponent implements OnInit {
     this.id_usuario_solicitud = 0;
     this.NoPaginas = 0;
     this.pageIndexes = [];
-    this.solicitudesService.GetNoSolicitudes().subscribe(data => {
+    this.solicitudesService.getNoSolicitudes().subscribe(data => {
       this.NoSolicitudes = Number(data);
       this.NoPaginas = Math.trunc(this.NoSolicitudes / 10);
       if (this.NoSolicitudes % 10 != 0)
@@ -41,19 +44,16 @@ export class SolicitudesComponent implements OnInit {
 
   MuestraPagina(NoPagina: number) {
     this.curerntPage = NoPagina;
-    this.solicitudesService.GetSolicitudesPaginacion(NoPagina).subscribe(data => {
+    this.solicitudesService.getSolicitudesViewPaginacion(NoPagina).subscribe(data => {
       this.solicitudes = data as Solicitud[];
     });
   }
 
   AprobarSolicitud(id_usuario_solicitud: number) {
-    this.solicitudesService.AprobarSolicitud(id_usuario_solicitud).subscribe(data => {
+    this.solicitudesService.aprobarSolicitud(id_usuario_solicitud).subscribe(data => {
       let response: boolean = data as boolean;
-      if(response) {
+      if (response) {
         this.toastrService.info("Solicitud aprobada con éxito...");
-        this.router.routeReuseStrategy.shouldReuseRoute = function() {
-          return false; 
-        };
         this.router.navigate(['/solicitudes']); return;
       }
       this.toastrService.error("Aprobación fallida...");
