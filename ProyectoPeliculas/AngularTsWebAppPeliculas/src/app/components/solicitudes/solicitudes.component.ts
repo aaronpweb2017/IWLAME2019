@@ -1,51 +1,44 @@
 import { Component, OnInit } from '@angular/core';
 import { SolicitudesService } from 'src/app/services/solicitudes.service';
+import { VistasService } from 'src/app/services/vistas.service';
 import { Solicitud } from 'src/app/interfaces/solicitud';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-solicitudes',
   templateUrl: './solicitudes.component.html',
-  styleUrls: ['./solicitudes.component.css']
+  styleUrls: []
 })
 export class SolicitudesComponent implements OnInit {
-  NoSolicitudes: number;
+  currentPage: any;
+  paginationConfig: any;
   solicitudes: Solicitud[];
   id_usuario_solicitud: number;
-  NoPaginas: number;
-  pageIndexes: number[];
-  curerntPage: number = 1;
 
-  constructor(private solicitudesService: SolicitudesService,
-    private router: Router, private toastrService: ToastrService) {
+  constructor(private solicitudesService: SolicitudesService, private vistasService: VistasService,
+    private router: Router, private route: ActivatedRoute, private toastrService: ToastrService) {
+    this.currentPage = this.route.snapshot.params['pg'],
+      this.paginationConfig = {
+        itemsPerPage: 0,
+        currentPage: 0,
+        totalItems: 0
+      };
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
     };
   }
 
   ngOnInit() {
-    this.NoSolicitudes = 0;
     this.solicitudes = []
     this.id_usuario_solicitud = 0;
-    this.NoPaginas = 0;
-    this.pageIndexes = [];
-    this.solicitudesService.getNoSolicitudes().subscribe(data => {
-      this.NoSolicitudes = Number(data);
-      this.NoPaginas = Math.trunc(this.NoSolicitudes / 10);
-      if (this.NoSolicitudes % 10 != 0)
-        this.NoPaginas = this.NoPaginas + 1;
-      for (let i: number = 0; i < this.NoPaginas; i++)
-        this.pageIndexes[i] = i + 1;
-      this.MuestraPagina(this.curerntPage);
-    });
-
-  }
-
-  MuestraPagina(NoPagina: number) {
-    this.curerntPage = NoPagina;
-    this.solicitudesService.getSolicitudesViewPaginacion(NoPagina).subscribe(data => {
+    this.vistasService.getSolicitudesVista().subscribe(data => {
       this.solicitudes = data as Solicitud[];
+      this.paginationConfig = {
+        itemsPerPage: 5,
+        currentPage: this.currentPage,
+        totalItems: this.solicitudes.length
+      };
     });
   }
 
@@ -54,10 +47,15 @@ export class SolicitudesComponent implements OnInit {
       let response: boolean = data as boolean;
       if (response) {
         this.toastrService.info("Solicitud aprobada con éxito...");
-        this.router.navigate(['/solicitudes']); return;
+        this.router.navigate(['/solicitudes', this.currentPage]); return;
       }
       this.toastrService.error("Aprobación fallida...");
     });
+  }
 
+  pageChanged(event) {
+    this.currentPage = event;
+    this.paginationConfig.currentPage = this.currentPage;
+    this.router.navigate(['/solicitudes', this.currentPage]);
   }
 }

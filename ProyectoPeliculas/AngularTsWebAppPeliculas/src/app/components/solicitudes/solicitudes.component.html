@@ -1,5 +1,5 @@
-<div class="col-md-12 animated fadeIn fast">
-  
+<div class="row" style="padding: 20px;">
+  <div class="col-xl-12 animated fadeIn fast">
     <table class="table table-bordered table-dark table-hover">
       <thead>
         <tr>
@@ -13,15 +13,15 @@
         </tr>
       </thead>
       <tbody>
-        <ng-container *ngFor="let solicitud of solicitudes;">
+        <ng-container *ngFor="let solicitud of solicitudes | paginate: paginationConfig">
           <tr>
             <td>{{solicitud.id}}</td>
             <td>{{solicitud.usuario}}</td>
             <td>{{solicitud.tipo}}</td>
             <td>{{solicitud.status}}</td>
-            <td>{{solicitud.emision | date: 'dd/MM/yyyy'}}
+            <td>
+              {{solicitud.emision | date: 'dd/MM/yyyy'}}
               {{solicitud.emision | date: 'hh:mm:ss'}}
-              
             </td>
             <td>
               {{solicitud.aprobacion | date: 'dd/MM/yyyy'}}
@@ -29,18 +29,14 @@
             <td>
               <button *ngIf="solicitud.status!='Solicitada'" type="button"
                 class="btn btn-info" disabled>Aprobada</button>
-              <button *ngIf="solicitud.status=='Solicitada'" type="button" class="btn btn-success" 
+              <button *ngIf="solicitud.status=='Solicitada'" type="button" class="btn btn-success"
+                data-toggle="tooltip" data-placement="top" title="Autorizar solicitud"
                 (click)="AprobarSolicitud(solicitud.id);">Aprobar</button>
             </td>
           </tr>
         </ng-container>
       </tbody>
     </table>
- 
-  <div style="text-align: center;">
-    <ng-container *ngFor="let pageIndex of pageIndexes;">
-      <input class="btn btn-secondary" type="button" value="{{pageIndex}}"
-        (click)="MuestraPagina(pageIndex);" style="margin-left: 5px;">
-    </ng-container>
+    <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
   </div>
 </div>

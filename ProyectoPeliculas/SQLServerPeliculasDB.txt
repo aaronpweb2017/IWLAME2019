@@ -990,6 +990,20 @@ DROP VIEW VSolicitud
 
 ------------------------------------------------------------------------------------------------------
 
+CREATE VIEW VToken AS
+	SELECT TK.id_token AS id, TK.valor_token AS codigo, TK.emision_token AS emision,
+	TK.expiracion_token AS expiracion, US.nombre_usuario AS usuario
+	FROM Token TK INNER JOIN Usuario US ON TK.id_usuario = US.id_usuario
+
+SELECT * FROM VToken
+
+DROP VIEW VToken
+
+------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------
+
 CREATE TRIGGER ActualizaCalificacionPelicula
 ON Escena AFTER INSERT, UPDATE, DELETE AS
 BEGIN

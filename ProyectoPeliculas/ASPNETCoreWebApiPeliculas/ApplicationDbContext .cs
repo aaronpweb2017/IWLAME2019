@@ -10,6 +10,7 @@ namespace ASPNETCoreWebApiPeliculas {
         public DbSet<Solicitud> solicitudes { get; set; }
         public DbSet<UsuarioSolicitud> usuariosSolicitudes { get; set; }
         public DbSet<VSolicitud> vSolicitudes { get; set; }
+        public DbSet<VToken> vTokens { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             //Table Usuario Configuration:
             modelBuilder.Entity<Usuario>().ToTable("Usuario");
@@ -83,6 +84,19 @@ namespace ASPNETCoreWebApiPeliculas {
             HasColumnName("emision").HasColumnType("DATETIME2");
             modelBuilder.Entity<VSolicitud>().Property(vs => vs.aprobacion).
             HasColumnName("aprobacion").HasColumnType("DATETIME2");
+
+            //View VToken Configuration:
+            modelBuilder.Entity<VToken>().ToTable("VToken");
+            modelBuilder.Entity<VToken>().Property(vt => vt.id).
+            HasColumnName("id").HasColumnType("INT");
+            modelBuilder.Entity<VToken>().Property(vt => vt.codigo).
+            HasColumnName("codigo").HasColumnType("VARCHAR").HasMaxLength(180);
+            modelBuilder.Entity<VToken>().Property(vt => vt.emision).
+            HasColumnName("emision").HasColumnType("DATETIME");
+            modelBuilder.Entity<VToken>().Property(vt => vt.expiracion).
+            HasColumnName("expiracion").HasColumnType("DATETIME");
+            modelBuilder.Entity<VToken>().Property(vt => vt.usuario).
+            HasColumnName("usuario").HasColumnType("VARCHAR").HasMaxLength(70);
         }
     }
 }

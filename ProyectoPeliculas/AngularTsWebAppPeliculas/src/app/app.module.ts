@@ -10,10 +10,13 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { GlobalService } from './global.service';
 import { UsuariosService } from './services/usuarios.service';
+import { SolicitudesService } from './services/solicitudes.service';
+import { VistasService } from './services/vistas.service';
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SolicitudesComponent } from './components/solicitudes/solicitudes.component';
-import { SolicitudesService } from './services/solicitudes.service';
+import { TokensComponent } from './components/tokens/tokens.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,8 @@ import { SolicitudesService } from './services/solicitudes.service';
     NavbarComponent,
     LoginComponent,
     HomeComponent,
-    SolicitudesComponent
+    SolicitudesComponent,
+    TokensComponent
   ],
   imports: [
     BrowserModule,
@@ -35,9 +39,11 @@ import { SolicitudesService } from './services/solicitudes.service';
       { onSameUrlNavigation: 'reload' }),
     HttpClientModule,
     FormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgxPaginationModule
   ],
-  providers: [GlobalService, UsuariosService, SolicitudesService],
+  providers: [GlobalService, UsuariosService,
+    SolicitudesService, VistasService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,33 @@
+<div class="row" style="padding: 20px;">
+    <div class="col-xl-12 animated fadeIn fast">
+      <table class="table table-bordered table-dark table-hover" style="word-wrap: break-word">
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>codigo</th>
+            <th>emision</th>
+            <th>expiracion</th>
+            <th>usuario</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let token of tokens | paginate: paginationConfig">
+            <tr>
+              <td>{{token.id}}</td>
+              <td style="max-width: 300px;">{{token.codigo}}</td>
+              <td style="max-width: 100px;">
+                {{token.emision | date: 'dd/MM/yyyy'}}
+                {{token.emision | date: 'hh:mm:ss'}}
+              </td>
+              <td style="max-width: 100px;">
+                {{token.expiracion | date: 'dd/MM/yyyy'}}
+                {{token.expiracion | date: 'hh:mm:ss'}}
+              </td>
+              <td style="max-width: 80px;">{{token.usuario}}</td>  
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+      <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+    </div>
+  </div>
