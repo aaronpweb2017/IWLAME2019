@@ -6,7 +6,7 @@ namespace ASPNETCoreWebApiPeliculas
 {
     public interface IVistas
     {
-        Task<List<VSolicitud>> GetSolicitudesVista();
-        Task<List<VToken>> GetTokensVista();
+        Task<List<VSolicitud>> GetVistaSolicitudes();
+        Task<List<VToken>> GetVistaTokens();
     }
 }

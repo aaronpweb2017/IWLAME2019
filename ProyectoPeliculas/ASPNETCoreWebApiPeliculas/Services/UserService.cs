@@ -32,7 +32,7 @@ namespace ASPNETCoreWebApiPeliculas.Services
         public async Task<string> GetTokenAuthentication(string userNameEmail, string password_usuario) {
             string response; Token lastToken, newToken; DateTime expiration;
             Usuario user = await AppDbContext.usuarios.Where(usuario =>
-                usuario.correo_usuario == userNameEmail || usuario.nombre_usuario == userNameEmail
+                usuario.correo_usuario.Equals(userNameEmail) || usuario.nombre_usuario.Equals(userNameEmail)
             ).FirstOrDefaultAsync(); 
             if (user == null) { 
                response = "El usuario ingresado no existe."; return response;
@@ -55,7 +55,7 @@ namespace ASPNETCoreWebApiPeliculas.Services
                 + "nuevo token al administrador."; return response;
             }
             if(user.tipo_usuario == 1) {
-                expiration = DateTime.UtcNow.AddDays(1);
+                expiration = DateTime.UtcNow.AddDays(7);
             }
             else {
                 expiration = DateTime.UtcNow.AddHours(1);

@@ -4,55 +4,9 @@ body {
      font-family: Arial, Helvetica, sans-serif; 
 }
 
-@keyframes slide-up {
-    0% {
-        transform: translateY(-70px);
-        opacity: 0.5;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-
-/* hr {
-    border-color: white;
-}
-
-.puntero {
-    cursor: pointer;
-}
-
-.img-circle {
-    border-radius: 100%;
-    width: 150px;
-} */
-
-/* .card-title,
-.card-text {
-    color: black;
-} */
-/* 
-.badge {
-    margin-left: 5px;
-}
-
-.btn-outline-success {
-    margin-left: 5px;
-} */
-
-/* .img-thumb {
-    width: 50px;
-    height: 50px;
-} */
-
-.animated {
-    animation-duration: 1s;
-    animation-fill-mode: both;
-}
-
-.fast {
-    animation-duration: 1s;
-    animation-fill-mode: both;
+.animated-fade-in {
+    animation: fadeIn 1s ease;
+    transition: 1s;
 }
 
 @keyframes fadeIn {
@@ -66,4 +20,8 @@ body {
 
 .fadeIn {
     animation-name: fadeIn;
+}
+
+.puntero {
+    cursor: pointer;
 }

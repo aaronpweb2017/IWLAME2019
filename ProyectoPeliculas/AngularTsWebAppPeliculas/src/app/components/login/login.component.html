@@ -1,6 +1,6 @@
-<div class="global-form bg-secondary">
+<div class="global-form bg-secondary animated-fade-in">
     <img src="assets/imgLoginAvatarIcon.png" class="login-img">
-  <form class="form-signin bg-dark animated fadeIn fast">
+  <form class="form-signin bg-dark animated-fade-in">
     <h1 class="h3 font-weight-bold text-light titulologin">Iniciar Sesión</h1>
       <div class="form-group">
           <label class="text-light" for="user-email">Usuario o dirección Email:</label>
@@ -18,7 +18,7 @@
       <button class="btn btn-link" type="button" (click)="solicitarToken();">Solicitar Token </button><hr>
       <button class="btn btn-primary btn-block" type="button" (click)="setFlagNuevaCuenta();">Crear cuenta nueva</button>
     </form>
-    <form *ngIf="flagForgottenPassword" class="form-reset bg-dark animated fadeIn fast">
+    <form *ngIf="flagForgottenPassword" class="form-reset bg-dark animated-fade-in">
       <div class="form-group">
         <label class="text-light" for="email1">Dirección de Email:</label>
         <input [(ngModel)]="emailToSendPass" [ngModelOptions]="{standalone: true}" type="email"
@@ -27,7 +27,7 @@
       <button class="btn btn-primary btn-block" type="button"
       (click)="sendForgottenPassword();"><strong>Enviar Contraseña</strong></button>
     </form>
-    <form *ngIf="flagNuevaCuenta" class="form-signup bg-dark animated fadeIn fast">            
+    <form *ngIf="flagNuevaCuenta" class="form-signup bg-dark animated-fade-in">            
         <div class="form-group">
             <label class="text-light" for="userName">Nombre de Usuario:</label>
             <input [(ngModel)]="usuario.nombre_usuario" [ngModelOptions]="{standalone: true}" type="text"

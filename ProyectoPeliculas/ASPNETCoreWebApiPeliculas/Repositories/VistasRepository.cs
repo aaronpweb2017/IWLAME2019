@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ASPNETCoreWebApiPeliculas.Views;
@@ -15,11 +13,11 @@ namespace ASPNETCoreWebApiPeliculas
             this.AppDbContext = AppDbContext;
         }
 
-        public async Task<List<VSolicitud>> GetSolicitudesVista() {
+        public async Task<List<VSolicitud>> GetVistaSolicitudes() {
             return await AppDbContext.vSolicitudes.ToListAsync();
         }
 
-        public async Task<List<VToken>> GetTokensVista() {
+        public async Task<List<VToken>> GetVistaTokens() {
             return await AppDbContext.vTokens.ToListAsync();
         }
     }

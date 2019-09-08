@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 using ASPNETCoreWebApiPeliculas.Services;
 using ASPNETCoreWebApiPeliculas.Models;
-using System.Threading.Tasks;
 
 namespace ASPNETCoreWebApiPeliculas.Controllers
 {
@@ -25,6 +26,18 @@ namespace ASPNETCoreWebApiPeliculas.Controllers
         [HttpGet] [ActionName("GetUsuario")]
         public async Task<Usuario> GetUserAsync(string username_email) {
             return await usuarios.GetUsuario(username_email);
+        }
+
+        //GET: https://localhost:5001/Api/Usuarios/GetUsuarios
+        [HttpGet] [ActionName("GetUsuarios")]
+        public async Task<List<Usuario>> GetUsersAsync() {
+            return await usuarios.GetUsuarios();
+        }
+
+        //GET: https://localhost:5001/Api/Usuarios/GetDecryptedPassword/?id_usuario=[value]
+        [HttpGet] [ActionName("GetDecryptedPassword")]
+        public async Task<string> GetDecryptedPasswordAsync(int id_usuario) {
+            return await usuarios.GetDecryptedPassword(id_usuario);
         }
 
         //POST: https://localhost:5001/Api/Usuarios/SolicitudToken

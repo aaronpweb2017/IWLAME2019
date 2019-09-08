@@ -64,8 +64,8 @@ export class LoginComponent implements OnInit {
     this.usuariosService.getTokenAuthentication(this.usuario).subscribe(data => {
       let response: string = data as string;
       if(String(response).search("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9") != -1) {
-        this.globalService.SetTokenValue(response);
-        this.globalService.setLoggedValue(true);
+        this.globalService.setToken(response);
+        this.globalService.setLogged(true);
         let username_email: string = this.getUserNameEmail();
         this.usuariosService.getUsuario(username_email).subscribe(data => {
           this.usuario = data as Usuario;

@@ -14,16 +14,16 @@ namespace ASPNETCoreWebApiPeliculas.Controllers
             this.vistas = vistas;
         }
 
-        //GET: https://localhost:5001/Api/Vistas/GetSolicitudesVista
-        [HttpGet] [ActionName("GetSolicitudesVista")]
+        //GET: https://localhost:5001/Api/Vistas/GetVistaSolicitudes
+        [HttpGet] [ActionName("GetVistaSolicitudes")]
         public async Task<List<VSolicitud>> GetRequestsViewAsync() {
-            return await vistas.GetSolicitudesVista();
+            return await vistas.GetVistaSolicitudes();
         }
 
-        //GET: https://localhost:5001/Api/Vistas/GetTokensVista
-        [HttpGet] [ActionName("GetTokensVista")]
+        //GET: https://localhost:5001/Api/Vistas/GetVistaTokens
+        [HttpGet] [ActionName("GetVistaTokens")]
         public async Task<List<VToken>> GetTokensViewAsync() {
-            return await vistas.GetTokensVista();
+            return await vistas.GetVistaTokens();
         }
     }
 }

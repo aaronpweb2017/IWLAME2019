@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -23,16 +24,16 @@ namespace ASPNETCoreWebApiPeliculas
                 string originalPassword = user.password_usuario;
                 user.password_usuario = userService.EncryptPassword(originalPassword);
                 await AppDbContext.usuarios.AddAsync(user); await AppDbContext.SaveChangesAsync();
-                response = true;
                 if(await SolicitudToken(user)) {
                     Usuario userToAuthenticate = await AppDbContext.usuarios.Where(u =>
-                    u.nombre_usuario == user.nombre_usuario).FirstOrDefaultAsync();
+                    u.nombre_usuario.Equals(user.nombre_usuario)).FirstOrDefaultAsync();
                     UsuarioSolicitud ultimaSolicitud = await AppDbContext.usuariosSolicitudes.Where(
                     us => us.id_usuario == userToAuthenticate.id_usuario && us.id_solicitud == 2
                     && us.status_solicitud == 0).LastOrDefaultAsync();
                     ultimaSolicitud.status_solicitud = 1; ultimaSolicitud.aprobacion_solicitud = DateTime.Now;
                     AppDbContext.usuariosSolicitudes.Update(ultimaSolicitud); await AppDbContext.SaveChangesAsync();
-                    await userService.GetTokenAuthentication(user.nombre_usuario, originalPassword); response = true;
+                    await userService.GetTokenAuthentication(userToAuthenticate.nombre_usuario, originalPassword);
+                    response = true;
                 }
             }
             catch(Exception exception) {
@@ -46,11 +47,20 @@ namespace ASPNETCoreWebApiPeliculas
                 || u.correo_usuario.Equals(username_email)).FirstOrDefaultAsync();
         }
 
+        public async Task<List<Usuario>> GetUsuarios() {
+            return await AppDbContext.usuarios.ToListAsync();
+        }
+
+        public async Task<string> GetDecryptedPassword(int id_usuario) {
+            Usuario user = await AppDbContext.usuarios.FindAsync(id_usuario);
+            return userService.DecryptPassword(user.password_usuario);
+        }
+
         public async Task<bool> SolicitudToken(Usuario user) {
             string userNameEmail = "", decryptedPassword = ""; bool response = false;
             userNameEmail = GetUserNameEmail(user.nombre_usuario, user.correo_usuario);
             Usuario userToUpdate = await AppDbContext.usuarios.Where(u =>
-                u.nombre_usuario == userNameEmail || u.correo_usuario == userNameEmail
+                u.nombre_usuario.Equals(userNameEmail) || u.correo_usuario.Equals(userNameEmail)
             ).FirstOrDefaultAsync();
             if(userToUpdate == null) { return response; }
             decryptedPassword = userService.DecryptPassword(userToUpdate.password_usuario);

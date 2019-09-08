@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
       this.menuFlags[i] = false;
     }
     this.noPeliculas = [];
-    for (let i: number = 0; i < 4; i++)
+    for (let i: number = 0; i < 5; i++)
       this.noPeliculas[i] = i + 1;
   }
 

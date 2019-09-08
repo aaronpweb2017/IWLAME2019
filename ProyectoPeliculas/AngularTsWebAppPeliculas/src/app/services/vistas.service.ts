@@ -5,20 +5,20 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class VistasService {
   private ApiVistasURL: string;
-  private ApiGetSolicitudesVistaURL: string;
-  private ApiGetTokensVistaURL: string;
+  private ApiGetVistaSolicitudesURL: string;
+  private ApiGetVistaTokensURL: string;
 
   constructor(private http: HttpClient) {
     this.ApiVistasURL = "https://localhost:5001/Api/Vistas";
   }
 
   getSolicitudesVista(): Observable<any> {
-    this.ApiGetSolicitudesVistaURL = this.ApiVistasURL + "/GetSolicitudesVista";
-    return this.http.get(this.ApiGetSolicitudesVistaURL);
+    this.ApiGetVistaSolicitudesURL = this.ApiVistasURL + "/GetVistaSolicitudes";
+    return this.http.get(this.ApiGetVistaSolicitudesURL);
   }
 
   getTokensVista(): Observable<any> {
-    this.ApiGetTokensVistaURL = this.ApiVistasURL + "/GetTokensVista";
-    return this.http.get(this.ApiGetTokensVistaURL);
+    this.ApiGetVistaTokensURL = this.ApiVistasURL + "/GetVistaTokens";
+    return this.http.get(this.ApiGetVistaTokensURL);
   }
 }

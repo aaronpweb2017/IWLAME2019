@@ -1,7 +1,12 @@
-<div class="row" style="padding: 20px;">
-  <div class="col-xl-12 animated fadeIn fast">
-    <table class="table table-bordered table-dark table-hover">
+<div class="container-fluid" style="padding: 20px;">
+  <div class="col-xl-12 animated-fade-in">
+    <table class="table table-bordered table-dark table-hover text-center">
       <thead>
+        <tr>
+          <th colspan="7" >
+            <h3><b>Historial de solicitudes realizadas por los uaurios</b></h3>
+          </th>
+        </tr>
         <tr>
           <th>id</th>
           <th>usuario</th>
@@ -13,25 +18,22 @@
         </tr>
       </thead>
       <tbody>
-        <ng-container *ngFor="let solicitud of solicitudes | paginate: paginationConfig">
+        <ng-container *ngFor="let solicitud of solicitudes | paginate: paginationConfig;">
           <tr>
             <td>{{solicitud.id}}</td>
             <td>{{solicitud.usuario}}</td>
             <td>{{solicitud.tipo}}</td>
             <td>{{solicitud.status}}</td>
-            <td>
-              {{solicitud.emision | date: 'dd/MM/yyyy'}}
-              {{solicitud.emision | date: 'hh:mm:ss'}}
-            </td>
-            <td>
-              {{solicitud.aprobacion | date: 'dd/MM/yyyy'}}
-              {{solicitud.aprobacion | date: 'hh:mm:ss'}}
+            <td>{{solicitud.emision | date: 'dd/MM/yyyy; hh:mm:ss' }}</td>
+            <td>{{solicitud.aprobacion | date: 'dd/MM/yyyy; hh:mm:ss'}}</td>
             <td>
               <button *ngIf="solicitud.status!='Solicitada'" type="button"
-                class="btn btn-info" disabled>Aprobada</button>
-              <button *ngIf="solicitud.status=='Solicitada'" type="button" class="btn btn-success"
+                class="btn btn-info" disabled><i class="fas fa-check-square"></i> Aprobada
+              </button>
+              <button *ngIf="solicitud.status=='Solicitada'" type="button" class="btn btn-secondary"
                 data-toggle="tooltip" data-placement="top" title="Autorizar solicitud"
-                (click)="AprobarSolicitud(solicitud.id);">Aprobar</button>
+                (click)="AprobarSolicitud(solicitud.id);"><i class="fas fa-user-check"></i> Aprobar
+              </button>
             </td>
           </tr>
         </ng-container>

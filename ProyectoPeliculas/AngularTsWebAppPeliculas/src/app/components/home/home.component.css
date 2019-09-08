@@ -1,70 +1,23 @@
-.home-container {
+.container-fluid {
     display: inline-flex;
 }
 
-.sidemenu {
-    position: sticky;
-    /* margin-top: 20px; */
-    margin-right: 5px;
-}
-
-.menu {
-    width: 190px;
-    border-radius: 8px;
-}
-
-.item {
-    list-style: none;
-    text-decoration: none;
-    border-top: 1px solid #2980b9;
-}
-
-.btn-menu {
-    padding: 5px;
-    background: #3498db;
-    color: white;
-    position: relative;
-    text-align: left;
-    padding-left: 20px;
-}
-
-.btn-menu:before {
-    content: "";
-    position: absolute;
-    width: 14px;
-    height: 14px;
-    background: #3498db;
-    left: 20px;
-    bottom: -7px;
-    transform: rotate(45deg);
-}
-
-.btn-menu i {
-    margin-right: 10px;
-}
-
-.smenu {
-    /* animation: slide-up 1s ease; */
-    background: #333;
-    overflow: hidden; 
-}
-
-.smenu button {
-    color: white;
-    font-size: 14px;
-    margin: 4px 0;
-    text-align: left;
+.row {
+    margin-left: 5px; 
 }
 
 .column {
-    /* margin-top: 20px; */
-    margin-left: 20px;
+    margin-bottom: 25px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 10px;
+    margin-left: 10px;
 }
 
 .card {
     margin: 0 auto;
-    width: 270px;
-    height: 450px;
+    width: 280px;
+    height: 480px;
     background: #000;
     overflow: hidden;
     box-shadow: 10px 20px 20px #000000;
@@ -96,7 +49,7 @@
     padding: 20px;
     width: 100%;
     height: 100%; 
-    bottom: -340px;
+    bottom: -370px;
     transition: 0.5s;
     z-index: 2;
 }

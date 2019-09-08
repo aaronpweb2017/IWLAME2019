@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SolicitudesService } from 'src/app/services/solicitudes.service';
-import { VistasService } from 'src/app/services/vistas.service';
 import { Solicitud } from 'src/app/interfaces/solicitud';
+import { VistasService } from 'src/app/services/vistas.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
@@ -14,7 +14,6 @@ export class SolicitudesComponent implements OnInit {
   currentPage: any;
   paginationConfig: any;
   solicitudes: Solicitud[];
-  id_usuario_solicitud: number;
 
   constructor(private solicitudesService: SolicitudesService, private vistasService: VistasService,
     private router: Router, private route: ActivatedRoute, private toastrService: ToastrService) {
@@ -31,7 +30,6 @@ export class SolicitudesComponent implements OnInit {
 
   ngOnInit() {
     this.solicitudes = []
-    this.id_usuario_solicitud = 0;
     this.vistasService.getSolicitudesVista().subscribe(data => {
       this.solicitudes = data as Solicitud[];
       this.paginationConfig = {

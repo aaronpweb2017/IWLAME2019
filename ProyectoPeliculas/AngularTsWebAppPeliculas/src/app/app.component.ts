@@ -10,5 +10,5 @@ export class AppComponent {
   loggedd: boolean;
   title: string = 'PeliculasWebApp';
 
-  constructor(private globalService: GlobalService) { }
+  constructor(private globalService: GlobalService) {  }
 }

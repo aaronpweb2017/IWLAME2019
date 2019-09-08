@@ -1,33 +1,37 @@
-<div class="row" style="padding: 20px;">
-    <div class="col-xl-12 animated fadeIn fast">
-      <table class="table table-bordered table-dark table-hover" style="word-wrap: break-word">
-        <thead>
+<div class="container-fluid" style="padding: 20px;">
+  <div class="col-xl-12 animated-fade-in">
+    <table class="table table-bordered table-dark
+      table-hover text-center" style="word-wrap: break-word">
+      <thead>
+        <tr>
+          <th colspan="6">
+            <h3><b>Historial de tokens proporcionados a los uaurios</b></h3>
+          </th>
+        </tr>
+        <tr>
+          <th>id</th>
+          <th>codigo del token</th>
+          <th>emision</th>
+          <th>expiracion</th>
+          <th>usuario</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let token of tokens | paginate: paginationConfig;">
           <tr>
-            <th>id</th>
-            <th>codigo</th>
-            <th>emision</th>
-            <th>expiracion</th>
-            <th>usuario</th>
+            <td>{{token.id}}</td>
+            <td class="text-justify" style="max-width: 400px;">{{token.codigo}}</td>
+            <td>
+              {{token.emision | date: 'dd/MM/yyyy; hh:mm:ss'}}
+            </td>
+            <td>
+              {{token.expiracion | date: 'dd/MM/yyyy; hh:mm:ss'}}
+            </td>
+            <td>{{token.usuario}}</td>  
           </tr>
-        </thead>
-        <tbody>
-          <ng-container *ngFor="let token of tokens | paginate: paginationConfig">
-            <tr>
-              <td>{{token.id}}</td>
-              <td style="max-width: 300px;">{{token.codigo}}</td>
-              <td style="max-width: 100px;">
-                {{token.emision | date: 'dd/MM/yyyy'}}
-                {{token.emision | date: 'hh:mm:ss'}}
-              </td>
-              <td style="max-width: 100px;">
-                {{token.expiracion | date: 'dd/MM/yyyy'}}
-                {{token.expiracion | date: 'hh:mm:ss'}}
-              </td>
-              <td style="max-width: 80px;">{{token.usuario}}</td>  
-            </tr>
-          </ng-container>
-        </tbody>
-      </table>
-      <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
-    </div>
+        </ng-container>
+      </tbody>
+    </table>
+    <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
   </div>
+</div>

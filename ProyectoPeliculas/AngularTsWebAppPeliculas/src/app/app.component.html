@@ -1,3 +1,4 @@
- <app-navbar></app-navbar>
- <!-- <app-navbar *ngIf="globalService.getLoggedValue()"></app-navbar> -->
-<router-outlet></router-outlet>
+<div class="container-fluid">
+    <app-topnavbar *ngIf="!globalService.getLogged()"></app-topnavbar>
+    <router-outlet></router-outlet>
+</div>

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Usuario } from '../interfaces/usuario';
 
@@ -8,6 +9,10 @@ export class UsuariosService {
   private ApiUsuariosURL: string;
   private ApiCrearUsuarioURL: string;
   private ApiGetUsuarioURL: string;
+  private ApiGetUsuariosURL: string;
+  
+  private ApiGetDecryptedPasswordURL: string;
+
   private ApiSolicitudTokenURL: string;
   private ApiGetTokenAuthenticationURL: string;
   private ApiSendForgottenPasswordURL: string;
@@ -25,6 +30,21 @@ export class UsuariosService {
     this.ApiGetUsuarioURL = this.ApiUsuariosURL
     + "/GetUsuario/?username_email="+username_email;
     return this.http.get(this.ApiGetUsuarioURL); 
+  }
+  
+  getUsuarios(): Observable<Usuario[]> {
+    this.ApiGetUsuariosURL = this.ApiUsuariosURL+ "/GetUsuarios";
+    return this.http.get(this.ApiGetUsuariosURL).pipe(
+      map((data: any) => data as Usuario[])
+    ); 
+  }
+
+  getDecryptedPassword(id_usuario: number): Observable<string> {
+    this.ApiGetDecryptedPasswordURL = this.ApiUsuariosURL
+    + "/GetDecryptedPassword/?id_usuario="+id_usuario;
+    return this.http.get(this.ApiGetDecryptedPasswordURL).pipe(
+      map((data: any) => data as string)
+    );
   }
 
   solicitudToken(usuario: Usuario): Observable<any> {

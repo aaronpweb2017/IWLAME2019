@@ -6,7 +6,7 @@ export let logged: boolean = false;
 
 @Injectable()
 export class GlobalService {
-    SetTokenValue(tokenValue: string) {
+    setToken(tokenValue: string) {
         token = "Bearer " + tokenValue;
         header = new HttpHeaders({
             'Content-Type': 'application/json',
@@ -22,11 +22,11 @@ export class GlobalService {
         return header;
     }
 
-    setLoggedValue(isLogged: boolean) {
+    setLogged(isLogged: boolean) {
         logged = isLogged; 
     }
 
-    getLoggedValue(): boolean {
+    getLogged(): boolean {
         return logged;
     }
 }
