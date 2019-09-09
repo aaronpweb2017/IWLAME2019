@@ -1,7 +1,7 @@
 <div class="container-fluid" style="padding: 20px;">
   <div class="col-xl-12 animated-fade-in">
-    <table class="table table-bordered table-dark
-      table-hover text-center" style="word-wrap: break-word">
+    <table class="table table-bordered table-dark table-hover
+      text-center" style="word-wrap: break-word">
       <thead>
         <tr>
           <th colspan="6">
@@ -22,10 +22,10 @@
             <td>{{token.id}}</td>
             <td class="text-justify" style="max-width: 400px;">{{token.codigo}}</td>
             <td>
-              {{token.emision | date: 'dd/MM/yyyy; hh:mm:ss'}}
+              {{token.emision | date: 'dd/MM/yyyy; hh:mm:ss a'}}
             </td>
             <td>
-              {{token.expiracion | date: 'dd/MM/yyyy; hh:mm:ss'}}
+              {{token.expiracion | date: 'dd/MM/yyyy; hh:mm:ss a'}}
             </td>
             <td>{{token.usuario}}</td>  
           </tr>

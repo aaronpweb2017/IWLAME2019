@@ -17,6 +17,7 @@ import { HomeComponent } from './components/home/home.component';
 import { SolicitudesComponent } from './components/solicitudes/solicitudes.component';
 import { TokensComponent } from './components/tokens/tokens.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
+import { ActualizacionComponent } from './components/modals/actualizacion/actualizacion.component';
 
 //Services (providers):
 import { GlobalService } from './global.service';
@@ -36,7 +37,8 @@ import { appRoutes } from './app.routes';
     HomeComponent,
     SolicitudesComponent,
     TokensComponent,
-    UsuariosComponent
+    UsuariosComponent,
+    ActualizacionComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +51,8 @@ import { appRoutes } from './app.routes';
     ToastrModule.forRoot({
       timeOut: 1500,
       positionClass: 'toast-top-full-width',
-      preventDuplicates: true }),
+      preventDuplicates: true })
+      
   ],
   providers: [GlobalService, UsuariosService,
     SolicitudesService, VistasService],

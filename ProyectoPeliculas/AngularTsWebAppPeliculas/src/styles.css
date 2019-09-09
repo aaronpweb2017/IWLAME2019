@@ -18,10 +18,10 @@ body {
     }
 }
 
-.fadeIn {
-    animation-name: fadeIn;
-}
-
 .puntero {
     cursor: pointer;
+}
+
+.opaque {
+    opacity: 0.95;
 }

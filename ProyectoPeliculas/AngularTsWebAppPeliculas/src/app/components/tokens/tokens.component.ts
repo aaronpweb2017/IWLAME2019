@@ -16,21 +16,16 @@ export class TokensComponent implements OnInit {
 
   constructor(private vistasService: VistasService, private router: Router,
     private route: ActivatedRoute, private toastrService: ToastrService) {
-    this.currentPage = this.route.snapshot.params['pg'],
-      this.paginationConfig = {
-        itemsPerPage: 0,
-        currentPage: 0,
-        totalItems: 0
-      };
+    this.currentPage = this.route.snapshot.params['pg'];
+    this.paginationConfig = { itemsPerPage: 0, currentPage: 0, totalItems: 0 };
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
     };
   }
 
   ngOnInit() {
-    this.tokens = [];
-    this.vistasService.getTokensVista().subscribe(data => {
-      this.tokens = data as Token[];
+    this.vistasService.getTokensVista().subscribe(tokens => {
+      this.tokens = tokens;
       this.paginationConfig = {
         itemsPerPage: 5,
         currentPage: this.currentPage,

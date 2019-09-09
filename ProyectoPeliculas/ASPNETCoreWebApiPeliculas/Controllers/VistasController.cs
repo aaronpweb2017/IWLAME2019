@@ -2,10 +2,11 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using ASPNETCoreWebApiPeliculas.Views;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ASPNETCoreWebApiPeliculas.Controllers
 {
-    [ApiController] [Route("Api/[controller]/[action]")]
+    [ApiController] [Route("Api/[controller]/[action]")] //[Authorize]
     public class VistasController : ControllerBase
     {
         private readonly IVistas vistas;

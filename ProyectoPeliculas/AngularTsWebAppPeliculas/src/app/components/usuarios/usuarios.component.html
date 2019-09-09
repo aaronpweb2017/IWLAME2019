@@ -37,10 +37,9 @@
             <td *ngIf="usuario.tipo_usuario==1">Administrador</td>
             <td *ngIf="usuario.tipo_usuario==2">Visitante</td>
             <td>
-              <button type="button" class="btn btn-success"
-                data-toggle="tooltip" data-placement="top" title="Actualizar"
-                (click)="actualizar(usuario.id_usuario);"><i class="far fa-edit"></i>
-              </button>
+              <app-actualizacion [request]="'ActualizarUsuario'"
+                [model]="usuario" (modelObjectEvent)="actualizar($event);">
+              </app-actualizacion>
             </td>
             <td>
               <button type="button" class="btn btn-danger"

@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
 
   setUserLogInAttributes() {
     this.usuario.correo_usuario = ""; this.usuario.nombre_usuario = "";
-    if(String(this.userNameEmail).search(this.emailPattern) != -1) {
+    if (String(this.userNameEmail).search(this.emailPattern) != -1) {
       this.usuario.correo_usuario = this.userNameEmail;
     }
     else {
@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
   }
 
   getUserNameEmail(): string {
-    if(this.usuario.nombre_usuario.length > 0) {
+    if (this.usuario.nombre_usuario.length > 0) {
       return this.usuario.nombre_usuario
     }
     return this.usuario.correo_usuario;
@@ -61,16 +61,13 @@ export class LoginComponent implements OnInit {
 
   iniciarSesion() {
     this.setUserLogInAttributes();
-    this.usuariosService.getTokenAuthentication(this.usuario).subscribe(data => {
-      let response: string = data as string;
-      if(String(response).search("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9") != -1) {
-        this.globalService.setToken(response);
-        this.globalService.setLogged(true);
+    this.usuariosService.getTokenAuthentication(this.usuario).subscribe(response => {
+      if (String(response).includes("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9")) {
+        this.globalService.setToken(response); this.globalService.setLogged(true);
         let username_email: string = this.getUserNameEmail();
-        this.usuariosService.getUsuario(username_email).subscribe(data => {
-          this.usuario = data as Usuario;
-          this.toastrService.info("Bienvenido: " + this.usuario.nombre_usuario); 
-          this.router.navigate(['/home']); 
+        this.usuariosService.getUsuario(username_email).subscribe(usuario => {
+          this.toastrService.info("Bienvenido: " + usuario.nombre_usuario);
+          this.usuario = usuario; this.router.navigate(['/home']);
         });
       }
       else {
@@ -81,41 +78,52 @@ export class LoginComponent implements OnInit {
 
   solicitarToken() {
     this.setUserLogInAttributes();
-    this.usuariosService.getTokenAuthentication(this.usuario).subscribe(data => {
-      let response: string = data as string;
-      if(String(response).search("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9") != -1) {
+    this.usuariosService.getTokenAuthentication(this.usuario).subscribe(response => {
+      if (String(response).includes("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9")) {
         this.toastrService.info("Tu token aún no ha expirado..."); return;
       }
-      if(String(response).search("Tu token ha expirado") != -1) {
-        this.usuariosService.solicitudToken(this.usuario).subscribe(data => {
-          let response: boolean = data as boolean;
-          if(response) {
+      if (String(response).includes("Tu token ha expirado")) {
+        this.usuariosService.solicitudToken(this.usuario).subscribe(response => {
+          if (response) {
             this.toastrService.success("Tu solicitud ha sido enviada."); return;
           }
-          this.toastrService.info("Tu solicitud aún no es aprobada."); 
+          this.toastrService.info("Tu solicitud aún no es aprobada.");
         }); return;
       }
-      this.toastrService.error(response); 
+      this.toastrService.error(response);
     });
   }
 
   sendForgottenPassword() {
-    this.usuariosService.getUsuario(this.emailToSendPass).subscribe(data => {
-      if(data as Usuario) {
-        this.usuariosService.getForgottenPassword(this.emailToSendPass).subscribe(data => {
-          let response: boolean = data as boolean;
-          if(response) {
+    this.usuariosService.getUsuario(this.emailToSendPass).subscribe(usuario => {
+      if (usuario) {
+        this.usuariosService.getForgottenPassword(this.emailToSendPass).subscribe(response => {
+          if (response) {
             this.toastrService.success("Tu contraseña ha sido enviada a tu correo."); return;
           }
-          this.toastrService.error("Tu solicitud no pudo realizarse debido a un problema.");
+          this.toastrService.error("Tu solicitud no pudo realizarse.");
         }); return;
       }
       this.toastrService.error("El usuario no existe.");
     });
   }
 
+  crearCuentaNueva() {
+    if (this.passwordSignIn1 != this.passwordSignIn2) {
+      this.toastrService.error("Contraseñas distintas.");
+      return;
+    }
+    this.usuario.password_usuario = this.passwordSignIn1;
+    this.usuariosService.crearUsuario(this.usuario).subscribe(response => {
+      if (response) {
+        this.toastrService.success("Tu cuenta fue creada con éxito."); return;
+      }
+      this.toastrService.error("Tu cuenta no pudo ser creada.");
+    });
+  }
+
   setFlagForgottenPassword() {
-    if(this.flagForgottenPassword) {
+    if (this.flagForgottenPassword) {
       this.flagForgottenPassword = false;
       return;
     }
@@ -124,26 +132,11 @@ export class LoginComponent implements OnInit {
   }
 
   setFlagNuevaCuenta() {
-    if(this.flagNuevaCuenta) {
+    if (this.flagNuevaCuenta) {
       this.flagNuevaCuenta = false;
       return;
     }
     this.flagNuevaCuenta = true;
     this.flagForgottenPassword = false;
-  }
-
-  crearCuentaNueva() {
-    if(this.passwordSignIn1 != this.passwordSignIn2) {
-      this.toastrService.error("Contraseñas distintas.");
-      return;
-    }
-    this.usuario.password_usuario = this.passwordSignIn1;
-    this.usuariosService.crearUsuario(this.usuario).subscribe(data => {
-      let response: boolean = data as boolean;
-      if(response) {
-        this.toastrService.success("Tu cuenta fue creada con éxito."); return;
-      }
-      this.toastrService.error("Tu cuenta no pudo ser creada."); 
-    });
   }
 }

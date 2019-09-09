@@ -24,8 +24,13 @@
             <td>{{solicitud.usuario}}</td>
             <td>{{solicitud.tipo}}</td>
             <td>{{solicitud.status}}</td>
-            <td>{{solicitud.emision | date: 'dd/MM/yyyy; hh:mm:ss' }}</td>
-            <td>{{solicitud.aprobacion | date: 'dd/MM/yyyy; hh:mm:ss'}}</td>
+            <td>{{solicitud.emision | date: 'dd/MM/yyyy; hh:mm:ss a' }}</td>
+            <td *ngIf="!solicitud.aprobacion.toString().includes('0001-01-01')">
+              {{solicitud.aprobacion | date: 'dd/MM/yyyy; hh:mm:ss a'}}
+            </td>
+            <td *ngIf="solicitud.aprobacion.toString().includes('0001-01-01')">
+              Fecha por definir
+            </td>
             <td>
               <button *ngIf="solicitud.status!='Solicitada'" type="button"
                 class="btn btn-info" disabled><i class="fas fa-check-square"></i> Aprobada

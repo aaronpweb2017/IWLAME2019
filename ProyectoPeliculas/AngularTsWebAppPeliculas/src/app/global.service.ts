@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
-export let token: string = "";
+export let apiURL: string = "https://localhost:5001/Api";
+export let token: string;
 export let header: HttpHeaders;
 export let logged: boolean = false;
 
 @Injectable()
 export class GlobalService {
+
     setToken(tokenValue: string) {
         token = "Bearer " + tokenValue;
         header = new HttpHeaders({

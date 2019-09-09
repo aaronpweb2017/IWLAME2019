@@ -17,21 +17,16 @@ export class SolicitudesComponent implements OnInit {
 
   constructor(private solicitudesService: SolicitudesService, private vistasService: VistasService,
     private router: Router, private route: ActivatedRoute, private toastrService: ToastrService) {
-    this.currentPage = this.route.snapshot.params['pg'],
-      this.paginationConfig = {
-        itemsPerPage: 0,
-        currentPage: 0,
-        totalItems: 0
-      };
+    this.currentPage = this.route.snapshot.params['pg'];
+    this.paginationConfig = { itemsPerPage: 0, currentPage: 0, totalItems: 0 };
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
     };
   }
 
   ngOnInit() {
-    this.solicitudes = []
-    this.vistasService.getSolicitudesVista().subscribe(data => {
-      this.solicitudes = data as Solicitud[];
+    this.vistasService.getSolicitudesVista().subscribe(solicitudes => {
+      this.solicitudes = solicitudes;
       this.paginationConfig = {
         itemsPerPage: 5,
         currentPage: this.currentPage,
@@ -41,8 +36,7 @@ export class SolicitudesComponent implements OnInit {
   }
 
   AprobarSolicitud(id_usuario_solicitud: number) {
-    this.solicitudesService.aprobarSolicitud(id_usuario_solicitud).subscribe(data => {
-      let response: boolean = data as boolean;
+    this.solicitudesService.aprobarSolicitud(id_usuario_solicitud).subscribe(response => {
       if (response) {
         this.toastrService.info("Solicitud aprobada con éxito...");
         this.router.navigate(['/solicitudes', this.currentPage]); return;

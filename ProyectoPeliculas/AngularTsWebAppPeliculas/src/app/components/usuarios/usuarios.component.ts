@@ -4,8 +4,6 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
-
-
 @Component({
   selector: 'app-usuarios',
   templateUrl: './usuarios.component.html',
@@ -20,12 +18,8 @@ export class UsuariosComponent implements OnInit {
 
   constructor(private usuariosService: UsuariosService, private router: Router,
     private route: ActivatedRoute, private toastrService: ToastrService) {
-    this.currentPage = this.route.snapshot.params['pg'],
-      this.paginationConfig = {
-        itemsPerPage: 0,
-        currentPage: 0,
-        totalItems: 0
-      };
+    this.currentPage = this.route.snapshot.params['pg'];
+    this.paginationConfig = { itemsPerPage: 0, currentPage: 0, totalItems: 0 };
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
     };
@@ -61,12 +55,21 @@ export class UsuariosComponent implements OnInit {
     this.passwords[index] = "";
   }
 
-  actualizar(id_usuario: number) {
-    console.log("Abrir modal de actualización para "+id_usuario);
+  actualizar(usuario: Usuario) {
+    console.log("usuario:");
+    console.log(usuario);
   }
   
   eliminar(id_usuario: number) {
     console.log("Abrir modal de eliminación para "+id_usuario);
+  }
+
+  function1(event: any) {
+    console.log(event);
+  }
+
+  function2(event: any) {
+    console.log(event);
   }
 
   pageChanged(event) {
