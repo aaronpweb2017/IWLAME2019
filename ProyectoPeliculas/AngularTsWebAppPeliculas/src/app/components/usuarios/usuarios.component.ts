@@ -46,7 +46,6 @@ export class UsuariosComponent implements OnInit {
         this.passwords[index] = response; return;
       }
       this.toastrService.error("Desencriptación fallida...");
-
     });
   }
 
@@ -55,26 +54,23 @@ export class UsuariosComponent implements OnInit {
     this.passwords[index] = "";
   }
 
-  actualizar(usuario: Usuario) {
-    console.log("usuario:");
-    console.log(usuario);
+  actualizarUsuario(usuario: Usuario) {
+    this.usuariosService.actualizarUsuario(usuario).subscribe(response => {
+      if(response) {
+        this.toastrService.success("Actualización realizada con éxito.");
+        this.router.navigate(['/usuarios', this.currentPage]); return;
+      }
+      this.toastrService.error("Actualización fallida...");
+    });
   }
   
-  eliminar(id_usuario: number) {
+  eliminarUsuario(id_usuario: number) {
     console.log("Abrir modal de eliminación para "+id_usuario);
-  }
-
-  function1(event: any) {
-    console.log(event);
-  }
-
-  function2(event: any) {
-    console.log(event);
   }
 
   pageChanged(event) {
     this.currentPage = event;
     this.paginationConfig.currentPage = this.currentPage;
-    this.router.navigate(['/solicitudes', this.currentPage]);
+    this.router.navigate(['/usuarios', this.currentPage]);
   }
 }

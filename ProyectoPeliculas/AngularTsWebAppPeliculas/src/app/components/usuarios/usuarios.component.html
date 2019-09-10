@@ -37,8 +37,9 @@
             <td *ngIf="usuario.tipo_usuario==1">Administrador</td>
             <td *ngIf="usuario.tipo_usuario==2">Visitante</td>
             <td>
-              <app-actualizacion [request]="'ActualizarUsuario'"
-                [model]="usuario" (modelObjectEvent)="actualizar($event);">
+              <app-actualizacion
+                [request]="'ActualizarUsuario'" [model]="usuarios[i]"
+                (modelObjectEvent)="actualizarUsuario($event);">
               </app-actualizacion>
             </td>
             <td>

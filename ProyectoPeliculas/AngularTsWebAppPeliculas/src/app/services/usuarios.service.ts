@@ -11,6 +11,7 @@ export class UsuariosService {
   private ApiCrearUsuarioURL: string;
   private ApiGetUsuarioURL: string;
   private ApiGetUsuariosURL: string;
+  private ApiActualizarUsuarioURL: string;
   private ApiGetDecryptedPasswordURL: string;
   private ApiSolicitudTokenURL: string;
   private ApiGetTokenAuthenticationURL: string;
@@ -40,6 +41,13 @@ export class UsuariosService {
     return this.http.get(this.ApiGetUsuariosURL).pipe(
       map((data: any) => data as Usuario[])
     ); 
+  }
+
+  actualizarUsuario(usuario: Usuario): Observable<boolean> {
+    this.ApiActualizarUsuarioURL = this.ApiUsuariosURL + "/ActualizarUsuario";
+    return this.http.put(this.ApiActualizarUsuarioURL, usuario).pipe(
+      map((data: any) => data as boolean)
+    );
   }
 
   getDecryptedPassword(id_usuario: number): Observable<string> {

@@ -51,6 +51,27 @@ namespace ASPNETCoreWebApiPeliculas
             return await AppDbContext.usuarios.ToListAsync();
         }
 
+        public async Task<bool> ActualizarUsuario(Usuario user) {
+            bool response = false;
+            try {
+                Usuario userToUpdate = await AppDbContext.usuarios.Where(u =>
+                u.id_usuario == user.id_usuario).FirstOrDefaultAsync();
+                userToUpdate.nombre_usuario = user.nombre_usuario;
+                userToUpdate.correo_usuario = user.correo_usuario;
+                if(!userToUpdate.password_usuario.Equals(user.password_usuario)) {
+                    userToUpdate.password_usuario = userService.EncryptPassword(user.password_usuario);
+                }
+                userToUpdate.tipo_usuario = user.tipo_usuario;
+                AppDbContext.usuarios.Update(userToUpdate); 
+                await AppDbContext.SaveChangesAsync();
+                response = true;
+            }
+            catch(Exception exception) {
+                Console.WriteLine("Exception msj: "+exception.Message);
+            }
+            return response;
+        }
+
         public async Task<string> GetDecryptedPassword(int id_usuario) {
             Usuario user = await AppDbContext.usuarios.FindAsync(id_usuario);
             return userService.DecryptPassword(user.password_usuario);
