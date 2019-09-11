@@ -1,43 +1,45 @@
 <div class="container-fluid" style="padding: 20px;">
   <div class="col-xl-12 animated-fade-in">
-    <table class="table table-bordered table-dark table-hover text-center">
+    <table class="table table-bordered table-dark table-hover">
       <thead>
         <tr>
-          <th colspan="7" >
-            <h3><b>Historial de solicitudes realizadas por los uaurios</b></h3>
+          <th colspan="7">
+            <h3 class="font-weight-bold text-center">
+              Historial de solicitudes realizadas por los uaurios
+            </h3>
           </th>
         </tr>
         <tr>
-          <th>id</th>
-          <th>usuario</th>
-          <th>tipo</th>
-          <th>status</th>
-          <th>emision</th>
-          <th>aprobacion</th>
-          <th></th>
+          <th class="text-center"><span style="font-size: 20px;">id</span></th>
+          <th class="text-center"><span style="font-size: 20px;">usuario</span></th>
+          <th class="text-center"><span style="font-size: 20px;">tipo</span></th>
+          <th class="text-center"><span style="font-size: 20px;">status</span></th>
+          <th class="text-center"><span style="font-size: 20px;">emisión</span></th>
+          <th class="text-center"><span style="font-size: 20px;">aprobación</span></th>
+          <th class="text-center"><span style="font-size: 20px;"></span></th>
         </tr>
       </thead>
       <tbody>
         <ng-container *ngFor="let solicitud of solicitudes | paginate: paginationConfig;">
           <tr>
-            <td>{{solicitud.id}}</td>
-            <td>{{solicitud.usuario}}</td>
-            <td>{{solicitud.tipo}}</td>
-            <td>{{solicitud.status}}</td>
-            <td>{{solicitud.emision | date: 'dd/MM/yyyy; hh:mm:ss a' }}</td>
-            <td *ngIf="!solicitud.aprobacion.toString().includes('0001-01-01')">
-              {{solicitud.aprobacion | date: 'dd/MM/yyyy; hh:mm:ss a'}}
+            <td class="text-center">{{solicitud.id}}</td>
+            <td class="text-center">{{solicitud.usuario}}</td>
+            <td class="text-center">{{solicitud.tipo}}</td>
+            <td class="text-center">{{solicitud.status}}</td>
+            <td class="text-center">{{solicitud.emision| date: 'dd/MM/yyyy; hh:mm:ss a' }}</td>
+            <td *ngIf="!solicitud.aprobacion.toString().includes('0001-01-01')" class="text-center">
+                {{solicitud.aprobacion | date: 'dd/MM/yyyy; hh:mm:ss a'}}
             </td>
-            <td *ngIf="solicitud.aprobacion.toString().includes('0001-01-01')">
+            <td *ngIf="solicitud.aprobacion.toString().includes('0001-01-01')" class="text-center">
               Fecha por definir
             </td>
-            <td>
-              <button *ngIf="solicitud.status!='Solicitada'" type="button"
+            <td class="text-center">
+              <button *ngIf="!solicitud.status.includes('Solicitada')" type="button"
                 class="btn btn-info" disabled><i class="fas fa-check-square"></i> Aprobada
               </button>
-              <button *ngIf="solicitud.status=='Solicitada'" type="button" class="btn btn-secondary"
+              <button *ngIf="solicitud.status.includes('Solicitada')" type="button" class="btn btn-secondary"
                 data-toggle="tooltip" data-placement="top" title="Autorizar solicitud"
-                (click)="AprobarSolicitud(solicitud.id);"><i class="fas fa-user-check"></i> Aprobar
+                (click)="aprobarSolicitud(solicitud.id)"><i class="fas fa-user-check"></i> Aprobar
               </button>
             </td>
           </tr>

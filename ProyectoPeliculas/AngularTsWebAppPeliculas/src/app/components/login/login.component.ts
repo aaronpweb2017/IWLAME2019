@@ -62,27 +62,25 @@ export class LoginComponent implements OnInit {
   iniciarSesion() {
     this.setUserLogInAttributes();
     this.usuariosService.getTokenAuthentication(this.usuario).subscribe(response => {
-      if (String(response).includes("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9")) {
+      if (response.includes("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9")) {
         this.globalService.setToken(response); this.globalService.setLogged(true);
         let username_email: string = this.getUserNameEmail();
         this.usuariosService.getUsuario(username_email).subscribe(usuario => {
           this.toastrService.info("Bienvenido: " + usuario.nombre_usuario);
           this.usuario = usuario; this.router.navigate(['/home']);
-        });
+        }); return;
       }
-      else {
-        this.toastrService.error(response);
-      }
+      this.toastrService.error(response);
     });
   }
 
   solicitarToken() {
     this.setUserLogInAttributes();
     this.usuariosService.getTokenAuthentication(this.usuario).subscribe(response => {
-      if (String(response).includes("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9")) {
+      if (response.includes("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9")) {
         this.toastrService.info("Tu token aún no ha expirado..."); return;
       }
-      if (String(response).includes("Tu token ha expirado")) {
+      if (response.includes("Tu token ha expirado")) {
         this.usuariosService.solicitudToken(this.usuario).subscribe(response => {
           if (response) {
             this.toastrService.success("Tu solicitud ha sido enviada."); return;

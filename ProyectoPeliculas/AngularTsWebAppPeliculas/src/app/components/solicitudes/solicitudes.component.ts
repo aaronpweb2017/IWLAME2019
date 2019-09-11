@@ -11,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: []
 })
 export class SolicitudesComponent implements OnInit {
-  currentPage: any;
+  currentPage: number;
   paginationConfig: any;
   solicitudes: Solicitud[];
 
@@ -35,7 +35,7 @@ export class SolicitudesComponent implements OnInit {
     });
   }
 
-  AprobarSolicitud(id_usuario_solicitud: number) {
+  aprobarSolicitud(id_usuario_solicitud: number) {
     this.solicitudesService.aprobarSolicitud(id_usuario_solicitud).subscribe(response => {
       if (response) {
         this.toastrService.info("Solicitud aprobada con éxito...");
@@ -45,8 +45,8 @@ export class SolicitudesComponent implements OnInit {
     });
   }
 
-  pageChanged(event) {
-    this.currentPage = event;
+  pageChanged(currentPage: number) {
+    this.currentPage = currentPage;
     this.paginationConfig.currentPage = this.currentPage;
     this.router.navigate(['/solicitudes', this.currentPage]);
   }

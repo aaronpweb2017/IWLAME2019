@@ -17,7 +17,8 @@ import { HomeComponent } from './components/home/home.component';
 import { SolicitudesComponent } from './components/solicitudes/solicitudes.component';
 import { TokensComponent } from './components/tokens/tokens.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
-import { ActualizacionComponent } from './components/modals/actualizacion/actualizacion.component';
+import { ActualizacionComponent } from './components/modals/modal-actualizacion/modal-actualizacion.component';
+import { ModalEliminacionComponent } from './components/modals/modal-eliminacion/modal-eliminacion.component';
 
 //Services (providers):
 import { GlobalService } from './global.service';
@@ -38,7 +39,8 @@ import { appRoutes } from './app.routes';
     SolicitudesComponent,
     TokensComponent,
     UsuariosComponent,
-    ActualizacionComponent
+    ActualizacionComponent,
+    ModalEliminacionComponent
   ],
   imports: [
     BrowserModule,

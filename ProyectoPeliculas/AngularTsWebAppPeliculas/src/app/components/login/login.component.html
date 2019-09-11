@@ -1,22 +1,25 @@
 <div class="global-form bg-secondary opaque animated-fade-in">
     <img src="assets/imgLoginAvatarIcon.png" class="login-img">
   <form class="form-signin bg-dark animated-fade-in">
-    <h1 class="h3 font-weight-bold text-light titulologin">Iniciar Sesión</h1>
+    <h1 class="h3 font-weight-bold text-light text-center">Iniciar Sesión</h1>
       <div class="form-group">
           <label class="text-light" for="user-email">Usuario o dirección Email:</label>
           <input [(ngModel)]="userNameEmail" [ngModelOptions]="{standalone: true}" type="text"
-            class="form-control" id="user-email"  placeholder="Username or Email" autofocus="">
+            class="form-control" id="user-email" placeholder="Username or Email" autofocus="">
       </div>
       <div class="form-group">
         <label class="text-light" for="password1">Contraseña:</label>
         <input [(ngModel)]="passwordLogIn" [ngModelOptions]="{standalone: true}"
           type="password" class="form-control" id="password1" placeholder="Password">
       </div>
-      <button class="btn btn-success btn-block" type="submit" (click)="iniciarSesion();"><b>Iniciar Sesión</b></button>
-      <button class="btn btn-link" type="button" (click)="setFlagForgottenPassword();">Olvidaste la contraseña?</button>
-      <b style="color:white;">|</b>
-      <button class="btn btn-link" type="button" (click)="solicitarToken();">Solicitar Token </button><hr>
-      <button class="btn btn-primary btn-block" type="button" (click)="setFlagNuevaCuenta();">Crear cuenta nueva</button>
+      <button class="btn btn-success btn-block" type="submit"
+        (click)="iniciarSesion()"><strong>Iniciar Sesión</strong>
+      </button>
+      <div class="btn-group" role="group" aria-label="passTokenButtons">
+        <button class="btn btn-link" type="button" (click)="setFlagForgottenPassword()">Olvidaste la contraseña?</button> 
+        <button class="btn btn-link" type="button" (click)="solicitarToken()">Solicitar Token</button>
+      </div><hr>      
+      <button class="btn btn-primary btn-block" type="button" (click)="setFlagNuevaCuenta()">Crear cuenta nueva</button>
     </form>
     <form *ngIf="flagForgottenPassword" class="form-reset bg-dark animated-fade-in">
       <div class="form-group">
@@ -25,7 +28,8 @@
           class="form-control" id="email1" placeholder="Email Address" autofocus="">
       </div>
       <button class="btn btn-primary btn-block" type="button"
-      (click)="sendForgottenPassword();"><strong>Enviar Contraseña</strong></button>
+        (click)="sendForgottenPassword()"><strong>Enviar Contraseña</strong>
+      </button>
     </form>
     <form *ngIf="flagNuevaCuenta" class="form-signup bg-dark animated-fade-in">            
         <div class="form-group">
@@ -49,6 +53,7 @@
             class="form-control" id="password3" placeholder="Confirm Password">
         </div>
         <button class="btn btn-primary btn-block" type="submit"
-          (click)="crearCuentaNueva();">Crear Cuenta</button>
+          (click)="crearCuentaNueva()"><strong>Crear Cuenta</strong>
+        </button>
     </form>
 </div>

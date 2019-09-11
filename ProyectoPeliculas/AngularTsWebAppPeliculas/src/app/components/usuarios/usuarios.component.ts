@@ -10,7 +10,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: []
 })
 export class UsuariosComponent implements OnInit {
-  currentPage: any;
+  currentPage: number;
   paginationConfig: any;
   usuarios: Usuario[];
   decrypts: boolean[];
@@ -65,11 +65,11 @@ export class UsuariosComponent implements OnInit {
   }
   
   eliminarUsuario(id_usuario: number) {
-    console.log("Abrir modal de eliminación para "+id_usuario);
+    console.log("Eliminar al usuario "+id_usuario);
   }
 
-  pageChanged(event) {
-    this.currentPage = event;
+  pageChanged(currentPage: number) {
+    this.currentPage = currentPage;
     this.paginationConfig.currentPage = this.currentPage;
     this.router.navigate(['/usuarios', this.currentPage]);
   }

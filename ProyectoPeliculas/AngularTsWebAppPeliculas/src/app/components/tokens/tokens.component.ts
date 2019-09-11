@@ -10,7 +10,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: []
 })
 export class TokensComponent implements OnInit {
-  currentPage: any;
+  currentPage: number;
   paginationConfig: any;
   tokens: Token[];
 
@@ -34,8 +34,8 @@ export class TokensComponent implements OnInit {
     });
   }
 
-  pageChanged(event) {
-    this.currentPage = event;
+  pageChanged(currentPage: number) {
+    this.currentPage = currentPage;
     this.paginationConfig.currentPage = this.currentPage;
     this.router.navigate(['/tokens', this.currentPage]);
   }
