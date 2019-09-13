@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { GlobalService } from 'src/app/global.service';
 
 @Component({
-  selector: 'app-topnavbar',
-  templateUrl: './topnavbar.component.html',
+  selector: 'app-footer',
+  templateUrl: './footer.component.html',
   styles: []
 })
 
-export class TopNavbarComponent {
+export class FooterComponent  {
   constructor(private globalService: GlobalService) { }
 }

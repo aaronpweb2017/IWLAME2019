@@ -72,6 +72,21 @@ namespace ASPNETCoreWebApiPeliculas
             return response;
         }
 
+        public async Task<bool> EliminarUsuario(Usuario user) {
+            bool response = false;
+            try {
+                Usuario userToDelete = await AppDbContext.usuarios.Where(u =>
+                u.id_usuario == user.id_usuario).FirstOrDefaultAsync();
+                AppDbContext.usuarios.Remove(userToDelete);
+                await AppDbContext.SaveChangesAsync();
+                response = true;
+            }
+            catch(Exception exception) {
+                Console.WriteLine("Exception msj: "+exception.Message);
+            }
+            return response;  
+        }
+
         public async Task<string> GetDecryptedPassword(int id_usuario) {
             Usuario user = await AppDbContext.usuarios.FindAsync(id_usuario);
             return userService.DecryptPassword(user.password_usuario);

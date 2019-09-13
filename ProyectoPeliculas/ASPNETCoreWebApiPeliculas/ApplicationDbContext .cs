@@ -11,6 +11,14 @@ namespace ASPNETCoreWebApiPeliculas {
         public DbSet<UsuarioSolicitud> usuariosSolicitudes { get; set; }
         public DbSet<VSolicitud> vSolicitudes { get; set; }
         public DbSet<VToken> vTokens { get; set; }
+
+        public DbSet<TipoResolucion> tiposResolucion { get; set; }
+        public DbSet<ValorResolucion> valoresResolucion { get; set; }
+        public DbSet<RelacionAspecto> relacionesAspecto { get; set; }
+        public DbSet<Resolucion> resoluciones { get; set; }
+        public DbSet<Formato> formatos { get; set; }
+        public DbSet<DetalleTecnico> detallesTecnicos { get; set; }
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             //Table Usuario Configuration:
             modelBuilder.Entity<Usuario>().ToTable("Usuario");
@@ -69,6 +77,78 @@ namespace ASPNETCoreWebApiPeliculas {
                 HasForeignKey(us => us.id_usuario).HasConstraintName("id_usuario_us_FK_CSTR");
             modelBuilder.Entity<UsuarioSolicitud>().HasOne(us => us.solicitud).WithMany(s => s.usuario_solicitudes).
                 HasForeignKey(us => us.id_solicitud).HasConstraintName("id_solicitud_FK_CSTR");
+
+            //Table Formato Configuration:
+            modelBuilder.Entity<Formato>().ToTable("Formato");
+            modelBuilder.Entity<Formato>().Property(f => f.id_formato).
+            HasColumnName("id_formato").HasColumnType("INT");
+            modelBuilder.Entity<Formato>().Property(f => f.nombre_formato).
+            HasColumnName("nombre_formato").HasColumnType("VARCHAR").HasMaxLength(5).IsRequired();
+            modelBuilder.Entity<Formato>().HasKey(f => f.id_formato).HasName("id_formato_PK_CSTR");
+
+            //Table TipoResolucion Configuration:
+            modelBuilder.Entity<TipoResolucion>().ToTable("TipoResolucion");
+            modelBuilder.Entity<TipoResolucion>().Property(tr => tr.id_tipo_resolucion).
+            HasColumnName("id_tipo_resolucion").HasColumnType("INT");
+            modelBuilder.Entity<TipoResolucion>().Property(tr => tr.nombre_tipo_resolucion).
+            HasColumnName("nombre_tipo_resolucion").HasColumnType("VARCHAR").HasMaxLength(20).IsRequired();
+            modelBuilder.Entity<TipoResolucion>().Property(tr => tr.porcentaje_visualizacion).
+            HasColumnName("porcentaje_visualizacion").HasColumnType("DECIMAL(6,3)").IsRequired();
+            modelBuilder.Entity<TipoResolucion>().Property(tr => tr.porcentaje_perdida).
+            HasColumnName("porcentaje_perdida").HasColumnType("DECIMAL(6,3)").IsRequired();
+            modelBuilder.Entity<TipoResolucion>().HasKey(tr => tr.id_tipo_resolucion).HasName("id_tipo_resolucion_PK_CSTR");
+
+            //Table ValorResolucion Configuration:
+            modelBuilder.Entity<ValorResolucion>().ToTable("ValorResolucion");
+            modelBuilder.Entity<ValorResolucion>().Property(vr => vr.id_valor_resolucion).
+            HasColumnName("id_valor_resolucion").HasColumnType("INT");
+            modelBuilder.Entity<ValorResolucion>().Property(vr => vr.valor_resolucion).
+            HasColumnName("valor_resolucion").HasColumnType("VARCHAR").HasMaxLength(9).IsRequired();
+            modelBuilder.Entity<ValorResolucion>().HasKey(vr => vr.id_valor_resolucion).HasName("id_valor_resolucion_PK_CSTR");
+            
+            //Table RelacionAspecto Configuration:
+            modelBuilder.Entity<RelacionAspecto>().ToTable("RelacionAspecto");
+            modelBuilder.Entity<RelacionAspecto>().Property(ra => ra.id_relacion_aspecto).
+            HasColumnName("id_relacion_aspecto").HasColumnType("INT");
+            modelBuilder.Entity<RelacionAspecto>().Property(ra => ra.valor_relacion_aspecto).
+            HasColumnName("valor_relacion_aspecto").HasColumnType("VARCHAR").HasMaxLength(5).IsRequired();
+            modelBuilder.Entity<RelacionAspecto>().HasKey(ra => ra.id_relacion_aspecto).HasName("id_relacion_aspecto_PK_CSTR");
+
+            //Table Resolucion Configuration:
+            modelBuilder.Entity<Resolucion>().ToTable("Resolucion");
+            modelBuilder.Entity<Resolucion>().Property(r => r.id_tipo_resolucion).
+            HasColumnName("id_tipo_resolucion").HasColumnType("INT");
+            modelBuilder.Entity<Resolucion>().Property(r => r.id_valor_resolucion).
+            HasColumnName("id_valor_resolucion").HasColumnType("INT");
+            modelBuilder.Entity<Resolucion>().Property(r => r.id_relacion_aspecto).
+            HasColumnName("id_relacion_aspecto").HasColumnType("INT");
+            modelBuilder.Entity<Resolucion>().HasKey(r => new {r.id_tipo_resolucion,
+            r.id_valor_resolucion, r.id_relacion_aspecto}).HasName("id_tipo_valor_relacion_PK_CSTR");
+            modelBuilder.Entity<Resolucion>().HasOne(r => r.tipoResolucion).WithMany(tr => tr.resoluciones).
+            HasForeignKey(r => r.id_tipo_resolucion).HasConstraintName("id_tipo_resolucion_FK_CSTR");
+            modelBuilder.Entity<Resolucion>().HasOne(r => r.valorResolucion).WithMany(vr => vr.resoluciones).
+            HasForeignKey(r => r.id_valor_resolucion).HasConstraintName("id_valor_resolucion_FK_CSTR");
+            modelBuilder.Entity<Resolucion>().HasOne(r => r.relacionAspecto).WithMany(ra => ra.resoluciones).
+            HasForeignKey(r => r.id_relacion_aspecto).HasConstraintName("id_relacion_aspecto_FK_CSTR");
+
+            //Table DetalleTecnico Configuration:
+            modelBuilder.Entity<DetalleTecnico>().ToTable("DetalleTecnico");
+            modelBuilder.Entity<DetalleTecnico>().Property(dt => dt.id_detalle).
+            HasColumnName("id_detalle").HasColumnType("INT");
+            modelBuilder.Entity<DetalleTecnico>().Property(dt => dt.id_formato).
+            HasColumnName("id_formato").HasColumnType("INT");
+            modelBuilder.Entity<DetalleTecnico>().Property(dt => dt.id_tipo_resolucion).
+            HasColumnName("id_tipo_resolucion").HasColumnType("INT");
+            modelBuilder.Entity<DetalleTecnico>().Property(dt => dt.id_valor_resolucion).
+            HasColumnName("id_valor_resolucion").HasColumnType("INT");
+            modelBuilder.Entity<DetalleTecnico>().Property(dt => dt.id_relacion_aspecto).
+            HasColumnName("id_relacion_aspecto").HasColumnType("INT");
+            modelBuilder.Entity<DetalleTecnico>().HasKey(dt => dt.id_detalle).HasName("id_detalle_PK_CSTR");
+            modelBuilder.Entity<DetalleTecnico>().HasOne(dt => dt.formato).WithMany(f => f.detallesTecnicos).
+            HasForeignKey(dt => dt.id_formato).HasConstraintName("id_formato_FK_CSTR");
+            modelBuilder.Entity<DetalleTecnico>().HasOne(dt => dt.resolucion).WithMany(r => r.detallesTecnicos).
+            HasForeignKey(dt => new {dt.id_tipo_resolucion, dt.id_valor_resolucion,
+            dt.id_relacion_aspecto}).HasConstraintName("id_tipo_valor_relacion_FK_CSTR");
 
             //View VSolicitud Configuration:
             modelBuilder.Entity<VSolicitud>().ToTable("VSolicitud");

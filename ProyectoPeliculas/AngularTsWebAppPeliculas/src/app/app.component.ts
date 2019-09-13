@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { GlobalService } from 'src/app/global.service';
 
 @Component({
   selector: 'app-root',
@@ -7,9 +6,7 @@ import { GlobalService } from 'src/app/global.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  loggedd: boolean;
   title: string = 'PeliculasWebApp';
 
-  constructor(private globalService: GlobalService) { 
-  }
+  constructor() { }
 }

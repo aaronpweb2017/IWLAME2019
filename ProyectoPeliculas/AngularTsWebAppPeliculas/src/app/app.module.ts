@@ -19,6 +19,7 @@ import { TokensComponent } from './components/tokens/tokens.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { ActualizacionComponent } from './components/modals/modal-actualizacion/modal-actualizacion.component';
 import { ModalEliminacionComponent } from './components/modals/modal-eliminacion/modal-eliminacion.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 //Services (providers):
 import { GlobalService } from './global.service';
@@ -40,7 +41,8 @@ import { appRoutes } from './app.routes';
     TokensComponent,
     UsuariosComponent,
     ActualizacionComponent,
-    ModalEliminacionComponent
+    ModalEliminacionComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

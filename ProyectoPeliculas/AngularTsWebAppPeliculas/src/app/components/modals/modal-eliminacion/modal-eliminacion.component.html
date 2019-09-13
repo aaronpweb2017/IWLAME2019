@@ -7,7 +7,7 @@
       <div class="modal-content">
         <div class="modal-header text-center">
           <h5 *ngIf="request.includes('EliminarUsuario')" class="modal-title font-weight-bold"
-            id="deleteModalLabel">Eliminación del usuario número {{id_model}}
+            id="deleteModalLabel">Eliminación del usuario número {{model.id_usuario}}
           </h5>
           <button type="button" class="close" data-dismiss="modal"aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -19,7 +19,7 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
           <button type="button" class="btn btn-danger" data-toggle="modal"
-            data-target="#deleteModal" (click)="emitModelIdEvent(id_model)">Aceptar
+            data-target="#deleteModal" (click)="emitModelObjectEvent(model)">Aceptar
           </button>
         </div>
       </div>

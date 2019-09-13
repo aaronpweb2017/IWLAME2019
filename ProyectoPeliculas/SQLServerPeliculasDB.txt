@@ -4,6 +4,127 @@ USE Peliculas
 
 ------------------------------------------------------------------------------------------------------
 
+CREATE TABLE Usuario(
+   id_usuario INT IDENTITY(1, 1) NOT NULL,
+   nombre_usuario VARCHAR(70) NOT NULL,
+   correo_usuario VARCHAR(50) NOT NULL,
+   password_usuario VARCHAR(32) NOT NULL,
+   tipo_usuario INT NOT NULL,
+)
+
+ALTER TABLE Usuario ADD CONSTRAINT id_usuario_PK_CSTR PRIMARY KEY(id_usuario)
+
+INSERT INTO Usuario(nombre_usuario, correo_usuario,
+password_usuario, tipo_usuario) VALUES
+('admin', 'luis-aaron40@hotmail.com', 'Wc+gCD/DHyc=', 1)
+
+SELECT id_usuario, nombre_usuario, correo_usuario, 
+password_usuario, tipo_usuario FROM Usuario
+
+DROP TABLE Usuario
+
+------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------
+
+CREATE TABLE Token(
+    id_token INT IDENTITY(1, 1) NOT NULL,
+    valor_token VARCHAR(180) NOT NULL,
+    emision_token DATETIME NOT NULL,
+    expiracion_token DATETIME NULL,
+    id_usuario INT NOT NULL
+)
+
+ALTER TABLE Token ADD CONSTRAINT id_token_PK_CSTR PRIMARY KEY(id_token)
+
+ALTER TABLE Token ADD CONSTRAINT id_usuario_tk_FK_CSTR
+FOREIGN KEY(id_usuario) REFERENCES Usuario(id_usuario)
+
+SELECT id_token, valor_token, emision_token,
+expiracion_token, id_usuario FROM Token
+
+DROP TABLE Token
+
+------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------
+
+CREATE TABLE Solicitud(
+   id_solicitud INT IDENTITY(1, 1) NOT NULL,
+   nombre_solicitud VARCHAR(30) NOT NULL
+)
+
+ALTER TABLE Solicitud ADD CONSTRAINT
+id_solicitud_PK_CSTR PRIMARY KEY(id_solicitud)
+
+INSERT INTO Solicitud(nombre_solicitud) VALUES
+('forgotten password'),
+('token request')
+
+SELECT id_solicitud, nombre_solicitud FROM Solicitud
+
+DROP TABLE Solicitud
+
+------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------
+
+CREATE TABLE UsuarioSolicitud(
+   id_usuario_solicitud INT IDENTITY(1, 1) NOT NULL,
+   id_usuario INT NOT NULL,
+   id_solicitud INT NOT NULL,
+   status_solicitud INT NOT NULL,
+   emision_solicitud DATETIME2 NOT NULL,
+   aprobacion_solicitud DATETIME2 NULL
+)
+
+ALTER TABLE UsuarioSolicitud ADD CONSTRAINT
+id_usuario_solicitud_PK_CSTR
+PRIMARY KEY(id_usuario_solicitud)
+
+ALTER TABLE UsuarioSolicitud ADD CONSTRAINT id_usuario_us_FK_CSTR
+FOREIGN KEY(id_usuario) REFERENCES Usuario(id_usuario)
+
+ALTER TABLE UsuarioSolicitud ADD CONSTRAINT id_solicitud_FK_CSTR
+FOREIGN KEY(id_solicitud) REFERENCES Solicitud(id_solicitud)
+
+SELECT id_usuario_solicitud, id_usuario, id_solicitud, status_solicitud,
+emision_solicitud, aprobacion_solicitud FROM UsuarioSolicitud
+
+DROP TABLE UsuarioSolicitud
+
+------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------
+
+CREATE TABLE Formato(
+    id_formato INT IDENTITY(1, 1) NOT NULL,
+    nombre_formato VARCHAR(5) NOT NULL,
+)
+
+ALTER TABLE Formato ADD CONSTRAINT
+id_formato_PK_CSTR PRIMARY KEY(id_formato)
+
+INSERT INTO Formato(nombre_formato) VALUES
+('AVI'),
+('MKV'),
+('MP4')
+
+SELECT FO.id_formato,
+FO.nombre_formato
+FROM Formato FO
+
+DROP TABLE Formato
+
+------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------
+
 CREATE TABLE TipoResolucion(
     id_tipo_resolucion INT IDENTITY(1, 1) NOT NULL,
     nombre_tipo_resolucion VARCHAR(20) NOT NULL,
@@ -169,30 +290,6 @@ INNER JOIN RelacionAspecto RA ON RE.id_relacion_aspecto = RA.id_relacion_aspecto
 GROUP BY TR.nombre_tipo_resolucion, VR.valor_resolucion, RA.valor_relacion_aspecto
 
 DROP TABLE Resolucion
-
-------------------------------------------------------------------------------------------------------
-
-
-------------------------------------------------------------------------------------------------------
-
-CREATE TABLE Formato(
-    id_formato INT IDENTITY(1, 1) NOT NULL,
-    nombre_formato VARCHAR(5) NOT NULL,
-)
-
-ALTER TABLE Formato ADD CONSTRAINT
-id_formato_PK_CSTR PRIMARY KEY(id_formato)
-
-INSERT INTO Formato(nombre_formato) VALUES
-('AVI'),
-('MKV'),
-('MP4')
-
-SELECT FO.id_formato,
-FO.nombre_formato
-FROM Formato FO
-
-DROP TABLE Formato
 
 ------------------------------------------------------------------------------------------------------
 
@@ -867,103 +964,6 @@ GROUP BY PEL.nombre_pelicula, GE.nombre_genero
 ORDER BY PEL.nombre_pelicula ASC
 
 DROP TABLE GeneroPelicula
-
-------------------------------------------------------------------------------------------------------
-
-
-------------------------------------------------------------------------------------------------------
-
-CREATE TABLE Usuario(
-   id_usuario INT IDENTITY(1, 1) NOT NULL,
-   nombre_usuario VARCHAR(70) NOT NULL,
-   correo_usuario VARCHAR(50) NOT NULL,
-   password_usuario VARCHAR(32) NOT NULL,
-   tipo_usuario INT NOT NULL,
-)
-
-ALTER TABLE Usuario ADD CONSTRAINT id_usuario_PK_CSTR PRIMARY KEY(id_usuario)
-
-INSERT INTO Usuario(nombre_usuario, correo_usuario,
-password_usuario, tipo_usuario) VALUES
-('admin', 'luis-aaron40@hotmail.com', 'Wc+gCD/DHyc=', 1)
-
-SELECT id_usuario, nombre_usuario, correo_usuario, 
-password_usuario, tipo_usuario FROM Usuario
-
-DROP TABLE Usuario
-
-------------------------------------------------------------------------------------------------------
-
-
-------------------------------------------------------------------------------------------------------
-
-CREATE TABLE Token(
-    id_token INT IDENTITY(1, 1) NOT NULL,
-    valor_token VARCHAR(180) NOT NULL,
-    emision_token DATETIME NOT NULL,
-    expiracion_token DATETIME NULL,
-    id_usuario INT NOT NULL
-)
-
-ALTER TABLE Token ADD CONSTRAINT id_token_PK_CSTR PRIMARY KEY(id_token)
-
-ALTER TABLE Token ADD CONSTRAINT id_usuario_tk_FK_CSTR
-FOREIGN KEY(id_usuario) REFERENCES Usuario(id_usuario)
-
-SELECT id_token, valor_token, emision_token,
-expiracion_token, id_usuario FROM Token
-
-DROP TABLE Token
-
-------------------------------------------------------------------------------------------------------
-
-
-------------------------------------------------------------------------------------------------------
-
-CREATE TABLE Solicitud(
-   id_solicitud INT IDENTITY(1, 1) NOT NULL,
-   nombre_solicitud VARCHAR(30) NOT NULL
-)
-
-ALTER TABLE Solicitud ADD CONSTRAINT
-id_solicitud_PK_CSTR PRIMARY KEY(id_solicitud)
-
-INSERT INTO Solicitud(nombre_solicitud) VALUES
-('forgotten password'),
-('token request')
-
-SELECT id_solicitud, nombre_solicitud FROM Solicitud
-
-DROP TABLE Solicitud
-
-------------------------------------------------------------------------------------------------------
-
-
-------------------------------------------------------------------------------------------------------
-
-CREATE TABLE UsuarioSolicitud(
-   id_usuario_solicitud INT IDENTITY(1, 1) NOT NULL,
-   id_usuario INT NOT NULL,
-   id_solicitud INT NOT NULL,
-   status_solicitud INT NOT NULL,
-   emision_solicitud DATETIME2 NOT NULL,
-   aprobacion_solicitud DATETIME2 NULL
-)
-
-ALTER TABLE UsuarioSolicitud ADD CONSTRAINT
-id_usuario_solicitud_PK_CSTR
-PRIMARY KEY(id_usuario_solicitud)
-
-ALTER TABLE UsuarioSolicitud ADD CONSTRAINT id_usuario_us_FK_CSTR
-FOREIGN KEY(id_usuario) REFERENCES Usuario(id_usuario)
-
-ALTER TABLE UsuarioSolicitud ADD CONSTRAINT id_solicitud_FK_CSTR
-FOREIGN KEY(id_solicitud) REFERENCES Solicitud(id_solicitud)
-
-SELECT id_usuario_solicitud, id_usuario, id_solicitud, status_solicitud,
-emision_solicitud, aprobacion_solicitud FROM UsuarioSolicitud
-
-DROP TABLE UsuarioSolicitud
 
 ------------------------------------------------------------------------------------------------------
 

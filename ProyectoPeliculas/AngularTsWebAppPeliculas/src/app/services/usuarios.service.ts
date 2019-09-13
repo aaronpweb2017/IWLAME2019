@@ -12,6 +12,7 @@ export class UsuariosService {
   private ApiGetUsuarioURL: string;
   private ApiGetUsuariosURL: string;
   private ApiActualizarUsuarioURL: string;
+  private ApiEliminarUsuarioURL: string;
   private ApiGetDecryptedPasswordURL: string;
   private ApiSolicitudTokenURL: string;
   private ApiGetTokenAuthenticationURL: string;
@@ -46,6 +47,13 @@ export class UsuariosService {
   actualizarUsuario(usuario: Usuario): Observable<boolean> {
     this.ApiActualizarUsuarioURL = this.ApiUsuariosURL + "/ActualizarUsuario";
     return this.http.put(this.ApiActualizarUsuarioURL, usuario).pipe(
+      map((data: any) => data as boolean)
+    );
+  }
+  
+  eliminarUsuario(usuario: Usuario): Observable<boolean> {
+    this.ApiEliminarUsuarioURL = this.ApiUsuariosURL + "/EliminarUsuario";
+    return this.http.put(this.ApiEliminarUsuarioURL, usuario).pipe(
       map((data: any) => data as boolean)
     );
   }

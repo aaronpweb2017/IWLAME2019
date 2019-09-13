@@ -1,7 +1,7 @@
-<nav class="navbar navbar-expand-xl navbar-dark bg-dark" style="margin-bottom: 20px;">
+<nav *ngIf="!globalService.getLogged()" class="navbar navbar-expand-xl navbar-dark bg-dark" style="margin-bottom: 20px;">
   <a class="navbar-brand" [routerLink]="['/home']">
     <img src="assets/imgMovieIcon.png" width="30" height="30" class="d-inline-block align-top">
-    Navbar
+    MoviesProject2019
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navBarContent"
     aria-controls="navBarContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,8 +24,8 @@
     </ul>
     <nav class="navbar navbar-dark default-color">
         <form class="form-inline my-2 my-lg-0 ml-auto">
-          <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-primary btn-md my-2 my-sm-0 ml-3" type="submit">Search</button>
+          <input class="form-control" type="search" placeholder="Buscar" aria-label="Search">
+          <button class="btn btn-outline-primary btn-md my-2 my-sm-0 ml-3" type="submit">Buscar</button>
         </form>
       </nav>
   </div>

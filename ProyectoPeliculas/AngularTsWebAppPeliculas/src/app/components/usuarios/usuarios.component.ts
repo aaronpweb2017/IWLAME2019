@@ -55,17 +55,25 @@ export class UsuariosComponent implements OnInit {
   }
 
   actualizarUsuario(usuario: Usuario) {
-    this.usuariosService.actualizarUsuario(usuario).subscribe(response => {
-      if(response) {
-        this.toastrService.success("Actualización realizada con éxito.");
-        this.router.navigate(['/usuarios', this.currentPage]); return;
-      }
-      this.toastrService.error("Actualización fallida...");
-    });
+    console.log("Actualizar al usuario: "+usuario.id_usuario);
+    //this.usuariosService.actualizarUsuario(usuario).subscribe(response => {
+    //  if(response) {
+    //    this.toastrService.success("Actualización realizada con éxito.");
+    //    this.router.navigate(['/usuarios', this.currentPage]); return;
+    //  }
+    //  this.toastrService.error("Actualización fallida...");
+    //});
   }
   
-  eliminarUsuario(id_usuario: number) {
-    console.log("Eliminar al usuario "+id_usuario);
+  eliminarUsuario(usuario: Usuario) {
+    console.log("Eliminar al usuario "+usuario.id_usuario);
+    //this.usuariosService.eliminarUsuario(usuario).subscribe(response => {
+    //  if(response) {
+    //    this.toastrService.success("Actualización realizada con éxito.");
+    //    this.router.navigate(['/usuarios', this.currentPage]); return;
+    //  }
+    //  this.toastrService.error("Actualización fallida...");
+    //});
   }
 
   pageChanged(currentPage: number) {
