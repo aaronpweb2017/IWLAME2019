@@ -8,5 +8,7 @@ namespace ASPNETCoreWebApiPeliculas
     {
         Task<List<VSolicitud>> GetVistaSolicitudes();
         Task<List<VToken>> GetVistaTokens();
+        Task<List<VResolucion>> GetVistaResoluciones();
+        Task<List<VDetalleTecnico>> GetVistaDetallesTecnicos();
     }
 }

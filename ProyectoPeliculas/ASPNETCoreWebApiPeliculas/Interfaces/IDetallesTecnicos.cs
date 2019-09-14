@@ -23,10 +23,8 @@ namespace ASPNETCoreWebApiPeliculas
         Task<bool> ActualizarRelacionAspecto(RelacionAspecto relacionAspecto);
         Task<bool> EliminarRelacionAspecto(RelacionAspecto relacionAspecto);
         Task<bool> CrearResolucion(Resolucion resolucion);
-        Task<List<Resolucion>> GetResoluciones();
         Task<bool> EliminarResolucion(Resolucion resolucion);
         Task<bool> CrearDetalleTecnico(DetalleTecnico detalleTecnico);
-        Task<List<DetalleTecnico>> GetDetallesTecnicos();
         Task<bool> ActualizarDetalleTecnico(DetalleTecnico detalleTecnico);
         Task<bool> EliminarDetalleTecnico(DetalleTecnico detalleTecnico);
     }

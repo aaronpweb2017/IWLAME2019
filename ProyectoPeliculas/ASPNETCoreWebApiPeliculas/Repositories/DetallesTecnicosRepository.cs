@@ -236,10 +236,6 @@ namespace ASPNETCoreWebApiPeliculas
             return response;
         }
 
-        public async Task<List<Resolucion>> GetResoluciones() {
-            return await AppDbContext.resoluciones.ToListAsync();
-        }
-
         public async Task<bool> EliminarResolucion(Resolucion resolucion) {
             bool response = false;
             try {
@@ -273,10 +269,6 @@ namespace ASPNETCoreWebApiPeliculas
                 Console.WriteLine("Exception msj: "+exception.Message);
             }
             return response;
-        }
-
-        public async Task<List<DetalleTecnico>> GetDetallesTecnicos() {
-            return await AppDbContext.detallesTecnicos.ToListAsync();
         }
 
         public async Task<bool> ActualizarDetalleTecnico(DetalleTecnico detalleTecnico) {

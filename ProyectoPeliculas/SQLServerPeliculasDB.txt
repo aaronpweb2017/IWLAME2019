@@ -1001,6 +1001,42 @@ DROP VIEW VToken
 
 ------------------------------------------------------------------------------------------------------
 
+CREATE VIEW VResolucion AS
+    SELECT TR.nombre_tipo_resolucion AS tipo, VR.valor_resolucion AS valor,
+    RA.valor_relacion_aspecto AS aspecto FROM Resolucion RE
+    INNER JOIN TipoResolucion TR ON RE.id_tipo_resolucion = TR.id_tipo_resolucion
+    INNER JOIN ValorResolucion VR ON RE.id_valor_resolucion = VR.id_valor_resolucion
+    INNER JOIN RelacionAspecto RA ON RE.id_relacion_aspecto = RA.id_relacion_aspecto
+
+SELECT * FROM VResolucion
+
+DROP VIEW VResolucion
+
+------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------------------
+
+CREATE VIEW VDetalleTecnico AS
+    SELECT DT.id_detalle AS id,
+    FO.nombre_formato AS formato,
+    TR.nombre_tipo_resolucion AS tipo,
+    VR.valor_resolucion AS valor,
+    RA.valor_relacion_aspecto AS aspecto
+    FROM DetalleTecnico DT
+    INNER JOIN Formato FO ON DT.id_formato = FO.id_formato
+    INNER JOIN TipoResolucion TR ON DT.id_tipo_resolucion = TR.id_tipo_resolucion
+    INNER JOIN ValorResolucion VR ON DT.id_valor_resolucion = VR.id_valor_resolucion
+    INNER JOIN RelacionAspecto RA ON DT.id_relacion_aspecto = RA.id_relacion_aspecto
+    
+SELECT * FROM VDetalleTecnico
+
+DROP VIEW VDetalleTecnico
+
+------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------
+
 CREATE TRIGGER ActualizaCalificacionPelicula
 ON Escena AFTER INSERT, UPDATE, DELETE AS
 BEGIN

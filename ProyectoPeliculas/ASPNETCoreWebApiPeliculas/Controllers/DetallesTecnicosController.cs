@@ -2,10 +2,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using ASPNETCoreWebApiPeliculas.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ASPNETCoreWebApiPeliculas.Controllers
 {
-    [ApiController] [Route("Api/[controller]/[action]")]
+    [ApiController] [Route("Api/[controller]/[action]")] //[Authorize]
     public class DetallesTecnicosController : ControllerBase
     {
         private readonly IDetallesTecnicos detallesTecnicos;
@@ -116,12 +117,6 @@ namespace ASPNETCoreWebApiPeliculas.Controllers
             return await detallesTecnicos.CrearResolucion(resolucion);
         }
 
-        //GET: https://localhost:5001/Api/DetallesTecnicos/GetResoluciones
-        [HttpGet] [ActionName("GetResoluciones")]
-        public async Task<List<Resolucion>> GetResolutionsAsync() {
-            return await detallesTecnicos.GetResoluciones();
-        }
-
         //PUT: https://localhost:5001/Api/DetallesTecnicos/EliminarResolucion
         [HttpDelete] [ActionName("EliminarResolucion")]
         public async Task<bool> DeleteResolutionAsync([FromBody] Resolucion resolucion) {
@@ -132,12 +127,6 @@ namespace ASPNETCoreWebApiPeliculas.Controllers
         [HttpPost] [ActionName("CrearDetalleTecnico")]
         public async Task<bool> CreateTechnicalDetailAsync([FromBody] DetalleTecnico detalleTecnico) {
             return await detallesTecnicos.CrearDetalleTecnico(detalleTecnico);
-        }
-
-        //GET: https://localhost:5001/Api/DetallesTecnicos/GetDetallesTecnicos
-        [HttpGet] [ActionName("GetDetallesTecnicos")]
-        public async Task<List<DetalleTecnico>> GetTechnicalDetailsAsync() {
-            return await detallesTecnicos.GetDetallesTecnicos();
         }
 
         //PUT: https://localhost:5001/Api/DetallesTecnicos/ActualizarDetalleTecnico

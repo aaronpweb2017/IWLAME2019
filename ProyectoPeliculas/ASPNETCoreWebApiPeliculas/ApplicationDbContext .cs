@@ -9,15 +9,16 @@ namespace ASPNETCoreWebApiPeliculas {
         public DbSet<Token> tokens { get; set; }
         public DbSet<Solicitud> solicitudes { get; set; }
         public DbSet<UsuarioSolicitud> usuariosSolicitudes { get; set; }
-        public DbSet<VSolicitud> vSolicitudes { get; set; }
-        public DbSet<VToken> vTokens { get; set; }
-
         public DbSet<TipoResolucion> tiposResolucion { get; set; }
         public DbSet<ValorResolucion> valoresResolucion { get; set; }
         public DbSet<RelacionAspecto> relacionesAspecto { get; set; }
         public DbSet<Resolucion> resoluciones { get; set; }
         public DbSet<Formato> formatos { get; set; }
         public DbSet<DetalleTecnico> detallesTecnicos { get; set; }
+        public DbSet<VSolicitud> vSolicitudes { get; set; }
+        public DbSet<VToken> vTokens { get; set; }
+        public DbSet<VResolucion> vResoluciones { get; set; }
+        public DbSet<VDetalleTecnico> vDetallesTecnicos { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             //Table Usuario Configuration:
@@ -177,6 +178,29 @@ namespace ASPNETCoreWebApiPeliculas {
             HasColumnName("expiracion").HasColumnType("DATETIME");
             modelBuilder.Entity<VToken>().Property(vt => vt.usuario).
             HasColumnName("usuario").HasColumnType("VARCHAR").HasMaxLength(70);
+
+            //View VResolucion Configuration:
+            modelBuilder.Entity<VResolucion>().ToTable("VResolucion");
+            modelBuilder.Entity<VResolucion>().Property(vr => vr.tipo).
+            HasColumnName("tipo").HasColumnType("VARCHAR").HasMaxLength(20);
+            modelBuilder.Entity<VResolucion>().Property(vr => vr.valor).
+            HasColumnName("valor").HasColumnType("VARCHAR").HasMaxLength(10);
+            modelBuilder.Entity<VResolucion>().Property(vr => vr.aspecto).
+            HasColumnName("aspecto").HasColumnType("VARCHAR").HasMaxLength(10);
+            modelBuilder.Entity<VResolucion>().HasKey(vr => new {vr.tipo, vr.valor, vr.aspecto});
+            
+            //View VDetalleTecnico Configuration:
+            modelBuilder.Entity<VDetalleTecnico>().ToTable("VDetalleTecnico");
+            modelBuilder.Entity<VDetalleTecnico>().Property(dt => dt.id).
+            HasColumnName("id").HasColumnType("INT");
+            modelBuilder.Entity<VDetalleTecnico>().Property(dt => dt.formato).
+            HasColumnName("formato").HasColumnType("VARCHAR").HasMaxLength(10);
+            modelBuilder.Entity<VDetalleTecnico>().Property(dt => dt.tipo).
+            HasColumnName("tipo").HasColumnType("VARCHAR").HasMaxLength(20);
+            modelBuilder.Entity<VDetalleTecnico>().Property(dt => dt.valor).
+            HasColumnName("valor").HasColumnType("VARCHAR").HasMaxLength(10);
+            modelBuilder.Entity<VDetalleTecnico>().Property(dt => dt.aspecto).
+            HasColumnName("aspecto").HasColumnType("VARCHAR").HasMaxLength(10);
         }
     }
 }

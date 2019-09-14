@@ -26,5 +26,17 @@ namespace ASPNETCoreWebApiPeliculas.Controllers
         public async Task<List<VToken>> GetTokensViewAsync() {
             return await vistas.GetVistaTokens();
         }
+
+        //GET: https://localhost:5001/Api/Vistas/GetVistaResoluciones
+        [HttpGet] [ActionName("GetVistaResoluciones")]
+        public async Task<List<VResolucion>> GetResolutionsViewAsync() {
+            return await vistas.GetVistaResoluciones();
+        }
+        
+        //GET: https://localhost:5001/Api/Vistas/GetVistaDetallesTecnicos
+        [HttpGet] [ActionName("GetVistaDetallesTecnicos")]
+        public async Task<List<VDetalleTecnico>> GetTechnicalDetailsViewAsync() {
+            return await vistas.GetVistaDetallesTecnicos();
+        }
     }
 }
