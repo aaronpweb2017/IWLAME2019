@@ -83,7 +83,7 @@ namespace ASPNETCoreWebApiPeliculas {
             modelBuilder.Entity<Formato>().Property(f => f.id_formato).
             HasColumnName("id_formato").HasColumnType("INT");
             modelBuilder.Entity<Formato>().Property(f => f.nombre_formato).
-            HasColumnName("nombre_formato").HasColumnType("VARCHAR").HasMaxLength(5).IsRequired();
+            HasColumnName("nombre_formato").HasColumnType("VARCHAR").HasMaxLength(10).IsRequired();
             modelBuilder.Entity<Formato>().HasKey(f => f.id_formato).HasName("id_formato_PK_CSTR");
 
             //Table TipoResolucion Configuration:
@@ -103,7 +103,7 @@ namespace ASPNETCoreWebApiPeliculas {
             modelBuilder.Entity<ValorResolucion>().Property(vr => vr.id_valor_resolucion).
             HasColumnName("id_valor_resolucion").HasColumnType("INT");
             modelBuilder.Entity<ValorResolucion>().Property(vr => vr.valor_resolucion).
-            HasColumnName("valor_resolucion").HasColumnType("VARCHAR").HasMaxLength(9).IsRequired();
+            HasColumnName("valor_resolucion").HasColumnType("VARCHAR").HasMaxLength(10).IsRequired();
             modelBuilder.Entity<ValorResolucion>().HasKey(vr => vr.id_valor_resolucion).HasName("id_valor_resolucion_PK_CSTR");
             
             //Table RelacionAspecto Configuration:
@@ -111,7 +111,7 @@ namespace ASPNETCoreWebApiPeliculas {
             modelBuilder.Entity<RelacionAspecto>().Property(ra => ra.id_relacion_aspecto).
             HasColumnName("id_relacion_aspecto").HasColumnType("INT");
             modelBuilder.Entity<RelacionAspecto>().Property(ra => ra.valor_relacion_aspecto).
-            HasColumnName("valor_relacion_aspecto").HasColumnType("VARCHAR").HasMaxLength(5).IsRequired();
+            HasColumnName("valor_relacion_aspecto").HasColumnType("VARCHAR").HasMaxLength(10).IsRequired();
             modelBuilder.Entity<RelacionAspecto>().HasKey(ra => ra.id_relacion_aspecto).HasName("id_relacion_aspecto_PK_CSTR");
 
             //Table Resolucion Configuration:

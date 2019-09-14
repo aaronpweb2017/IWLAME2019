@@ -28,6 +28,7 @@ namespace ASPNETCoreWebApiPeliculas
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUsuarios, UsuariosRepository>();
             services.AddScoped<ISolicitudes, SolicitudesRepository>();
+            services.AddScoped<IDetallesTecnicos, DetallesTecnicosRepository>();
             services.AddScoped<IVistas, VistasRepository>();
             services.AddCors(options => { options.AddPolicy("Access-Control-Allow-Origin",
                 builder => builder.WithOrigins("*").AllowAnyHeader().AllowAnyMethod());

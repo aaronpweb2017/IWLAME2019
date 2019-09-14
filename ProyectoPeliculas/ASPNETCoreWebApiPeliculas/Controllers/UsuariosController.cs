@@ -36,13 +36,13 @@ namespace ASPNETCoreWebApiPeliculas.Controllers
 
         //PUT: https://localhost:5001/Api/Usuarios/ActualizarUsuario
         [HttpPut] [ActionName("ActualizarUsuario")]
-        public async Task<bool> UpdateUser([FromBody] Usuario user) {
+        public async Task<bool> UpdateUserAsync([FromBody] Usuario user) {
             return await usuarios.ActualizarUsuario(user);
         }
 
         //PUT: https://localhost:5001/Api/Usuarios/EliminarUsuario
         [HttpDelete] [ActionName("EliminarUsuario")]
-        public async Task<bool> DeleteUser([FromBody] Usuario user) {
+        public async Task<bool> DeleteUserAsync([FromBody] Usuario user) {
             return await usuarios.EliminarUsuario(user);
         }
 

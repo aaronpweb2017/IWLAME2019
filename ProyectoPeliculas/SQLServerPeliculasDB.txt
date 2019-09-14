@@ -103,7 +103,7 @@ DROP TABLE UsuarioSolicitud
 
 CREATE TABLE Formato(
     id_formato INT IDENTITY(1, 1) NOT NULL,
-    nombre_formato VARCHAR(5) NOT NULL,
+    nombre_formato VARCHAR(10) NOT NULL,
 )
 
 ALTER TABLE Formato ADD CONSTRAINT
@@ -155,7 +155,7 @@ DROP TABLE TipoResolucion
 
 CREATE TABLE ValorResolucion(
     id_valor_resolucion INT IDENTITY(1, 1) NOT NULL,
-    valor_resolucion VARCHAR(9) NOT NULL,
+    valor_resolucion VARCHAR(10) NOT NULL,
 )
 
 ALTER TABLE ValorResolucion ADD CONSTRAINT
@@ -205,7 +205,7 @@ DROP TABLE ValorResolucion
 
 CREATE TABLE RelacionAspecto(
     id_relacion_aspecto INT IDENTITY(1, 1) NOT NULL,
-    valor_relacion_aspecto VARCHAR(5) NOT NULL,
+    valor_relacion_aspecto VARCHAR(10) NOT NULL,
 )
 
 ALTER TABLE RelacionAspecto ADD CONSTRAINT
@@ -287,7 +287,6 @@ RA.valor_relacion_aspecto FROM Resolucion RE
 INNER JOIN TipoResolucion TR ON RE.id_tipo_resolucion = TR.id_tipo_resolucion
 INNER JOIN ValorResolucion VR ON RE.id_valor_resolucion = VR.id_valor_resolucion
 INNER JOIN RelacionAspecto RA ON RE.id_relacion_aspecto = RA.id_relacion_aspecto
-GROUP BY TR.nombre_tipo_resolucion, VR.valor_resolucion, RA.valor_relacion_aspecto
 
 DROP TABLE Resolucion
 
@@ -328,8 +327,6 @@ INNER JOIN Formato FO ON DT.id_formato = FO.id_formato
 INNER JOIN TipoResolucion TR ON DT.id_tipo_resolucion = TR.id_tipo_resolucion
 INNER JOIN ValorResolucion VR ON DT.id_valor_resolucion = VR.id_valor_resolucion
 INNER JOIN RelacionAspecto RA ON DT.id_relacion_aspecto = RA.id_relacion_aspecto
-GROUP BY FO.nombre_formato, TR.nombre_tipo_resolucion,
-VR.valor_resolucion, RA.valor_relacion_aspecto
 
 DROP TABLE DetalleTecnico
 
