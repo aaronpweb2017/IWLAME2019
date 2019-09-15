@@ -40,10 +40,10 @@ namespace ASPNETCoreWebApiPeliculas.Controllers
             return await usuarios.ActualizarUsuario(user);
         }
 
-        //PUT: https://localhost:5001/Api/Usuarios/EliminarUsuario
+        //PUT: https://localhost:5001/Api/Usuarios/EliminarUsuario/?id_usuario=[value]
         [HttpDelete] [ActionName("EliminarUsuario")]
-        public async Task<bool> DeleteUserAsync([FromBody] Usuario user) {
-            return await usuarios.EliminarUsuario(user);
+        public async Task<bool> DeleteUserAsync(int id_usuario) {
+            return await usuarios.EliminarUsuario(id_usuario);
         }
 
         //GET: https://localhost:5001/Api/Usuarios/GetDecryptedPassword/?id_usuario=[value]

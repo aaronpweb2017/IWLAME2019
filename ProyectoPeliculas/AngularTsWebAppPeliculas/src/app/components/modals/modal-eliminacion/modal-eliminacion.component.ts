@@ -8,9 +8,9 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 export class ModalEliminacionComponent {
   @Input() request: string;
   @Input() model: any;
-  @Output() modelObjectEvent = new EventEmitter();
+  @Output() modelIdentifierEvent = new EventEmitter();
 
-  emitModelObjectEvent(model: any) {
-    this.modelObjectEvent.emit(model);
+  emitModelIdentifierEvent(model: any) {
+    this.modelIdentifierEvent.emit(model);
   }
 }

@@ -1,4 +1,4 @@
-export interface Token {
+export interface VToken {
     id: number;
     codigo: string;
     emision: Date;

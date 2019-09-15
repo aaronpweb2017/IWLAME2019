@@ -65,14 +65,14 @@ export class UsuariosComponent implements OnInit {
     //});
   }
   
-  eliminarUsuario(usuario: Usuario) {
-    console.log("Eliminar al usuario "+usuario.id_usuario);
-    //this.usuariosService.eliminarUsuario(usuario).subscribe(response => {
+  eliminarUsuario(id_usuario: number) {
+    console.log("Eliminar al usuario "+id_usuario);
+    //this.usuariosService.eliminarUsuario(id_usuario).subscribe(response => {
     //  if(response) {
-    //    this.toastrService.success("Actualización realizada con éxito.");
+    //    this.toastrService.success("Eliminación realizada con éxito.");
     //    this.router.navigate(['/usuarios', this.currentPage]); return;
     //  }
-    //  this.toastrService.error("Actualización fallida...");
+    //  this.toastrService.error("Eliminación fallida...");
     //});
   }
 

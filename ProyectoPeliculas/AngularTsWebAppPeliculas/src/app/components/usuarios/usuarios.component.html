@@ -46,8 +46,8 @@
             </td>
             <td class="text-center">
               <app-modal-eliminacion
-                [request]="'EliminarUsuario'" [model]="usuario"
-                (modelObjectEvent)="eliminarUsuario($event)">
+                [request]="'EliminarUsuario'" [model]="usuario.id_usuario"
+                (modelIdentifierEvent)="eliminarUsuario($event)">
               </app-modal-eliminacion>
             </td>
           </tr>

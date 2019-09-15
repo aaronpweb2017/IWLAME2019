@@ -1,0 +1,87 @@
+<div class="container-fluid" style="padding: 20px;">
+  <div class="col-xl-12 animated-fade-in">
+    <table class="table table-bordered table-dark table-hover">
+      <thead>
+        <tr>
+          <th colspan="7">
+            <h3 class="font-weight-bold text-center">Detalles Técnicos</h3>
+            <button *ngIf="!create && currentPage == totalPages" type="button" class="btn btn-success" data-toggle="tooltip"
+              data-placement="top" title="Agregar Elemento" (click)="setCreateFlag()"
+              style="float: right; margin-top: -40px;"><i class="fas fa-plus-circle"></i>
+            </button>
+            <button *ngIf="create && currentPage == totalPages" type="button" class="btn btn-info" data-toggle="tooltip"
+              data-placement="top" title="Ingorar Agregación" (click)="setCreateFlag()"
+              style="float: right; margin-top: -40px;"><i class="fas fa-minus-circle"></i>
+            </button>
+          </th>
+        </tr>
+        <tr>
+          <th class="text-center"><span style="font-size: 20px;">id</span></th>
+          <th class="text-center"><span style="font-size: 20px;">Formato</span></th>
+          <th class="text-center"><span style="font-size: 20px;">Tipo</span></th>
+          <th class="text-center"><span style="font-size: 20px;">Valor</span></th>
+          <th class="text-center"><span style="font-size: 20px;">Aspecto</span></th>
+          <th class="text-center" colspan="2"><span style="font-size: 20px;">Acciones</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let detalleTecnico of detallesTecnicos | paginate: paginationConfig; let i=index;">
+          <tr>
+            <td class="text-center">
+              <span *ngIf="detalleTecnico">{{detalleTecnico.id}}</span>
+              <span *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1">
+                {{detallesTecnicos[detallesTecnicos.length-2]?.id+1}}
+              </span>
+            </td>
+            <td class="text-center">
+              <span *ngIf="detalleTecnico">{{detalleTecnico.formato}}</span>
+              <select *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1"
+                [(ngModel)]="nuevoDetalleTecnico.id_formato" class="form-control">
+                <option *ngFor="let formato of formatos" [value]="formato.id_formato">{{formato.id_formato}}.- {{formato.nombre_formato}}</option>
+              </select>
+            </td>
+            <td class="text-center">
+              <span *ngIf="detalleTecnico">{{detalleTecnico.tipo}}</span>
+              <select *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1"
+                [(ngModel)]="nuevoDetalleTecnico.id_tipo_resolucion" class="form-control">
+                <option *ngFor="let resolucion of resoluciones" [value]="resolucion.id1">{{resolucion.id1}}.- {{resolucion.tipo}}</option>
+              </select>
+            </td>
+            <td class="text-center">
+              <span *ngIf="detalleTecnico">{{detalleTecnico.valor}}</span>
+              <select *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1"
+                [(ngModel)]="nuevoDetalleTecnico.id_valor_resolucion" class="form-control">
+                <option *ngFor="let resolucion of resoluciones" [value]="resolucion.id2">{{resolucion.id2}}.- {{resolucion.valor}}</option>
+              </select>
+            </td>
+            <td class="text-center">
+              <span *ngIf="detalleTecnico">{{detalleTecnico.aspecto}}</span>
+              <select *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1"
+                [(ngModel)]="nuevoDetalleTecnico.id_relacion_aspecto" class="form-control">
+                <option *ngFor="let resolucion of resoluciones" [value]="resolucion.id3">{{resolucion.id3}}.- {{resolucion.aspecto}}</option>
+              </select>
+            </td>
+            <td class="text-center">
+              <app-modal-actualizacion *ngIf="detalleTecnico"
+                [request]="'ActualizarDetalleTecnico'" [model]="detalleTecnico"
+                (modelObjectEvent)="actualizarDetalleTecnico($event)">
+              </app-modal-actualizacion>
+            </td>
+            <td class="text-center">
+              <app-modal-eliminacion *ngIf="detalleTecnico"
+                [request]="'EliminarDetalleTecnico'" [model]="detalleTecnico.id"
+                (modelIdentifierEvent)="eliminarDetalleTecnico($event)">
+              </app-modal-eliminacion>
+              <button *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1"
+                type="button" class="btn btn-success btn-block" data-toggle="tooltip"
+                data-placement="top" title="Agregar Elemento" style="float: right;"
+                (click)="crearDetalleTecnico()">Agregar
+              </button>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+    <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+  </div>
+</div>

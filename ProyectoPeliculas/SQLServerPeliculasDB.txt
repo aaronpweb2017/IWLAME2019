@@ -352,6 +352,9 @@ id_pelicula_PK_CSTR PRIMARY KEY(id_pelicula)
 ALTER TABLE Pelicula ADD CONSTRAINT id_detalle_FK_CSTR
 FOREIGN KEY(id_detalle) REFERENCES DetalleTecnico(id_detalle)
 
+--ALTER TABLE Pelicula DROP CONSTRAINT id_detalle_FK_CSTR
+--ALTER TABLE Pelicula DROP COLUMN id_detalle
+
 INSERT INTO Pelicula(nombre_pelicula, fecha_estreno,
 presupuesto, recaudacion, sinopsis,
 calificacion_pelicula, id_detalle) VALUES 
@@ -1002,8 +1005,9 @@ DROP VIEW VToken
 ------------------------------------------------------------------------------------------------------
 
 CREATE VIEW VResolucion AS
-    SELECT TR.nombre_tipo_resolucion AS tipo, VR.valor_resolucion AS valor,
-    RA.valor_relacion_aspecto AS aspecto FROM Resolucion RE
+    SELECT TR.id_tipo_resolucion AS id1, TR.nombre_tipo_resolucion AS tipo,
+	VR.id_valor_resolucion AS id2, VR.valor_resolucion AS valor,
+    RA.id_relacion_aspecto AS id3, RA.valor_relacion_aspecto AS aspecto FROM Resolucion RE
     INNER JOIN TipoResolucion TR ON RE.id_tipo_resolucion = TR.id_tipo_resolucion
     INNER JOIN ValorResolucion VR ON RE.id_valor_resolucion = VR.id_valor_resolucion
     INNER JOIN RelacionAspecto RA ON RE.id_relacion_aspecto = RA.id_relacion_aspecto
@@ -1011,6 +1015,7 @@ CREATE VIEW VResolucion AS
 SELECT * FROM VResolucion
 
 DROP VIEW VResolucion
+
 
 ------------------------------------------------------------------------------------------------------
 
@@ -1020,9 +1025,8 @@ CREATE VIEW VDetalleTecnico AS
     SELECT DT.id_detalle AS id,
     FO.nombre_formato AS formato,
     TR.nombre_tipo_resolucion AS tipo,
-    VR.valor_resolucion AS valor,
-    RA.valor_relacion_aspecto AS aspecto
-    FROM DetalleTecnico DT
+	VR.valor_resolucion AS valor,
+    RA.valor_relacion_aspecto AS aspecto FROM DetalleTecnico DT
     INNER JOIN Formato FO ON DT.id_formato = FO.id_formato
     INNER JOIN TipoResolucion TR ON DT.id_tipo_resolucion = TR.id_tipo_resolucion
     INNER JOIN ValorResolucion VR ON DT.id_valor_resolucion = VR.id_valor_resolucion

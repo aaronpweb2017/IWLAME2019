@@ -45,11 +45,11 @@ namespace ASPNETCoreWebApiPeliculas
             return response;
         }
 
-        public async Task<bool> EliminarFormato(Formato formato) {
+        public async Task<bool> EliminarFormato(int id_formato) {
             bool response = false;
             try {
                 Formato formatoToDelete = await AppDbContext.formatos.Where(f =>
-                    f.id_formato == formato.id_formato).FirstOrDefaultAsync();
+                    f.id_formato == id_formato).FirstOrDefaultAsync();
                 List<DetalleTecnico> detallesTecnicos = await AppDbContext.detallesTecnicos.Where(dt => 
                     dt.id_formato == formatoToDelete.id_formato).ToListAsync();
                 foreach(DetalleTecnico detalleTecnico in detallesTecnicos)
@@ -96,11 +96,11 @@ namespace ASPNETCoreWebApiPeliculas
             return response;
         }
 
-        public async Task<bool> EliminarTipoResolucion(TipoResolucion tipoResolucion) {
+        public async Task<bool> EliminarTipoResolucion(int id_tipo_resolucion) {
             bool response = false;
             try {
                 TipoResolucion tipoResolucionToDelete = await AppDbContext.tiposResolucion.Where(tr =>
-                tr.id_tipo_resolucion == tipoResolucion.id_tipo_resolucion).FirstOrDefaultAsync();
+                tr.id_tipo_resolucion == id_tipo_resolucion).FirstOrDefaultAsync();
                 List<DetalleTecnico> detallesTecnicos = await AppDbContext.detallesTecnicos.Where(dt => 
                 dt.id_tipo_resolucion == tipoResolucionToDelete.id_tipo_resolucion).ToListAsync();
                 foreach(DetalleTecnico detalleTecnico in detallesTecnicos)
@@ -149,11 +149,11 @@ namespace ASPNETCoreWebApiPeliculas
             return response;
         }
 
-        public async Task<bool> EliminarValorResolucion(ValorResolucion valorResolucion) {
+        public async Task<bool> EliminarValorResolucion(int id_valor_resolucion) {
             bool response = false;
             try {
                 ValorResolucion valorResolucionToDelete = await AppDbContext.valoresResolucion.Where(vr =>
-                    vr.id_valor_resolucion == valorResolucion.id_valor_resolucion).FirstOrDefaultAsync();
+                    vr.id_valor_resolucion == id_valor_resolucion).FirstOrDefaultAsync();
                 List<DetalleTecnico> detallesTecnicos = await AppDbContext.detallesTecnicos.Where(dt => 
                 dt.id_valor_resolucion == valorResolucionToDelete.id_valor_resolucion).ToListAsync();
                 foreach(DetalleTecnico detalleTecnico in detallesTecnicos)
@@ -202,11 +202,11 @@ namespace ASPNETCoreWebApiPeliculas
             return response;
         }
 
-        public async Task<bool> EliminarRelacionAspecto(RelacionAspecto relacionAspecto) {
+        public async Task<bool> EliminarRelacionAspecto(int id_relacion_aspecto) {
             bool response = false;
             try {
                 RelacionAspecto relacionAspectoToDelete = await AppDbContext.relacionesAspecto.Where(ra =>
-                    ra.id_relacion_aspecto == relacionAspecto.id_relacion_aspecto).FirstOrDefaultAsync();
+                    ra.id_relacion_aspecto == id_relacion_aspecto).FirstOrDefaultAsync();
                 List<DetalleTecnico> detallesTecnicos = await AppDbContext.detallesTecnicos.Where(dt => 
                 dt.id_relacion_aspecto == relacionAspectoToDelete.id_relacion_aspecto).ToListAsync();
                 foreach(DetalleTecnico detalleTecnico in detallesTecnicos)
@@ -236,13 +236,13 @@ namespace ASPNETCoreWebApiPeliculas
             return response;
         }
 
-        public async Task<bool> EliminarResolucion(Resolucion resolucion) {
+        public async Task<bool> EliminarResolucion(int id_tipo_resolucion, int id_valor_resolucion, int id_relacion_aspecto) {
             bool response = false;
             try {
                 Resolucion resolucionToToDelete = await AppDbContext.resoluciones.Where(r =>
-                    r.id_tipo_resolucion == resolucion.id_tipo_resolucion &&
-                    r.id_valor_resolucion == resolucion.id_valor_resolucion &&
-                    r.id_relacion_aspecto == resolucion.id_relacion_aspecto).FirstOrDefaultAsync();
+                    r.id_tipo_resolucion == id_tipo_resolucion &&
+                    r.id_valor_resolucion == id_valor_resolucion &&
+                    r.id_relacion_aspecto == id_relacion_aspecto).FirstOrDefaultAsync();
                 List<DetalleTecnico> detallesTecnicos = await AppDbContext.detallesTecnicos.Where(dt =>
                     dt.id_tipo_resolucion == resolucionToToDelete.id_tipo_resolucion &&
                     dt.id_valor_resolucion == resolucionToToDelete.id_valor_resolucion &&
@@ -250,8 +250,7 @@ namespace ASPNETCoreWebApiPeliculas
                 foreach(DetalleTecnico detalleTecnico in detallesTecnicos)
                     AppDbContext.detallesTecnicos.Remove(detalleTecnico);
                 AppDbContext.resoluciones.Remove(resolucionToToDelete);
-                await AppDbContext.SaveChangesAsync();
-                response = true;
+                await AppDbContext.SaveChangesAsync(); response = true;
             }
             catch(Exception exception) {
                 Console.WriteLine("Exception msj: "+exception.Message);
@@ -289,11 +288,11 @@ namespace ASPNETCoreWebApiPeliculas
             return response;
         }
 
-        public async Task<bool> EliminarDetalleTecnico(DetalleTecnico detalleTecnico) {
+        public async Task<bool> EliminarDetalleTecnico(int id_detalle) {
             bool response = false;
             try {
                 DetalleTecnico detalleTecnicoToToDelete = await AppDbContext.detallesTecnicos.Where(dt =>
-                    dt.id_detalle == detalleTecnico.id_detalle).FirstOrDefaultAsync();
+                    dt.id_detalle == id_detalle).FirstOrDefaultAsync();
                 AppDbContext.detallesTecnicos.Remove(detalleTecnicoToToDelete);
                 await AppDbContext.SaveChangesAsync(); response = true;
             }

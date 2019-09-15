@@ -3,8 +3,10 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { apiURL, header } from '../global.service';
-import { Solicitud } from '../interfaces/solicitud';
-import { Token } from '../interfaces/token';
+import { VSolicitud } from '../interfaces/views/v-solicitud';
+import { VToken } from '../interfaces/views/v-token';
+import { VResolucion } from '../interfaces/views/v-resolucion';
+import { VDetalleTecnico } from '../interfaces/views/v-detalle-tecnico';
 
 @Injectable()
 export class VistasService {
@@ -12,25 +14,34 @@ export class VistasService {
   private ApiGetVistaSolicitudesURL: string;
   private ApiGetVistaTokensURL: string;
 
+  private ApiGetVistaResolucionesURL: string;
+  private ApiGetVistaDetallesTecnicosURL: string;
+
   constructor(private http: HttpClient) {
     this.ApiVistasURL = apiURL+"/Vistas";
   }
 
-  getSolicitudesVista(): Observable<Solicitud[]> {
+  getSolicitudesVista(): Observable<VSolicitud[]> {
     this.ApiGetVistaSolicitudesURL = this.ApiVistasURL + "/GetVistaSolicitudes";
-    return this.http.get(this.ApiGetVistaSolicitudesURL).
-      pipe(map((data: any) => data as Solicitud[]));
-    //this.ApiGetVistaSolicitudesURL = this.ApiVistasURL + "/GetVistaSolicitudes";
-    //return this.http.get(this.ApiGetVistaSolicitudesURL,
-    //{ headers: header }).pipe(map((data: any) => data as Solicitud[]));
+    return this.http.get(this.ApiGetVistaSolicitudesURL
+    ).pipe(map((data: any) => data as VSolicitud[]));
   }
 
-  getTokensVista(): Observable<Token[]> {
+  getTokensVista(): Observable<VToken[]> {
     this.ApiGetVistaTokensURL = this.ApiVistasURL + "/GetVistaTokens";
-    return this.http.get(this.ApiGetVistaTokensURL).
-      pipe(map((data: any) => data as Token[]));
-    //this.ApiGetVistaTokensURL = this.ApiVistasURL + "/GetVistaTokens";
-    //return this.http.get(this.ApiGetVistaTokensURL,
-    //{ headers: header }).pipe(map((data: any) => data as Token[]));
+    return this.http.get(this.ApiGetVistaTokensURL
+    ).pipe(map((data: any) => data as VToken[]));
+  }
+
+  getResolucionesVista(): Observable<VResolucion[]> {
+    this.ApiGetVistaResolucionesURL = this.ApiVistasURL + "/GetVistaResoluciones";
+    return this.http.get(this.ApiGetVistaResolucionesURL
+    ).pipe(map((data: any) => data as VResolucion[]));
+  }
+
+  getDetallesTecnicosVista(): Observable<VDetalleTecnico[]> {
+    this.ApiGetVistaDetallesTecnicosURL = this.ApiVistasURL + "/GetVistaDetallesTecnicos";
+    return this.http.get(this.ApiGetVistaDetallesTecnicosURL
+    ).pipe(map((data: any) => data as VDetalleTecnico[]));
   }
 }

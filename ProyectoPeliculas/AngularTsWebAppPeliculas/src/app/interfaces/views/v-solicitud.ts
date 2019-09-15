@@ -1,4 +1,4 @@
-export interface Solicitud {
+export interface VSolicitud {
     id: number;
     usuario: string;
     tipo: string;

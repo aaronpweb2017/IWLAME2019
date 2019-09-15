@@ -10,7 +10,7 @@ namespace ASPNETCoreWebApiPeliculas
         Task<Usuario> GetUsuario(string username_email);
         Task<List<Usuario>> GetUsuarios();
         Task<bool> ActualizarUsuario(Usuario user);
-        Task<bool> EliminarUsuario(Usuario user);
+        Task<bool> EliminarUsuario(int id_usuario);
         Task<string> GetDecryptedPassword(int id_usuario);
         Task<bool> SolicitudToken(Usuario user);
         Task<string> GetTokenAuthentication(Usuario user);

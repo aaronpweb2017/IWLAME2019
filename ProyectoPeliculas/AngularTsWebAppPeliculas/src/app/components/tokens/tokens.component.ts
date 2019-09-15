@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { VistasService } from 'src/app/services/vistas.service';
-import { Token } from 'src/app/interfaces/token';
+import { VToken } from 'src/app/interfaces/views/v-token';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
@@ -12,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 export class TokensComponent implements OnInit {
   currentPage: number;
   paginationConfig: any;
-  tokens: Token[];
+  tokens: VToken[];
 
   constructor(private vistasService: VistasService, private router: Router,
     private route: ActivatedRoute, private toastrService: ToastrService) {

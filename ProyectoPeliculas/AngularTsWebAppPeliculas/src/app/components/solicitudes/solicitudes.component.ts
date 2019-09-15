@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SolicitudesService } from 'src/app/services/solicitudes.service';
-import { Solicitud } from 'src/app/interfaces/solicitud';
+import { VSolicitud } from 'src/app/interfaces/views/v-solicitud';
 import { VistasService } from 'src/app/services/vistas.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -13,7 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 export class SolicitudesComponent implements OnInit {
   currentPage: number;
   paginationConfig: any;
-  solicitudes: Solicitud[];
+  solicitudes: VSolicitud[];
 
   constructor(private solicitudesService: SolicitudesService, private vistasService: VistasService,
     private router: Router, private route: ActivatedRoute, private toastrService: ToastrService) {

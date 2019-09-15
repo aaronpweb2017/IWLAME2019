@@ -72,11 +72,11 @@ namespace ASPNETCoreWebApiPeliculas
             return response;
         }
 
-        public async Task<bool> EliminarUsuario(Usuario user) {
+        public async Task<bool> EliminarUsuario(int id_usuario) {
             bool response = false;
             try {
                 Usuario userToDelete = await AppDbContext.usuarios.Where(u =>
-                u.id_usuario == user.id_usuario).FirstOrDefaultAsync();
+                u.id_usuario == id_usuario).FirstOrDefaultAsync();
                 AppDbContext.usuarios.Remove(userToDelete);
                 await AppDbContext.SaveChangesAsync();
                 response = true;

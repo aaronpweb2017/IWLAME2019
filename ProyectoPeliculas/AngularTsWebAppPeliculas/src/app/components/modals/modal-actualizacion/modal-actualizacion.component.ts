@@ -5,7 +5,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   templateUrl: './modal-actualizacion.component.html',
   styleUrls: []
 })
-export class ActualizacionComponent {
+export class ModalActualizacionComponent {
   @Input() request: string;
   @Input() model: any;
   @Output() modelObjectEvent = new EventEmitter();

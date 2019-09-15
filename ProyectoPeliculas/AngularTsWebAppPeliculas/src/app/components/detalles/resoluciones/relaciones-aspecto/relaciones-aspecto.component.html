@@ -1,0 +1,60 @@
+<div class="container-fluid" style="padding: 20px;">
+  <div class="col-xl-12 animated-fade-in">
+    <table class="table table-bordered table-dark table-hover">
+      <thead>
+        <tr>
+          <th colspan="4">
+            <h3 class="font-weight-bold text-center">Relaciones de Aspecto</h3>
+            <button *ngIf="!create && currentPage == totalPages" type="button" class="btn btn-success" data-toggle="tooltip"
+              data-placement="top" title="Agregar Elemento" (click)="setCreateFlag()"
+              style="float: right; margin-top: -40px;"><i class="fas fa-plus-circle"></i>
+            </button>
+            <button *ngIf="create && currentPage == totalPages" type="button" class="btn btn-info" data-toggle="tooltip"
+              data-placement="top" title="Ingorar Agregación" (click)="setCreateFlag()"
+              style="float: right; margin-top: -40px;"><i class="fas fa-minus-circle"></i>
+            </button>
+          </th>
+        </tr>
+        <tr>
+          <th class="text-center"><span style="font-size: 20px;">id</span></th>
+          <th class="text-center"><span style="font-size: 20px;">Valor</span></th>
+          <th class="text-center" colspan="2"><span style="font-size: 20px;">Acciones</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let relacionAspecto of relacionesAspecto | paginate: paginationConfig; let i=index;">
+          <tr>
+            <td class="text-center">
+              <span *ngIf="relacionAspecto">{{relacionAspecto.id_relacion_aspecto}}</span>
+              <span *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1">
+                {{relacionesAspecto[relacionesAspecto.length-2]?.id_relacion_aspecto+1}}
+              </span>
+            </td>
+            <td class="text-center">
+              <span *ngIf="relacionAspecto">{{relacionAspecto.valor_relacion_aspecto}}</span>
+              <input *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1" 
+              [(ngModel)]="nuevaRelacionAspecto.valor_relacion_aspecto" type="text" class="form-control" autofocus="">
+            </td>
+            <td class="text-center">
+              <app-modal-actualizacion *ngIf="relacionAspecto"
+                [request]="'ActualizarRelacionAspecto'" [model]="relacionAspecto"
+                (modelObjectEvent)="actualizarRelacionAspecto($event)">
+              </app-modal-actualizacion>
+            </td>
+            <td class="text-center">
+              <app-modal-eliminacion *ngIf="relacionAspecto"
+                [request]="'EliminarRelacionAspecto'" [model]="relacionAspecto.id_relacion_aspecto"
+                (modelIdentifierEvent)="eliminarRelacionAspecto($event)">
+              </app-modal-eliminacion>
+              <button *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1"
+                type="button" class="btn btn-success btn-block" data-toggle="tooltip"
+                data-placement="top" title="Agregar Elemento" style="float: right;" (click)="crearRelacionAspecto()">Agregar
+              </button>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+    <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+  </div>
+</div>

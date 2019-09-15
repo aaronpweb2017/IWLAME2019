@@ -1,0 +1,72 @@
+<div class="container-fluid" style="padding: 20px;">
+  <div class="col-xl-12 animated-fade-in">
+    <table class="table table-bordered table-dark table-hover">
+      <thead>
+        <tr>
+          <th colspan="4">
+            <h3 class="font-weight-bold text-center">Resoluciones</h3>
+            <button *ngIf="!create && currentPage == totalPages" type="button" class="btn btn-success" data-toggle="tooltip"
+              data-placement="top" title="Agregar Elemento" (click)="setCreateFlag()"
+              style="float: right; margin-top: -40px;"><i class="fas fa-plus-circle"></i>
+            </button>
+            <button *ngIf="create && currentPage == totalPages" type="button" class="btn btn-info" data-toggle="tooltip"
+              data-placement="top" title="Ingorar Agregación" (click)="setCreateFlag()"
+              style="float: right; margin-top: -40px;"><i class="fas fa-minus-circle"></i>
+            </button>
+          </th>
+        </tr>
+        <tr>
+          <th class="text-center"><span style="font-size: 20px;">Tipo</span></th>
+          <th class="text-center"><span style="font-size: 20px;">Valor</span></th>
+          <th class="text-center"><span style="font-size: 20px;">Aspecto</span></th>
+          <th class="text-center"><span style="font-size: 20px;">Acciones</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let resolucion of resoluciones | paginate: paginationConfig; let i=index;">
+          <tr>
+            <td class="text-center">
+              <span *ngIf="resolucion">{{resolucion.tipo}}</span>
+              <select *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1"
+                [(ngModel)]="nuevaResolucion.id_tipo_resolucion" class="form-control">
+                <option *ngFor="let tipoResolucion of tiposResolucion" [value]="tipoResolucion.id_tipo_resolucion">
+                  {{tipoResolucion.id_tipo_resolucion}}.- {{tipoResolucion.nombre_tipo_resolucion}}
+                </option>
+              </select>
+            </td>
+            <td class="text-center">
+              <span *ngIf="resolucion">{{resolucion.valor}}</span>
+              <select *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1"
+                [(ngModel)]="nuevaResolucion.id_valor_resolucion" class="form-control">
+                <option *ngFor="let valorResolucion of valoresResolucion" [value]="valorResolucion.id_valor_resolucion">
+                  {{valorResolucion.id_valor_resolucion}}.- {{valorResolucion.valor_resolucion}}
+                </option>
+              </select>
+            </td>
+            <td class="text-center">
+              <span *ngIf="resolucion">{{resolucion.aspecto}}</span>
+              <select *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1"
+                [(ngModel)]="nuevaResolucion.id_relacion_aspecto" class="form-control">
+                <option *ngFor="let relacionAspecto of relacionesAspecto" [value]="relacionAspecto.id_relacion_aspecto">
+                  {{relacionAspecto.id_relacion_aspecto}}.- {{relacionAspecto.valor_relacion_aspecto}}
+                </option>
+              </select>
+            </td>
+            <td class="text-center">
+              <app-modal-eliminacion *ngIf="resolucion"
+                [request]="'EliminarResolucion'" [model]="resolucion"
+                (modelIdentifierEvent)="eliminarResolucion($event)">
+              </app-modal-eliminacion>
+              <button *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1"
+                type="button" class="btn btn-success btn-block" data-toggle="tooltip"
+                data-placement="top" title="Agregar Elemento" style="float: right;"
+                (click)="crearResolucion()">Agregar
+              </button>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+    <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+  </div>
+</div>

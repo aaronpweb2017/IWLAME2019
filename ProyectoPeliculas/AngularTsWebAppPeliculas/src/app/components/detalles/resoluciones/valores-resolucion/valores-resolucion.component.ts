@@ -1,0 +1,89 @@
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { DetallesTecnicosService } from 'src/app/services/detalles-tecnicos.service';
+import { ValorResolucion } from 'src/app/interfaces/detalles/resoluciones/valor-resolucion';
+
+@Component({
+  selector: 'app-valores-resolucion',
+  templateUrl: './valores-resolucion.component.html',
+  styleUrls: []
+})
+export class ValoresResolucionComponent implements OnInit {
+  totalPages: number;
+  currentPage: number;
+  currentItemsPerPage: number;
+  paginationConfig: any;
+  valoresResolucion: ValorResolucion[];
+  nuevoValorResolucion: ValorResolucion;
+  create: boolean;
+
+  constructor(private detallesTecnicosService: DetallesTecnicosService, private router: Router,
+    private route: ActivatedRoute, private toastrService: ToastrService) { this.totalPages = 0;
+    this.currentPage = this.route.snapshot.params['pg']; this.currentItemsPerPage = 0;
+    this.paginationConfig = { itemsPerPage: 0, currentPage: 0, totalItems: 0 };
+    this.router.routeReuseStrategy.shouldReuseRoute = function () { return false; };
+  }
+
+  ngOnInit() {
+    this.valoresResolucion = []; this.create = false;
+    this.nuevoValorResolucion = { id_valor_resolucion: 0, valor_resolucion: "" };
+    this.detallesTecnicosService.getValoresResolucion().subscribe(valoresResolucion => {
+      this.valoresResolucion = valoresResolucion; this.valoresResolucion.push(null);
+      this.paginationConfig = {
+        itemsPerPage: 5,
+        currentPage: this.currentPage,
+        totalItems: this.valoresResolucion.length
+      };
+      this.totalPages = Math.trunc(this.valoresResolucion.length / this.paginationConfig.itemsPerPage);
+      if (this.valoresResolucion.length % this.paginationConfig.itemsPerPage != 0) this.totalPages += 1;
+      this.currentItemsPerPage = this.valoresResolucion.slice(5*(this.currentPage-1), 5*(this.currentPage)).length;
+    });
+  }
+
+  setCreateFlag() {
+    if (this.create) {
+      this.create = false; return;
+    }
+    this.create = true;
+  }
+
+  crearValorResolucion() {
+    this.detallesTecnicosService.crearValorResolucion(this.nuevoValorResolucion).subscribe(response => {
+      if(response) {
+        this.toastrService.success("Creación realizada con éxito.");
+        this.router.navigate(['/valoresResolucion', this.currentPage]); return;
+      }
+      this.toastrService.error("Creación fallida...");
+    });
+  }
+
+  actualizarValorResolucion(valorResolucion: ValorResolucion) {
+    console.log("Actualizar el valor de resolución: " + valorResolucion.id_valor_resolucion);
+    // this.detallesTecnicosService.actualizarValorResolucion(valorResolucion).subscribe(response => {
+    // if(response) {
+    //   this.toastrService.success("Actualización realizada con éxito.");
+    //   this.router.navigate(['/valoresResolucion', this.currentPage]); return;
+    // }
+    // this.toastrService.error("Actualización fallida...");
+    // });
+  }
+
+  eliminarValorResolucion(id_valor_resolucion: number) {
+    console.log("Eliminar el valor de resolución " + id_valor_resolucion);
+    //this.detallesTecnicosService.eliminarValorResolucion(id_valor_resolucion).subscribe(response => {
+    // if(response) {
+    //   this.toastrService.success("Eliminación realizada con éxito.");
+    //   this.router.navigate(['/valoresResolucion', this.currentPage]); return;
+    // }
+    // this.toastrService.error("Eliminación fallida...");
+    //});
+  }
+
+  pageChanged(currentPage: number) {
+    this.currentPage = currentPage;
+    this.paginationConfig.currentPage = this.currentPage;
+    this.currentItemsPerPage = this.valoresResolucion.slice(5*(this.currentPage-1), 5*(this.currentPage)).length;
+    //this.router.navigate(['/valoresResolucion', this.currentPage]);
+  }
+}

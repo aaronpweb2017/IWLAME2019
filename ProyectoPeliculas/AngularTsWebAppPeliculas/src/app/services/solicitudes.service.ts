@@ -15,10 +15,7 @@ export class SolicitudesService {
 
   aprobarSolicitud(id_usuario_solicitud: number): Observable<boolean> {
     this.ApiAprobarSolicitudURL = this.ApiSolicitudesURL+ "/AprobarSolicitud";
-    return this.http.put(this.ApiAprobarSolicitudURL, id_usuario_solicitud).
-    pipe(map((data: any) => data as boolean));
-    // this.ApiAprobarSolicitudURL = this.ApiSolicitudesURL+ "/AprobarSolicitud";
-    // return this.http.put(this.ApiAprobarSolicitudURL, id_usuario_solicitud,
-    // { headers: header }).pipe(map((data: any) => data as boolean));
+    return this.http.put(this.ApiAprobarSolicitudURL, id_usuario_solicitud
+    ).pipe(map((data: any) => data as boolean));
   }
 }

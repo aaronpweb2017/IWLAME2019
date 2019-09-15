@@ -1,0 +1,73 @@
+<div class="container-fluid" style="padding: 20px;">
+  <div class="col-xl-12 animated-fade-in">
+    <table class="table table-bordered table-dark table-hover">
+      <thead>
+        <tr>
+          <th colspan="6">
+            <h3 class="font-weight-bold text-center">Tipos de Resolución</h3>
+            <button *ngIf="!create && currentPage == totalPages" type="button" class="btn btn-success" data-toggle="tooltip"
+              data-placement="top" title="Agregar Elemento" (click)="setCreateFlag()"
+              style="float: right; margin-top: -40px;"><i class="fas fa-plus-circle"></i>
+            </button>
+            <button *ngIf="create && currentPage == totalPages" type="button" class="btn btn-info" data-toggle="tooltip"
+              data-placement="top" title="Ingorar Agregación" (click)="setCreateFlag()"
+              style="float: right; margin-top: -40px;"><i class="fas fa-minus-circle"></i>
+            </button>
+          </th>
+        </tr>
+        <tr>
+          <th class="text-center"><span style="font-size: 20px;">id</span></th>
+          <th class="text-center"><span style="font-size: 20px;">Nombre</span></th>
+          <th class="text-center"><span style="font-size: 20px;">Visualización</span></th>
+          <th class="text-center"><span style="font-size: 20px;">Pérdida</span></th>
+          <th class="text-center" colspan="2"><span style="font-size: 20px;">Acciones</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let tipoResolucion of tiposResolucion | paginate: paginationConfig; let i=index;">
+          <tr>
+            <td class="text-center">
+              <span *ngIf="tipoResolucion">{{tipoResolucion.id_tipo_resolucion}}</span>
+              <span *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1">
+                {{tiposResolucion[tiposResolucion.length-2]?.id_tipo_resolucion+1}}
+              </span>
+            </td>
+            <td class="text-center">
+              <span *ngIf="tipoResolucion">{{tipoResolucion.nombre_tipo_resolucion}}</span>
+              <input *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1" 
+              [(ngModel)]="nuevoTipoResolucion.nombre_tipo_resolucion" type="text" class="form-control" autofocus="">
+            </td>
+            <td class="text-center">
+              <span *ngIf="tipoResolucion">{{tipoResolucion.porcentaje_visualizacion}}</span>
+              <input *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1" 
+              [(ngModel)]="nuevoTipoResolucion.porcentaje_visualizacion" type="number" class="form-control">
+            </td>
+            <td class="text-center">
+              <span *ngIf="tipoResolucion">{{tipoResolucion.porcentaje_perdida}}</span>
+              <input *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1" 
+              [(ngModel)]="nuevoTipoResolucion.porcentaje_perdida" type="number" class="form-control">
+            </td>
+            <td class="text-center">
+              <app-modal-actualizacion *ngIf="tipoResolucion"
+                [request]="'ActualizarTipoResolucion'" [model]="tipoResolucion"
+                (modelObjectEvent)="actualizarTipoResolucion($event)">
+              </app-modal-actualizacion>
+            </td>
+            <td class="text-center">
+              <app-modal-eliminacion *ngIf="tipoResolucion"
+                [request]="'EliminarTipoResolucion'" [model]="tipoResolucion.id_tipo_resolucion"
+                (modelIdentifierEvent)="eliminarTipoResolucion($event)">
+              </app-modal-eliminacion>
+              <button *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1"
+                type="button" class="btn btn-success btn-block" data-toggle="tooltip"
+                data-placement="top" title="Agregar Elemento" style="float: right;"
+                (click)="crearTipoResolucion()">Agregar
+              </button>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+    <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+  </div>
+</div>

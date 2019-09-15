@@ -2,42 +2,100 @@
   <i class="far fa-edit"></i>
 </button>
 <div class="modal fade text-dark" id="updateModal" tabindex="-1"
-  role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  role="dialog" aria-labelledby="updateModalLabel" aria-hidden="false">
+  <div class="modal-dialog" role="modal">
     <div class="modal-content">
       <div class="modal-header text-center">
         <h5 *ngIf="request.includes('ActualizarUsuario')" class="modal-title font-weight-bold"
           id="updateModalLabel">Actualización del usuario número {{model.id_usuario}}
+        </h5>
+        <h5 *ngIf="request.includes('ActualizarFormato')" class="modal-title font-weight-bold"
+          id="updateModalLabel">Actualización del formato número {{model.id_formato}}
+        </h5>
+        <h5 *ngIf="request.includes('ActualizarTipoResolucion')" class="modal-title font-weight-bold"
+          id="updateModalLabel">Actualización del tipo de resolucion {{model.id_tipo_resolucion}}
+        </h5>
+        <h5 *ngIf="request.includes('ActualizarValorResolucion')" class="modal-title font-weight-bold"
+          id="updateModalLabel">Actualización del valor de resolución {{model.id_valor_resolucion}}
+        </h5>
+        <h5 *ngIf="request.includes('ActualizarRelacionAspecto')" class="modal-title font-weight-bold"
+          id="updateModalLabel">Actualización de la relación de aspecto {{model.id_relacion_aspecto}}
         </h5>
         <button type="button" class="close" data-dismiss="modal"aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div *ngIf="request.includes('ActualizarUsuario')" class="modal-body">
-        <form class="form-signup bg-light">            
-            <div class="form-group text-left">
-                <label class="text-dark font-weight-bold">Nombre de Usuario:</label>
-                <input [(ngModel)]="model.nombre_usuario" [ngModelOptions]="{standalone: true}"
-                type="text" class="form-control" placeholder="UserName" autofocus="">
-            </div>
-            <div class="form-group text-left">
-              <label class="text-dark font-weight-bold">Dirección de Email:</label>
-              <input [(ngModel)]="model.correo_usuario" [ngModelOptions]="{standalone: true}"
-              type="email" class="form-control" placeholder="Email Address">
-            </div>
-            <div class="form-group text-left">
-              <label class="text-dark font-weight-bold">Contraseña:</label>
-              <input [(ngModel)]="model.password_usuario" [ngModelOptions]="{standalone: true}"
-              type="password" class="form-control" placeholder="Password">
-            </div>
-            <div class="form-group text-left">
-                <label class="text-dark font-weight-bold">Tipo de Usuario:</label>
-                <select [(ngModel)]="model.tipo_usuario" [ngModelOptions]="{standalone: true}"
-                class="form-control" >
-                    <option [value]="1">Administrador</option>
-                    <option [value]="2">Visitante</option>
-                </select>
-            </div>
+        <form class="bg-light">            
+          <div class="form-group text-left">
+              <label class="text-dark font-weight-bold">Nombre:</label>
+              <input [(ngModel)]="model.nombre_usuario" [ngModelOptions]="{standalone: true}"
+              type="text" class="form-control" placeholder="UserName" autofocus="">
+          </div>
+          <div class="form-group text-left">
+            <label class="text-dark font-weight-bold">Dirección de Email:</label>
+            <input [(ngModel)]="model.correo_usuario" [ngModelOptions]="{standalone: true}"
+            type="email" class="form-control" placeholder="Email Address">
+          </div>
+          <div class="form-group text-left">
+            <label class="text-dark font-weight-bold">Contraseña:</label>
+            <input [(ngModel)]="model.password_usuario" [ngModelOptions]="{standalone: true}"
+            type="password" class="form-control" placeholder="Password">
+          </div>
+          <div class="form-group text-left">
+            <label class="text-dark font-weight-bold">Tipo:</label>
+            <select [(ngModel)]="model.tipo_usuario" [ngModelOptions]="{standalone: true}"
+            class="form-control" >
+              <option [value]="1">Administrador</option>
+              <option [value]="2">Visitante</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div *ngIf="request.includes('ActualizarFormato')" class="modal-body">
+        <form class="bg-light">            
+          <div class="form-group text-left">
+            <label class="text-dark font-weight-bold">Nombre:</label>
+            <input [(ngModel)]="model.nombre_formato" [ngModelOptions]="{standalone: true}"
+            type="text" class="form-control" placeholder="Format Name" autofocus="">
+          </div>
+        </form>
+      </div>
+      <div *ngIf="request.includes('ActualizarTipoResolucion')" class="modal-body">
+        <form class="bg-light">            
+          <div class="form-group text-left">
+            <label class="text-dark font-weight-bold">Nombre:</label>
+            <input [(ngModel)]="model.nombre_tipo_resolucion" [ngModelOptions]="{standalone: true}"
+            type="text" class="form-control" placeholder="Resolution Name" autofocus="">
+          </div>
+          <div class="form-group text-left">
+            <label class="text-dark font-weight-bold">Visualización:</label>
+            <input [(ngModel)]="model.porcentaje_visualizacion" [ngModelOptions]="{standalone: true}"
+            type="number" class="form-control" placeholder="Resolution Vizualitation" autofocus="">
+          </div>
+          <div class="form-group text-left">
+            <label class="text-dark font-weight-bold">Pérdida:</label>
+            <input [(ngModel)]="model.porcentaje_perdida" [ngModelOptions]="{standalone: true}"
+            type="number" class="form-control" placeholder="Resolution Lost" autofocus="">
+          </div>
+        </form>
+      </div>
+      <div *ngIf="request.includes('ActualizarValorResolucion')" class="modal-body">
+        <form class="bg-light">            
+          <div class="form-group text-left">
+            <label class="text-dark font-weight-bold">Valor:</label>
+            <input [(ngModel)]="model.valor_resolucion" [ngModelOptions]="{standalone: true}"
+            type="text" class="form-control" placeholder="Resolution Value" autofocus="">
+          </div>
+        </form>
+      </div>
+      <div *ngIf="request.includes('ActualizarRelacionAspecto')" class="modal-body">
+        <form class="bg-light">            
+          <div class="form-group text-left">
+            <label class="text-dark font-weight-bold">Valor:</label>
+            <input [(ngModel)]="model.valor_relacion_aspecto" [ngModelOptions]="{standalone: true}"
+            type="text" class="form-control" placeholder="Resolution Value" autofocus="">
+          </div>
         </form>
       </div>
       <div class="modal-footer">

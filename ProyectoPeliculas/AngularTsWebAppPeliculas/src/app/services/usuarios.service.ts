@@ -51,9 +51,10 @@ export class UsuariosService {
     );
   }
   
-  eliminarUsuario(usuario: Usuario): Observable<boolean> {
-    this.ApiEliminarUsuarioURL = this.ApiUsuariosURL + "/EliminarUsuario";
-    return this.http.put(this.ApiEliminarUsuarioURL, usuario).pipe(
+  eliminarUsuario(id_usuario: number): Observable<boolean> {
+    this.ApiEliminarUsuarioURL = this.ApiUsuariosURL
+      + "/EliminarUsuario/?id_usuario="+id_usuario;
+    return this.http.delete(this.ApiEliminarUsuarioURL).pipe(
       map((data: any) => data as boolean)
     );
   }
