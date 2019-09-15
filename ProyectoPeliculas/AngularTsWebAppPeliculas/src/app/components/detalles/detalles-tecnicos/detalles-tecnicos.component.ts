@@ -26,17 +26,17 @@ export class DetallesTecnicosComponent implements OnInit {
 
   constructor(private vistasService: VistasService, private detallesTecnicosService: DetallesTecnicosService,
     private router: Router, private route: ActivatedRoute, private toastrService: ToastrService) {
-    this.totalPages = 0; this.currentItemsPerPage = 0;
-    this.currentPage = this.route.snapshot.params['pg'];
+    this.totalPages = 0; this.currentPage = 1; this.currentItemsPerPage = 0;
     this.paginationConfig = { itemsPerPage: 0, currentPage: 0, totalItems: 0 };
-    this.router.routeReuseStrategy.shouldReuseRoute = function () { return false; };
   }
 
   ngOnInit() {
     this.detallesTecnicos = []; this.formatos = [];
     this.resoluciones = []; this.create = false;
-    this.nuevoDetalleTecnico = { id_detalle: 0, id_formato: 0, 
-    id_tipo_resolucion: 0, id_valor_resolucion: 0, id_relacion_aspecto: 0 };
+    this.nuevoDetalleTecnico = {
+      id_detalle: 0, id_formato: 0,
+      id_tipo_resolucion: 0, id_valor_resolucion: 0, id_relacion_aspecto: 0
+    };
     this.vistasService.getDetallesTecnicosVista().subscribe(detallesTecnicos => {
       this.detallesTecnicos = detallesTecnicos; this.detallesTecnicos.push(null);
       this.paginationConfig = {
@@ -48,7 +48,7 @@ export class DetallesTecnicosComponent implements OnInit {
       if (this.detallesTecnicos.length % this.paginationConfig.itemsPerPage != 0) this.totalPages += 1;
       this.currentItemsPerPage = this.detallesTecnicos.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
       this.detallesTecnicosService.getFormatos().subscribe(formatos => { this.formatos = formatos; });
-      this.vistasService.getResolucionesVista().subscribe(resoluciones => {this.resoluciones = resoluciones; });
+      this.vistasService.getResolucionesVista().subscribe(resoluciones => { this.resoluciones = resoluciones; });
     });
   }
 
@@ -63,7 +63,7 @@ export class DetallesTecnicosComponent implements OnInit {
     this.detallesTecnicosService.crearDetalleTecnico(this.nuevoDetalleTecnico).subscribe(response => {
       if (response) {
         this.toastrService.success("Creación realizada con éxito.");
-        this.router.navigate(['/detallesTecnicos', this.currentPage]); return;
+        this.router.navigate(['/adminDetalles']); return;
       }
       this.toastrService.error("Creación fallida...");
     });
@@ -74,7 +74,7 @@ export class DetallesTecnicosComponent implements OnInit {
     // this.detallesTecnicosService.actualizarDetalleTecnico(detalleTecnico).subscribe(response => {
     // if(response) {
     //   this.toastrService.success("Actualización realizada con éxito.");
-    //   this.router.navigate(['/relacionesAspecto', this.currentPage]); return;
+    //   this.router.navigate(['/adminDetalles']); return;
     // }
     // this.toastrService.error("Actualización fallida...");
     // });
@@ -83,8 +83,9 @@ export class DetallesTecnicosComponent implements OnInit {
   eliminarDetalleTecnico(id_detalle: number) {
     console.log("Eliminar el detalle tecnico: " + id_detalle);
     this.detallesTecnicosService.eliminarDetalleTecnico(id_detalle).subscribe(response => {
-      if(response) { this.toastrService.success("Eliminación realizada con éxito.");
-        this.router.navigate(['/detallesTecnicos', this.currentPage]); return;
+      if (response) {
+        this.toastrService.success("Eliminación realizada con éxito.");
+        this.router.navigate(['/adminDetalles']); return;
       }
       this.toastrService.error("Eliminación fallida...");
     });
@@ -94,6 +95,5 @@ export class DetallesTecnicosComponent implements OnInit {
     this.currentPage = currentPage;
     this.paginationConfig.currentPage = this.currentPage;
     this.currentItemsPerPage = this.detallesTecnicos.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
-    //this.router.navigate(['/detallesTecnicos', this.currentPage]);
   }
 }

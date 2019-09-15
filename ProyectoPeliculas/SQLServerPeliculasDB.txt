@@ -14,10 +14,6 @@ CREATE TABLE Usuario(
 
 ALTER TABLE Usuario ADD CONSTRAINT id_usuario_PK_CSTR PRIMARY KEY(id_usuario)
 
-INSERT INTO Usuario(nombre_usuario, correo_usuario,
-password_usuario, tipo_usuario) VALUES
-('admin', 'luis-aaron40@hotmail.com', 'Wc+gCD/DHyc=', 1)
-
 SELECT id_usuario, nombre_usuario, correo_usuario, 
 password_usuario, tipo_usuario FROM Usuario
 
@@ -109,11 +105,6 @@ CREATE TABLE Formato(
 ALTER TABLE Formato ADD CONSTRAINT
 id_formato_PK_CSTR PRIMARY KEY(id_formato)
 
-INSERT INTO Formato(nombre_formato) VALUES
-('AVI'),
-('MKV'),
-('MP4')
-
 SELECT FO.id_formato,
 FO.nombre_formato
 FROM Formato FO
@@ -137,7 +128,7 @@ id_tipo_resolucion_PK_CSTR PRIMARY KEY(id_tipo_resolucion)
 
 INSERT INTO TipoResolucion(nombre_tipo_resolucion, 
 porcentaje_visualizacion, porcentaje_perdida) VALUES
-('Clasica', 75.000, 25.000),
+('Clásica', 75.000, 25.000),
 ('Standard', 74.075, 25.925),
 ('Open Matte', 87.500, 12.500),
 ('IMAX', 100.000, 0.000)
@@ -165,31 +156,11 @@ id_valor_resolucion_PK_CSTR PRIMARY KEY(id_valor_resolucion)
 --valor_resolucion_CK_CSTR CHECK(valor_resolucion LIKE '[624-1920]x[336-1080]')
 
 INSERT INTO ValorResolucion(valor_resolucion) VALUES
-('624x352'),
-('640x472'),
-('688x336'),
-('1024x576'),
-('1056x592'),
-('1152x648'),
-('1280x526'),
-('1280x534'),
-('1280x542'),
-('1280x690'),
-('1280x716'),
-('1280x720'),
-('1488x1080'),
-('1904x784'),
-('1920x800'),
-('1920x802'),
-('1920x804'),
-('1920x808'),
-('1920x816'),
-('1920x1012'),
-('1920x1024'),
-('1920x1032'),
-('1920x1036'),
-('1920x1040'),
-('1920x1072'),
+('624x352'), ('640x472'), ('688x336'), ('1024x576'), ('1056x592'),
+('1152x648'), ('1280x526'), ('1280x534'), ('1280x542'), ('1280x690'),
+('1280x716'), ('1280x720'), ('1488x1080'), ('1904x784'), ('1920x800'),
+('1920x802'), ('1920x804'), ('1920x808'), ('1920x816'), ('1920x1012'),
+('1920x1024'), ('1920x1032'), ('1920x1036'), ('1920x1040'), ('1920x1072'),
 ('1920x1080')
 
 SELECT VR.id_valor_resolucion,
@@ -215,9 +186,7 @@ id_relacion_aspecto_PK_CSTR PRIMARY KEY(id_relacion_aspecto)
 --valor_relacion_aspecto_CK_CSTR CHECK(valor_relacion_aspecto LIKE '[4-16]:[3-9]')
 
 INSERT INTO RelacionAspecto(valor_relacion_aspecto) VALUES
-('4:3'),
-('5:12'),
-('16:9')
+('4:3'), ('5:12'), ('16:9')
 
 SELECT RA.id_relacion_aspecto,
 RA.valor_relacion_aspecto
@@ -250,34 +219,13 @@ FOREIGN KEY(id_relacion_aspecto) REFERENCES RelacionAspecto(id_relacion_aspecto)
 
 INSERT INTO Resolucion(id_tipo_resolucion,
 id_valor_resolucion, id_relacion_aspecto) VALUES
-(4, 1, 3),
-(1, 2, 1),
-(2, 3, 2),
-(3, 4, 3),
-(3, 5, 3),
-(3, 6, 3),
-(2, 7, 2),
-(2, 8, 2),
-(2, 9, 2),
-(4, 10, 3),
-(4, 11, 3),
-(3, 12, 3),
-(4, 12, 3),
-(1, 13, 1),
-(2, 14, 2),
-(2, 15, 2),
-(2, 16, 2),
-(2, 17, 2),
-(2, 18, 2),
-(2, 19, 2),
-(4, 20, 3),
-(4, 21, 3),
-(4, 22, 3),
-(4, 23, 3),
-(4, 24, 3),
-(4, 25, 3),
-(3, 26, 3),
-(4, 26, 3)
+(4, 1, 3), (1, 2, 1), (2, 3, 2), (3, 4, 3),
+(3, 5, 3), (3, 6, 3), (2, 7, 2), (2, 8, 2),
+(2, 9, 2), (4, 10, 3), (4, 11, 3), (3, 12, 3),
+(4, 12, 3), (1, 13, 1), (2, 14, 2), (2, 15, 2),
+(2, 16, 2), (2, 17, 2), (2, 18, 2), (2, 19, 2),
+(4, 20, 3), (4, 21, 3), (4, 22, 3), (4, 23, 3),
+(4, 24, 3), (4, 25, 3), (3, 26, 3), (4, 26, 3)
 
 SELECT RE.id_tipo_resolucion, RE.id_valor_resolucion,
 RE.id_relacion_aspecto FROM Resolucion RE
@@ -315,7 +263,7 @@ REFERENCES Resolucion(id_tipo_resolucion, id_valor_resolucion, id_relacion_aspec
 
 INSERT INTO DetalleTecnico(id_formato, id_tipo_resolucion,
 id_valor_resolucion, id_relacion_aspecto) VALUES
-(2, 3, 26, 3)
+(1, 3, 26, 3)
 
 SELECT DT.id_detalle, DT.id_formato,
 DT.id_tipo_resolucion, DT.id_valor_resolucion,

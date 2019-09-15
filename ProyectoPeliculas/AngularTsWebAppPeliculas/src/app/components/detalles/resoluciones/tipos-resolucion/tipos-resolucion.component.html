@@ -24,7 +24,9 @@
         </tr>
       </thead>
       <tbody>
-        <ng-container *ngFor="let tipoResolucion of tiposResolucion | paginate: paginationConfig; let i=index;">
+        <ng-container *ngFor="let tipoResolucion of tiposResolucion | paginate: { id:
+          'resolutionTypePagination', itemsPerPage: paginationConfig.itemsPerPage, currentPage:
+          paginationConfig.currentPage, totalItems: paginationConfig.totalItems }; let i=index;">
           <tr>
             <td class="text-center">
               <span *ngIf="tipoResolucion">{{tipoResolucion.id_tipo_resolucion}}</span>
@@ -38,12 +40,12 @@
               [(ngModel)]="nuevoTipoResolucion.nombre_tipo_resolucion" type="text" class="form-control" autofocus="">
             </td>
             <td class="text-center">
-              <span *ngIf="tipoResolucion">{{tipoResolucion.porcentaje_visualizacion}}</span>
+              <span *ngIf="tipoResolucion">{{tipoResolucion.porcentaje_visualizacion}}%</span>
               <input *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1" 
               [(ngModel)]="nuevoTipoResolucion.porcentaje_visualizacion" type="number" class="form-control">
             </td>
             <td class="text-center">
-              <span *ngIf="tipoResolucion">{{tipoResolucion.porcentaje_perdida}}</span>
+              <span *ngIf="tipoResolucion">{{tipoResolucion.porcentaje_perdida}}%</span>
               <input *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1" 
               [(ngModel)]="nuevoTipoResolucion.porcentaje_perdida" type="number" class="form-control">
             </td>
@@ -68,6 +70,6 @@
         </ng-container>
       </tbody>
     </table>
-    <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+    <pagination-controls id="resolutionTypePagination" (pageChange)="pageChanged($event)"></pagination-controls>
   </div>
 </div>

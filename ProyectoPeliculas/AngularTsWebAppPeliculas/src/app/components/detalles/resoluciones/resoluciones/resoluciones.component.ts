@@ -28,10 +28,8 @@ export class ResolucionesComponent implements OnInit {
 
   constructor(private vistasService: VistasService, private detallesTecnicosService: DetallesTecnicosService,
     private router: Router, private route: ActivatedRoute, private toastrService: ToastrService) {
-    this.totalPages = 0; this.currentItemsPerPage = 0;
-    this.currentPage = this.route.snapshot.params['pg'];
+    this.totalPages = 0; this.currentPage = 1; this.currentItemsPerPage = 0;
     this.paginationConfig = { itemsPerPage: 0, currentPage: 0, totalItems: 0 };
-    this.router.routeReuseStrategy.shouldReuseRoute = function () { return false; };
   }
 
   ngOnInit() {
@@ -65,7 +63,7 @@ export class ResolucionesComponent implements OnInit {
     this.detallesTecnicosService.crearResolucion(this.nuevaResolucion).subscribe(response => {
       if (response) {
         this.toastrService.success("Creación realizada con éxito.");
-        this.router.navigate(['/resoluciones', this.currentPage]); return;
+        this.router.navigate(['/adminDetalles']); return;
       }
       this.toastrService.error("Creación fallida...");
     });
@@ -75,7 +73,7 @@ export class ResolucionesComponent implements OnInit {
     console.log("Eliminar la resolución ("+resolucion.id1+","+resolucion.id2+","+resolucion.id3+")");
     this.detallesTecnicosService.eliminarResolucion(resolucion.id1, resolucion.id2, resolucion.id3).subscribe(response => {
       if(response) { this.toastrService.success("Eliminación realizada con éxito.");
-        this.router.navigate(['/resoluciones', this.currentPage]); return;
+        this.router.navigate(['/adminDetalles']); return;
       }
       this.toastrService.error("Eliminación fallida...");
     });
@@ -85,6 +83,5 @@ export class ResolucionesComponent implements OnInit {
     this.currentPage = currentPage;
     this.paginationConfig.currentPage = this.currentPage;
     this.currentItemsPerPage = this.resoluciones.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
-    //this.router.navigate(['/resoluciones', this.currentPage]);
   }
 }

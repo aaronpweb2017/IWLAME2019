@@ -19,10 +19,9 @@ export class ValoresResolucionComponent implements OnInit {
   create: boolean;
 
   constructor(private detallesTecnicosService: DetallesTecnicosService, private router: Router,
-    private route: ActivatedRoute, private toastrService: ToastrService) { this.totalPages = 0;
-    this.currentPage = this.route.snapshot.params['pg']; this.currentItemsPerPage = 0;
+    private route: ActivatedRoute, private toastrService: ToastrService) {
+    this.totalPages = 0; this.currentPage = 1; this.currentItemsPerPage = 0;
     this.paginationConfig = { itemsPerPage: 0, currentPage: 0, totalItems: 0 };
-    this.router.routeReuseStrategy.shouldReuseRoute = function () { return false; };
   }
 
   ngOnInit() {
@@ -52,7 +51,7 @@ export class ValoresResolucionComponent implements OnInit {
     this.detallesTecnicosService.crearValorResolucion(this.nuevoValorResolucion).subscribe(response => {
       if(response) {
         this.toastrService.success("Creación realizada con éxito.");
-        this.router.navigate(['/valoresResolucion', this.currentPage]); return;
+        this.router.navigate(['/adminDetalles']); return;
       }
       this.toastrService.error("Creación fallida...");
     });
@@ -63,7 +62,7 @@ export class ValoresResolucionComponent implements OnInit {
     // this.detallesTecnicosService.actualizarValorResolucion(valorResolucion).subscribe(response => {
     // if(response) {
     //   this.toastrService.success("Actualización realizada con éxito.");
-    //   this.router.navigate(['/valoresResolucion', this.currentPage]); return;
+    //   this.router.navigate(['/adminDetalles']); return;
     // }
     // this.toastrService.error("Actualización fallida...");
     // });
@@ -74,7 +73,7 @@ export class ValoresResolucionComponent implements OnInit {
     //this.detallesTecnicosService.eliminarValorResolucion(id_valor_resolucion).subscribe(response => {
     // if(response) {
     //   this.toastrService.success("Eliminación realizada con éxito.");
-    //   this.router.navigate(['/valoresResolucion', this.currentPage]); return;
+    //   this.router.navigate(['/adminDetalles']); return;
     // }
     // this.toastrService.error("Eliminación fallida...");
     //});
@@ -84,6 +83,5 @@ export class ValoresResolucionComponent implements OnInit {
     this.currentPage = currentPage;
     this.paginationConfig.currentPage = this.currentPage;
     this.currentItemsPerPage = this.valoresResolucion.slice(5*(this.currentPage-1), 5*(this.currentPage)).length;
-    //this.router.navigate(['/valoresResolucion', this.currentPage]);
   }
 }

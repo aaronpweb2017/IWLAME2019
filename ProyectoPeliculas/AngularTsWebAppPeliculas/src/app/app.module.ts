@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {NgxPaginationModule} from 'ngx-pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { ToastrModule } from 'ngx-toastr';
 
 //Components (declarations):
@@ -17,12 +17,13 @@ import { HomeComponent } from './components/home/home.component';
 import { SolicitudesComponent } from './components/solicitudes/solicitudes.component';
 import { TokensComponent } from './components/tokens/tokens.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
-import { FormatoComponent } from './components/detalles/formato/formato.component';
+import { FormatoComponent } from './components/detalles/formatos/formatos.component';
 import { TiposResolucionComponent } from './components/detalles/resoluciones/tipos-resolucion/tipos-resolucion.component';
 import { ValoresResolucionComponent } from './components/detalles/resoluciones/valores-resolucion/valores-resolucion.component';
 import { RelacionesAspectoComponent } from './components/detalles/resoluciones/relaciones-aspecto/relaciones-aspecto.component';
 import { ResolucionesComponent } from './components/detalles/resoluciones/resoluciones/resoluciones.component';
 import { DetallesTecnicosComponent } from './components/detalles/detalles-tecnicos/detalles-tecnicos.component';
+import { AdminDetallesComponent } from './components/admin-detalles/admin-detalles.component';
 import { ModalActualizacionComponent } from './components/modals/modal-actualizacion/modal-actualizacion.component';
 import { ModalEliminacionComponent } from './components/modals/modal-eliminacion/modal-eliminacion.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -38,6 +39,21 @@ import { VistasService } from './services/vistas.service';
 import { appRoutes } from './app.routes';
 
 @NgModule({
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
+    RouterModule.forRoot(appRoutes,
+      { onSameUrlNavigation: 'reload' }),
+    BrowserAnimationsModule,
+    NgxPaginationModule,
+    ToastrModule.forRoot({
+      timeOut: 1500,
+      positionClass: 'toast-top-full-width',
+      preventDuplicates: true
+    })
+
+  ],
   declarations: [
     AppComponent,
     LoginComponent,
@@ -53,23 +69,10 @@ import { appRoutes } from './app.routes';
     RelacionesAspectoComponent,
     ResolucionesComponent,
     DetallesTecnicosComponent,
+    AdminDetallesComponent,
     ModalActualizacionComponent,
     ModalEliminacionComponent,
-    FooterComponent,
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpClientModule,
-    RouterModule.forRoot(appRoutes,
-      { onSameUrlNavigation: 'reload' }),
-    BrowserAnimationsModule,
-    NgxPaginationModule,
-    ToastrModule.forRoot({
-      timeOut: 1500,
-      positionClass: 'toast-top-full-width',
-      preventDuplicates: true })
-      
+    FooterComponent
   ],
   providers: [GlobalService, UsuariosService,
     SolicitudesService, DetallesTecnicosService, VistasService],
