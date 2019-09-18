@@ -23,7 +23,7 @@
       </thead>
       <tbody>
         <ng-container *ngFor="let relacionAspecto of relacionesAspecto | paginate: { id:
-          'aspectRatioPagination', itemsPerPage: paginationConfig.itemsPerPage, currentPage:
+          'aspectRatiosPagination', itemsPerPage: paginationConfig.itemsPerPage, currentPage:
           paginationConfig.currentPage, totalItems: paginationConfig.totalItems }; let i=index;">
           <tr>
             <td class="text-center">
@@ -57,6 +57,6 @@
         </ng-container>
       </tbody>
     </table>
-    <pagination-controls id="aspectRatioPagination" (pageChange)="pageChanged($event)"></pagination-controls>
+    <pagination-controls id="aspectRatiosPagination" (pageChange)="pageChanged($event)"></pagination-controls>
   </div>
 </div>

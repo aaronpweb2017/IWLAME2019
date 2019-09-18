@@ -26,7 +26,7 @@
       </thead>
       <tbody>
         <ng-container *ngFor="let detalleTecnico of detallesTecnicos | paginate: { id:
-          'technicalDetailPagination', itemsPerPage: paginationConfig.itemsPerPage, currentPage:
+          'technicalDetailsPagination', itemsPerPage: paginationConfig.itemsPerPage, currentPage:
           paginationConfig.currentPage, totalItems: paginationConfig.totalItems }; let i=index;">
           <tr>
             <td class="text-center">
@@ -84,6 +84,6 @@
         </ng-container>
       </tbody>
     </table>
-    <pagination-controls id="technicalDetailPagination" (pageChange)="pageChanged($event)"></pagination-controls>
+    <pagination-controls id="technicalDetailsPagination" (pageChange)="pageChanged($event)"></pagination-controls>
   </div>
 </div>

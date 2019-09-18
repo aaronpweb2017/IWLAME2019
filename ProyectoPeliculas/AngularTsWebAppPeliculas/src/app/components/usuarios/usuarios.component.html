@@ -3,11 +3,7 @@
     <table class="table table-bordered table-dark table-hover">
       <thead>
         <tr>
-          <th colspan="8">
-            <h3 class="font-weight-bold text-center">
-              Registro de uaurios de la aplicación
-            </h3>
-          </th>
+          <th colspan="8"><h3 class="font-weight-bold text-center">Registro de uaurios</h3></th>
         </tr>
         <tr>
           <th class="text-center"><span style="font-size: 20px;">id</span></th>
@@ -19,7 +15,9 @@
         </tr>
       </thead>
       <tbody>
-        <ng-container *ngFor="let usuario of usuarios | paginate: paginationConfig; let i=index;">
+        <ng-container *ngFor="let usuario of usuarios | paginate: { id:
+          'usersPagination', itemsPerPage: paginationConfig.itemsPerPage, currentPage:
+          paginationConfig.currentPage, totalItems: paginationConfig.totalItems }; let i=index;">
           <tr>
             <td class="text-center">{{usuario.id_usuario}}</td>
             <td class="text-center">{{usuario.nombre_usuario}}</td>
@@ -54,6 +52,6 @@
         </ng-container>
       </tbody>
     </table>
-    <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+    <pagination-controls id="usersPagination" (pageChange)="pageChanged($event)"></pagination-controls>
   </div>
 </div>

@@ -23,7 +23,7 @@
       </thead>
       <tbody>
         <ng-container *ngFor="let formato of formatos | paginate: { id:
-          'formatTypePagination', itemsPerPage: paginationConfig.itemsPerPage, currentPage:
+          'formatsPagination', itemsPerPage: paginationConfig.itemsPerPage, currentPage:
           paginationConfig.currentPage, totalItems: paginationConfig.totalItems }; let i=index;">
           <tr>
             <td class="text-center">
@@ -57,6 +57,6 @@
         </ng-container>
       </tbody>
     </table>
-    <pagination-controls id="formatTypePagination" (pageChange)="pageChanged($event)"></pagination-controls>
+    <pagination-controls id="formatsPagination" (pageChange)="pageChanged($event)"></pagination-controls>
   </div>
 </div>

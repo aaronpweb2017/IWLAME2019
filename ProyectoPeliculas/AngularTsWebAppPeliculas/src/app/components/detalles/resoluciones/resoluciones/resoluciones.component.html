@@ -24,7 +24,7 @@
       </thead>
       <tbody>
         <ng-container *ngFor="let resolucion of resoluciones | paginate: { id:
-          'resolutionPagination', itemsPerPage: paginationConfig.itemsPerPage, currentPage:
+          'resolutionsPagination', itemsPerPage: paginationConfig.itemsPerPage, currentPage:
           paginationConfig.currentPage, totalItems: paginationConfig.totalItems }; let i=index;">
           <tr>
             <td class="text-center">
@@ -69,6 +69,6 @@
         </ng-container>
       </tbody>
     </table>
-    <pagination-controls id="resolutionPagination" (pageChange)="pageChanged($event)"></pagination-controls>
+    <pagination-controls id="resolutionsPagination" (pageChange)="pageChanged($event)"></pagination-controls>
   </div>
 </div>

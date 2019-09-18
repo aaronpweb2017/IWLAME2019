@@ -4,9 +4,7 @@
       <thead>
         <tr>
           <th colspan="7">
-            <h3 class="font-weight-bold text-center">
-              Historial de solicitudes realizadas por los uaurios
-            </h3>
+            <h3 class="font-weight-bold text-center">Historial de solicitudes realizadas</h3>
           </th>
         </tr>
         <tr>
@@ -20,7 +18,9 @@
         </tr>
       </thead>
       <tbody>
-        <ng-container *ngFor="let solicitud of solicitudes | paginate: paginationConfig;">
+        <ng-container *ngFor="let solicitud of solicitudes | paginate: { id:
+          'requestsPagination', itemsPerPage: paginationConfig.itemsPerPage, currentPage:
+          paginationConfig.currentPage, totalItems: paginationConfig.totalItems };">
           <tr>
             <td class="text-center">{{solicitud.id}}</td>
             <td class="text-center">{{solicitud.usuario}}</td>
@@ -46,6 +46,6 @@
         </ng-container>
       </tbody>
     </table>
-    <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+    <pagination-controls id="requestsPagination" (pageChange)="pageChanged($event)"></pagination-controls>
   </div>
 </div>
