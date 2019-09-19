@@ -15,6 +15,11 @@ namespace ASPNETCoreWebApiPeliculas {
         public DbSet<RelacionAspecto> relacionesAspecto { get; set; }
         public DbSet<Resolucion> resoluciones { get; set; }
         public DbSet<DetalleTecnico> detallesTecnicos { get; set; }
+        public DbSet<Pelicula> peliculas { get; set; }
+        public DbSet<TipoArchivo> tiposArchivo { get; set; }
+        public DbSet<Servidor> servidores { get; set; }
+        public DbSet<Descarga> descargas { get; set; }
+        public DbSet<Enlace> enlaces { get; set; }
         public DbSet<VSolicitud> vSolicitudes { get; set; }
         public DbSet<VToken> vTokens { get; set; }
         public DbSet<VResolucion> vResoluciones { get; set; }
@@ -42,9 +47,9 @@ namespace ASPNETCoreWebApiPeliculas {
             modelBuilder.Entity<Token>().Property(t => t.valor_token).
             HasColumnName("valor_token").HasColumnType("VARCHAR").HasMaxLength(180).IsRequired();
             modelBuilder.Entity<Token>().Property(t => t.emision_token).
-            HasColumnName("emision_token").HasColumnType("DATETIME").IsRequired();
+            HasColumnName("emision_token").HasColumnType("DATETIME2").IsRequired();
             modelBuilder.Entity<Token>().Property(t => t.expiracion_token).
-            HasColumnName("expiracion_token").HasColumnType("DATETIME").IsRequired();
+            HasColumnName("expiracion_token").HasColumnType("DATETIME2").IsRequired();
             modelBuilder.Entity<Token>().Property(t => t.id_usuario).
             HasColumnName("id_usuario").HasColumnType("INT").IsRequired();
             modelBuilder.Entity<Token>().HasKey(t => t.id_token).HasName("id_token_PK_CSTR");
@@ -151,6 +156,70 @@ namespace ASPNETCoreWebApiPeliculas {
             HasForeignKey(dt => new {dt.id_tipo_resolucion, dt.id_valor_resolucion,
             dt.id_relacion_aspecto}).HasConstraintName("id_tipo_valor_relacion_FK_CSTR");
 
+            //Table Pelicula Configuration:
+            modelBuilder.Entity<Pelicula>().ToTable("Pelicula");
+            modelBuilder.Entity<Pelicula>().Property(p => p.id_pelicula).
+            HasColumnName("id_pelicula").HasColumnType("INT");
+            modelBuilder.Entity<Pelicula>().Property(p => p.nombre).
+            HasColumnName("nombre").HasColumnType("VARCHAR").HasMaxLength(50).IsRequired();
+            modelBuilder.Entity<Pelicula>().Property(p => p.fecha_estreno).
+            HasColumnName("fecha_estreno").HasColumnType("DATETIME2").IsRequired();
+            modelBuilder.Entity<Pelicula>().Property(p => p.presupuesto).
+            HasColumnName("presupuesto").HasColumnType("MONEY");
+            modelBuilder.Entity<Pelicula>().Property(p => p.recaudacion).
+            HasColumnName("recaudacion").HasColumnType("MONEY");
+            modelBuilder.Entity<Pelicula>().Property(p => p.sinopsis).
+            HasColumnName("sinopsis").HasColumnType("VARCHAR").HasMaxLength(300).IsRequired();
+            modelBuilder.Entity<Pelicula>().Property(p => p.calificacion).
+            HasColumnName("calificacion").HasColumnType("DECIMAL(6,3)");
+            modelBuilder.Entity<Pelicula>().HasKey(p => p.id_pelicula).HasName("id_pelicula_PK_CSTR");
+            modelBuilder.Entity<Pelicula>().HasOne<DetalleTecnico>(p => p.detalleTecnico).
+            WithMany(dt => dt.peliculas).HasForeignKey(p => p.id_detalle).HasConstraintName("id_detalle_FK_CSTR");
+
+            //Table TipoArchivo Configuration:
+            modelBuilder.Entity<TipoArchivo>().ToTable("TipoArchivo");
+            modelBuilder.Entity<TipoArchivo>().Property(ta => ta.id_tipo_archivo).
+            HasColumnName("id_tipo_archivo").HasColumnType("INT");
+            modelBuilder.Entity<TipoArchivo>().Property(ta => ta.nombre_tipo_archivo).
+            HasColumnName("nombre_tipo_archivo").HasColumnType("VARCHAR").HasMaxLength(20).IsRequired();
+            modelBuilder.Entity<TipoArchivo>().HasKey(ta => ta.id_tipo_archivo).HasName("id_tipo_archivo_PK_CSTR");
+
+            //Table Servidor Configuration:
+            modelBuilder.Entity<Servidor>().ToTable("Servidor");
+            modelBuilder.Entity<Servidor>().Property(s => s.id_servidor).
+            HasColumnName("id_servidor").HasColumnType("INT");
+            modelBuilder.Entity<Servidor>().Property(s => s.nombre_servidor).
+            HasColumnName("nombre_servidor").HasColumnType("VARCHAR").HasMaxLength(20).IsRequired();
+            modelBuilder.Entity<Servidor>().Property(s => s.sitio_servidor).
+            HasColumnName("sitio_servidor ").HasColumnType("VARCHAR").HasMaxLength(50).IsRequired();
+            modelBuilder.Entity<Servidor>().HasKey(s => s.id_servidor).HasName("id_servidor_PK_CSTR");
+
+            //Table Descarga Configuration:
+            modelBuilder.Entity<Descarga>().ToTable("Descarga");
+            modelBuilder.Entity<Descarga>().Property(d => d.id_descarga).
+            HasColumnName("id_descarga").HasColumnType("INT");
+            modelBuilder.Entity<Descarga>().Property(d => d.password_descarga).
+            HasColumnName("password_descarga").HasColumnType("VARCHAR").HasMaxLength(32);
+            modelBuilder.Entity<Descarga>().HasKey(d => d.id_descarga).HasName("id_descarga_PK_CSTR");
+            modelBuilder.Entity<Descarga>().HasOne<TipoArchivo>(d => d.tipoArchivo).
+            WithMany(ta => ta.descargas).HasForeignKey(d => d.id_tipo_archivo).HasConstraintName("id_tipo_archivo_FK_CSTR");
+            modelBuilder.Entity<Descarga>().HasOne<Servidor>(d => d.servidor).
+            WithMany(s => s.descargas).HasForeignKey(d => d.id_servidor).HasConstraintName("id_servidor_FK_CSTR");
+            modelBuilder.Entity<Descarga>().HasOne<Pelicula>(d => d.pelicula).
+            WithMany(p => p.descargas).HasForeignKey(d => d.id_pelicula).HasConstraintName("id_pelicula_FK_CSTR");
+
+            //Table Enlace Configuration:
+            modelBuilder.Entity<Enlace>().ToTable("Enlace");
+            modelBuilder.Entity<Enlace>().Property(e => e.id_enlace).
+            HasColumnName("id_enlace").HasColumnType("INT");
+            modelBuilder.Entity<Enlace>().Property(e => e.valor_enlace).
+            HasColumnName("valor_enlace").HasColumnType("VARCHAR").HasMaxLength(150).IsRequired();
+            modelBuilder.Entity<Enlace>().Property(e => e.status_enlace).
+            HasColumnName("status_enlace").HasColumnType("INT").IsRequired();
+            modelBuilder.Entity<Enlace>().HasKey(e => e.id_enlace).HasName("id_enlace_PK_CSTR");
+            modelBuilder.Entity<Enlace>().HasOne<Descarga>(e => e.descarga).
+            WithMany(d => d.enlaces).HasForeignKey(e => e.id_descarga).HasConstraintName("id_descarga_FK_CSTR");
+
             //View VSolicitud Configuration:
             modelBuilder.Entity<VSolicitud>().ToTable("VSolicitud");
             modelBuilder.Entity<VSolicitud>().Property(vs => vs.id).
@@ -173,9 +242,9 @@ namespace ASPNETCoreWebApiPeliculas {
             modelBuilder.Entity<VToken>().Property(vt => vt.codigo).
             HasColumnName("codigo").HasColumnType("VARCHAR").HasMaxLength(180);
             modelBuilder.Entity<VToken>().Property(vt => vt.emision).
-            HasColumnName("emision").HasColumnType("DATETIME");
+            HasColumnName("emision").HasColumnType("DATETIME2");
             modelBuilder.Entity<VToken>().Property(vt => vt.expiracion).
-            HasColumnName("expiracion").HasColumnType("DATETIME");
+            HasColumnName("expiracion").HasColumnType("DATETIME2");
             modelBuilder.Entity<VToken>().Property(vt => vt.usuario).
             HasColumnName("usuario").HasColumnType("VARCHAR").HasMaxLength(70);
 

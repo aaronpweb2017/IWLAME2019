@@ -105,9 +105,9 @@ CREATE TABLE Formato(
 ALTER TABLE Formato ADD CONSTRAINT
 id_formato_PK_CSTR PRIMARY KEY(id_formato)
 
-SELECT FO.id_formato,
-FO.nombre_formato
-FROM Formato FO
+SELECT id_formato,
+nombre_formato
+FROM Formato
 
 DROP TABLE Formato
 
@@ -133,9 +133,9 @@ porcentaje_visualizacion, porcentaje_perdida) VALUES
 ('Open Matte', 87.500, 12.500),
 ('IMAX', 100.000, 0.000)
 
-SELECT TR.id_tipo_resolucion, TR.nombre_tipo_resolucion, 
-TR.porcentaje_visualizacion, TR.porcentaje_perdida
-FROM TipoResolucion TR
+SELECT id_tipo_resolucion, nombre_tipo_resolucion, 
+porcentaje_visualizacion, porcentaje_perdida
+FROM TipoResolucion
 
 DROP TABLE TipoResolucion
 
@@ -163,9 +163,9 @@ INSERT INTO ValorResolucion(valor_resolucion) VALUES
 ('1920x1024'), ('1920x1032'), ('1920x1036'), ('1920x1040'), ('1920x1072'),
 ('1920x1080')
 
-SELECT VR.id_valor_resolucion,
-VR.valor_resolucion
-FROM ValorResolucion VR
+SELECT id_valor_resolucion,
+valor_resolucion
+FROM ValorResolucion
 
 DROP TABLE ValorResolucion
 
@@ -188,9 +188,9 @@ id_relacion_aspecto_PK_CSTR PRIMARY KEY(id_relacion_aspecto)
 INSERT INTO RelacionAspecto(valor_relacion_aspecto) VALUES
 ('4:3'), ('5:12'), ('16:9')
 
-SELECT RA.id_relacion_aspecto,
-RA.valor_relacion_aspecto
-FROM RelacionAspecto RA
+SELECT id_relacion_aspecto,
+valor_relacion_aspecto
+FROM RelacionAspecto
 
 DROP TABLE RelacionAspecto
 
@@ -227,14 +227,14 @@ id_valor_resolucion, id_relacion_aspecto) VALUES
 (4, 20, 3), (4, 21, 3), (4, 22, 3), (4, 23, 3),
 (4, 24, 3), (4, 25, 3), (3, 26, 3), (4, 26, 3)
 
-SELECT RE.id_tipo_resolucion, RE.id_valor_resolucion,
-RE.id_relacion_aspecto FROM Resolucion RE
+SELECT id_tipo_resolucion, id_valor_resolucion,
+id_relacion_aspecto FROM Resolucion
 
 SELECT TR.nombre_tipo_resolucion, VR.valor_resolucion,
-RA.valor_relacion_aspecto FROM Resolucion RE
-INNER JOIN TipoResolucion TR ON RE.id_tipo_resolucion = TR.id_tipo_resolucion
-INNER JOIN ValorResolucion VR ON RE.id_valor_resolucion = VR.id_valor_resolucion
-INNER JOIN RelacionAspecto RA ON RE.id_relacion_aspecto = RA.id_relacion_aspecto
+RA.valor_relacion_aspecto FROM Resolucion R
+INNER JOIN TipoResolucion TR ON R.id_tipo_resolucion = TR.id_tipo_resolucion
+INNER JOIN ValorResolucion VR ON R.id_valor_resolucion = VR.id_valor_resolucion
+INNER JOIN RelacionAspecto RA ON R.id_relacion_aspecto = RA.id_relacion_aspecto
 
 DROP TABLE Resolucion
 
@@ -285,12 +285,12 @@ DROP TABLE DetalleTecnico
 
 CREATE TABLE Pelicula(
     id_pelicula INT IDENTITY(1, 1) NOT NULL,
-    nombre_pelicula VARCHAR(50) NOT NULL,
-    fecha_estreno SMALLDATETIME NOT NULL,
+    nombre VARCHAR(50) NOT NULL,
+    fecha_estreno DATETIME2 NOT NULL,
     presupuesto MONEY NULL,
     recaudacion MONEY NULL,
     sinopsis VARCHAR(300) NOT NULL,
-    calificacion_pelicula INT NULL,
+    calificacion DECIMAL(6, 3) NULL,
     id_detalle INT NOT NULL
 )
 
@@ -300,33 +300,41 @@ id_pelicula_PK_CSTR PRIMARY KEY(id_pelicula)
 ALTER TABLE Pelicula ADD CONSTRAINT id_detalle_FK_CSTR
 FOREIGN KEY(id_detalle) REFERENCES DetalleTecnico(id_detalle)
 
---ALTER TABLE Pelicula DROP CONSTRAINT id_detalle_FK_CSTR
---ALTER TABLE Pelicula DROP COLUMN id_detalle
-
-INSERT INTO Pelicula(nombre_pelicula, fecha_estreno,
+SELECT id_pelicula, nombre, fecha_estreno,
 presupuesto, recaudacion, sinopsis,
-calificacion_pelicula, id_detalle) VALUES 
-('Avengers Infinity War','2018-04-27', 300000000, 2048359754,
-'Thanos desaparece a la mitad del universo con las gemas.', NULL, 1)
+calificacion, id_detalle FROM Pelicula
 
-SELECT PEL.id_pelicula, PEL.nombre_pelicula, PEL.fecha_estreno,
-PEL.presupuesto, PEL.recaudacion, PEL.sinopsis,
-PEL.calificacion_pelicula, PEL.id_detalle FROM Pelicula PEL
-
-SELECT PEL.nombre_pelicula, FO.nombre_formato, TR.nombre_tipo_resolucion,
-VR.valor_resolucion, RA.valor_relacion_aspecto FROM Pelicula PEL
-INNER JOIN DetalleTecnico DT ON PEL.id_detalle = DT.id_detalle
-INNER JOIN Formato FO ON DT.id_formato = FO.id_formato
-INNER JOIN Resolucion RE ON DT.id_tipo_resolucion = RE.id_tipo_resolucion
-AND DT.id_valor_resolucion = RE.id_valor_resolucion
-AND DT.id_relacion_aspecto = RE.id_relacion_aspecto
-INNER JOIN TipoResolucion TR ON RE.id_tipo_resolucion = TR.id_tipo_resolucion
-INNER JOIN ValorResolucion VR ON RE.id_valor_resolucion = VR.id_valor_resolucion
-INNER JOIN RelacionAspecto RA ON RE.id_relacion_aspecto = RA.id_relacion_aspecto
-GROUP BY PEL.nombre_pelicula, FO.nombre_formato, TR.nombre_tipo_resolucion,
-VR.valor_resolucion, RA.valor_relacion_aspecto ORDER BY PEL.nombre_pelicula ASC
+SELECT P.nombre, F.nombre_formato, TR.nombre_tipo_resolucion,
+VR.valor_resolucion, RA.valor_relacion_aspecto FROM Pelicula P
+INNER JOIN DetalleTecnico DT ON P.id_detalle = DT.id_detalle
+INNER JOIN Formato F ON DT.id_formato = F.id_formato
+INNER JOIN TipoResolucion TR ON DT.id_tipo_resolucion = TR.id_tipo_resolucion
+INNER JOIN ValorResolucion VR ON DT.id_valor_resolucion = VR.id_valor_resolucion
+INNER JOIN RelacionAspecto RA ON DT.id_relacion_aspecto = RA.id_relacion_aspecto
 
 DROP TABLE Pelicula
+
+------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------
+
+CREATE TABLE TipoArchivo(
+    id_tipo_archivo INT IDENTITY(1, 1) NOT NULL,
+    nombre_tipo_archivo VARCHAR(20) NOT NULL
+)
+
+ALTER TABLE TipoArchivo ADD CONSTRAINT
+id_tipo_archivo_PK_CSTR PRIMARY KEY(id_tipo_archivo)
+
+INSERT INTO TipoArchivo(nombre_tipo_archivo) VALUES
+('Audio'), ('Video')
+
+SELECT id_tipo_archivo,
+nombre_tipo_archivo
+FROM TipoArchivo
+
+DROP TABLE TipoArchivo
 
 ------------------------------------------------------------------------------------------------------
 
@@ -354,8 +362,8 @@ INSERT INTO Servidor(nombre_servidor, sitio_servidor) VALUES
 ('RapidVideo','https://www.rapidvideo.com'),
 ('Uqload','https://uqload.com')
 
-SELECT SE.id_servidor, SE.nombre_servidor,
-SE.sitio_servidor FROM Servidor SE
+SELECT id_servidor, nombre_servidor,
+sitio_servidor FROM Servidor
 
 DROP TABLE Servidor
 
@@ -364,55 +372,9 @@ DROP TABLE Servidor
 
 ------------------------------------------------------------------------------------------------------
 
-CREATE TABLE TipoArchivo(
-    id_tipo_archivo INT IDENTITY(1, 1) NOT NULL,
-    nombre_tipo_archivo VARCHAR(5) NOT NULL
-)
-
-ALTER TABLE TipoArchivo ADD CONSTRAINT
-id_tipo_archivo_PK_CSTR PRIMARY KEY(id_tipo_archivo)
-
-INSERT INTO TipoArchivo(nombre_tipo_archivo) VALUES
-('Audio'),
-('Video')
-
-SELECT TA.id_tipo_archivo,
-TA.nombre_tipo_archivo
-FROM TipoArchivo TA
-
-DROP TABLE TipoArchivo
-
-------------------------------------------------------------------------------------------------------
-
-
-------------------------------------------------------------------------------------------------------
-
-CREATE TABLE Vigencia(
-    id_vigencia INT IDENTITY(1, 1) NOT NULL,
-    valor_vigencia VARCHAR(10) NOT NULL
-)
-
-ALTER TABLE Vigencia ADD CONSTRAINT
-id_vigencia_PK_CSTR PRIMARY KEY(id_vigencia)
-
-INSERT INTO Vigencia(valor_vigencia) VALUES
-('Activo'),
-('Inactivo')
-
-SELECT VG.id_vigencia,
-VG.valor_vigencia
-FROM Vigencia VG
-
-DROP TABLE Vigencia
-
-------------------------------------------------------------------------------------------------------
-
-
-------------------------------------------------------------------------------------------------------
-
 CREATE TABLE Descarga(
     id_descarga INT IDENTITY(1, 1) NOT NULL,
-    password VARCHAR(30) NULL,
+    password_descarga VARCHAR(32) NULL,
     id_tipo_archivo INT NOT NULL,
     id_servidor INT NOT NULL,
     id_pelicula INT NOT NULL
@@ -430,15 +392,11 @@ FOREIGN KEY(id_servidor) REFERENCES Servidor(id_servidor)
 ALTER TABLE Descarga ADD CONSTRAINT id_pelicula_FK_CSTR
 FOREIGN KEY(id_pelicula) REFERENCES Pelicula(id_pelicula)
 
-INSERT INTO Descarga(password, id_tipo_archivo,
-id_servidor, id_pelicula) VALUES
-(NULL, 2, 2, 1)
-
-SELECT PEL.nombre_pelicula, DS.id_descarga, DS.password,
-TA.nombre_tipo_archivo, SE.nombre_servidor FROM Descarga DS 
-INNER JOIN Pelicula PEL ON DS.id_pelicula = PEL.id_pelicula
-INNER JOIN TipoArchivo TA ON DS.id_tipo_archivo = TA.id_tipo_archivo
-INNER JOIN Servidor SE ON DS.id_servidor = SE.id_servidor
+SELECT P.nombre, D.id_descarga, D.password_descarga,
+TA.nombre_tipo_archivo, S.nombre_servidor FROM Descarga D 
+INNER JOIN Pelicula P ON D.id_pelicula = P.id_pelicula
+INNER JOIN TipoArchivo TA ON D.id_tipo_archivo = TA.id_tipo_archivo
+INNER JOIN Servidor S ON D.id_servidor = S.id_servidor
 
 DROP TABLE Descarga
 
@@ -450,8 +408,8 @@ DROP TABLE Descarga
 CREATE TABLE Enlace(
     id_enlace INT IDENTITY(1, 1) NOT NULL,
     valor_enlace VARCHAR(150) NOT NULL,
+    status_enlace INT NOT NULL,
     id_descarga INT NOT NULL,
-    id_vigencia INT NOT NULL
 )
 
 ALTER TABLE Enlace ADD CONSTRAINT
@@ -460,22 +418,16 @@ id_enlace_PK_CSTR PRIMARY KEY(id_enlace)
 ALTER TABLE Enlace ADD CONSTRAINT id_descarga_FK_CSTR
 FOREIGN KEY(id_descarga) REFERENCES Descarga(id_descarga)
 
-ALTER TABLE Enlace ADD CONSTRAINT id_vigencia_FK_CSTR
-FOREIGN KEY(id_vigencia) REFERENCES Vigencia(id_vigencia)
-
-INSERT INTO Enlace(valor_enlace, id_descarga, id_vigencia) VALUES
-('https://mega.nz/#!MF80TIqD!dfwrcCQUqzg6nZW2H0fqALiiAi4vvEqe4ZwDjgiGjmw', 1, 1)
-
 SELECT EN.id_enlace, EN.valor_enlace, 
 EN.id_descarga, EN.id_vigencia FROM Enlace EN
 
-SELECT PEL.nombre_pelicula, TA.nombre_tipo_archivo, SE.nombre_servidor,
-EN.valor_enlace, DS.password, VG.valor_vigencia FROM Enlace EN
-INNER JOIN Descarga DS ON EN.id_descarga = DS.id_descarga
-INNER JOIN TipoArchivo TA ON DS.id_tipo_archivo = TA.id_tipo_archivo
-INNER JOIN Servidor SE ON DS.id_servidor = SE.id_servidor
-INNER JOIN Pelicula PEL ON DS.id_pelicula = PEL.id_pelicula
-INNER JOIN Vigencia VG ON EN.id_vigencia = VG.id_vigencia
+SELECT P.nombre, D.id_descarga, D.password_descarga,
+TA.nombre_tipo_archivo, S.nombre_servidor, E.id_enlace,
+E.valor_enlace, E.status_enlace FROM Enlace E
+INNER JOIN Descarga D ON E.id_descarga = D.id_descarga
+INNER JOIN Pelicula P ON D.id_pelicula = P.id_pelicula
+INNER JOIN TipoArchivo TA ON D.id_tipo_archivo = TA.id_tipo_archivo
+INNER JOIN Servidor S ON D.id_servidor = S.id_servidor
 
 DROP TABLE Enlace
 
@@ -993,7 +945,7 @@ CREATE TRIGGER ActualizaCalificacionPelicula
 ON Escena AFTER INSERT, UPDATE, DELETE AS
 BEGIN
     DECLARE @id_pelicula INT
-    DECLARE @calificacion_pelicula INT
+    DECLARE @calificacion INT
     IF EXISTS (SELECT 1 FROM inserted)
     BEGIN
         SET @id_pelicula = (SELECT id_pelicula FROM inserted)
@@ -1002,9 +954,9 @@ BEGIN
     BEGIN
         SET @id_pelicula = (SELECT id_pelicula FROM deleted)
     END
-    SET @calificacion_pelicula = (SELECT AVG(calificacion_escena)
+    SET @calificacion = (SELECT AVG(calificacion_escena)
     FROM Escena WHERE id_pelicula = @id_pelicula)
-    UPDATE Pelicula SET calificacion_pelicula = @calificacion_pelicula
+    UPDATE Pelicula SET calificacion = @calificacion
     WHERE id_pelicula = @id_pelicula
 END
 
