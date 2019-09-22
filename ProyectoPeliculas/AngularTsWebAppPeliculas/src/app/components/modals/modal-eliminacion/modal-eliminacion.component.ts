@@ -1,4 +1,5 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, TemplateRef } from '@angular/core';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal'
 
 @Component({
   selector: 'app-modal-eliminacion',
@@ -6,11 +7,19 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: []
 })
 export class ModalEliminacionComponent {
+  modalRef: BsModalRef;
   @Input() request: string;
   @Input() model: any;
   @Output() modelIdentifierEvent = new EventEmitter();
 
-  emitModelIdentifierEvent(model: any) {
-    this.modelIdentifierEvent.emit(model);
+  constructor(private modalService: BsModalService) {  }
+
+  emitModelIdentifierEvent() {
+    this.modelIdentifierEvent.emit(this.model);
+    this.modalRef.hide();
+  }
+
+  public openModal(modalTemplate: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(modalTemplate);
   }
 }

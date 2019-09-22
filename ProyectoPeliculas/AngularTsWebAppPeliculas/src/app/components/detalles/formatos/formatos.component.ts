@@ -36,7 +36,7 @@ export class FormatoComponent implements OnInit {
       };
       this.totalPages = Math.trunc(this.formatos.length / this.paginationConfig.itemsPerPage);
       if (this.formatos.length % this.paginationConfig.itemsPerPage != 0) this.totalPages += 1;
-      this.currentItemsPerPage = this.formatos.slice(5*(this.currentPage-1), 5*(this.currentPage)).length;
+      this.currentItemsPerPage = this.formatos.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
     });
   }
 
@@ -49,7 +49,7 @@ export class FormatoComponent implements OnInit {
 
   crearFormato() {
     this.detallesTecnicosService.crearFormato(this.nuevoFormato).subscribe(response => {
-      if(response) {
+      if (response) {
         this.toastrService.success("Creación realizada con éxito.");
         this.router.navigate(['/adminDetalles']); return;
       }
@@ -58,30 +58,28 @@ export class FormatoComponent implements OnInit {
   }
 
   actualizarFormato(formato: Formato) {
-    console.log("Actualizar el formato: " + formato.id_formato);
-    //this.detallesTecnicosService.actualizarFormato(formato).subscribe(response => {
-    // if(response) {
-    //   this.toastrService.success("Actualización realizada con éxito.");
-    //   this.router.navigate(['/adminDetalles']); return;
-    // }
-    // this.toastrService.error("Actualización fallida...");
-    //});
+    this.detallesTecnicosService.actualizarFormato(formato).subscribe(response => {
+      if (response) {
+        this.toastrService.success("Actualización realizada con éxito.");
+        this.router.navigate(['/adminDetalles']); return;
+      }
+      this.toastrService.error("Actualización fallida...");
+    });
   }
 
   eliminarFormato(id_formato: number) {
-    console.log("Eliminar formato " + id_formato);
-    //this.detallesTecnicosService.eliminarFormato(id_formato).subscribe(response => {
-    // if(response) {
-    //   this.toastrService.success("Eliminación realizada con éxito.");
-    //   this.router.navigate(['/adminDetalles']); return;
-    // }
-    // this.toastrService.error("Eliminación fallida...");
-    //});
+    this.detallesTecnicosService.eliminarFormato(id_formato).subscribe(response => {
+      if (response) {
+        this.toastrService.success("Eliminación realizada con éxito.");
+        this.router.navigate(['/adminDetalles']); return;
+      }
+      this.toastrService.error("Eliminación fallida...");
+    });
   }
 
   pageChanged(currentPage: number) {
     this.currentPage = currentPage;
     this.paginationConfig.currentPage = this.currentPage;
-    this.currentItemsPerPage = this.formatos.slice(5*(this.currentPage-1), 5*(this.currentPage)).length;
+    this.currentItemsPerPage = this.formatos.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
   }
 }

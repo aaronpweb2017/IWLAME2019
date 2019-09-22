@@ -41,7 +41,7 @@ export class UsuariosComponent implements OnInit {
 
   decryptPassword(index: number, id_usuario: number) {
     this.usuariosService.getDecryptedPassword(id_usuario).subscribe(response => {
-      if(response) {
+      if (response) {
         this.decrypts[index] = true;
         this.passwords[index] = response; return;
       }
@@ -55,25 +55,23 @@ export class UsuariosComponent implements OnInit {
   }
 
   actualizarUsuario(usuario: Usuario) {
-    console.log("Actualizar al usuario: "+usuario.id_usuario);
-    //this.usuariosService.actualizarUsuario(usuario).subscribe(response => {
-    //  if(response) {
-    //    this.toastrService.success("Actualización realizada con éxito.");
-    //    this.router.navigate(['/usuarios', this.currentPage]); return;
-    //  }
-    //  this.toastrService.error("Actualización fallida...");
-    //});
+    this.usuariosService.actualizarUsuario(usuario).subscribe(response => {
+    if(response) {
+      this.toastrService.success("Actualización realizada con éxito.");
+      this.router.navigate(['/usuarios', this.currentPage]); return;
+    }
+    this.toastrService.error("Actualización fallida...");
+    });
   }
-  
+
   eliminarUsuario(id_usuario: number) {
-    console.log("Eliminar al usuario "+id_usuario);
-    //this.usuariosService.eliminarUsuario(id_usuario).subscribe(response => {
-    //  if(response) {
-    //    this.toastrService.success("Eliminación realizada con éxito.");
-    //    this.router.navigate(['/usuarios', this.currentPage]); return;
-    //  }
-    //  this.toastrService.error("Eliminación fallida...");
-    //});
+    this.usuariosService.eliminarUsuario(id_usuario).subscribe(response => {
+    if(response) {
+      this.toastrService.success("Eliminación realizada con éxito.");
+      this.router.navigate(['/usuarios', this.currentPage]); return;
+    }
+    this.toastrService.error("Eliminación fallida...");
+    });
   }
 
   pageChanged(currentPage: number) {

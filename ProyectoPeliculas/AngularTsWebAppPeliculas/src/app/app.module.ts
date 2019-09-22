@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ToastrModule } from 'ngx-toastr';
+import {ModalModule} from 'ngx-bootstrap/modal'
 
 //Components (declarations):
 import { AppComponent } from './app.component';
@@ -51,8 +52,8 @@ import { appRoutes } from './app.routes';
       timeOut: 1500,
       positionClass: 'toast-top-full-width',
       preventDuplicates: true
-    })
-
+    }),
+    ModalModule.forRoot()
   ],
   declarations: [
     AppComponent,

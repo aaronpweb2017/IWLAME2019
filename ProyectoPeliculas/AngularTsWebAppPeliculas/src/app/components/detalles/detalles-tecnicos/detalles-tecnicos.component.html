@@ -39,16 +39,18 @@
               <span *ngIf="detalleTecnico">{{detalleTecnico.formato}}</span>
               <select *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1"
                 [(ngModel)]="nuevoDetalleTecnico.id_formato" class="form-control">
-                <option *ngFor="let formato of formatos" [value]="formato.id_formato">{{formato.id_formato}}.- {{formato.nombre_formato}}</option>
+                <option *ngFor="let formato of formatos;" [value]="formato.id_formato">
+                  {{formato.id_formato}}.- {{formato.nombre_formato}}
+                </option>
               </select>
             </td>
             <td *ngIf="detalleTecnico" class="text-center"><span>{{detalleTecnico.tipo}}</span></td>
             <td *ngIf="detalleTecnico" class="text-center"><span>{{detalleTecnico.valor}}</span></td>
             <td *ngIf="detalleTecnico" class="text-center"><span>{{detalleTecnico.aspecto}}</span></td>
             <td *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1" colspan="3">
-              <select [(ngModel)]="resolutionIndexValues" class="form-control">
-                <option *ngFor="let resolucion of resoluciones" [value]="[resolucion.id1, resolucion.id2, resolucion.id3]">Tipo de resolución: {{resolucion.id1}}.-
-                  {{resolucion.tipo}}; Valor de resolución: {{resolucion.id2}}.- {{resolucion.valor}}; Relación de aspecto: {{resolucion.id3}}.- {{resolucion.aspecto}}
+              <select [(ngModel)]="resolutionIndex" class="form-control">
+                <option *ngFor="let resolucion of resoluciones; let j=index;" [value]="j">Tipo: {{resolucion.id1}}.- {{resolucion.tipo}} |
+                  Valor: {{resolucion.id2}}.- {{resolucion.valor}} | Relación de Aspecto: {{resolucion.id3}}.- {{resolucion.aspecto}}
                 </option>
               </select>
             </td>

@@ -70,7 +70,6 @@ export class ResolucionesComponent implements OnInit {
   }
 
   eliminarResolucion(resolucion: VResolucion) {
-    console.log("Eliminar la resolución ("+resolucion.id1+","+resolucion.id2+","+resolucion.id3+")");
     this.detallesTecnicosService.eliminarResolucion(resolucion.id1, resolucion.id2, resolucion.id3).subscribe(response => {
       if(response) { this.toastrService.success("Eliminación realizada con éxito.");
         this.router.navigate(['/adminDetalles']); return;

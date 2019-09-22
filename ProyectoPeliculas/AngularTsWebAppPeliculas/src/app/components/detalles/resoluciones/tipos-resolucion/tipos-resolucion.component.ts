@@ -26,8 +26,10 @@ export class TiposResolucionComponent implements OnInit {
 
   ngOnInit() {
     this.tiposResolucion = []; this.create = false;
-    this.nuevoTipoResolucion = { id_tipo_resolucion: 0, nombre_tipo_resolucion: "",
-    porcentaje_visualizacion:  0, porcentaje_perdida: 0 };
+    this.nuevoTipoResolucion = {
+      id_tipo_resolucion: 0, nombre_tipo_resolucion: "",
+      porcentaje_visualizacion: 0, porcentaje_perdida: 0
+    };
     this.detallesTecnicosService.getTiposResolucion().subscribe(tiposResolucion => {
       this.tiposResolucion = tiposResolucion; this.tiposResolucion.push(null);
       this.paginationConfig = {
@@ -37,7 +39,7 @@ export class TiposResolucionComponent implements OnInit {
       };
       this.totalPages = Math.trunc(this.tiposResolucion.length / this.paginationConfig.itemsPerPage);
       if (this.tiposResolucion.length % this.paginationConfig.itemsPerPage != 0) this.totalPages += 1;
-      this.currentItemsPerPage = this.tiposResolucion.slice(5*(this.currentPage-1), 5*(this.currentPage)).length;
+      this.currentItemsPerPage = this.tiposResolucion.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
     });
   }
 
@@ -50,7 +52,7 @@ export class TiposResolucionComponent implements OnInit {
 
   crearTipoResolucion() {
     this.detallesTecnicosService.crearTipoResolucion(this.nuevoTipoResolucion).subscribe(response => {
-      if(response) {
+      if (response) {
         this.toastrService.success("Creación realizada con éxito.");
         this.router.navigate(['/adminDetalles']); return;
       }
@@ -59,30 +61,28 @@ export class TiposResolucionComponent implements OnInit {
   }
 
   actualizarTipoResolucion(tipoResolucion: TipoResolucion) {
-    console.log("Actualizar el tipo de resolucion " + tipoResolucion.id_tipo_resolucion);
-    //this.detallesTecnicosService.actualizarTipoResolucion(tipoResolucion).subscribe(response => {
-    // if(response) {
-    //   this.toastrService.success("Actualización realizada con éxito.");
-    //   this.router.navigate(['/adminDetalles']); return;
-    // }
-    // this.toastrService.error("Actualización fallida...");
-    //});
+    this.detallesTecnicosService.actualizarTipoResolucion(tipoResolucion).subscribe(response => {
+      if (response) {
+        this.toastrService.success("Actualización realizada con éxito.");
+        this.router.navigate(['/adminDetalles']); return;
+      }
+      this.toastrService.error("Actualización fallida...");
+    });
   }
 
   eliminarTipoResolucion(id_tipo_resolucion: number) {
-    console.log("Eliminar el tipo de resolucion " + id_tipo_resolucion);
-    //this.detallesTecnicosService.eliminarTipoResolucion(id_tipo_resolucion).subscribe(response => {
-    // if(response) {
-    //   this.toastrService.success("Eliminación realizada con éxito.");
-    //   this.router.navigate(['/adminDetalles']); return;
-    // }
-    // this.toastrService.error("Eliminación fallida...");
-    //});
+    this.detallesTecnicosService.eliminarTipoResolucion(id_tipo_resolucion).subscribe(response => {
+      if (response) {
+        this.toastrService.success("Eliminación realizada con éxito.");
+        this.router.navigate(['/adminDetalles']); return;
+      }
+      this.toastrService.error("Eliminación fallida...");
+    });
   }
 
   pageChanged(currentPage: number) {
     this.currentPage = currentPage;
     this.paginationConfig.currentPage = this.currentPage;
-    this.currentItemsPerPage = this.tiposResolucion.slice(5*(this.currentPage-1), 5*(this.currentPage)).length;
+    this.currentItemsPerPage = this.tiposResolucion.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
   }
 }

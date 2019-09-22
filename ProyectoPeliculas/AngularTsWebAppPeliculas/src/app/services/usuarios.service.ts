@@ -62,7 +62,7 @@ export class UsuariosService {
   getDecryptedPassword(id_usuario: number): Observable<string> {
     this.ApiGetDecryptedPasswordURL = this.ApiUsuariosURL
     + "/GetDecryptedPassword/?id_usuario="+id_usuario;
-    return this.http.get(this.ApiGetDecryptedPasswordURL).pipe(
+    return this.http.get(this.ApiGetDecryptedPasswordURL, { responseType: 'text' }).pipe(
       map((data: any) => data as string)
     );
   }

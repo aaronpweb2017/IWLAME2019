@@ -1,63 +1,59 @@
-<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
+<button type="button" class="btn btn-danger" (click)="openModal(modalTemplate)">
   <i class="fas fa-trash-alt"></i>
 </button>
-<div class="modal fade text-dark" id="deleteModal" tabindex="-1"
-  role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h5 *ngIf="request.includes('EliminarUsuario')" class="modal-title font-weight-bold"
-          id="deleteModalLabel">Eliminación del usuario número {{model}}
-        </h5>
-        <h5 *ngIf="request.includes('EliminarFormato')" class="modal-title font-weight-bold"
-          id="deleteModalLabel">Eliminación del formato número {{model}}
-        </h5>
-        <h5 *ngIf="request.includes('EliminarTipoResolucion')" class="modal-title font-weight-bold"
-          id="deleteModalLabel">Eliminación del tipo de resolución {{model}}
-        </h5>
-        <h5 *ngIf="request.includes('EliminarValorResolucion')" class="modal-title font-weight-bold"
-          id="deleteModalLabel">Eliminación del valor de resolución {{model}}
-        </h5>
-        <h5 *ngIf="request.includes('EliminarRelacionAspecto')" class="modal-title font-weight-bold"
-          id="deleteModalLabel">Eliminación de la relación de aspecto {{model}}
-        </h5>
-        <h5 *ngIf="request.includes('EliminarResolucion')" class="modal-title font-weight-bold"
-          id="deleteModalLabel">Eliminación de la resolución ({{model.id1}},{{model.id2}},{{model.id3}})
-        </h5>
-        <h5 *ngIf="request.includes('EliminarDetalleTecnico')" class="modal-title font-weight-bold"
-          id="deleteModalLabel">Eliminación del detalle técnico {{model}}
-        </h5>
-        <button type="button" class="close" data-dismiss="modal"aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div *ngIf="request.includes('EliminarUsuario')" class="modal-body">
-        <p class="text-center">Está seguro de que desea eliminar este usuario?</p>
-      </div>
-      <div *ngIf="request.includes('EliminarFormato')" class="modal-body">
-        <p class="text-center">Está seguro de que desea eliminar este formato?</p>
-      </div>
-      <div *ngIf="request.includes('EliminarTipoResolucion')" class="modal-body">
-        <p class="text-center">Está seguro de que desea eliminar este tipo de resolución?</p>
-      </div>
-      <div *ngIf="request.includes('EliminarValorResolucion')" class="modal-body">
-        <p class="text-center">Está seguro de que desea eliminar este valor de resolución?</p>
-      </div>
-      <div *ngIf="request.includes('EliminarRelacionAspecto')" class="modal-body">
-        <p class="text-center">Está seguro de que desea eliminar esta relación de aspecto?</p>
-      </div>
-      <div *ngIf="request.includes('EliminarResolucion')" class="modal-body">
-        <p class="text-center">Está seguro de que desea eliminar esta resolución?</p>
-      </div>
-      <div *ngIf="request.includes('EliminarDetalleTecnico')" class="modal-body">
-        <p class="text-center">Está seguro de que desea eliminar este detalle técnico?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-danger" data-toggle="modal"
-          data-target="#deleteModal" (click)="emitModelIdentifierEvent(model)">Aceptar
-        </button>
-      </div>
+<ng-template #modalTemplate>
+  <div class="modal-content">
+    <div class="modal-header text-center">
+      <h5 *ngIf="request.includes('EliminarUsuario')" class="modal-title font-weight-bold">
+        Eliminación del usuario número {{model}}
+      </h5>
+      <h5 *ngIf="request.includes('EliminarFormato')" class="modal-title font-weight-bold">
+        Eliminación del formato número {{model}}
+      </h5>
+      <h5 *ngIf="request.includes('EliminarTipoResolucion')" class="modal-title font-weight-bold">
+        Eliminación del tipo de resolución {{model}}
+      </h5>
+      <h5 *ngIf="request.includes('EliminarValorResolucion')" class="modal-title font-weight-bold">
+        Eliminación del valor de resolución {{model}}
+      </h5>
+      <h5 *ngIf="request.includes('EliminarRelacionAspecto')" class="modal-title font-weight-bold">
+        Eliminación de la relación de aspecto {{model}}
+      </h5>
+      <h5 *ngIf="request.includes('EliminarResolucion')" class="modal-title font-weight-bold">
+        Eliminación de la resolución ({{model.id1}},{{model.id2}},{{model.id3}})
+      </h5>
+      <h5 *ngIf="request.includes('EliminarDetalleTecnico')" class="modal-title font-weight-bold">
+        Eliminación del detalle técnico {{model}}
+      </h5>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div *ngIf="request.includes('EliminarUsuario')" class="modal-body">
+      <p class="text-center">Está seguro de que desea eliminar este usuario?</p>
+    </div>
+    <div *ngIf="request.includes('EliminarFormato')" class="modal-body">
+      <p class="text-center">Está seguro de que desea eliminar este formato?</p>
+    </div>
+    <div *ngIf="request.includes('EliminarTipoResolucion')" class="modal-body">
+      <p class="text-center">Está seguro de que desea eliminar este tipo de resolución?</p>
+    </div>
+    <div *ngIf="request.includes('EliminarValorResolucion')" class="modal-body">
+      <p class="text-center">Está seguro de que desea eliminar este valor de resolución?</p>
+    </div>
+    <div *ngIf="request.includes('EliminarRelacionAspecto')" class="modal-body">
+      <p class="text-center">Está seguro de que desea eliminar esta relación de aspecto?</p>
+    </div>
+    <div *ngIf="request.includes('EliminarResolucion')" class="modal-body">
+      <p class="text-center">Está seguro de que desea eliminar esta resolución?</p>
+    </div>
+    <div *ngIf="request.includes('EliminarDetalleTecnico')" class="modal-body">
+      <p class="text-center">Está seguro de que desea eliminar este detalle técnico?</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Cerrar</button>
+      <button type="button" class="btn btn-danger" (click)="emitModelIdentifierEvent()">Aceptar
+      </button>
     </div>
   </div>
-</div>
+</ng-template>

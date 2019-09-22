@@ -58,25 +58,23 @@ export class RelacionesAspectoComponent implements OnInit {
   }
 
   actualizarRelacionAspecto(relacionAspecto: RelacionAspecto) {
-    console.log("Actualizar la relación de aspecto: " + relacionAspecto.id_relacion_aspecto);
-    //this.detallesTecnicosService.actualizarRelacionAspecto(relacionAspecto).subscribe(response => {
-    //if(response) {
-    //  this.toastrService.success("Actualización realizada con éxito.");
-    //  this.router.navigate(['/adminDetalles']); return;
-    //}
-    //this.toastrService.error("Actualización fallida...");
-    //});
+    this.detallesTecnicosService.actualizarRelacionAspecto(relacionAspecto).subscribe(response => {
+      if (response) {
+        this.toastrService.success("Actualización realizada con éxito.");
+        this.router.navigate(['/adminDetalles']); return;
+      }
+      this.toastrService.error("Actualización fallida...");
+    });
   }
 
   eliminarRelacionAspecto(id_relacion_aspecto: number) {
-    console.log("Eliminar la relación de aspecto " + id_relacion_aspecto);
-    //this.detallesTecnicosService.eliminarRelacionAspecto(id_relacion_aspecto).subscribe(response => {
-    //if(response) {
-    //  this.toastrService.success("Eliminación realizada con éxito.");
-    //  this.router.navigate(['/adminDetalles']); return;
-    //}
-    //this.toastrService.error("Eliminación fallida...");
-    //});
+    this.detallesTecnicosService.eliminarRelacionAspecto(id_relacion_aspecto).subscribe(response => {
+      if (response) {
+        this.toastrService.success("Eliminación realizada con éxito.");
+        this.router.navigate(['/adminDetalles']); return;
+      }
+      this.toastrService.error("Eliminación fallida...");
+    });
   }
 
   pageChanged(currentPage: number) {

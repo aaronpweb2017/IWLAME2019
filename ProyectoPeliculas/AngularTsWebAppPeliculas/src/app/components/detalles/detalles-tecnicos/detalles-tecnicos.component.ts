@@ -22,7 +22,7 @@ export class DetallesTecnicosComponent implements OnInit {
   formatos: Formato[];
   resoluciones: VResolucion[];
   nuevoDetalleTecnico: DetalleTecnico;
-  resolutionIndexValues : string;
+  resolutionIndex: number;
   create: boolean;
 
   constructor(private vistasService: VistasService, private detallesTecnicosService: DetallesTecnicosService,
@@ -38,7 +38,7 @@ export class DetallesTecnicosComponent implements OnInit {
       id_detalle: 0, id_formato: 0, id_tipo_resolucion: 0,
       id_valor_resolucion: 0, id_relacion_aspecto: 0
     };
-    this.resolutionIndexValues = "";
+    this.resolutionIndex = -1;
     this.vistasService.getDetallesTecnicosVista().subscribe(detallesTecnicos => {
       this.detallesTecnicos = detallesTecnicos; this.detallesTecnicos.push(null);
       this.paginationConfig = {
@@ -62,10 +62,9 @@ export class DetallesTecnicosComponent implements OnInit {
   }
 
   crearDetalleTecnico() {
-    let resolutionIndexes: string [] = this.resolutionIndexValues.split(",",3);
-    this.nuevoDetalleTecnico.id_tipo_resolucion = Number(resolutionIndexes[0]);
-    this.nuevoDetalleTecnico.id_valor_resolucion = Number(resolutionIndexes[1]);
-    this.nuevoDetalleTecnico.id_relacion_aspecto = Number(resolutionIndexes[2]);
+    this.nuevoDetalleTecnico.id_tipo_resolucion = this.resoluciones[this.resolutionIndex].id1;
+    this.nuevoDetalleTecnico.id_valor_resolucion = this.resoluciones[this.resolutionIndex].id2;
+    this.nuevoDetalleTecnico.id_relacion_aspecto = this.resoluciones[this.resolutionIndex].id3;
     this.detallesTecnicosService.crearDetalleTecnico(this.nuevoDetalleTecnico).subscribe(response => {
       if (response) {
         this.toastrService.success("Creación realizada con éxito.");
@@ -75,15 +74,14 @@ export class DetallesTecnicosComponent implements OnInit {
     });
   }
 
-  actualizarDetalleTecnico(detalleTecnico: DetalleTecnico) {
-    console.log("Actualizar el detalle tecnico: " + detalleTecnico.id_detalle);
-    // this.detallesTecnicosService.actualizarDetalleTecnico(detalleTecnico).subscribe(response => {
-    // if(response) {
-    //   this.toastrService.success("Actualización realizada con éxito.");
-    //   this.router.navigate(['/adminDetalles']); return;
-    // }
-    // this.toastrService.error("Actualización fallida...");
-    // });
+  actualizarDetalleTecnico(detalleTecnico: DetalleTecnico) {    
+    this.detallesTecnicosService.actualizarDetalleTecnico(detalleTecnico).subscribe(response => {
+    if(response) {
+      this.toastrService.success("Actualización realizada con éxito.");
+      this.router.navigate(['/adminDetalles']); return;
+    }
+    this.toastrService.error("Actualización fallida...");
+    });
   }
 
   eliminarDetalleTecnico(id_detalle: number) {

@@ -265,9 +265,9 @@ INSERT INTO DetalleTecnico(id_formato, id_tipo_resolucion,
 id_valor_resolucion, id_relacion_aspecto) VALUES
 (1, 3, 26, 3)
 
-SELECT DT.id_detalle, DT.id_formato,
-DT.id_tipo_resolucion, DT.id_valor_resolucion,
-DT.id_relacion_aspecto FROM DetalleTecnico DT
+SELECT id_detalle, id_formato,
+id_tipo_resolucion, id_valor_resolucion,
+id_relacion_aspecto FROM DetalleTecnico
 
 SELECT FO.nombre_formato, TR.nombre_tipo_resolucion,
 VR.valor_resolucion, RA.valor_relacion_aspecto FROM DetalleTecnico DT

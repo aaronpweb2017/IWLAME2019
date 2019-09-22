@@ -1,12 +1,12 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
+using System.Linq;
 using System.Net.Mail;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using ASPNETCoreWebApiPeliculas.Models;
 using ASPNETCoreWebApiPeliculas.Services;
-using Microsoft.EntityFrameworkCore;
 
 namespace ASPNETCoreWebApiPeliculas 
 {
@@ -21,12 +21,12 @@ namespace ASPNETCoreWebApiPeliculas
         public async Task<bool> CrearUsuario(Usuario user) {
             bool response = false;
             try {
-                string originalPassword = user.password_usuario;
-                user.password_usuario = userService.EncryptPassword(originalPassword);
+                string originalPassword = user.password_usuario; user.tipo_usuario = 2;
+                user.password_usuario = userService.EncryptPassword(originalPassword);                
                 await AppDbContext.usuarios.AddAsync(user); await AppDbContext.SaveChangesAsync();
-                if(await SolicitudToken(user)) {
-                    Usuario userToAuthenticate = await AppDbContext.usuarios.Where(u =>
-                    u.nombre_usuario.Equals(user.nombre_usuario)).FirstOrDefaultAsync();
+                Usuario userToAuthenticate = await AppDbContext.usuarios.Where(u =>
+                u.nombre_usuario.Equals(user.nombre_usuario)).FirstOrDefaultAsync();                
+                if(await SolicitudToken(new Usuario() { nombre_usuario = user.nombre_usuario, password_usuario = originalPassword})) {
                     UsuarioSolicitud ultimaSolicitud = await AppDbContext.usuariosSolicitudes.Where(
                     us => us.id_usuario == userToAuthenticate.id_usuario && us.id_solicitud == 2
                     && us.status_solicitud == 0).LastOrDefaultAsync();
@@ -77,6 +77,14 @@ namespace ASPNETCoreWebApiPeliculas
             try {
                 Usuario userToDelete = await AppDbContext.usuarios.Where(u =>
                 u.id_usuario == id_usuario).FirstOrDefaultAsync();
+                List<UsuarioSolicitud> solicitudesToDelete = await AppDbContext.usuariosSolicitudes.Where(
+                us => us.id_usuario == userToDelete.id_usuario).ToListAsync();
+                foreach(UsuarioSolicitud solicitud in solicitudesToDelete)
+                    AppDbContext.usuariosSolicitudes.Remove(solicitud);
+                List<Token> tokensToDelete = await AppDbContext.tokens.Where(
+                t => t.id_usuario == userToDelete.id_usuario).ToListAsync();
+                foreach(Token token in tokensToDelete)
+                    AppDbContext.tokens.Remove(token);
                 AppDbContext.usuarios.Remove(userToDelete);
                 await AppDbContext.SaveChangesAsync();
                 response = true;
@@ -92,14 +100,14 @@ namespace ASPNETCoreWebApiPeliculas
             return userService.DecryptPassword(user.password_usuario);
         }
 
-        public async Task<bool> SolicitudToken(Usuario user) {
+        public async Task<bool> SolicitudToken(Usuario user) {            
             string userNameEmail = "", decryptedPassword = ""; bool response = false;
-            userNameEmail = GetUserNameEmail(user.nombre_usuario, user.correo_usuario);
+            userNameEmail = GetUserNameEmail(user.nombre_usuario, user.correo_usuario);            
             Usuario userToUpdate = await AppDbContext.usuarios.Where(u =>
                 u.nombre_usuario.Equals(userNameEmail) || u.correo_usuario.Equals(userNameEmail)
             ).FirstOrDefaultAsync();
-            if(userToUpdate == null) { return response; }
-            decryptedPassword = userService.DecryptPassword(userToUpdate.password_usuario);
+            if(userToUpdate == null) { return response; }            
+            decryptedPassword = userService.DecryptPassword(userToUpdate.password_usuario);            
             if(!user.password_usuario.Equals(decryptedPassword)) { return response; }
             UsuarioSolicitud ultimaSolicitud = await AppDbContext.usuariosSolicitudes.Where(
                 us => us.id_usuario == userToUpdate.id_usuario && us.id_solicitud == 2
@@ -108,8 +116,7 @@ namespace ASPNETCoreWebApiPeliculas
             try {
                 UsuarioSolicitud solicitudActual = new UsuarioSolicitud() {
                     id_usuario = userToUpdate.id_usuario,
-                    id_solicitud = 2,
-                    status_solicitud = 0,
+                    id_solicitud = 2, status_solicitud = 0,
                     emision_solicitud = DateTime.Now
                 };
                 await AppDbContext.usuariosSolicitudes.AddAsync(solicitudActual);
@@ -118,6 +125,7 @@ namespace ASPNETCoreWebApiPeliculas
             catch(Exception exception) {
                 Console.WriteLine("Exception msj: "+exception.Message);
             }
+            response = true;
             return response;
         }
 

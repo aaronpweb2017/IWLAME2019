@@ -48,7 +48,7 @@ namespace ASPNETCoreWebApiPeliculas.Services
                 return lastToken.valor_token;
             }
             UsuarioSolicitud lastTokenRequest = await AppDbContext.usuariosSolicitudes.Where(s =>
-            s.id_usuario == user.id_usuario && s.id_solicitud == 2).LastOrDefaultAsync();
+                s.id_usuario == user.id_usuario && s.id_solicitud == 2).LastOrDefaultAsync();
             if(user.tipo_usuario == 2 && (lastTokenRequest == null ||
             (lastTokenRequest != null && lastTokenRequest.status_solicitud != 1))) {
                 response = "Tu token ha expirado, solicita un "
