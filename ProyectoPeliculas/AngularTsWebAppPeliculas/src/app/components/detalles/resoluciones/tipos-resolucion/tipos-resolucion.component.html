@@ -49,19 +49,20 @@
               <input *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1" 
               [(ngModel)]="nuevoTipoResolucion.porcentaje_perdida" type="number" class="form-control">
             </td>
-            <td class="text-center">
-              <app-modal-actualizacion *ngIf="tipoResolucion"
+            <td *ngIf="tipoResolucion" class="text-center">
+              <app-modal-actualizacion
                 [request]="'ActualizarTipoResolucion'" [model]="tipoResolucion"
                 (modelObjectEvent)="actualizarTipoResolucion($event)">
               </app-modal-actualizacion>
             </td>
-            <td class="text-center">
-              <app-modal-eliminacion *ngIf="tipoResolucion"
+            <td *ngIf="tipoResolucion" class="text-center">
+              <app-modal-eliminacion
                 [request]="'EliminarTipoResolucion'" [model]="tipoResolucion.id_tipo_resolucion"
                 (modelIdentifierEvent)="eliminarTipoResolucion($event)">
               </app-modal-eliminacion>
-              <button *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1"
-                type="button" class="btn btn-success btn-block" data-toggle="tooltip"
+            </td>
+            <td *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1" colspan="2">
+              <button type="button" class="btn btn-success btn-block" data-toggle="tooltip"
                 data-placement="top" title="Agregar Elemento" style="float: right;"
                 (click)="crearTipoResolucion()">Agregar
               </button>

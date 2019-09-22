@@ -4,6 +4,6 @@ namespace ASPNETCoreWebApiPeliculas.Models {
         public string valor_enlace { get; set; }
         public int status_enlace { get; set; }
         public int id_descarga { get; set; }
-        public Descarga descarga;
+        public virtual Descarga descarga { get; set; }
     }
 }

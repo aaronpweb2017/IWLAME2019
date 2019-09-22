@@ -22,6 +22,7 @@ export class DetallesTecnicosComponent implements OnInit {
   formatos: Formato[];
   resoluciones: VResolucion[];
   nuevoDetalleTecnico: DetalleTecnico;
+  resolutionIndexValues : string;
   create: boolean;
 
   constructor(private vistasService: VistasService, private detallesTecnicosService: DetallesTecnicosService,
@@ -34,9 +35,10 @@ export class DetallesTecnicosComponent implements OnInit {
     this.detallesTecnicos = []; this.formatos = [];
     this.resoluciones = []; this.create = false;
     this.nuevoDetalleTecnico = {
-      id_detalle: 0, id_formato: 0,
-      id_tipo_resolucion: 0, id_valor_resolucion: 0, id_relacion_aspecto: 0
+      id_detalle: 0, id_formato: 0, id_tipo_resolucion: 0,
+      id_valor_resolucion: 0, id_relacion_aspecto: 0
     };
+    this.resolutionIndexValues = "";
     this.vistasService.getDetallesTecnicosVista().subscribe(detallesTecnicos => {
       this.detallesTecnicos = detallesTecnicos; this.detallesTecnicos.push(null);
       this.paginationConfig = {
@@ -60,6 +62,10 @@ export class DetallesTecnicosComponent implements OnInit {
   }
 
   crearDetalleTecnico() {
+    let resolutionIndexes: string [] = this.resolutionIndexValues.split(",",3);
+    this.nuevoDetalleTecnico.id_tipo_resolucion = Number(resolutionIndexes[0]);
+    this.nuevoDetalleTecnico.id_valor_resolucion = Number(resolutionIndexes[1]);
+    this.nuevoDetalleTecnico.id_relacion_aspecto = Number(resolutionIndexes[2]);
     this.detallesTecnicosService.crearDetalleTecnico(this.nuevoDetalleTecnico).subscribe(response => {
       if (response) {
         this.toastrService.success("Creación realizada con éxito.");

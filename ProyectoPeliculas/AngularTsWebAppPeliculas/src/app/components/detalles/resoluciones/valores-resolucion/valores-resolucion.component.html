@@ -37,19 +37,20 @@
               <input *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1" 
               [(ngModel)]="nuevoValorResolucion.valor_resolucion" type="text" class="form-control" autofocus="">
             </td>
-            <td class="text-center">
-              <app-modal-actualizacion *ngIf="valorResolucion"
+            <td *ngIf="valorResolucion" class="text-center">
+              <app-modal-actualizacion
                 [request]="'ActualizarValorResolucion'" [model]="valorResolucion"
                 (modelObjectEvent)="actualizarValorResolucion($event)">
               </app-modal-actualizacion>
             </td>
-            <td class="text-center">
-              <app-modal-eliminacion *ngIf="valorResolucion"
+            <td *ngIf="valorResolucion" class="text-center">
+              <app-modal-eliminacion
                 [request]="'EliminarValorResolucion'" [model]="valorResolucion.id_valor_resolucion"
                 (modelIdentifierEvent)="eliminarValorResolucion($event)">
               </app-modal-eliminacion>
-              <button *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1"
-                type="button" class="btn btn-success btn-block" data-toggle="tooltip"
+            </td>
+            <td *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1" colspan="2">
+              <button type="button" class="btn btn-success btn-block" data-toggle="tooltip"
                 data-placement="top" title="Agregar Elemento" style="float: right;" (click)="crearValorResolucion()">Agregar
               </button>
             </td>

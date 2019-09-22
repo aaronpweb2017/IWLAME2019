@@ -42,40 +42,30 @@
                 <option *ngFor="let formato of formatos" [value]="formato.id_formato">{{formato.id_formato}}.- {{formato.nombre_formato}}</option>
               </select>
             </td>
-            <td class="text-center">
-              <span *ngIf="detalleTecnico">{{detalleTecnico.tipo}}</span>
-              <select *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1"
-                [(ngModel)]="nuevoDetalleTecnico.id_tipo_resolucion" class="form-control">
-                <option *ngFor="let resolucion of resoluciones" [value]="resolucion.id1">{{resolucion.id1}}.- {{resolucion.tipo}}</option>
+            <td *ngIf="detalleTecnico" class="text-center"><span>{{detalleTecnico.tipo}}</span></td>
+            <td *ngIf="detalleTecnico" class="text-center"><span>{{detalleTecnico.valor}}</span></td>
+            <td *ngIf="detalleTecnico" class="text-center"><span>{{detalleTecnico.aspecto}}</span></td>
+            <td *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1" colspan="3">
+              <select [(ngModel)]="resolutionIndexValues" class="form-control">
+                <option *ngFor="let resolucion of resoluciones" [value]="[resolucion.id1, resolucion.id2, resolucion.id3]">Tipo de resolución: {{resolucion.id1}}.-
+                  {{resolucion.tipo}}; Valor de resolución: {{resolucion.id2}}.- {{resolucion.valor}}; Relación de aspecto: {{resolucion.id3}}.- {{resolucion.aspecto}}
+                </option>
               </select>
             </td>
-            <td class="text-center">
-              <span *ngIf="detalleTecnico">{{detalleTecnico.valor}}</span>
-              <select *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1"
-                [(ngModel)]="nuevoDetalleTecnico.id_valor_resolucion" class="form-control">
-                <option *ngFor="let resolucion of resoluciones" [value]="resolucion.id2">{{resolucion.id2}}.- {{resolucion.valor}}</option>
-              </select>
-            </td>
-            <td class="text-center">
-              <span *ngIf="detalleTecnico">{{detalleTecnico.aspecto}}</span>
-              <select *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1"
-                [(ngModel)]="nuevoDetalleTecnico.id_relacion_aspecto" class="form-control">
-                <option *ngFor="let resolucion of resoluciones" [value]="resolucion.id3">{{resolucion.id3}}.- {{resolucion.aspecto}}</option>
-              </select>
-            </td>
-            <td class="text-center">
-              <app-modal-actualizacion *ngIf="detalleTecnico"
+            <td *ngIf="detalleTecnico" class="text-center">
+              <app-modal-actualizacion
                 [request]="'ActualizarDetalleTecnico'" [model]="detalleTecnico"
                 (modelObjectEvent)="actualizarDetalleTecnico($event)">
               </app-modal-actualizacion>
             </td>
-            <td class="text-center">
-              <app-modal-eliminacion *ngIf="detalleTecnico"
+            <td *ngIf="detalleTecnico" class="text-center">
+              <app-modal-eliminacion
                 [request]="'EliminarDetalleTecnico'" [model]="detalleTecnico.id"
                 (modelIdentifierEvent)="eliminarDetalleTecnico($event)">
               </app-modal-eliminacion>
-              <button *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1"
-                type="button" class="btn btn-success btn-block" data-toggle="tooltip"
+            </td>
+            <td *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1" colspan="2">
+              <button type="button" class="btn btn-success btn-block" data-toggle="tooltip"
                 data-placement="top" title="Agregar Elemento" style="float: right;"
                 (click)="crearDetalleTecnico()">Agregar
               </button>
