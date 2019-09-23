@@ -27,6 +27,7 @@ import { DetallesTecnicosComponent } from './components/detalles/detalles-tecnic
 import { AdminDetallesComponent } from './components/admin-detalles/admin-detalles.component';
 import { ModalActualizacionComponent } from './components/modals/modal-actualizacion/modal-actualizacion.component';
 import { ModalEliminacionComponent } from './components/modals/modal-eliminacion/modal-eliminacion.component';
+import { TiposArchivoComponent } from './components/descargas/tipos-archivo/tipos-archivo.component';
 import { FooterComponent } from './components/footer/footer.component';
 
 //Services (providers):
@@ -34,6 +35,7 @@ import { GlobalService } from './global.service';
 import { UsuariosService } from './services/usuarios.service';
 import { SolicitudesService } from './services/solicitudes.service';
 import { DetallesTecnicosService } from './services/detalles-tecnicos.service';
+import { DescargasService } from './services/descargas.service';
 import { VistasService } from './services/vistas.service';
 
 //Global variables:
@@ -71,12 +73,13 @@ import { appRoutes } from './app.routes';
     ResolucionesComponent,
     DetallesTecnicosComponent,
     AdminDetallesComponent,
+    TiposArchivoComponent,
     ModalActualizacionComponent,
     ModalEliminacionComponent,
     FooterComponent
   ],
   providers: [GlobalService, UsuariosService,
-    SolicitudesService, DetallesTecnicosService, VistasService],
+    SolicitudesService, DetallesTecnicosService, DescargasService, VistasService],
   bootstrap: [AppComponent]
 })
 

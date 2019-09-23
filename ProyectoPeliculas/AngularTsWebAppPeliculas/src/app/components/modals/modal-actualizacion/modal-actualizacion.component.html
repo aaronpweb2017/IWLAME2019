@@ -22,6 +22,9 @@
       <h5 *ngIf="request.includes('ActualizarDetalleTecnico')" class="modal-title font-weight-bold">
         Actualización del detalle técnico {{model.id}}
       </h5>
+      <h5 *ngIf="request.includes('ActualizarTipoArchivo')" class="modal-title font-weight-bold">
+        Actualización del tipo de archivo {{model.id_tipo_archivo}}
+      </h5>
       <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -116,6 +119,15 @@
               {{resolucion.id2}}.- {{resolucion.valor}} | {{resolucion.id3}}.- {{resolucion.aspecto}}
             </option>
           </select>
+        </div>
+      </form>
+    </div>
+    <div *ngIf="request.includes('ActualizarTipoArchivo')" class="modal-body">
+      <form class="bg-light">
+        <div class="form-group text-left">
+          <label class="text-dark font-weight-bold">Nombre:</label>
+          <input [(ngModel)]="model.nombre_tipo_archivo" [ngModelOptions]="{standalone: true}"
+          type="text" class="form-control" placeholder="Format Name" autofocus="">
         </div>
       </form>
     </div>

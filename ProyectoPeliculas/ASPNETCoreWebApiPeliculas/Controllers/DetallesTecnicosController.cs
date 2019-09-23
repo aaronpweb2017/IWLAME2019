@@ -33,7 +33,7 @@ namespace ASPNETCoreWebApiPeliculas.Controllers
             return await detallesTecnicos.ActualizarFormato(formato);
         }
 
-        //PUT: https://localhost:5001/Api/DetallesTecnicos/EliminarFormato?id_formato=[value]
+        //DELETE: https://localhost:5001/Api/DetallesTecnicos/EliminarFormato?id_formato=[value]
         [HttpDelete] [ActionName("EliminarFormato")]
         public async Task<bool> DeleteFormatTypeAsync(int id_formato) {
             return await detallesTecnicos.EliminarFormato(id_formato);
@@ -57,7 +57,7 @@ namespace ASPNETCoreWebApiPeliculas.Controllers
             return await detallesTecnicos.ActualizarTipoResolucion(tipoResolucion);
         }
 
-        //PUT: https://localhost:5001/Api/DetallesTecnicos/EliminarTipoResolucion?id_tipo_resolucion=[value]
+        //DELETE: https://localhost:5001/Api/DetallesTecnicos/EliminarTipoResolucion?id_tipo_resolucion=[value]
         [HttpDelete] [ActionName("EliminarTipoResolucion")]
         public async Task<bool> DeleteResolutionTypeAsync(int id_tipo_resolucion) {
             return await detallesTecnicos.EliminarTipoResolucion(id_tipo_resolucion);
@@ -81,7 +81,7 @@ namespace ASPNETCoreWebApiPeliculas.Controllers
             return await detallesTecnicos.ActualizarValorResolucion(valorResolucion);
         }
 
-        //PUT: https://localhost:5001/Api/DetallesTecnicos/EliminarValorResolucion?id_valor_resolucion=[value]
+        //DELETE: https://localhost:5001/Api/DetallesTecnicos/EliminarValorResolucion?id_valor_resolucion=[value]
         [HttpDelete] [ActionName("EliminarValorResolucion")]
         public async Task<bool> DeleteResolutionValueAsync(int id_valor_resolucion) {
             return await detallesTecnicos.EliminarValorResolucion(id_valor_resolucion);
@@ -105,7 +105,7 @@ namespace ASPNETCoreWebApiPeliculas.Controllers
             return await detallesTecnicos.ActualizarRelacionAspecto(relacionAspecto);
         }
 
-        //PUT: https://localhost:5001/Api/DetallesTecnicos/EliminarRelacionAspecto?id_relacion_aspecto=[value]
+        //DELETE: https://localhost:5001/Api/DetallesTecnicos/EliminarRelacionAspecto?id_relacion_aspecto=[value]
         [HttpDelete] [ActionName("EliminarRelacionAspecto")]
         public async Task<bool> DeleteAspectRatioAsync(int id_relacion_aspecto) {
             return await detallesTecnicos.EliminarRelacionAspecto(id_relacion_aspecto);
@@ -117,7 +117,7 @@ namespace ASPNETCoreWebApiPeliculas.Controllers
             return await detallesTecnicos.CrearResolucion(resolucion);
         }
 
-        //PUT: https://localhost:5001/Api/DetallesTecnicos/EliminarResolucion?id_tipo_resolucion=[value]&id_valor_resolucion=[value]&id_relacion_aspecto=[value]
+        //DELETE: https://localhost:5001/Api/DetallesTecnicos/EliminarResolucion?id_tipo_resolucion=[value]&id_valor_resolucion=[value]&id_relacion_aspecto=[value]
         [HttpDelete] [ActionName("EliminarResolucion")]
         public async Task<bool> DeleteResolutionAsync(int id_tipo_resolucion, int id_valor_resolucion, int id_relacion_aspecto) {
             return await detallesTecnicos.EliminarResolucion(id_tipo_resolucion, id_valor_resolucion, id_relacion_aspecto);
@@ -135,7 +135,7 @@ namespace ASPNETCoreWebApiPeliculas.Controllers
             return await detallesTecnicos.ActualizarDetalleTecnico(detalleTecnico);
         }
 
-        //PUT: https://localhost:5001/Api/DetallesTecnicos/EliminarDetalleTecnico?id_detalle=[value]
+        //DELETE: https://localhost:5001/Api/DetallesTecnicos/EliminarDetalleTecnico?id_detalle=[value]
         [HttpDelete] [ActionName("EliminarDetalleTecnico")]
         public async Task<bool> DeleteTechnicalDetailAsync(int id_detalle) {
             return await detallesTecnicos.EliminarDetalleTecnico(id_detalle);

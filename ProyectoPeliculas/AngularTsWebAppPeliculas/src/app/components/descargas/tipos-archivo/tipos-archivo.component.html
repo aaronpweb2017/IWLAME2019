@@ -1,0 +1,63 @@
+<div class="container-fluid" style="padding: 20px;">
+  <div class="col-xl-12 animated-fade-in">
+    <table class="table table-bordered table-dark table-hover">
+      <thead>
+        <tr>
+          <th colspan="4">
+            <h3 class="font-weight-bold text-center">Tipos de Archivo</h3>
+            <button *ngIf="!create && currentPage == totalPages" type="button" class="btn btn-success" data-toggle="tooltip"
+              data-placement="top" title="Agregar Elemento" (click)="setCreateFlag()"
+              style="float: right; margin-top: -40px;"><i class="fas fa-plus-circle"></i>
+            </button>
+            <button *ngIf="create && currentPage == totalPages" type="button" class="btn btn-info" data-toggle="tooltip"
+              data-placement="top" title="Ingorar Agregación" (click)="setCreateFlag()"
+              style="float: right; margin-top: -40px;"><i class="fas fa-minus-circle"></i>
+            </button>
+          </th>
+        </tr>
+        <tr>
+          <th class="text-center"><span style="font-size: 20px;">id</span></th>
+          <th class="text-center"><span style="font-size: 20px;">Nombre</span></th>
+          <th class="text-center" colspan="2"><span style="font-size: 20px;">Acciones</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let tipoArchivo of tiposArchivo | paginate: { id:
+          'fileTypesPagination', itemsPerPage: paginationConfig.itemsPerPage, currentPage:
+          paginationConfig.currentPage, totalItems: paginationConfig.totalItems }; let i=index;">
+          <tr>
+            <td class="text-center">
+              <span *ngIf="tipoArchivo">{{tipoArchivo.id_tipo_archivo}}</span>
+              <span *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1">
+                {{tiposArchivo[tiposArchivo.length-2]?.id_tipo_archivo+1}}
+              </span>
+            </td>
+            <td class="text-center">
+              <span *ngIf="tipoArchivo">{{tipoArchivo.nombre_tipo_archivo}}</span>
+              <input *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1" 
+              [(ngModel)]="nuevoTipoArchivo.nombre_tipo_archivo" type="text" class="form-control" autofocus="">
+            </td>
+            <td *ngIf="tipoArchivo" class="text-center">
+              <app-modal-actualizacion
+                [request]="'ActualizarTipoArchivo'" [model]="tipoArchivo"
+                (modelObjectEvent)="actualizarTipoArchivo($event)">
+              </app-modal-actualizacion>
+            </td>
+            <td *ngIf="tipoArchivo" class="text-center">
+              <app-modal-eliminacion
+                [request]="'EliminarTipoArchivo'" [model]="tipoArchivo.id_tipo_archivo"
+                (modelIdentifierEvent)="eliminarTipoArchivo($event)">
+              </app-modal-eliminacion>
+            </td>
+            <td *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1" colspan="2">
+              <button type="button" class="btn btn-success btn-block" data-toggle="tooltip"
+                data-placement="top" title="Agregar Elemento" style="float: right;" (click)="crearTipoArchivo()">Agregar
+              </button>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+    <pagination-controls id="fileTypesPagination" (pageChange)="pageChanged($event)"></pagination-controls>
+  </div>
+</div>

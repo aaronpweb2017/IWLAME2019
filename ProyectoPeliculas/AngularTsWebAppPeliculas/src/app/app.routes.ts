@@ -6,12 +6,15 @@ import { TokensComponent } from './components/tokens/tokens.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { AdminDetallesComponent } from './components/admin-detalles/admin-detalles.component';
 
+import { TiposArchivoComponent } from './components/descargas/tipos-archivo/tipos-archivo.component';
+
 export const appRoutes: Routes = [
     {path: 'login', component: LoginComponent},
     {path: 'home', component: HomeComponent},
     {path: 'solicitudes/:pg', component: SolicitudesComponent},
     {path: 'tokens/:pg', component: TokensComponent},
     {path: 'usuarios/:pg', component: UsuariosComponent},
+    {path: 'tiposArchivos', component: TiposArchivoComponent},
     {path: 'adminDetalles', component: AdminDetallesComponent},
     {path: '', redirectTo: '/login', pathMatch: 'full'}
 ]

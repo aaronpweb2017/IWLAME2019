@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { apiURL, header } from '../global.service';
+import { apiURL } from '../global.service';
 import { Formato } from '../interfaces/detalles/formato';
 import { TipoResolucion } from '../interfaces/detalles/resoluciones/tipo-resolucion';
 import { ValorResolucion } from '../interfaces/detalles/resoluciones/valor-resolucion';
