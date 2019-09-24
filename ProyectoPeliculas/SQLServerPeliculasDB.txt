@@ -392,6 +392,10 @@ FOREIGN KEY(id_servidor) REFERENCES Servidor(id_servidor)
 ALTER TABLE Descarga ADD CONSTRAINT id_pelicula_FK_CSTR
 FOREIGN KEY(id_pelicula) REFERENCES Pelicula(id_pelicula)
 
+SELECT id_descarga, password_descarga,
+id_tipo_archivo, id_servidor,
+id_pelicula FROM Descarga
+
 SELECT P.nombre, D.id_descarga, D.password_descarga,
 TA.nombre_tipo_archivo, S.nombre_servidor FROM Descarga D 
 INNER JOIN Pelicula P ON D.id_pelicula = P.id_pelicula

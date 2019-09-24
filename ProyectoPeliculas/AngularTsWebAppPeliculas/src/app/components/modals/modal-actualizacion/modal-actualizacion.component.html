@@ -25,6 +25,9 @@
       <h5 *ngIf="request.includes('ActualizarTipoArchivo')" class="modal-title font-weight-bold">
         Actualización del tipo de archivo {{model.id_tipo_archivo}}
       </h5>
+      <h5 *ngIf="request.includes('ActualizarServidor')" class="modal-title font-weight-bold">
+        Actualización del servidor {{model.id_servidor}}
+      </h5>
       <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -98,7 +101,7 @@
         <div class="form-group text-left">
           <label class="text-dark font-weight-bold">Valor:</label>
           <input [(ngModel)]="model.valor_relacion_aspecto" [ngModelOptions]="{standalone: true}"
-          type="text" class="form-control" placeholder="Resolution Value" autofocus="">
+          type="text" class="form-control" placeholder="Aspect Ratio Value" autofocus="">
         </div>
       </form>
     </div>
@@ -127,7 +130,23 @@
         <div class="form-group text-left">
           <label class="text-dark font-weight-bold">Nombre:</label>
           <input [(ngModel)]="model.nombre_tipo_archivo" [ngModelOptions]="{standalone: true}"
-          type="text" class="form-control" placeholder="Format Name" autofocus="">
+          type="text" class="form-control" placeholder="FileType Name" autofocus="">
+        </div>
+      </form>
+    </div>
+    <div *ngIf="request.includes('ActualizarServidor')" class="modal-body">
+      <form class="bg-light">
+        <div class="form-group text-left">
+          <label class="text-dark font-weight-bold">Nombre:</label>
+          <input [(ngModel)]="model.nombre_servidor" [ngModelOptions]="{standalone: true}"
+          type="text" class="form-control" placeholder="Server Name" autofocus="">
+        </div>
+      </form>
+      <form class="bg-light">
+        <div class="form-group text-left">
+          <label class="text-dark font-weight-bold">Sitio:</label>
+          <input [(ngModel)]="model.sitio_servidor" [ngModelOptions]="{standalone: true}"
+          type="text" class="form-control" placeholder="Server Site" autofocus="">
         </div>
       </form>
     </div>

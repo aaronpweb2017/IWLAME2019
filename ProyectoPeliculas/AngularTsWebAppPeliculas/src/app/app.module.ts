@@ -28,6 +28,7 @@ import { AdminDetallesComponent } from './components/admin-detalles/admin-detall
 import { ModalActualizacionComponent } from './components/modals/modal-actualizacion/modal-actualizacion.component';
 import { ModalEliminacionComponent } from './components/modals/modal-eliminacion/modal-eliminacion.component';
 import { TiposArchivoComponent } from './components/descargas/tipos-archivo/tipos-archivo.component';
+import { ServidoresComponent } from './components/descargas/servidores/servidores.component';
 import { FooterComponent } from './components/footer/footer.component';
 
 //Services (providers):
@@ -40,6 +41,7 @@ import { VistasService } from './services/vistas.service';
 
 //Global variables:
 import { appRoutes } from './app.routes';
+
 
 @NgModule({
   imports: [
@@ -76,7 +78,8 @@ import { appRoutes } from './app.routes';
     TiposArchivoComponent,
     ModalActualizacionComponent,
     ModalEliminacionComponent,
-    FooterComponent
+    FooterComponent,
+    ServidoresComponent
   ],
   providers: [GlobalService, UsuariosService,
     SolicitudesService, DetallesTecnicosService, DescargasService, VistasService],

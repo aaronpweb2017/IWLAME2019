@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using ASPNETCoreWebApiPeliculas.Models;
-using Microsoft.AspNetCore.Authorization;
+//using Microsoft.AspNetCore.Authorization;
 
 namespace ASPNETCoreWebApiPeliculas.Controllers
 {

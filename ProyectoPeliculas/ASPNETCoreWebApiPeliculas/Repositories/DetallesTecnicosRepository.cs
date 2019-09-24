@@ -33,10 +33,10 @@ namespace ASPNETCoreWebApiPeliculas
         public async Task<bool> ActualizarFormato(Formato formato) {
             bool response = false;
             try {
-                Formato formatoToUpdate = await AppDbContext.formatos.Where(f =>
+                Formato formatToUpdate = await AppDbContext.formatos.Where(f =>
                     f.id_formato == formato.id_formato).FirstOrDefaultAsync();
-                formatoToUpdate.nombre_formato = formato.nombre_formato;
-                AppDbContext.formatos.Update(formatoToUpdate); 
+                formatToUpdate.nombre_formato = formato.nombre_formato;
+                AppDbContext.formatos.Update(formatToUpdate); 
                 await AppDbContext.SaveChangesAsync(); response = true;
             }
             catch(Exception exception) {
@@ -48,13 +48,13 @@ namespace ASPNETCoreWebApiPeliculas
         public async Task<bool> EliminarFormato(int id_formato) {
             bool response = false;
             try {
-                Formato formatoToDelete = await AppDbContext.formatos.Where(f =>
+                Formato formatToDelete = await AppDbContext.formatos.Where(f =>
                     f.id_formato == id_formato).FirstOrDefaultAsync();
                 List<DetalleTecnico> detallesTecnicos = await AppDbContext.detallesTecnicos.Where(dt => 
-                    dt.id_formato == formatoToDelete.id_formato).ToListAsync();
+                    dt.id_formato == formatToDelete.id_formato).ToListAsync();
                 foreach(DetalleTecnico detalleTecnico in detallesTecnicos)
                     AppDbContext.detallesTecnicos.Remove(detalleTecnico);
-                AppDbContext.formatos.Remove(formatoToDelete);
+                AppDbContext.formatos.Remove(formatToDelete);
                 await AppDbContext.SaveChangesAsync(); response = true;
             }
             catch(Exception exception) {
@@ -82,12 +82,12 @@ namespace ASPNETCoreWebApiPeliculas
         public async Task<bool> ActualizarTipoResolucion(TipoResolucion tipoResolucion) {
             bool response = false;
             try {
-                TipoResolucion tipoResolucionToUpdate = await AppDbContext.tiposResolucion.Where(tr =>
+                TipoResolucion resolutionTypeToUpdate = await AppDbContext.tiposResolucion.Where(tr =>
                     tr.id_tipo_resolucion == tipoResolucion.id_tipo_resolucion).FirstOrDefaultAsync();
-                tipoResolucionToUpdate.nombre_tipo_resolucion = tipoResolucion.nombre_tipo_resolucion;
-                tipoResolucionToUpdate.porcentaje_visualizacion = tipoResolucion.porcentaje_visualizacion;
-                tipoResolucionToUpdate.porcentaje_perdida = tipoResolucion.porcentaje_perdida;
-                AppDbContext.tiposResolucion.Update(tipoResolucionToUpdate); 
+                resolutionTypeToUpdate.nombre_tipo_resolucion = tipoResolucion.nombre_tipo_resolucion;
+                resolutionTypeToUpdate.porcentaje_visualizacion = tipoResolucion.porcentaje_visualizacion;
+                resolutionTypeToUpdate.porcentaje_perdida = tipoResolucion.porcentaje_perdida;
+                AppDbContext.tiposResolucion.Update(resolutionTypeToUpdate); 
                 await AppDbContext.SaveChangesAsync(); response = true;
             }
             catch(Exception exception) {
@@ -99,17 +99,17 @@ namespace ASPNETCoreWebApiPeliculas
         public async Task<bool> EliminarTipoResolucion(int id_tipo_resolucion) {
             bool response = false;
             try {
-                TipoResolucion tipoResolucionToDelete = await AppDbContext.tiposResolucion.Where(tr =>
+                TipoResolucion resolutionTypeToDelete = await AppDbContext.tiposResolucion.Where(tr =>
                 tr.id_tipo_resolucion == id_tipo_resolucion).FirstOrDefaultAsync();
                 List<DetalleTecnico> detallesTecnicos = await AppDbContext.detallesTecnicos.Where(dt => 
-                dt.id_tipo_resolucion == tipoResolucionToDelete.id_tipo_resolucion).ToListAsync();
+                dt.id_tipo_resolucion == resolutionTypeToDelete.id_tipo_resolucion).ToListAsync();
                 foreach(DetalleTecnico detalleTecnico in detallesTecnicos)
                     AppDbContext.detallesTecnicos.Remove(detalleTecnico);
                 List<Resolucion> resoluciones = await AppDbContext.resoluciones.Where(r => 
-                r.id_tipo_resolucion == tipoResolucionToDelete.id_tipo_resolucion).ToListAsync();
+                r.id_tipo_resolucion == resolutionTypeToDelete.id_tipo_resolucion).ToListAsync();
                 foreach(Resolucion resolucion in resoluciones)
                     AppDbContext.resoluciones.Remove(resolucion);
-                AppDbContext.tiposResolucion.Remove(tipoResolucionToDelete);
+                AppDbContext.tiposResolucion.Remove(resolutionTypeToDelete);
                 await AppDbContext.SaveChangesAsync(); response = true;
             }
             catch(Exception exception) {
@@ -137,10 +137,10 @@ namespace ASPNETCoreWebApiPeliculas
         public async Task<bool> ActualizarValorResolucion(ValorResolucion valorResolucion) {
             bool response = false;
             try {
-                ValorResolucion valorResolucionToUpdate = await AppDbContext.valoresResolucion.Where(vr =>
+                ValorResolucion resolutionValueToUpdate = await AppDbContext.valoresResolucion.Where(vr =>
                     vr.id_valor_resolucion == valorResolucion.id_valor_resolucion).FirstOrDefaultAsync();
-                valorResolucionToUpdate.valor_resolucion = valorResolucion.valor_resolucion;
-                AppDbContext.valoresResolucion.Update(valorResolucionToUpdate); 
+                resolutionValueToUpdate.valor_resolucion = valorResolucion.valor_resolucion;
+                AppDbContext.valoresResolucion.Update(resolutionValueToUpdate); 
                 await AppDbContext.SaveChangesAsync(); response = true;
             }
             catch(Exception exception) {
@@ -152,17 +152,17 @@ namespace ASPNETCoreWebApiPeliculas
         public async Task<bool> EliminarValorResolucion(int id_valor_resolucion) {
             bool response = false;
             try {
-                ValorResolucion valorResolucionToDelete = await AppDbContext.valoresResolucion.Where(vr =>
+                ValorResolucion resolutionValueToDelete = await AppDbContext.valoresResolucion.Where(vr =>
                     vr.id_valor_resolucion == id_valor_resolucion).FirstOrDefaultAsync();
                 List<DetalleTecnico> detallesTecnicos = await AppDbContext.detallesTecnicos.Where(dt => 
-                dt.id_valor_resolucion == valorResolucionToDelete.id_valor_resolucion).ToListAsync();
+                dt.id_valor_resolucion == resolutionValueToDelete.id_valor_resolucion).ToListAsync();
                 foreach(DetalleTecnico detalleTecnico in detallesTecnicos)
                     AppDbContext.detallesTecnicos.Remove(detalleTecnico);
                 List<Resolucion> resoluciones = await AppDbContext.resoluciones.Where(r => 
-                r.id_valor_resolucion == valorResolucionToDelete.id_valor_resolucion).ToListAsync();
+                r.id_valor_resolucion == resolutionValueToDelete.id_valor_resolucion).ToListAsync();
                 foreach(Resolucion resolucion in resoluciones)
                     AppDbContext.resoluciones.Remove(resolucion);
-                AppDbContext.valoresResolucion.Remove(valorResolucionToDelete);
+                AppDbContext.valoresResolucion.Remove(resolutionValueToDelete);
                 await AppDbContext.SaveChangesAsync(); response = true;
             }
             catch(Exception exception) {
@@ -190,10 +190,10 @@ namespace ASPNETCoreWebApiPeliculas
         public async Task<bool> ActualizarRelacionAspecto(RelacionAspecto relacionAspecto) {
             bool response = false;
             try {
-                RelacionAspecto relacionAspectoToUpdate = await AppDbContext.relacionesAspecto.Where(ra =>
+                RelacionAspecto aspectRatioToUpdate = await AppDbContext.relacionesAspecto.Where(ra =>
                     ra.id_relacion_aspecto == relacionAspecto.id_relacion_aspecto).FirstOrDefaultAsync();
-                relacionAspectoToUpdate.valor_relacion_aspecto = relacionAspecto.valor_relacion_aspecto;
-                AppDbContext.relacionesAspecto.Update(relacionAspectoToUpdate); 
+                aspectRatioToUpdate.valor_relacion_aspecto = relacionAspecto.valor_relacion_aspecto;
+                AppDbContext.relacionesAspecto.Update(aspectRatioToUpdate); 
                 await AppDbContext.SaveChangesAsync(); response = true;
             }
             catch(Exception exception) {
@@ -205,17 +205,17 @@ namespace ASPNETCoreWebApiPeliculas
         public async Task<bool> EliminarRelacionAspecto(int id_relacion_aspecto) {
             bool response = false;
             try {
-                RelacionAspecto relacionAspectoToDelete = await AppDbContext.relacionesAspecto.Where(ra =>
+                RelacionAspecto aspectRatioToDelete = await AppDbContext.relacionesAspecto.Where(ra =>
                     ra.id_relacion_aspecto == id_relacion_aspecto).FirstOrDefaultAsync();
                 List<DetalleTecnico> detallesTecnicos = await AppDbContext.detallesTecnicos.Where(dt => 
-                dt.id_relacion_aspecto == relacionAspectoToDelete.id_relacion_aspecto).ToListAsync();
+                dt.id_relacion_aspecto == aspectRatioToDelete.id_relacion_aspecto).ToListAsync();
                 foreach(DetalleTecnico detalleTecnico in detallesTecnicos)
                     AppDbContext.detallesTecnicos.Remove(detalleTecnico);
                 List<Resolucion> resoluciones = await AppDbContext.resoluciones.Where(r => 
-                r.id_relacion_aspecto == relacionAspectoToDelete.id_relacion_aspecto).ToListAsync();
+                r.id_relacion_aspecto == aspectRatioToDelete.id_relacion_aspecto).ToListAsync();
                 foreach(Resolucion resolucion in resoluciones)
                     AppDbContext.resoluciones.Remove(resolucion);
-                AppDbContext.relacionesAspecto.Remove(relacionAspectoToDelete);
+                AppDbContext.relacionesAspecto.Remove(aspectRatioToDelete);
                 await AppDbContext.SaveChangesAsync(); response = true;
             }
             catch(Exception exception) {
@@ -239,17 +239,17 @@ namespace ASPNETCoreWebApiPeliculas
         public async Task<bool> EliminarResolucion(int id_tipo_resolucion, int id_valor_resolucion, int id_relacion_aspecto) {
             bool response = false;
             try {
-                Resolucion resolucionToToDelete = await AppDbContext.resoluciones.Where(r =>
+                Resolucion resolutionToToDelete = await AppDbContext.resoluciones.Where(r =>
                     r.id_tipo_resolucion == id_tipo_resolucion &&
                     r.id_valor_resolucion == id_valor_resolucion &&
                     r.id_relacion_aspecto == id_relacion_aspecto).FirstOrDefaultAsync();
                 List<DetalleTecnico> detallesTecnicos = await AppDbContext.detallesTecnicos.Where(dt =>
-                    dt.id_tipo_resolucion == resolucionToToDelete.id_tipo_resolucion &&
-                    dt.id_valor_resolucion == resolucionToToDelete.id_valor_resolucion &&
-                    dt.id_relacion_aspecto == resolucionToToDelete.id_relacion_aspecto).ToListAsync();
+                    dt.id_tipo_resolucion == resolutionToToDelete.id_tipo_resolucion &&
+                    dt.id_valor_resolucion == resolutionToToDelete.id_valor_resolucion &&
+                    dt.id_relacion_aspecto == resolutionToToDelete.id_relacion_aspecto).ToListAsync();
                 foreach(DetalleTecnico detalleTecnico in detallesTecnicos)
                     AppDbContext.detallesTecnicos.Remove(detalleTecnico);
-                AppDbContext.resoluciones.Remove(resolucionToToDelete);
+                AppDbContext.resoluciones.Remove(resolutionToToDelete);
                 await AppDbContext.SaveChangesAsync(); response = true;
             }
             catch(Exception exception) {
@@ -273,13 +273,13 @@ namespace ASPNETCoreWebApiPeliculas
         public async Task<bool> ActualizarDetalleTecnico(DetalleTecnico detalleTecnico) {
             bool response = false;
             try {
-                DetalleTecnico detalleTecnicoToUpdate = await AppDbContext.detallesTecnicos.Where(dt =>
+                DetalleTecnico technicalDetailToUpdate = await AppDbContext.detallesTecnicos.Where(dt =>
                     dt.id_detalle == detalleTecnico.id_detalle).FirstOrDefaultAsync();
-                detalleTecnicoToUpdate.id_formato = detalleTecnico.id_formato;
-                detalleTecnicoToUpdate.id_tipo_resolucion = detalleTecnico.id_tipo_resolucion;
-                detalleTecnicoToUpdate.id_valor_resolucion = detalleTecnico.id_valor_resolucion;
-                detalleTecnicoToUpdate.id_relacion_aspecto = detalleTecnico.id_relacion_aspecto;
-                AppDbContext.detallesTecnicos.Update(detalleTecnicoToUpdate); 
+                technicalDetailToUpdate.id_formato = detalleTecnico.id_formato;
+                technicalDetailToUpdate.id_tipo_resolucion = detalleTecnico.id_tipo_resolucion;
+                technicalDetailToUpdate.id_valor_resolucion = detalleTecnico.id_valor_resolucion;
+                technicalDetailToUpdate.id_relacion_aspecto = detalleTecnico.id_relacion_aspecto;
+                AppDbContext.detallesTecnicos.Update(technicalDetailToUpdate); 
                 await AppDbContext.SaveChangesAsync(); response = true;
             }
             catch(Exception exception) {
@@ -291,9 +291,9 @@ namespace ASPNETCoreWebApiPeliculas
         public async Task<bool> EliminarDetalleTecnico(int id_detalle) {
             bool response = false;
             try {
-                DetalleTecnico detalleTecnicoToToDelete = await AppDbContext.detallesTecnicos.Where(dt =>
+                DetalleTecnico technicalDetailToDelete = await AppDbContext.detallesTecnicos.Where(dt =>
                     dt.id_detalle == id_detalle).FirstOrDefaultAsync();
-                AppDbContext.detallesTecnicos.Remove(detalleTecnicoToToDelete);
+                AppDbContext.detallesTecnicos.Remove(technicalDetailToDelete);
                 await AppDbContext.SaveChangesAsync(); response = true;
             }
             catch(Exception exception) {

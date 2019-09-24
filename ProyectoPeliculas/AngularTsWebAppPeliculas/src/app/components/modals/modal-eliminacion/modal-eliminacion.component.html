@@ -28,6 +28,9 @@
       <h5 *ngIf="request.includes('EliminarTipoArchivo')" class="modal-title font-weight-bold">
         Eliminación del tipo de archivo {{model}}
       </h5>
+      <h5 *ngIf="request.includes('EliminarServidor')" class="modal-title font-weight-bold">
+        Eliminación del servidor {{model}}
+      </h5>
       <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -55,6 +58,9 @@
     </div>
     <div *ngIf="request.includes('EliminarTipoArchivo')" class="modal-body">
       <p class="text-center">Está seguro de que desea eliminar este tipo de archivo?</p>
+    </div>
+    <div *ngIf="request.includes('EliminarServidor')" class="modal-body">
+      <p class="text-center">Está seguro de que desea eliminar este servidor?</p>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Cerrar</button>
