@@ -20,7 +20,8 @@
         Eliminación de la relación de aspecto {{model}}
       </h5>
       <h5 *ngIf="request.includes('EliminarResolucion')" class="modal-title font-weight-bold">
-        Eliminación de la resolución ({{model.id1}},{{model.id2}},{{model.id3}})
+        Eliminación de la resolución
+        ({{model.id_tipo_resolucion}}, {{model.id_valor_resolucion}}, {{model.id_relacion_aspecto}})
       </h5>
       <h5 *ngIf="request.includes('EliminarDetalleTecnico')" class="modal-title font-weight-bold">
         Eliminación del detalle técnico {{model}}
@@ -30,6 +31,9 @@
       </h5>
       <h5 *ngIf="request.includes('EliminarServidor')" class="modal-title font-weight-bold">
         Eliminación del servidor {{model}}
+      </h5>
+      <h5 *ngIf="request.includes('EliminarDescarga')" class="modal-title font-weight-bold">
+        Eliminación de la descarga {{model}}
       </h5>
       <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
         <span aria-hidden="true">&times;</span>
@@ -61,6 +65,9 @@
     </div>
     <div *ngIf="request.includes('EliminarServidor')" class="modal-body">
       <p class="text-center">Está seguro de que desea eliminar este servidor?</p>
+    </div>
+    <div *ngIf="request.includes('EliminarDescarga')" class="modal-body">
+      <p class="text-center">Está seguro de que desea esta descarga?</p>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Cerrar</button>

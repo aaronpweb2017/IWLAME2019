@@ -285,7 +285,7 @@ DROP TABLE DetalleTecnico
 
 CREATE TABLE Pelicula(
     id_pelicula INT IDENTITY(1, 1) NOT NULL,
-    nombre VARCHAR(50) NOT NULL,
+    nombre_pelicula VARCHAR(50) NOT NULL,
     fecha_estreno DATETIME2 NOT NULL,
     presupuesto MONEY NULL,
     recaudacion MONEY NULL,
@@ -300,11 +300,14 @@ id_pelicula_PK_CSTR PRIMARY KEY(id_pelicula)
 ALTER TABLE Pelicula ADD CONSTRAINT id_detalle_FK_CSTR
 FOREIGN KEY(id_detalle) REFERENCES DetalleTecnico(id_detalle)
 
-SELECT id_pelicula, nombre, fecha_estreno,
+INSERT INTO Pelicula(nombre_pelicula, fecha_estreno, presupuesto, recaudacion, sinopsis, calificacion, id_detalle) VALUES
+('Avengers Endgame', '2019-04-26T00:00:00.000', 356000000, 2796000000, 'Thanos es el mejor villano', 70.00, 4)
+
+SELECT id_pelicula, nombre_pelicula, fecha_estreno,
 presupuesto, recaudacion, sinopsis,
 calificacion, id_detalle FROM Pelicula
 
-SELECT P.nombre, F.nombre_formato, TR.nombre_tipo_resolucion,
+SELECT P.nombre_pelicula, F.nombre_formato, TR.nombre_tipo_resolucion,
 VR.valor_resolucion, RA.valor_relacion_aspecto FROM Pelicula P
 INNER JOIN DetalleTecnico DT ON P.id_detalle = DT.id_detalle
 INNER JOIN Formato F ON DT.id_formato = F.id_formato
@@ -396,7 +399,7 @@ SELECT id_descarga, password_descarga,
 id_tipo_archivo, id_servidor,
 id_pelicula FROM Descarga
 
-SELECT P.nombre, D.id_descarga, D.password_descarga,
+SELECT P.nombre_pelicula, D.id_descarga, D.password_descarga,
 TA.nombre_tipo_archivo, S.nombre_servidor FROM Descarga D 
 INNER JOIN Pelicula P ON D.id_pelicula = P.id_pelicula
 INNER JOIN TipoArchivo TA ON D.id_tipo_archivo = TA.id_tipo_archivo
@@ -425,7 +428,7 @@ FOREIGN KEY(id_descarga) REFERENCES Descarga(id_descarga)
 SELECT EN.id_enlace, EN.valor_enlace, 
 EN.id_descarga, EN.id_vigencia FROM Enlace EN
 
-SELECT P.nombre, D.id_descarga, D.password_descarga,
+SELECT P.nombre_pelicula, D.id_descarga, D.password_descarga,
 TA.nombre_tipo_archivo, S.nombre_servidor, E.id_enlace,
 E.valor_enlace, E.status_enlace FROM Enlace E
 INNER JOIN Descarga D ON E.id_descarga = D.id_descarga
@@ -875,12 +878,8 @@ DROP TABLE GeneroPelicula
 ------------------------------------------------------------------------------------------------------
 
 CREATE VIEW VSolicitud AS
-	SELECT US.id_usuario_solicitud AS id, U.nombre_usuario AS usuario, S.nombre_solicitud AS tipo,
-	CASE US.status_solicitud
-		WHEN 0 THEN 'Solicitada' WHEN 1 THEN 'Aprobada' WHEN 2 THEN 'Terminada'
-	END AS status,
-	US.emision_solicitud AS emision,
-	US.aprobacion_solicitud AS aprobacion
+	SELECT US.id_usuario_solicitud, U.nombre_usuario, S.nombre_solicitud,
+	US.status_solicitud, US.emision_solicitud, US.aprobacion_solicitud
 	FROM UsuarioSolicitud US
 	INNER JOIN Usuario U ON US.id_usuario = U.id_usuario
 	INNER JOIN Solicitud S ON US.id_solicitud = S.id_solicitud
@@ -895,9 +894,9 @@ DROP VIEW VSolicitud
 ------------------------------------------------------------------------------------------------------
 
 CREATE VIEW VToken AS
-	SELECT TK.id_token AS id, TK.valor_token AS codigo, TK.emision_token AS emision,
-	TK.expiracion_token AS expiracion, US.nombre_usuario AS usuario
-	FROM Token TK INNER JOIN Usuario US ON TK.id_usuario = US.id_usuario
+	SELECT T.id_token, T.valor_token, T.emision_token,
+	T.expiracion_token, U.nombre_usuario FROM Token T
+	INNER JOIN Usuario U ON T.id_usuario = U.id_usuario
 
 SELECT * FROM VToken
 
@@ -909,9 +908,9 @@ DROP VIEW VToken
 ------------------------------------------------------------------------------------------------------
 
 CREATE VIEW VResolucion AS
-    SELECT TR.id_tipo_resolucion AS id1, TR.nombre_tipo_resolucion AS tipo,
-	VR.id_valor_resolucion AS id2, VR.valor_resolucion AS valor,
-    RA.id_relacion_aspecto AS id3, RA.valor_relacion_aspecto AS aspecto FROM Resolucion RE
+    SELECT TR.id_tipo_resolucion, TR.nombre_tipo_resolucion,
+	VR.id_valor_resolucion, VR.valor_resolucion,
+    RA.id_relacion_aspecto, RA.valor_relacion_aspecto FROM Resolucion RE
     INNER JOIN TipoResolucion TR ON RE.id_tipo_resolucion = TR.id_tipo_resolucion
     INNER JOIN ValorResolucion VR ON RE.id_valor_resolucion = VR.id_valor_resolucion
     INNER JOIN RelacionAspecto RA ON RE.id_relacion_aspecto = RA.id_relacion_aspecto
@@ -926,12 +925,13 @@ DROP VIEW VResolucion
 ------------------------------------------------------------------------------------------------------
 
 CREATE VIEW VDetalleTecnico AS
-    SELECT DT.id_detalle AS id,
-    FO.nombre_formato AS formato,
-    TR.nombre_tipo_resolucion AS tipo,
-	VR.valor_resolucion AS valor,
-    RA.valor_relacion_aspecto AS aspecto FROM DetalleTecnico DT
-    INNER JOIN Formato FO ON DT.id_formato = FO.id_formato
+    SELECT DT.id_detalle,
+	F.id_formato, F.nombre_formato,
+    TR.id_tipo_resolucion, TR.nombre_tipo_resolucion,
+	VR.id_valor_resolucion, VR.valor_resolucion,
+    RA.id_relacion_aspecto, RA.valor_relacion_aspecto
+    FROM DetalleTecnico DT
+    INNER JOIN Formato F ON DT.id_formato = F.id_formato
     INNER JOIN TipoResolucion TR ON DT.id_tipo_resolucion = TR.id_tipo_resolucion
     INNER JOIN ValorResolucion VR ON DT.id_valor_resolucion = VR.id_valor_resolucion
     INNER JOIN RelacionAspecto RA ON DT.id_relacion_aspecto = RA.id_relacion_aspecto
@@ -939,6 +939,25 @@ CREATE VIEW VDetalleTecnico AS
 SELECT * FROM VDetalleTecnico
 
 DROP VIEW VDetalleTecnico
+
+------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------
+
+CREATE VIEW VDescarga AS
+    SELECT D.id_descarga, D.password_descarga,
+    TA.id_tipo_archivo, TA.nombre_tipo_archivo,
+    S.id_servidor, S.nombre_servidor,
+    P.id_pelicula, P.nombre_pelicula
+    FROM Descarga D
+    INNER JOIN Pelicula P ON D.id_pelicula = P.id_pelicula
+    INNER JOIN TipoArchivo TA ON D.id_tipo_archivo = TA.id_tipo_archivo
+    INNER JOIN Servidor S ON D.id_servidor = S.id_servidor
+
+SELECT * FROM VDescarga
+
+DROP VIEW VDescarga
 
 ------------------------------------------------------------------------------------------------------
 

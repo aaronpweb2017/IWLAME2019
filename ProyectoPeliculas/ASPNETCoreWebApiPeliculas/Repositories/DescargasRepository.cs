@@ -122,5 +122,57 @@ namespace ASPNETCoreWebApiPeliculas
             }
             return response;  
         }
+
+        public async Task<bool> CrearDescarga(Descarga descarga) {
+            bool response = false;
+            try {
+                await AppDbContext.descargas.AddAsync(descarga);
+                await AppDbContext.SaveChangesAsync(); response = true;
+            }
+            catch(Exception exception) {
+                Console.WriteLine("Exception msj: "+exception.Message);
+            }
+            return response;
+        }
+
+        public async Task<List<Descarga>> GetDescargas() {
+            return await AppDbContext.descargas.ToListAsync();
+        }
+
+        public async Task<bool> ActualizarDescarga(Descarga descarga) {
+            bool response = false;
+            try {
+                Descarga downloadToUpdate = await AppDbContext.descargas.Where(d =>
+                    d.id_descarga == descarga.id_descarga).FirstOrDefaultAsync();
+                downloadToUpdate.password_descarga = descarga.password_descarga;
+                downloadToUpdate.id_tipo_archivo = descarga.id_tipo_archivo;
+                downloadToUpdate.id_servidor = descarga.id_servidor;
+                downloadToUpdate.id_pelicula = descarga.id_pelicula;
+                AppDbContext.descargas.Update(downloadToUpdate); 
+                await AppDbContext.SaveChangesAsync(); response = true;
+            }
+            catch(Exception exception) {
+                Console.WriteLine("Exception msj: "+exception.Message);
+            }
+            return response;
+        }
+
+        public async Task<bool> EliminarDescarga(int id_descarga) {
+            bool response = false;
+            try {
+                Descarga downloadToDelete = await AppDbContext.descargas.Where(d =>
+                    d.id_descarga == id_descarga).FirstOrDefaultAsync();
+                List<Enlace> enlaces = await AppDbContext.enlaces.Where(e =>
+                    e.id_descarga == downloadToDelete.id_descarga).ToListAsync();
+                foreach(Enlace enlace in enlaces)
+                    AppDbContext.enlaces.Remove(enlace);
+                AppDbContext.descargas.Remove(downloadToDelete);
+                await AppDbContext.SaveChangesAsync(); response = true;
+            }
+            catch(Exception exception) {
+                Console.WriteLine("Exception msj: "+exception.Message);
+            }
+            return response;  
+        }
     }
 }

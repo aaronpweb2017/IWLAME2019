@@ -33,7 +33,7 @@ namespace ASPNETCoreWebApiPeliculas.Controllers
         }
 
         //DELETE: https://localhost:5001/Api/Peliculas/EliminarPelicula?id_pelicula=[value]
-        [HttpPut] [ActionName("EliminarPelicula")]
+        [HttpDelete] [ActionName("EliminarPelicula")]
         public async Task<bool> DeleteMovieAsync(int id_pelicula) {
             return await peliculas.EliminarPelicula(id_pelicula);
         }

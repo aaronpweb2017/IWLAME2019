@@ -14,5 +14,9 @@ namespace ASPNETCoreWebApiPeliculas
         Task<List<Servidor>> GetServidores();
         Task<bool> ActualizarServidor(Servidor servidor);
         Task<bool> EliminarServidor(int id_servidor);
+        Task<bool> CrearDescarga(Descarga descarga);
+        Task<List<Descarga>> GetDescargas();
+        Task<bool> ActualizarDescarga(Descarga descarga);
+        Task<bool> EliminarDescarga(int id_descarga);
     }
 }

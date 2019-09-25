@@ -1,7 +1,7 @@
 export interface VToken {
-    id: number;
-    codigo: string;
-    emision: Date;
-    expiracion: Date;
-    usuario: string;
+    id_token: number;
+    valor_token: string;
+    emision_token: Date;
+    expiracion_token: Date;
+    nombre_usuario: string;
 }

@@ -5,6 +5,12 @@ import { Formato } from 'src/app/interfaces/detalles/formato';
 import { VResolucion } from 'src/app/interfaces/views/v-resolucion';
 import { VistasService } from 'src/app/services/vistas.service';
 import { DetallesTecnicosService } from 'src/app/services/detalles-tecnicos.service';
+import { Descarga } from 'src/app/interfaces/descargas/descarga';
+import { TipoArchivo } from 'src/app/interfaces/descargas/tipo-archivo';
+import { Servidor } from 'src/app/interfaces/descargas/servidor';
+import { Pelicula } from 'src/app/interfaces/pelicula';
+import { DescargasService } from 'src/app/services/descargas.service';
+import { PeliculasService } from 'src/app/services/peliculas.service';
 
 @Component({
   selector: 'app-modal-actualizacion',
@@ -16,40 +22,62 @@ export class ModalActualizacionComponent implements OnInit {
   @Input() request: string;
   @Input() model: any;
   @Output() modelObjectEvent = new EventEmitter();
+  
   resoluciones: VResolucion[];
   formatos: Formato[];
   resolutionIndex: number;
   technicalDetailToUpdate: DetalleTecnico;
 
+  tiposArchivo: TipoArchivo[];
+  servidores: Servidor[];
+  peliculas: Pelicula[];
+  downloadToUpdate: Descarga;
+
   constructor(private vistasService: VistasService, private detallesTecnicosService:
-    DetallesTecnicosService, private modalService: BsModalService) { }
+    DetallesTecnicosService, private descargasService: DescargasService,
+    private peliculasService: PeliculasService, private modalService: BsModalService) { }
 
   ngOnInit() {
     if (this.request.includes("ActualizarDetalleTecnico")) {
       this.technicalDetailToUpdate = {
-        id_detalle: this.model.id, id_formato: 0, id_tipo_resolucion: 0,
-        id_valor_resolucion: 0, id_relacion_aspecto: 0
+        id_detalle: this.model.id_detalle, id_formato: this.model.id_formato,
+        id_tipo_resolucion: this.model.id_tipo_resolucion,
+        id_valor_resolucion: this.model.id_valor_resolucion,
+        id_relacion_aspecto: this.model.id_relacion_aspecto
       };
-      this.vistasService.getResolucionesVista().subscribe(resoluciones => {
+      this.vistasService.getVistaResoluciones().subscribe(resoluciones => {
         this.resoluciones = resoluciones;
-        this.resolutionIndex = this.resoluciones.indexOf(this.resoluciones.filter(r => r.tipo.includes(this.model.tipo)
-          && r.valor.includes(this.model.valor) && r.aspecto.includes(this.model.aspecto))[0]);
-        this.detallesTecnicosService.getFormatos().subscribe(formatos => { 
-          this.formatos = formatos;
-          let id_formato: number = this.formatos.filter(f => f.nombre_formato.includes(this.model.formato))[0].id_formato;
-          this.technicalDetailToUpdate.id_formato = id_formato;
-        });
+        this.resolutionIndex = this.resoluciones.indexOf(this.resoluciones.filter(r =>
+          r.id_tipo_resolucion == this.model.id_tipo_resolucion
+          && r.id_valor_resolucion == this.model.id_valor_resolucion
+          && r.id_relacion_aspecto == this.model.id_relacion_aspecto)[0]);
+        this.detallesTecnicosService.getFormatos().subscribe(formatos => { this.formatos = formatos; });
       });
+    }
+
+    if (this.request.includes("ActualizarDescarga")) {
+      this.downloadToUpdate = {
+        id_descarga: this.model.id_descarga,
+        password_descarga: this.model.password_descarga,
+        id_tipo_archivo: this.model.id_tipo_archivo,
+        id_servidor: this.model.id_servidor,
+        id_pelicula: this.model.id_pelicula
+      };
+      this.descargasService.getTiposArchivo().subscribe(tiposArchivo => { this.tiposArchivo = tiposArchivo;});
+      this.descargasService.getServidores().subscribe(servidores => { this.servidores = servidores; });
+      this.peliculasService.getPeliculas().subscribe(peliculas => { this.peliculas = peliculas; });
     }
   }
 
   emitModelObjectEvent() {
     if (this.request.includes("ActualizarDetalleTecnico")) {
-      
-      this.technicalDetailToUpdate.id_tipo_resolucion = this.resoluciones[this.resolutionIndex].id1;
-      this.technicalDetailToUpdate.id_valor_resolucion = this.resoluciones[this.resolutionIndex].id2;
-      this.technicalDetailToUpdate.id_relacion_aspecto = this.resoluciones[this.resolutionIndex].id3;
+      this.technicalDetailToUpdate.id_tipo_resolucion = this.resoluciones[this.resolutionIndex].id_tipo_resolucion;
+      this.technicalDetailToUpdate.id_valor_resolucion = this.resoluciones[this.resolutionIndex].id_valor_resolucion;
+      this.technicalDetailToUpdate.id_relacion_aspecto = this.resoluciones[this.resolutionIndex].id_relacion_aspecto;
       this.modelObjectEvent.emit(this.technicalDetailToUpdate); this.modalRef.hide(); return;
+    }
+    if (this.request.includes("ActualizarDescarga")) {
+      this.modelObjectEvent.emit(this.downloadToUpdate); this.modalRef.hide(); return;
     }
     this.modelObjectEvent.emit(this.model); this.modalRef.hide();
   }

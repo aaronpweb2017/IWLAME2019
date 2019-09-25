@@ -10,21 +10,21 @@
           </th>
         </tr>
         <tr>
-          <th class="text-center"><span style="font-size: 20px;">id</span></th>
-          <th class="text-center"><span style="font-size: 20px;">codigo del token</span></th>
-          <th class="text-center"><span style="font-size: 20px;">emision</span></th>
-          <th class="text-center"><span style="font-size: 20px;">expiracion</span></th>
-          <th class="text-center"><span style="font-size: 20px;">usuario</span></th>
+          <th class="text-center"><span style="font-size: 20px;">Id</span></th>
+          <th class="text-center"><span style="font-size: 20px;">Código</span></th>
+          <th class="text-center"><span style="font-size: 20px;">Emision</span></th>
+          <th class="text-center"><span style="font-size: 20px;">Expiracion</span></th>
+          <th class="text-center"><span style="font-size: 20px;">Usuario</span></th>
         </tr>
       </thead>
       <tbody>
         <ng-container *ngFor="let token of tokens | paginate: paginationConfig;">
           <tr>
-            <td class="text-center">{{token.id}}</td>
-            <td class="text-justify" style="word-wrap: break-word; max-width: 500px;">{{token.codigo}}</td>
-            <td class="text-center">{{token.emision | date: 'dd/MM/yyyy; hh:mm:ss a'}}</td>
-            <td class="text-center">{{token.expiracion | date: 'dd/MM/yyyy; hh:mm:ss a'}}</td>
-            <td class="text-center">{{token.usuario}}</td>  
+            <td class="text-center">{{token.id_token}}</td>
+            <td class="text-justify" style="word-wrap: break-word; max-width: 500px;">{{token.valor_token}}</td>
+            <td class="text-center">{{token.emision_token | date: 'dd/MM/yyyy; hh:mm:ss a'}}</td>
+            <td class="text-center">{{token.expiracion_token | date: 'dd/MM/yyyy; hh:mm:ss a'}}</td>
+            <td class="text-center">{{token.nombre_usuario}}</td>  
           </tr>
         </ng-container>
       </tbody>

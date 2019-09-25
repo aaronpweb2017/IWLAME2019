@@ -10,5 +10,6 @@ namespace ASPNETCoreWebApiPeliculas
         Task<List<VToken>> GetVistaTokens();
         Task<List<VResolucion>> GetVistaResoluciones();
         Task<List<VDetalleTecnico>> GetVistaDetallesTecnicos();
+        Task<List<VDescarga>> GetVistaDescargas();
     }
 }

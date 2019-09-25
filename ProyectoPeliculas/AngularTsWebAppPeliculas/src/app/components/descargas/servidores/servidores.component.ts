@@ -51,9 +51,7 @@ export class ServidoresComponent implements OnInit {
     this.descargasService.crearServidor(this.nuevoServidor).subscribe(response => {
       if (response) {
         this.toastrService.success("Creación realizada con éxito.");
-        this.router.navigate(['/servidores']);
-        //this.router.navigate(['/adminDescargas']);
-        return;
+        this.router.navigate(['/adminDescargas']); return;
       }
       this.toastrService.error("Creación fallida...");
     });
@@ -63,9 +61,7 @@ export class ServidoresComponent implements OnInit {
     this.descargasService.actualizarServidor(servidor).subscribe(response => {
       if (response) {
         this.toastrService.success("Actualización realizada con éxito.");
-        this.router.navigate(['/servidores']);
-        //this.router.navigate(['/adminDescargas']);
-        return;
+        this.router.navigate(['/adminDescargas']); return;
       }
       this.toastrService.error("Actualización fallida...");
     });
@@ -75,9 +71,7 @@ export class ServidoresComponent implements OnInit {
     this.descargasService.eliminarServidor(id_servidor).subscribe(response => {
       if (response) {
         this.toastrService.success("Eliminación realizada con éxito.");
-        this.router.navigate(['/servidores']);
-        //this.router.navigate(['/adminDescargas']);
-        return;
+        this.router.navigate(['/adminDescargas']); return;
       }
       this.toastrService.error("Eliminación fallida...");
     });

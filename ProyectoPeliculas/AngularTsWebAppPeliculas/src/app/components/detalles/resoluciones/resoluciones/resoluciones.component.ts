@@ -36,7 +36,7 @@ export class ResolucionesComponent implements OnInit {
     this.resoluciones = []; this.tiposResolucion = [];
     this.valoresResolucion = []; this.relacionesAspecto = []; this.create = false;
     this.nuevaResolucion = { id_tipo_resolucion: 0, id_valor_resolucion: 0, id_relacion_aspecto: 0 };
-    this.vistasService.getResolucionesVista().subscribe(resoluciones => {
+    this.vistasService.getVistaResoluciones().subscribe(resoluciones => {
       this.resoluciones = resoluciones; this.resoluciones.push(null);
       this.paginationConfig = {
         itemsPerPage: 5,
@@ -70,7 +70,8 @@ export class ResolucionesComponent implements OnInit {
   }
 
   eliminarResolucion(resolucion: VResolucion) {
-    this.detallesTecnicosService.eliminarResolucion(resolucion.id1, resolucion.id2, resolucion.id3).subscribe(response => {
+    this.detallesTecnicosService.eliminarResolucion(resolucion.id_tipo_resolucion,
+      resolucion.id_valor_resolucion, resolucion.id_relacion_aspecto).subscribe(response => {
       if(response) { this.toastrService.success("Eliminación realizada con éxito.");
         this.router.navigate(['/adminDetalles']); return;
       }

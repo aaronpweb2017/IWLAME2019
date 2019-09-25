@@ -30,13 +30,13 @@
           paginationConfig.currentPage, totalItems: paginationConfig.totalItems }; let i=index;">
           <tr>
             <td class="text-center">
-              <span *ngIf="detalleTecnico">{{detalleTecnico.id}}</span>
+              <span *ngIf="detalleTecnico">{{detalleTecnico.id_detalle}}</span>
               <span *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1">
-                {{detallesTecnicos[detallesTecnicos.length-2]?.id+1}}
+                {{detallesTecnicos[detallesTecnicos.length-2]?.id_detalle+1}}
               </span>
             </td>
             <td class="text-center">
-              <span *ngIf="detalleTecnico">{{detalleTecnico.formato}}</span>
+              <span *ngIf="detalleTecnico">{{detalleTecnico.nombre_formato}}</span>
               <select *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1"
                 [(ngModel)]="nuevoDetalleTecnico.id_formato" class="form-control">
                 <option *ngFor="let formato of formatos;" [value]="formato.id_formato">
@@ -44,13 +44,15 @@
                 </option>
               </select>
             </td>
-            <td *ngIf="detalleTecnico" class="text-center"><span>{{detalleTecnico.tipo}}</span></td>
-            <td *ngIf="detalleTecnico" class="text-center"><span>{{detalleTecnico.valor}}</span></td>
-            <td *ngIf="detalleTecnico" class="text-center"><span>{{detalleTecnico.aspecto}}</span></td>
+            <td *ngIf="detalleTecnico" class="text-center"><span>{{detalleTecnico.nombre_tipo_resolucion}}</span></td>
+            <td *ngIf="detalleTecnico" class="text-center"><span>{{detalleTecnico.valor_resolucion}}</span></td>
+            <td *ngIf="detalleTecnico" class="text-center"><span>{{detalleTecnico.valor_relacion_aspecto}}</span></td>
             <td *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1" colspan="3">
               <select [(ngModel)]="resolutionIndex" class="form-control">
-                <option *ngFor="let resolucion of resoluciones; let j=index;" [value]="j">Tipo: {{resolucion.id1}}.- {{resolucion.tipo}} |
-                  Valor: {{resolucion.id2}}.- {{resolucion.valor}} | Relación de Aspecto: {{resolucion.id3}}.- {{resolucion.aspecto}}
+                <option *ngFor="let resolucion of resoluciones; let j=index;" [value]="j">
+                  Tipo: {{resolucion.id_tipo_resolucion}}.- {{resolucion.nombre_tipo_resolucion}} |
+                  Valor: {{resolucion.id_valor_resolucion}}.- {{resolucion.valor_resolucion}} |
+                  Relación: {{resolucion.id_relacion_aspecto}}.- {{resolucion.valor_relacion_aspecto}}
                 </option>
               </select>
             </td>
@@ -62,7 +64,7 @@
             </td>
             <td *ngIf="detalleTecnico" class="text-center">
               <app-modal-eliminacion
-                [request]="'EliminarDetalleTecnico'" [model]="detalleTecnico.id"
+                [request]="'EliminarDetalleTecnico'" [model]="detalleTecnico.id_detalle"
                 (modelIdentifierEvent)="eliminarDetalleTecnico($event)">
               </app-modal-eliminacion>
             </td>

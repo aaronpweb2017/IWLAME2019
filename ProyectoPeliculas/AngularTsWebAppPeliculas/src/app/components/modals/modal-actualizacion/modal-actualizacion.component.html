@@ -28,6 +28,9 @@
       <h5 *ngIf="request.includes('ActualizarServidor')" class="modal-title font-weight-bold">
         Actualización del servidor {{model.id_servidor}}
       </h5>
+      <h5 *ngIf="request.includes('ActualizarDescarga')" class="modal-title font-weight-bold">
+        Actualización de la descarga {{model.id_descarga}}
+      </h5>
       <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -118,8 +121,10 @@
         <div class="form-group text-left">
           <label class="text-dark font-weight-bold">Resolución:</label>
           <select [(ngModel)]="resolutionIndex" [ngModelOptions]="{standalone: true}" class="form-control">
-            <option *ngFor="let resolucion of resoluciones; let i=index;" [value]="i">{{resolucion.id1}}.- {{resolucion.tipo}} |
-              {{resolucion.id2}}.- {{resolucion.valor}} | {{resolucion.id3}}.- {{resolucion.aspecto}}
+            <option *ngFor="let resolucion of resoluciones; let i=index;" [value]="i">
+              {{resolucion.id_tipo_resolucion}}.- {{resolucion.nombre_tipo_resolucion}} |
+              {{resolucion.id_valor_resolucion}}.- {{resolucion.valor_resolucion}} |
+              {{resolucion.id_relacion_aspecto}}.- {{resolucion.valor_relacion_aspecto}}
             </option>
           </select>
         </div>
@@ -147,6 +152,39 @@
           <label class="text-dark font-weight-bold">Sitio:</label>
           <input [(ngModel)]="model.sitio_servidor" [ngModelOptions]="{standalone: true}"
           type="text" class="form-control" placeholder="Server Site" autofocus="">
+        </div>
+      </form>
+    </div>
+    <div *ngIf="request.includes('ActualizarDescarga')" class="modal-body">
+      <form class="bg-light">
+        <div class="form-group text-left">
+          <label class="text-dark font-weight-bold">Password:</label>
+          <input [(ngModel)]="downloadToUpdate.password_descarga" [ngModelOptions]="{standalone: true}"
+          type="text" class="form-control" placeholder="Download Password" autofocus="">
+        </div>
+        <div class="form-group text-left">
+          <label class="text-dark font-weight-bold">Archivo:</label>
+          <select [(ngModel)]="downloadToUpdate.id_tipo_archivo" [ngModelOptions]="{standalone: true}" class="form-control">
+            <option *ngFor="let tipoArchivo of tiposArchivo;" [value]="tipoArchivo.id_tipo_archivo">
+                {{tipoArchivo.id_tipo_archivo}}.- {{tipoArchivo.nombre_tipo_archivo}}
+            </option>
+          </select>
+        </div>
+        <div class="form-group text-left">
+          <label class="text-dark font-weight-bold">Servidor:</label>
+          <select [(ngModel)]="downloadToUpdate.id_servidor" [ngModelOptions]="{standalone: true}" class="form-control">
+            <option *ngFor="let servidor of servidores;" [value]="servidor.id_servidor">
+                {{servidor.id_servidor}}.- {{servidor.nombre_servidor}}
+            </option>
+          </select>
+        </div>
+        <div class="form-group text-left">
+          <label class="text-dark font-weight-bold">Película:</label>
+          <select [(ngModel)]="downloadToUpdate.id_pelicula" [ngModelOptions]="{standalone: true}" class="form-control">
+            <option *ngFor="let pelicula of peliculas;" [value]="pelicula.id_pelicula">
+                {{pelicula.id_pelicula}}.- {{pelicula.nombre_pelicula}}
+            </option>
+          </select>
         </div>
       </form>
     </div>

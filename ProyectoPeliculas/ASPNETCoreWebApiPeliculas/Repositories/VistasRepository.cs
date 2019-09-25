@@ -27,5 +27,9 @@ namespace ASPNETCoreWebApiPeliculas
         public async Task<List<VDetalleTecnico>> GetVistaDetallesTecnicos() {
             return await AppDbContext.vDetallesTecnicos.ToListAsync();
         }
+
+        public async Task<List<VDescarga>> GetVistaDescargas() {
+            return await AppDbContext.vDescargas.ToListAsync();
+        }
     }
 }

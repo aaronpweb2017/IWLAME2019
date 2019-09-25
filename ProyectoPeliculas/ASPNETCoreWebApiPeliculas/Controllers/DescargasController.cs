@@ -62,5 +62,29 @@ namespace ASPNETCoreWebApiPeliculas.Controllers
         public async Task<bool> DeleteServerAsync(int id_servidor) {
             return await descargas.EliminarServidor(id_servidor);
         }
+
+         //POST: https://localhost:5001/Api/Descargas/CrearDescarga
+        [HttpPost] [ActionName("CrearDescarga")]
+        public async Task<bool> CreateDownloadAsync([FromBody] Descarga descarga) {
+            return await descargas.CrearDescarga(descarga);
+        }
+
+        //GET: https://localhost:5001/Api/Descargas/GetDescargas
+        [HttpGet] [ActionName("GetDescargas")]
+        public async Task<List<Descarga>> GetDownloadsAsync() {
+            return await descargas.GetDescargas();
+        }
+
+        //PUT: https://localhost:5001/Api/Descargas/ActualizarDescarga
+        [HttpPut] [ActionName("ActualizarDescarga")]
+        public async Task<bool> UpdateDownloadAsync([FromBody] Descarga descarga) {
+            return await descargas.ActualizarDescarga(descarga);
+        }
+        
+        //DELETE: https://localhost:5001/Api/Descargas/EliminarDescarga?id_descarga=[value]
+        [HttpDelete] [ActionName("EliminarDescarga")]
+        public async Task<bool> DeleteDownloadAsync(int id_descarga) {
+            return await descargas.EliminarDescarga(id_descarga);
+        }
     }
 }

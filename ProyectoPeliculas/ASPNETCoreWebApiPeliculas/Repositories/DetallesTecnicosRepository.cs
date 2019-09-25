@@ -293,6 +293,11 @@ namespace ASPNETCoreWebApiPeliculas
             try {
                 DetalleTecnico technicalDetailToDelete = await AppDbContext.detallesTecnicos.Where(dt =>
                     dt.id_detalle == id_detalle).FirstOrDefaultAsync();
+                List<Pelicula> peliculas = await AppDbContext.peliculas.Where(p => 
+                    p.id_detalle == technicalDetailToDelete.id_detalle).ToListAsync();
+                foreach(Pelicula pelicula in peliculas) {
+                    //Llama al método EliminarPelicula(pelicula.id_pelicula) de PeliculasRepository
+                }
                 AppDbContext.detallesTecnicos.Remove(technicalDetailToDelete);
                 await AppDbContext.SaveChangesAsync(); response = true;
             }

@@ -28,7 +28,7 @@
           paginationConfig.currentPage, totalItems: paginationConfig.totalItems }; let i=index;">
           <tr>
             <td class="text-center">
-              <span *ngIf="resolucion">{{resolucion.tipo}}</span>
+              <span *ngIf="resolucion">{{resolucion.nombre_tipo_resolucion}}</span>
               <select *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1"
                 [(ngModel)]="nuevaResolucion.id_tipo_resolucion" class="form-control">
                 <option *ngFor="let tipoResolucion of tiposResolucion" [value]="tipoResolucion.id_tipo_resolucion">
@@ -37,7 +37,7 @@
               </select>
             </td>
             <td class="text-center">
-              <span *ngIf="resolucion">{{resolucion.valor}}</span>
+              <span *ngIf="resolucion">{{resolucion.valor_resolucion}}</span>
               <select *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1"
                 [(ngModel)]="nuevaResolucion.id_valor_resolucion" class="form-control">
                 <option *ngFor="let valorResolucion of valoresResolucion" [value]="valorResolucion.id_valor_resolucion">
@@ -46,7 +46,7 @@
               </select>
             </td>
             <td class="text-center">
-              <span *ngIf="resolucion">{{resolucion.aspecto}}</span>
+              <span *ngIf="resolucion">{{resolucion.valor_relacion_aspecto}}</span>
               <select *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1"
                 [(ngModel)]="nuevaResolucion.id_relacion_aspecto" class="form-control">
                 <option *ngFor="let relacionAspecto of relacionesAspecto" [value]="relacionAspecto.id_relacion_aspecto">

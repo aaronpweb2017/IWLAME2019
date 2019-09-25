@@ -25,7 +25,7 @@ export class SolicitudesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.vistasService.getSolicitudesVista().subscribe(solicitudes => {
+    this.vistasService.getVistaSolicitudes().subscribe(solicitudes => {
       this.solicitudes = solicitudes;
       this.paginationConfig = {
         itemsPerPage: 5,

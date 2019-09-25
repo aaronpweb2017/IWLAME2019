@@ -25,10 +25,12 @@ import { RelacionesAspectoComponent } from './components/detalles/resoluciones/r
 import { ResolucionesComponent } from './components/detalles/resoluciones/resoluciones/resoluciones.component';
 import { DetallesTecnicosComponent } from './components/detalles/detalles-tecnicos/detalles-tecnicos.component';
 import { AdminDetallesComponent } from './components/admin-detalles/admin-detalles.component';
-import { ModalActualizacionComponent } from './components/modals/modal-actualizacion/modal-actualizacion.component';
-import { ModalEliminacionComponent } from './components/modals/modal-eliminacion/modal-eliminacion.component';
 import { TiposArchivoComponent } from './components/descargas/tipos-archivo/tipos-archivo.component';
 import { ServidoresComponent } from './components/descargas/servidores/servidores.component';
+import { DescargasComponent } from './components/descargas/descargas/descargas.component';
+import { AdminDescargasComponent } from './components/admin-descargas/admin-descargas.component';
+import { ModalActualizacionComponent } from './components/modals/modal-actualizacion/modal-actualizacion.component';
+import { ModalEliminacionComponent } from './components/modals/modal-eliminacion/modal-eliminacion.component';
 import { FooterComponent } from './components/footer/footer.component';
 
 //Services (providers):
@@ -37,11 +39,11 @@ import { UsuariosService } from './services/usuarios.service';
 import { SolicitudesService } from './services/solicitudes.service';
 import { DetallesTecnicosService } from './services/detalles-tecnicos.service';
 import { DescargasService } from './services/descargas.service';
+import { PeliculasService } from './services/peliculas.service';
 import { VistasService } from './services/vistas.service';
 
 //Global variables:
 import { appRoutes } from './app.routes';
-
 
 @NgModule({
   imports: [
@@ -76,13 +78,17 @@ import { appRoutes } from './app.routes';
     DetallesTecnicosComponent,
     AdminDetallesComponent,
     TiposArchivoComponent,
+    ServidoresComponent,
+    DescargasComponent,
+    AdminDescargasComponent,
     ModalActualizacionComponent,
     ModalEliminacionComponent,
     FooterComponent,
-    ServidoresComponent
   ],
   providers: [GlobalService, UsuariosService,
-    SolicitudesService, DetallesTecnicosService, DescargasService, VistasService],
+    SolicitudesService, DetallesTecnicosService,
+    DescargasService, PeliculasService, VistasService
+  ],
   bootstrap: [AppComponent]
 })
 

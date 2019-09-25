@@ -1,0 +1,90 @@
+<div class="container-fluid" style="padding: 20px;">
+    <div class="col-xl-12 animated-fade-in">
+        <table class="table table-bordered table-dark table-hover">
+            <thead>
+                <tr>
+                    <th colspan="7">
+                        <h3 class="font-weight-bold text-center">Descargas</h3>
+                        <button *ngIf="!create && currentPage == totalPages" type="button" class="btn btn-success" data-toggle="tooltip"
+                            data-placement="top" title="Agregar Elemento" (click)="setCreateFlag()"
+                            style="float: right; margin-top: -40px;"><i class="fas fa-plus-circle"></i>
+                        </button>
+                        <button *ngIf="create && currentPage == totalPages" type="button" class="btn btn-info" data-toggle="tooltip"
+                            data-placement="top" title="Ingorar Agregación" (click)="setCreateFlag()"
+                            style="float: right; margin-top: -40px;"><i class="fas fa-minus-circle"></i>
+                        </button>
+                    </th>
+                </tr>
+                <tr>
+                    <th class="text-center"><span style="font-size: 20px;">Id</span></th>
+                    <th class="text-center"><span style="font-size: 20px;">Password</span></th>
+                    <th class="text-center"><span style="font-size: 20px;">Archivo</span></th>
+                    <th class="text-center"><span style="font-size: 20px;">Servidor</span></th>
+                    <th class="text-center"><span style="font-size: 20px;">Película</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let descarga of descargas | paginate: { id:
+                    'downloadsPagination', itemsPerPage: paginationConfig.itemsPerPage, currentPage:
+                    paginationConfig.currentPage, totalItems: paginationConfig.totalItems }; let i=index;">
+                    <tr>
+                        <td class="text-center">
+                            <span *ngIf="descarga">{{descarga.id_descarga}}</span>
+                            <span *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1">
+                                {{descargas[descargas.length-2]?.id_descarga+1}}
+                            </span>
+                        </td>
+                        <td class="text-center">
+                            <span *ngIf="descarga">{{descarga.password_descarga}}</span>
+                            <input *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1" 
+                            [(ngModel)]="nuevaDescarga.password_descarga" type="text" class="form-control" autofocus="">
+                        </td>
+                        <td class="text-center">
+                            <span *ngIf="descarga">{{descarga.nombre_tipo_archivo}}</span>
+                            <select *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1"
+                                [(ngModel)]="nuevaDescarga.id_tipo_archivo" class="form-control">
+                                <option *ngFor="let tipoArchivo of tiposArchivo" [value]="tipoArchivo.id_tipo_archivo">
+                                    {{tipoArchivo.id_tipo_archivo}}.- {{tipoArchivo.nombre_tipo_archivo}}
+                                </option>
+                            </select>
+                        </td>
+                        <td class="text-center">
+                            <span *ngIf="descarga">{{descarga.nombre_servidor}}</span>
+                            <select *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1"
+                                [(ngModel)]="nuevaDescarga.id_servidor" class="form-control">
+                                <option *ngFor="let servidor of servidores" [value]="servidor.id_servidor">
+                                    {{servidor.id_servidor}}.- {{servidor.nombre_servidor}}
+                                </option>
+                            </select>
+                        </td>
+                        <td class="text-center">
+                            <span *ngIf="descarga">{{descarga.nombre_pelicula}}</span>
+                            <select *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1"
+                                [(ngModel)]="nuevaDescarga.id_pelicula" class="form-control">
+                                <option *ngFor="let pelicula of peliculas" [value]="pelicula.id_pelicula">
+                                    {{pelicula.id_pelicula}}.- {{pelicula.nombre_pelicula}}
+                                </option>
+                            </select>
+                        </td>
+                        <td *ngIf="descarga" class="text-center">
+                            <app-modal-actualizacion [request]="'ActualizarDescarga'" [model]="descarga"
+                                (modelObjectEvent)="actualizarDescarga($event)">
+                            </app-modal-actualizacion>
+                        </td>
+                        <td *ngIf="descarga" class="text-center">
+                            <app-modal-eliminacion [request]="'EliminarDescarga'" [model]="descarga.id_descarga"
+                                (modelIdentifierEvent)="eliminarDescarga($event)">
+                            </app-modal-eliminacion>
+                        </td>
+                        <td *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1" colspan="2">
+                            <button type="button" class="btn btn-success btn-block" data-toggle="tooltip"
+                                data-placement="top" title="Agregar Elemento" style="float: right;" (click)="crearDescarga()">Agregar
+                            </button>
+                        </td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+        <pagination-controls id="downloadsPagination" (pageChange)="pageChanged($event)"></pagination-controls>
+    </div>
+</div>

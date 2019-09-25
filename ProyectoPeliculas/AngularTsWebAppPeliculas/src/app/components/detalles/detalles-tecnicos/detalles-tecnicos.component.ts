@@ -39,7 +39,7 @@ export class DetallesTecnicosComponent implements OnInit {
       id_valor_resolucion: 0, id_relacion_aspecto: 0
     };
     this.resolutionIndex = -1;
-    this.vistasService.getDetallesTecnicosVista().subscribe(detallesTecnicos => {
+    this.vistasService.getVistaDetallesTecnicos().subscribe(detallesTecnicos => {
       this.detallesTecnicos = detallesTecnicos; this.detallesTecnicos.push(null);
       this.paginationConfig = {
         itemsPerPage: 5,
@@ -50,7 +50,7 @@ export class DetallesTecnicosComponent implements OnInit {
       if (this.detallesTecnicos.length % this.paginationConfig.itemsPerPage != 0) this.totalPages += 1;
       this.currentItemsPerPage = this.detallesTecnicos.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
       this.detallesTecnicosService.getFormatos().subscribe(formatos => { this.formatos = formatos; });
-      this.vistasService.getResolucionesVista().subscribe(resoluciones => { this.resoluciones = resoluciones; });
+      this.vistasService.getVistaResoluciones().subscribe(resoluciones => { this.resoluciones = resoluciones; });
     });
   }
 
@@ -62,9 +62,9 @@ export class DetallesTecnicosComponent implements OnInit {
   }
 
   crearDetalleTecnico() {
-    this.nuevoDetalleTecnico.id_tipo_resolucion = this.resoluciones[this.resolutionIndex].id1;
-    this.nuevoDetalleTecnico.id_valor_resolucion = this.resoluciones[this.resolutionIndex].id2;
-    this.nuevoDetalleTecnico.id_relacion_aspecto = this.resoluciones[this.resolutionIndex].id3;
+    this.nuevoDetalleTecnico.id_tipo_resolucion = this.resoluciones[this.resolutionIndex].id_tipo_resolucion;
+    this.nuevoDetalleTecnico.id_valor_resolucion = this.resoluciones[this.resolutionIndex].id_valor_resolucion;
+    this.nuevoDetalleTecnico.id_relacion_aspecto = this.resoluciones[this.resolutionIndex].id_relacion_aspecto;
     this.detallesTecnicosService.crearDetalleTecnico(this.nuevoDetalleTecnico).subscribe(response => {
       if (response) {
         this.toastrService.success("Creación realizada con éxito.");

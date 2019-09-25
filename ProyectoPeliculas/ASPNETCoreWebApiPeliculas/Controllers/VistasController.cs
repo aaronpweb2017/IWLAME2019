@@ -38,5 +38,11 @@ namespace ASPNETCoreWebApiPeliculas.Controllers
         public async Task<List<VDetalleTecnico>> GetTechnicalDetailsViewAsync() {
             return await vistas.GetVistaDetallesTecnicos();
         }
+
+        //GET: https://localhost:5001/Api/Vistas/GetVistaDescargas
+        [HttpGet] [ActionName("GetVistaDescargas")]
+        public async Task<List<VDescarga>> GetDownloadsViewAsync() {
+            return await vistas.GetVistaDescargas();
+        }
     }
 }

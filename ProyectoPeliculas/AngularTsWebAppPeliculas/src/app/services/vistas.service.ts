@@ -7,41 +7,48 @@ import { VSolicitud } from '../interfaces/views/v-solicitud';
 import { VToken } from '../interfaces/views/v-token';
 import { VResolucion } from '../interfaces/views/v-resolucion';
 import { VDetalleTecnico } from '../interfaces/views/v-detalle-tecnico';
+import { VDescarga } from '../interfaces/views/v-descarga';
 
 @Injectable()
 export class VistasService {
   private ApiVistasURL: string;
   private ApiGetVistaSolicitudesURL: string;
   private ApiGetVistaTokensURL: string;
-
   private ApiGetVistaResolucionesURL: string;
   private ApiGetVistaDetallesTecnicosURL: string;
+  private ApiGetVistaDescargasURL: string;
 
   constructor(private http: HttpClient) {
     this.ApiVistasURL = apiURL+"/Vistas";
   }
 
-  getSolicitudesVista(): Observable<VSolicitud[]> {
+  getVistaSolicitudes(): Observable<VSolicitud[]> {
     this.ApiGetVistaSolicitudesURL = this.ApiVistasURL + "/GetVistaSolicitudes";
     return this.http.get(this.ApiGetVistaSolicitudesURL
     ).pipe(map((data: any) => data as VSolicitud[]));
   }
 
-  getTokensVista(): Observable<VToken[]> {
+  getVistaTokens(): Observable<VToken[]> {
     this.ApiGetVistaTokensURL = this.ApiVistasURL + "/GetVistaTokens";
     return this.http.get(this.ApiGetVistaTokensURL
     ).pipe(map((data: any) => data as VToken[]));
   }
 
-  getResolucionesVista(): Observable<VResolucion[]> {
+  getVistaResoluciones(): Observable<VResolucion[]> {
     this.ApiGetVistaResolucionesURL = this.ApiVistasURL + "/GetVistaResoluciones";
     return this.http.get(this.ApiGetVistaResolucionesURL
     ).pipe(map((data: any) => data as VResolucion[]));
   }
 
-  getDetallesTecnicosVista(): Observable<VDetalleTecnico[]> {
+  getVistaDetallesTecnicos(): Observable<VDetalleTecnico[]> {
     this.ApiGetVistaDetallesTecnicosURL = this.ApiVistasURL + "/GetVistaDetallesTecnicos";
     return this.http.get(this.ApiGetVistaDetallesTecnicosURL
     ).pipe(map((data: any) => data as VDetalleTecnico[]));
+  }
+
+  getVistaDescargas(): Observable<VDescarga[]> {
+    this.ApiGetVistaDescargasURL = this.ApiVistasURL + "/GetVistaDescargas";
+    return this.http.get(this.ApiGetVistaDescargasURL
+    ).pipe(map((data: any) => data as VDescarga[]));
   }
 }

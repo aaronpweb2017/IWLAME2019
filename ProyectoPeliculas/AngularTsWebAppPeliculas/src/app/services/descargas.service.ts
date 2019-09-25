@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { apiURL } from '../global.service';
 import { TipoArchivo } from '../interfaces/descargas/tipo-archivo';
 import { Servidor } from '../interfaces/descargas/servidor';
+import { Descarga } from '../interfaces/descargas/descarga';
 
 @Injectable()
 export class DescargasService {
@@ -13,11 +14,13 @@ export class DescargasService {
   private ApiGetTiposArchivoURL: string;
   private ApiActualizarTipoArchivoURL: string;
   private ApiEliminarTipoArchivoURL: string;
-
   private ApiCrearServidorURL: string;
   private ApiGetServidoresURL: string;
   private ApiActualizarServidorURL: string;
   private ApiEliminarServidorURL: string;
+  private ApiCrearDescargaURL: string;
+  private ApiActualizarDescargaURL: string;
+  private ApiEliminarDescargaURL: string;
 
   constructor(private http: HttpClient) {
     this.ApiDescargasURL = apiURL+"/Descargas";
@@ -71,5 +74,24 @@ export class DescargasService {
       + "/EliminarServidor?id_servidor="+id_servidor;
     return this.http.delete(this.ApiEliminarServidorURL
     ).pipe(map((data: any) => data as boolean));
+  }
+
+  crearDescarga(descarga: Descarga): Observable<boolean> {
+    this.ApiCrearDescargaURL = this.ApiDescargasURL + "/CrearDescarga";
+    return this.http.post(this.ApiCrearDescargaURL, descarga
+    ).pipe(map((data: any) => data as boolean));
+  }
+
+  actualizarDescarga(descarga: Descarga): Observable<boolean> {
+      this.ApiActualizarDescargaURL = this.ApiDescargasURL + "/ActualizarDescarga";
+      return this.http.put(this.ApiActualizarDescargaURL, descarga
+      ).pipe(map((data: any) => data as boolean));
+  }
+
+  eliminarDescarga(id_descarga: number): Observable<boolean> {
+      this.ApiEliminarDescargaURL = this.ApiDescargasURL
+          + "/EliminarDescarga?id_descarga=" + id_descarga;
+      return this.http.delete(this.ApiEliminarDescargaURL
+      ).pipe(map((data: any) => data as boolean));
   }
 }
