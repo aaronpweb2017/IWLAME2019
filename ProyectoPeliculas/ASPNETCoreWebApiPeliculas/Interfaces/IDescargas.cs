@@ -18,5 +18,9 @@ namespace ASPNETCoreWebApiPeliculas
         Task<List<Descarga>> GetDescargas();
         Task<bool> ActualizarDescarga(Descarga descarga);
         Task<bool> EliminarDescarga(int id_descarga);
+        Task<bool> CrearEnlace(Enlace enlace);
+        Task<bool> ActualizarEnlace(Enlace enlace);
+        Task<bool> EliminarEnlace(int id_enlace);
+        Task<List<Enlace>> GetEnlacesDescarga(int id_descarga);
     }
 }

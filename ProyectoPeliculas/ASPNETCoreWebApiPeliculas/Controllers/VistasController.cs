@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using ASPNETCoreWebApiPeliculas.Views;
-using Microsoft.AspNetCore.Authorization;
+//using Microsoft.AspNetCore.Authorization;
 
 namespace ASPNETCoreWebApiPeliculas.Controllers
 {
@@ -44,5 +44,7 @@ namespace ASPNETCoreWebApiPeliculas.Controllers
         public async Task<List<VDescarga>> GetDownloadsViewAsync() {
             return await vistas.GetVistaDescargas();
         }
+
+
     }
 }

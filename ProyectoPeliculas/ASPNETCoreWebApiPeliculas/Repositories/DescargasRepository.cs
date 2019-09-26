@@ -174,5 +174,52 @@ namespace ASPNETCoreWebApiPeliculas
             }
             return response;  
         }
+
+        public async Task<bool> CrearEnlace(Enlace enlace) {
+            bool response = false;
+            try {
+                await AppDbContext.enlaces.AddAsync(enlace);
+                await AppDbContext.SaveChangesAsync(); response = true;
+            }
+            catch(Exception exception) {
+                Console.WriteLine("Exception msj: "+exception.Message);
+            }
+            return response;
+        }
+
+        public async Task<List<Enlace>> GetEnlacesDescarga(int id_descarga) {
+            return await AppDbContext.enlaces.Where(e => e.id_descarga == id_descarga).ToListAsync();
+        }
+
+        public async Task<bool> ActualizarEnlace(Enlace enlace) {
+            bool response = false;
+            try {
+                Enlace linkToUpdate = await AppDbContext.enlaces.Where(e =>
+                    e.id_enlace == enlace.id_enlace).FirstOrDefaultAsync();
+                linkToUpdate.valor_enlace = enlace.valor_enlace;
+                linkToUpdate.status_enlace = enlace.status_enlace;
+                linkToUpdate.id_descarga = enlace.id_descarga;
+                AppDbContext.enlaces.Update(linkToUpdate); 
+                await AppDbContext.SaveChangesAsync(); response = true;
+            }
+            catch(Exception exception) {
+                Console.WriteLine("Exception msj: "+exception.Message);
+            }
+            return response;
+        }
+
+        public async Task<bool> EliminarEnlace(int id_enlace) {
+            bool response = false;
+            try {
+                Enlace linkToDelete = await AppDbContext.enlaces.Where(e =>
+                    e.id_enlace == id_enlace).FirstOrDefaultAsync();
+                AppDbContext.enlaces.Remove(linkToDelete);
+                await AppDbContext.SaveChangesAsync(); response = true;
+            }
+            catch(Exception exception) {
+                Console.WriteLine("Exception msj: "+exception.Message);
+            }
+            return response;  
+        }
     }
 }

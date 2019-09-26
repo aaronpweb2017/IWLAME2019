@@ -15,6 +15,7 @@
         </tr>
       </thead>
       <tbody>
+        <!-- CHECK THE 'i' VALUE IN THE NEXT PAGES AND CHECK IF YOU CAN SEE THE DECRYPTED PASSWORD -->
         <ng-container *ngFor="let usuario of usuarios | paginate: { id:
           'usersPagination', itemsPerPage: paginationConfig.itemsPerPage, currentPage:
           paginationConfig.currentPage, totalItems: paginationConfig.totalItems }; let i=index;">

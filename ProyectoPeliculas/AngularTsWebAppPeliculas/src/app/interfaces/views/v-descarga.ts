@@ -1,3 +1,5 @@
+import { Enlace } from '../descargas/enlace';
+
 export interface VDescarga {
     id_descarga: number;
     password_descarga: string;
@@ -7,4 +9,5 @@ export interface VDescarga {
     nombre_servidor: string;
     id_pelicula: number;
     nombre_pelicula: string;
+    enlaces: Enlace[];
 }

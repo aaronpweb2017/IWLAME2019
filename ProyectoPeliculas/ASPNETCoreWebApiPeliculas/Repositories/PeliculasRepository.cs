@@ -10,9 +10,10 @@ namespace ASPNETCoreWebApiPeliculas
     public class PeliculasRepository : IPeliculas
     {
         private readonly ApplicationDbContext AppDbContext;
+        private readonly IDescargas descargas;
 
-        public PeliculasRepository(ApplicationDbContext AppDbContext) {
-            this.AppDbContext = AppDbContext;
+        public PeliculasRepository(ApplicationDbContext AppDbContext, IDescargas descargas) {
+            this.AppDbContext = AppDbContext; this.descargas = descargas;
         }
 
         public async Task<bool> CrearPelicula(Pelicula pelicula) {
@@ -58,11 +59,7 @@ namespace ASPNETCoreWebApiPeliculas
                 List<Descarga> descargas = await AppDbContext.descargas.Where(d => 
                     d.id_pelicula == movieToDelete.id_pelicula).ToListAsync();
                 foreach(Descarga descarga in descargas) {
-                    List<Enlace> enlaces = await AppDbContext.enlaces.Where(e =>
-                        e.id_descarga == descarga.id_descarga).ToListAsync();
-                    foreach(Enlace enlace in enlaces)
-                        AppDbContext.enlaces.Remove(enlace);
-                    AppDbContext.descargas.Remove(descarga);
+                    await this.descargas.EliminarDescarga(descarga.id_descarga);
                 }
                 AppDbContext.peliculas.Remove(movieToDelete);
                 await AppDbContext.SaveChangesAsync(); response = true;

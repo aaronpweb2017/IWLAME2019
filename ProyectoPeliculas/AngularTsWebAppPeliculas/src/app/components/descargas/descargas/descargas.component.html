@@ -82,6 +82,58 @@
                             </button>
                         </td>
                     </tr>
+                    <tr>
+                        <th colspan="5">
+                            <h6 class="font-weight-bold text-center">Enlaces de la descarga {{descarga?.id_descarga}}:</h6>
+                        </th>
+                        <th class="text-center" colspan="2">
+                            <button *ngIf="!crearEnlaces[i]" type="button" class="btn btn-success" data-toggle="tooltip"
+                                data-placement="top" title="Agregar Enlace" (click)="setCreateLinkFlag(i, true)"
+                                style="float: center; "><i class="fas fa-plus-circle"></i>
+                            </button>
+                            <button *ngIf="crearEnlaces[i]" type="button" class="btn btn-info" data-toggle="tooltip"
+                                data-placement="top" title="Ingorar Enlace" (click)="setCreateLinkFlag(i, false)"
+                                style="float: center; "><i class="fas fa-minus-circle"></i>
+                            </button>
+                        </th>
+                    </tr>
+                    <ng-container *ngFor="let enlace of descarga?.enlaces;">
+                        
+                        <tr>
+                            <td class="text-center">
+                                <span *ngIf="enlace">{{enlace.id_enlace}}</span>
+                                <span *ngIf="crearEnlaces[i] && !enlace">{{descarga.enlaces[descarga.enlaces.length-2]?.id_enlace+1}}</span>
+                            </td>
+                            <td class="text-center" colspan="3">
+                                <span *ngIf="enlace">{{enlace.valor_enlace}}</span>
+                                <input *ngIf="crearEnlaces[i] && !enlace" [(ngModel)]="nuevoEnlace.valor_enlace" type="text" class="form-control" autofocus="">
+                            </td>
+                            <td>
+                                <span *ngIf="enlace && enlace.status_enlace==0" class="text-center">Inactivo</span>
+                                <span *ngIf="enlace && enlace.status_enlace==1" class="text-center">Activo</span>
+                                <select *ngIf="crearEnlaces[i] && !enlace" [(ngModel)]="nuevoEnlace.status_enlace" class="form-control" >
+                                    <option [value]="0">Inactivo</option>
+                                    <option [value]="1">Activo</option>
+                                </select>
+                            </td>
+                            <td *ngIf="enlace" class="text-center">
+                                <app-modal-actualizacion [request]="'ActualizarEnlace'" [model]="enlace"
+                                    (modelObjectEvent)="actualizarEnlace($event)">
+                                </app-modal-actualizacion>
+                            </td>
+                            <td *ngIf="enlace" class="text-center">
+                                <app-modal-eliminacion [request]="'EliminarEnlace'" [model]="enlace.id_enlace"
+                                    (modelIdentifierEvent)="eliminarEnlace($event)">
+                                </app-modal-eliminacion>
+                            </td>
+                            <td *ngIf="crearEnlaces[i] && !enlace" colspan="2">
+                                <button type="button" class="btn btn-success btn-block" data-toggle="tooltip"
+                                    data-placement="top" title="Agregar Enlace" style="float: right;" (click)="crearEnlace(descarga.id_descarga)">Agregar
+                                </button>
+                            </td>
+                        </tr>
+                        
+                    </ng-container>
                 </ng-container>
             </tbody>
         </table>
