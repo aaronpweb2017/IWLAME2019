@@ -35,6 +35,9 @@
       <h5 *ngIf="request.includes('EliminarDescarga')" class="modal-title font-weight-bold">
         Eliminación de la descarga {{model}}
       </h5>
+      <h5 *ngIf="request.includes('EliminarEnlace')" class="modal-title font-weight-bold">
+        Eliminación del enlace {{model}}
+      </h5>
       <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -67,7 +70,10 @@
       <p class="text-center">Está seguro de que desea eliminar este servidor?</p>
     </div>
     <div *ngIf="request.includes('EliminarDescarga')" class="modal-body">
-      <p class="text-center">Está seguro de que desea esta descarga?</p>
+      <p class="text-center">Está seguro de que desea eliminar esta descarga?</p>
+    </div>
+    <div *ngIf="request.includes('EliminarEnlace')" class="modal-body">
+      <p class="text-center">Está seguro de que desea eliminar este enlace?</p>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Cerrar</button>

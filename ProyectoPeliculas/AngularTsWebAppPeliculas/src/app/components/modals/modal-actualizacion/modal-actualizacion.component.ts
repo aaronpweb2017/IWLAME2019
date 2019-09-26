@@ -11,6 +11,8 @@ import { Servidor } from 'src/app/interfaces/descargas/servidor';
 import { Pelicula } from 'src/app/interfaces/pelicula';
 import { DescargasService } from 'src/app/services/descargas.service';
 import { PeliculasService } from 'src/app/services/peliculas.service';
+import { VDescarga } from 'src/app/interfaces/views/v-descarga';
+import { Enlace } from 'src/app/interfaces/descargas/enlace';
 
 @Component({
   selector: 'app-modal-actualizacion',
@@ -22,16 +24,17 @@ export class ModalActualizacionComponent implements OnInit {
   @Input() request: string;
   @Input() model: any;
   @Output() modelObjectEvent = new EventEmitter();
-  
+
   resoluciones: VResolucion[];
   formatos: Formato[];
   resolutionIndex: number;
   technicalDetailToUpdate: DetalleTecnico;
-
   tiposArchivo: TipoArchivo[];
   servidores: Servidor[];
   peliculas: Pelicula[];
   downloadToUpdate: Descarga;
+  descargas: VDescarga[];
+  linkToUpdate: Enlace;
 
   constructor(private vistasService: VistasService, private detallesTecnicosService:
     DetallesTecnicosService, private descargasService: DescargasService,
@@ -54,7 +57,6 @@ export class ModalActualizacionComponent implements OnInit {
         this.detallesTecnicosService.getFormatos().subscribe(formatos => { this.formatos = formatos; });
       });
     }
-
     if (this.request.includes("ActualizarDescarga")) {
       this.downloadToUpdate = {
         id_descarga: this.model.id_descarga,
@@ -63,9 +65,18 @@ export class ModalActualizacionComponent implements OnInit {
         id_servidor: this.model.id_servidor,
         id_pelicula: this.model.id_pelicula
       };
-      this.descargasService.getTiposArchivo().subscribe(tiposArchivo => { this.tiposArchivo = tiposArchivo;});
+      this.descargasService.getTiposArchivo().subscribe(tiposArchivo => { this.tiposArchivo = tiposArchivo; });
       this.descargasService.getServidores().subscribe(servidores => { this.servidores = servidores; });
       this.peliculasService.getPeliculas().subscribe(peliculas => { this.peliculas = peliculas; });
+    }
+    if (this.request.includes("ActualizarEnlace")) {
+      this.linkToUpdate = {
+        id_enlace: this.model.id_enlace, valor_enlace: this.model.valor_enlace,
+        status_enlace: this.model.status_enlace, id_descarga: this.model.id_descarga
+      };
+      this.vistasService.getVistaDescargas().subscribe(descargas => {
+        this.descargas = descargas;
+      });
     }
   }
 
@@ -76,10 +87,16 @@ export class ModalActualizacionComponent implements OnInit {
       this.technicalDetailToUpdate.id_relacion_aspecto = this.resoluciones[this.resolutionIndex].id_relacion_aspecto;
       this.modelObjectEvent.emit(this.technicalDetailToUpdate); this.modalRef.hide(); return;
     }
-    if (this.request.includes("ActualizarDescarga")) {
-      this.modelObjectEvent.emit(this.downloadToUpdate); this.modalRef.hide(); return;
+    else if (this.request.includes("ActualizarDescarga")) {
+      this.modelObjectEvent.emit(this.downloadToUpdate);
     }
-    this.modelObjectEvent.emit(this.model); this.modalRef.hide();
+    else if (this.request.includes("ActualizarEnlace")) {
+      this.modelObjectEvent.emit(this.linkToUpdate);
+    }
+    else {
+      this.modelObjectEvent.emit(this.model);
+    }
+    this.modalRef.hide();
   }
 
   public openModal(modalTemplate: TemplateRef<any>) {

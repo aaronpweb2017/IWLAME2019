@@ -22,7 +22,6 @@ export class DescargasComponent implements OnInit {
   currentItemsPerPage: number;
   paginationConfig: any;
   descargas: VDescarga[];
-
   tiposArchivo: TipoArchivo[];
   servidores: Servidor[];
   peliculas: Pelicula[];
@@ -89,6 +88,11 @@ export class DescargasComponent implements OnInit {
   setCreateLinkFlag(index: number, flag: boolean) {
     this.crearEnlaces[index] = flag;;
   }
+
+  setShowLinkFlag(index: number, flag: boolean) {
+    this.mostrarEnlaces[index] = flag;;
+  }
+
 
   crearDescarga() {
     this.descargasService.crearDescarga(this.nuevaDescarga).subscribe(response => {

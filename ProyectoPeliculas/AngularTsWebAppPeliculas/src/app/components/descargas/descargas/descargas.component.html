@@ -29,7 +29,14 @@
                     paginationConfig.currentPage, totalItems: paginationConfig.totalItems }; let i=index;">
                     <tr>
                         <td class="text-center">
-                            <span *ngIf="descarga">{{descarga.id_descarga}}</span>
+                            <button *ngIf="descarga && !mostrarEnlaces[i]" type="button" class="btn btn-link"
+                                data-toggle="tooltip" data-placement="top" title="Mostrar enlaces"
+                                (click)="setShowLinkFlag(i, true);"><i class="fas fa-caret-down"> </i>{{descarga.id_descarga}}
+                            </button>
+                            <button *ngIf="descarga && mostrarEnlaces[i]" type="button" class="btn btn-link"
+                                data-toggle="tooltip" data-placement="top" title="Ignorar enlaces"
+                                (click)="setShowLinkFlag(i, false);"><i class="fas fa-caret-up"> </i>{{descarga.id_descarga}}
+                            </button>
                             <span *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1">
                                 {{descargas[descargas.length-2]?.id_descarga+1}}
                             </span>
@@ -82,24 +89,22 @@
                             </button>
                         </td>
                     </tr>
-                    <tr>
-                        <th colspan="5">
-                            <h6 class="font-weight-bold text-center">Enlaces de la descarga {{descarga?.id_descarga}}:</h6>
-                        </th>
-                        <th class="text-center" colspan="2">
-                            <button *ngIf="!crearEnlaces[i]" type="button" class="btn btn-success" data-toggle="tooltip"
-                                data-placement="top" title="Agregar Enlace" (click)="setCreateLinkFlag(i, true)"
-                                style="float: center; "><i class="fas fa-plus-circle"></i>
-                            </button>
-                            <button *ngIf="crearEnlaces[i]" type="button" class="btn btn-info" data-toggle="tooltip"
-                                data-placement="top" title="Ingorar Enlace" (click)="setCreateLinkFlag(i, false)"
-                                style="float: center; "><i class="fas fa-minus-circle"></i>
-                            </button>
-                        </th>
-                    </tr>
-                    <ng-container *ngFor="let enlace of descarga?.enlaces;">
-                        
+                    <ng-container *ngIf="mostrarEnlaces[i]">
                         <tr>
+                            <th colspan="7">
+                                <h6 class="font-italic text-center">Enlaces de la descarga {{descarga?.id_descarga}}:</h6>
+                            
+                                <button *ngIf="!crearEnlaces[i]" type="button" class="btn btn-success" data-toggle="tooltip"
+                                    data-placement="top" title="Agregar Enlace" (click)="setCreateLinkFlag(i, true)"
+                                    style="float: right; margin-top: -25px;"><i class="fas fa-plus-circle"></i>
+                                </button>
+                                <button *ngIf="crearEnlaces[i]" type="button" class="btn btn-info" data-toggle="tooltip"
+                                    data-placement="top" title="Ingorar Enlace" (click)="setCreateLinkFlag(i, false)"
+                                    style="float: right; margin-top: -25px;"><i class="fas fa-minus-circle"></i>
+                                </button>
+                            </th>
+                        </tr>
+                        <tr *ngFor="let enlace of descarga?.enlaces;">
                             <td class="text-center">
                                 <span *ngIf="enlace">{{enlace.id_enlace}}</span>
                                 <span *ngIf="crearEnlaces[i] && !enlace">{{descarga.enlaces[descarga.enlaces.length-2]?.id_enlace+1}}</span>
@@ -108,9 +113,9 @@
                                 <span *ngIf="enlace">{{enlace.valor_enlace}}</span>
                                 <input *ngIf="crearEnlaces[i] && !enlace" [(ngModel)]="nuevoEnlace.valor_enlace" type="text" class="form-control" autofocus="">
                             </td>
-                            <td>
-                                <span *ngIf="enlace && enlace.status_enlace==0" class="text-center">Inactivo</span>
-                                <span *ngIf="enlace && enlace.status_enlace==1" class="text-center">Activo</span>
+                            <td class="text-center">
+                                <span *ngIf="enlace && enlace.status_enlace==0">Inactivo</span>
+                                <span *ngIf="enlace && enlace.status_enlace==1">Activo</span>
                                 <select *ngIf="crearEnlaces[i] && !enlace" [(ngModel)]="nuevoEnlace.status_enlace" class="form-control" >
                                     <option [value]="0">Inactivo</option>
                                     <option [value]="1">Activo</option>
@@ -132,7 +137,6 @@
                                 </button>
                             </td>
                         </tr>
-                        
                     </ng-container>
                 </ng-container>
             </tbody>

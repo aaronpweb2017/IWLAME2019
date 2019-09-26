@@ -31,6 +31,9 @@
       <h5 *ngIf="request.includes('ActualizarDescarga')" class="modal-title font-weight-bold">
         Actualización de la descarga {{model.id_descarga}}
       </h5>
+      <h5 *ngIf="request.includes('ActualizarEnlace')" class="modal-title font-weight-bold">
+        Actualización del enlace {{model.id_enlace}}
+      </h5>
       <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -182,6 +185,29 @@
           <select [(ngModel)]="downloadToUpdate.id_pelicula" [ngModelOptions]="{standalone: true}" class="form-control">
             <option *ngFor="let pelicula of peliculas;" [value]="pelicula.id_pelicula">
                 {{pelicula.id_pelicula}}.- {{pelicula.nombre_pelicula}}
+            </option>
+          </select>
+        </div>
+      </form>
+    </div>
+    <div *ngIf="request.includes('ActualizarEnlace')" class="modal-body">
+      <form class="bg-light">
+        <div class="form-group text-left">
+            <label class="text-dark font-weight-bold">Valor:</label>
+            <input [(ngModel)]="linkToUpdate.valor_enlace" [ngModelOptions]="{standalone: true}"
+            type="text" class="form-control" placeholder="LinkValue" autofocus="">
+        </div>
+        <div class="form-group text-left">
+          <label class="text-dark font-weight-bold">Status:</label>
+          <select [(ngModel)]="linkToUpdate.status_enlace" [ngModelOptions]="{standalone: true}" class="form-control">
+            <option [value]="0">Inactivo</option> <option [value]="1">Activo</option>
+          </select>
+        </div>
+        <div class="form-group text-left">
+          <label class="text-dark font-weight-bold">Descarga</label>
+          <select [(ngModel)]="linkToUpdate.id_descarga" [ngModelOptions]="{standalone: true}" class="form-control">
+            <option *ngFor="let descarga of descargas;" [value]="descarga.id_descarga">
+                {{descarga.id_descarga}}.- {{descarga.nombre_pelicula}}
             </option>
           </select>
         </div>
