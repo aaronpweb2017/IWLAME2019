@@ -42,7 +42,8 @@
                             </span>
                         </td>
                         <td class="text-center">
-                            <span *ngIf="descarga">{{descarga.password_descarga}}</span>
+                            <span *ngIf="descarga && descarga.password_descarga!=''">{{descarga.password_descarga}}</span>
+                            <span *ngIf="descarga && descarga.password_descarga==''">NINGUNA</span>
                             <input *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1" 
                             [(ngModel)]="nuevaDescarga.password_descarga" type="text" class="form-control" autofocus="">
                         </td>

@@ -15,6 +15,7 @@ import { LoginComponent } from './components/login/login.component';
 import { TopNavbarComponent } from './components/topnavbar/topnavbar.component';
 import { SidenavbarComponent } from './components/sidenavbar/sidenavbar.component';
 import { HomeComponent } from './components/home/home.component';
+//import { TarjetaPeliculaComponent } from './components/peliculas/tarjeta-pelicula/tarjeta-pelicula.component';
 import { SolicitudesComponent } from './components/solicitudes/solicitudes.component';
 import { TokensComponent } from './components/tokens/tokens.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
@@ -44,6 +45,8 @@ import { VistasService } from './services/vistas.service';
 
 //Global variables:
 import { appRoutes } from './app.routes';
+import { TarjetaPeliculaComponent } from './components/peliculas/tarjeta-pelicula/tarjeta-pelicula.component';
+import { DetallesPeliculaComponent } from './components/peliculas/detalles-pelicula/detalles-pelicula.component';
 
 @NgModule({
   imports: [
@@ -67,6 +70,7 @@ import { appRoutes } from './app.routes';
     TopNavbarComponent,
     SidenavbarComponent,
     HomeComponent,
+    //TarjetaPeliculaComponent,
     SolicitudesComponent,
     TokensComponent,
     UsuariosComponent,
@@ -84,6 +88,8 @@ import { appRoutes } from './app.routes';
     ModalActualizacionComponent,
     ModalEliminacionComponent,
     FooterComponent,
+    TarjetaPeliculaComponent,
+    DetallesPeliculaComponent
   ],
   providers: [GlobalService, UsuariosService,
     SolicitudesService, DetallesTecnicosService,

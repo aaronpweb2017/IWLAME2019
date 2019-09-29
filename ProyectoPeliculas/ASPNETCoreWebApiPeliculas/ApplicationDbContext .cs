@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using ASPNETCoreWebApiPeliculas.Models;
 using ASPNETCoreWebApiPeliculas.Views;
+using ASPNETCoreWebApiPeliculas.Models;
 
 namespace ASPNETCoreWebApiPeliculas {
     public class ApplicationDbContext: DbContext {
@@ -36,10 +36,11 @@ namespace ASPNETCoreWebApiPeliculas {
             modelBuilder.Entity<Usuario>().Property(u => u.correo_usuario).
             HasColumnName("correo_usuario").HasColumnType("VARCHAR").HasMaxLength(50).IsRequired();
             modelBuilder.Entity<Usuario>().Property(u => u.password_usuario).
-            HasColumnName("password_usuario").HasColumnType("VARCHAR").HasMaxLength(32).IsRequired();
+            HasColumnName("password_usuario").HasColumnType("VARCHAR").HasMaxLength(30).IsRequired();
             modelBuilder.Entity<Usuario>().Property(u => u.tipo_usuario).
             HasColumnName("tipo_usuario").HasColumnType("INT").IsRequired();
             modelBuilder.Entity<Usuario>().HasKey(u => u.id_usuario).HasName("id_usuario_PK_CSTR");
+            modelBuilder.Entity<Usuario>().HasIndex(u => u.nombre_usuario).HasName("nombre_usuario_UN_CSTR").IsUnique();
             
             //Table Token Configuration:
             modelBuilder.Entity<Token>().ToTable("Token");
@@ -54,6 +55,7 @@ namespace ASPNETCoreWebApiPeliculas {
             modelBuilder.Entity<Token>().Property(t => t.id_usuario).
             HasColumnName("id_usuario").HasColumnType("INT").IsRequired();
             modelBuilder.Entity<Token>().HasKey(t => t.id_token).HasName("id_token_PK_CSTR");
+            modelBuilder.Entity<Token>().HasIndex(t => t.valor_token).HasName("valor_token_UN_CSTR").IsUnique();
             modelBuilder.Entity<Token>().HasOne<Usuario>(t => t.usuario).
             WithMany(u => u.tokens).HasForeignKey(t => t.id_usuario).HasConstraintName("id_usuario_tk_FK_CSTR");
 
@@ -162,7 +164,7 @@ namespace ASPNETCoreWebApiPeliculas {
             modelBuilder.Entity<Pelicula>().Property(p => p.id_pelicula).
             HasColumnName("id_pelicula").HasColumnType("INT");
             modelBuilder.Entity<Pelicula>().Property(p => p.nombre_pelicula).
-            HasColumnName("nombre_pelicula").HasColumnType("VARCHAR").HasMaxLength(50).IsRequired();
+            HasColumnName("nombre_pelicula").HasColumnType("VARCHAR").HasMaxLength(80).IsRequired();
             modelBuilder.Entity<Pelicula>().Property(p => p.fecha_estreno).
             HasColumnName("fecha_estreno").HasColumnType("DATETIME2").IsRequired();
             modelBuilder.Entity<Pelicula>().Property(p => p.presupuesto).
@@ -173,6 +175,10 @@ namespace ASPNETCoreWebApiPeliculas {
             HasColumnName("sinopsis").HasColumnType("VARCHAR").HasMaxLength(300).IsRequired();
             modelBuilder.Entity<Pelicula>().Property(p => p.calificacion).
             HasColumnName("calificacion").HasColumnType("DECIMAL(6,3)");
+            modelBuilder.Entity<Pelicula>().Property(p => p.directores).
+            HasColumnName("directores").HasColumnType("VARCHAR").HasMaxLength(100).IsRequired();
+            modelBuilder.Entity<Pelicula>().Property(p => p.generos).
+            HasColumnName("generos").HasColumnType("VARCHAR").HasMaxLength(80).IsRequired();
             modelBuilder.Entity<Pelicula>().Property(p => p.id_detalle).
             HasColumnName("id_detalle").HasColumnType("INT");
             modelBuilder.Entity<Pelicula>().HasKey(p => p.id_pelicula).HasName("id_pelicula_PK_CSTR");
@@ -202,7 +208,7 @@ namespace ASPNETCoreWebApiPeliculas {
             modelBuilder.Entity<Descarga>().Property(d => d.id_descarga).
             HasColumnName("id_descarga").HasColumnType("INT");
             modelBuilder.Entity<Descarga>().Property(d => d.password_descarga).
-            HasColumnName("password_descarga").HasColumnType("VARCHAR").HasMaxLength(32);
+            HasColumnName("password_descarga").HasColumnType("VARCHAR").HasMaxLength(30);
             modelBuilder.Entity<Descarga>().Property(d => d.id_tipo_archivo).
             HasColumnName("id_tipo_archivo").HasColumnType("INT");
             modelBuilder.Entity<Descarga>().Property(d => d.id_servidor).
@@ -222,7 +228,7 @@ namespace ASPNETCoreWebApiPeliculas {
             modelBuilder.Entity<Enlace>().Property(e => e.id_enlace).
             HasColumnName("id_enlace").HasColumnType("INT");
             modelBuilder.Entity<Enlace>().Property(e => e.valor_enlace).
-            HasColumnName("valor_enlace").HasColumnType("VARCHAR").HasMaxLength(150).IsRequired();
+            HasColumnName("valor_enlace").HasColumnType("VARCHAR").HasMaxLength(300).IsRequired();
             modelBuilder.Entity<Enlace>().Property(e => e.status_enlace).
             HasColumnName("status_enlace").HasColumnType("INT").IsRequired();
             modelBuilder.Entity<Enlace>().Property(e => e.id_descarga).
@@ -299,12 +305,12 @@ namespace ASPNETCoreWebApiPeliculas {
             HasColumnName("valor_relacion_aspecto").HasColumnType("VARCHAR").HasMaxLength(10);
             modelBuilder.Entity<VDetalleTecnico>().HasKey(dt => dt.id_detalle);
             
-            //View VDetalleTecnico Configuration:
+            //View VDescarga Configuration:
             modelBuilder.Entity<VDescarga>().ToTable("VDescarga");
             modelBuilder.Entity<VDescarga>().Property(d => d.id_descarga).
             HasColumnName("id_descarga").HasColumnType("INT");
             modelBuilder.Entity<VDescarga>().Property(d => d.password_descarga).
-            HasColumnName("password_descarga").HasColumnType("VARCHAR").HasMaxLength(32);
+            HasColumnName("password_descarga").HasColumnType("VARCHAR").HasMaxLength(30);
             modelBuilder.Entity<VDescarga>().Property(d => d.id_tipo_archivo).
             HasColumnName("id_tipo_archivo").HasColumnType("INT");
             modelBuilder.Entity<VDescarga>().Property(d => d.nombre_tipo_archivo).
@@ -316,7 +322,7 @@ namespace ASPNETCoreWebApiPeliculas {
             modelBuilder.Entity<VDescarga>().Property(d => d.id_pelicula).
             HasColumnName("id_pelicula").HasColumnType("INT");  
             modelBuilder.Entity<VDescarga>().Property(d => d.nombre_pelicula).
-            HasColumnName("nombre_pelicula").HasColumnType("VARCHAR").HasMaxLength(50);
+            HasColumnName("nombre_pelicula").HasColumnType("VARCHAR").HasMaxLength(80);
             modelBuilder.Entity<VDescarga>().HasKey(d => d.id_descarga);
         }
     }

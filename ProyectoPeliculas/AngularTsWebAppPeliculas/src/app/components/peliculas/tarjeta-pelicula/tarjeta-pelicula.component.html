@@ -1,0 +1,104 @@
+<div *ngIf="pelicula" class="card animated-fade-in">
+  <div class="poster">
+    <img src="{{pelicula.rutaImagen}}">
+    <div class="details">
+      <h4 class="font-weight-bold">
+        {{pelicula.nombre_pelicula}} ({{pelicula.fecha_estreno | date: 'yyyy'}})<br>
+        <span>Directed by {{pelicula.directores}}</span>
+      </h4>
+      <div class="rating">
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" style="width: 90%;"
+            aria-valuenow="25" aria-valuemin="0"
+            aria-valuemax="100">{{pelicula.calificacion}}%
+          </div>
+        </div>
+      </div>
+      <div class="tags">
+        <span class="badge-primary">{{pelicula.generos}}</span>
+      </div>
+      <div class="info">
+        <b>Sinopsis:</b>
+        <p>{{pelicula.sinopsis}}</p>
+        <span><b>Fecha de estreno: </b>{{pelicula.fecha_estreno | date: 'dd/MM/yyyy'}}</span><br>
+        <span><b>Presupuesto: </b>{{pelicula.presupuesto}}</span><br>
+        <span><b>Recaudación: </b>{{pelicula.recaudacion}}</span><br>
+      </div>
+      <div class="form-details">
+        <button class="btn btn-info" type="submit"><b>Ver detalles</b></button>
+        <app-modal-actualizacion style="margin-left: 5px;"
+          [request]="'ActualizarPelicula'" [model]="pelicula"
+          (modelObjectEvent)="actualizarPelicula($event)">
+        </app-modal-actualizacion>
+        <app-modal-eliminacion style="margin-left: 5px;"
+          [request]="'EliminarPelicula'" [model]="pelicula"
+          (modelIdentifierEvent)="eliminarPelicula($event)">
+        </app-modal-eliminacion>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="!pelicula" class="plus animated-fade-in">
+  <button *ngIf="!create" type="button" class="btn btn-primary" data-toggle="tooltip"
+    data-placement="top" title="Agregar Elemento" (click)="setCreateFlag(true)"><i class="fas fa-plus fa-big"></i>
+  </button>
+  <form *ngIf="create" class="form-creation bg-dark animated-fade-in">
+    <h4 class="h4 font-weight-bold text-light text-center">Creación de Película</h4>
+    <div class="form-group">
+      <label class="text-light font-weight-bold" for="movie-name">Nombre:</label>
+      <input [(ngModel)]="nuevapelicula.nombre_pelicula" [ngModelOptions]="{standalone: true}" type="text"
+        class="form-control" id="movie-name" placeholder="Movie Name" autofocus="">
+    </div>
+    <div class="form-group">
+      <label class="text-light font-weight-bold" for="movie-date">Fecha de Estreno:</label>
+        <input [(ngModel)]="nuevapelicula.fecha_estreno" [ngModelOptions]="{standalone: true}" id="movie-date"
+        type="date" data-format="DD-MM-YY" min="1990-01-01" max="2019-09-28" class="form-control">
+    </div>
+    <div class="form-group">
+      <label class="text-light font-weight-bold" for="movie-presupuesto">Presupuesto:</label>
+      <input [(ngModel)]="nuevapelicula.presupuesto" [ngModelOptions]="{standalone: true}" type="number"
+        min="0" max="300000000" step="1" maxlength="9" class="form-control" id="movie-presupuesto">
+    </div>
+    <div class="form-group">
+      <label class="text-light font-weight-bold" for="movie-recaudacion">Recaudación:</label>
+      <input [(ngModel)]="nuevapelicula.recaudacion" [ngModelOptions]="{standalone: true}" type="number"
+        min="0" max="300000000" step="1" maxlength="9" class="form-control" id="movie-recaudacion">
+    </div>
+    <div class="form-group">
+      <label class="text-light font-weight-bold" for="movie-sinopsis">Sinopsis:</label>
+      <textarea [(ngModel)]="nuevapelicula.sinopsis" [ngModelOptions]="{standalone: true}"
+        rows="4" cols="30" maxlength="300" id="movie-sinopsis" placeholder="Movie Sinopsis">
+      </textarea>
+    </div>
+    <div class="form-group">
+      <label class="text-light font-weight-bold" for="movie-grade">Calificación:</label>
+      <input [(ngModel)]="nuevapelicula.calificacion" [ngModelOptions]="{standalone: true}" type="number"
+        min="0" max="100" step="1" maxlength="3" class="form-control" id="movie-grade">
+    </div>
+    <div class="form-group">
+      <label class="text-light font-weight-bold" for="movie-directors">Directores:</label>
+      <input [(ngModel)]="nuevapelicula.directores" [ngModelOptions]="{standalone: true}" type="text"
+        class="form-control" id="movie-director" placeholder="Movie Directors">
+    </div>
+    <div class="form-group">
+      <label class="text-light font-weight-bold" for="movie-category">Géneros:</label>
+      <input [(ngModel)]="nuevapelicula.generos" [ngModelOptions]="{standalone: true}" type="text"
+        class="form-control" id="movie-category" placeholder="Movie Category">
+    </div>
+    <div class="form-group">
+      <label class="text-light font-weight-bold" for="movie-detail">Detalle:</label>
+      <select [(ngModel)]="nuevapelicula.id_detalle" [ngModelOptions]="{standalone: true}" class="form-control" id="movie-detail">
+        <option *ngFor="let detalleTecnico of detallesTecnicos;" [value]="detalleTecnico.id_detalle">
+          {{detalleTecnico.id_detalle}}:
+          {{detalleTecnico.id_formato}}.- {{detalleTecnico.nombre_formato}} |
+          {{detalleTecnico.id_tipo_resolucion}}.- {{detalleTecnico.nombre_tipo_resolucion}} |
+          {{detalleTecnico.id_valor_resolucion}}.- {{detalleTecnico.valor_resolucion}} |
+          {{detalleTecnico.id_relacion_aspecto}}.- {{detalleTecnico.valor_relacion_aspecto}}
+        </option>
+      </select>
+    </div>
+    <button class="btn btn-success btn-block" type="submit"
+      (click)="crearPelicula()"><strong>Crear Película</strong>
+    </button>
+  </form>
+</div>

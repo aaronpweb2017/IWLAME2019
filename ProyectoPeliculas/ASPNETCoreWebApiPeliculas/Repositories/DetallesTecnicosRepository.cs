@@ -10,8 +10,9 @@ namespace ASPNETCoreWebApiPeliculas
     public class DetallesTecnicosRepository : IDetallesTecnicos
     {
         private readonly ApplicationDbContext AppDbContext;
-        public DetallesTecnicosRepository(ApplicationDbContext AppDbContext) {
-            this.AppDbContext = AppDbContext;
+        private readonly IPeliculas peliculas;
+        public DetallesTecnicosRepository(ApplicationDbContext AppDbContext, IPeliculas peliculas) {
+            this.AppDbContext = AppDbContext; this.peliculas = peliculas;
         }
 
         public async Task<bool> CrearFormato(Formato formato) {
@@ -295,9 +296,8 @@ namespace ASPNETCoreWebApiPeliculas
                     dt.id_detalle == id_detalle).FirstOrDefaultAsync();
                 List<Pelicula> peliculas = await AppDbContext.peliculas.Where(p => 
                     p.id_detalle == technicalDetailToDelete.id_detalle).ToListAsync();
-                foreach(Pelicula pelicula in peliculas) {
-                    //Llama al método EliminarPelicula(pelicula.id_pelicula) de PeliculasRepository
-                }
+                foreach(Pelicula pelicula in peliculas)
+                    await this.peliculas.EliminarPelicula(pelicula.id_pelicula);
                 AppDbContext.detallesTecnicos.Remove(technicalDetailToDelete);
                 await AppDbContext.SaveChangesAsync(); response = true;
             }

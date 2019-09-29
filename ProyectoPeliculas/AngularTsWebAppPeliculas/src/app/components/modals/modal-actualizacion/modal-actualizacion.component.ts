@@ -13,6 +13,7 @@ import { DescargasService } from 'src/app/services/descargas.service';
 import { PeliculasService } from 'src/app/services/peliculas.service';
 import { VDescarga } from 'src/app/interfaces/views/v-descarga';
 import { Enlace } from 'src/app/interfaces/descargas/enlace';
+import { VDetalleTecnico } from 'src/app/interfaces/views/v-detalle-tecnico';
 
 @Component({
   selector: 'app-modal-actualizacion',
@@ -35,6 +36,8 @@ export class ModalActualizacionComponent implements OnInit {
   downloadToUpdate: Descarga;
   descargas: VDescarga[];
   linkToUpdate: Enlace;
+  detallesTecnicos: VDetalleTecnico[];
+  movieToUpdate: Pelicula;
 
   constructor(private vistasService: VistasService, private detallesTecnicosService:
     DetallesTecnicosService, private descargasService: DescargasService,
@@ -78,6 +81,22 @@ export class ModalActualizacionComponent implements OnInit {
         this.descargas = descargas;
       });
     }
+    if (this.request.includes("ActualizarPelicula")) {
+      this.movieToUpdate = { 
+        id_pelicula: this.model.id_pelicula,
+        nombre_pelicula: this.model.nombre_pelicula,
+        fecha_estreno: this.model.fecha_estreno,
+        presupuesto: this.model.presupuesto,
+        recaudacion: this.model.recaudacion,
+        sinopsis: this.model.sinopsis,
+        calificacion: this.model.calificacion,
+        directores: this.model.directores,
+        generos: this.model.generos,
+        id_detalle: this.model.id_detalle,
+        rutaImagen: this.model.rutaImagen,
+      };
+      this.vistasService.getVistaDetallesTecnicos().subscribe(detallesTecnicos => { this.detallesTecnicos = detallesTecnicos; });
+    }
   }
 
   emitModelObjectEvent() {
@@ -92,6 +111,9 @@ export class ModalActualizacionComponent implements OnInit {
     }
     else if (this.request.includes("ActualizarEnlace")) {
       this.modelObjectEvent.emit(this.linkToUpdate);
+    }
+    else if (this.request.includes("ActualizarPelicula")) {
+      this.modelObjectEvent.emit(this.movieToUpdate);
     }
     else {
       this.modelObjectEvent.emit(this.model);

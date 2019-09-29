@@ -34,6 +34,9 @@
       <h5 *ngIf="request.includes('ActualizarEnlace')" class="modal-title font-weight-bold">
         Actualización del enlace {{model.id_enlace}}
       </h5>
+      <h5 *ngIf="request.includes('ActualizarPelicula')" class="modal-title font-weight-bold">
+        Actualización de {{model.nombre_pelicula}}
+      </h5>
       <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -207,7 +210,64 @@
           <label class="text-dark font-weight-bold">Descarga</label>
           <select [(ngModel)]="linkToUpdate.id_descarga" [ngModelOptions]="{standalone: true}" class="form-control">
             <option *ngFor="let descarga of descargas;" [value]="descarga.id_descarga">
-                {{descarga.id_descarga}}.- {{descarga.nombre_pelicula}}
+                {{descarga.id_descarga}}.- {{descarga.nombre_pelicula}} ({{descarga.nombre_tipo_archivo}})
+            </option>
+          </select>
+        </div>
+      </form>
+    </div>
+    <div *ngIf="request.includes('ActualizarPelicula')" class="modal-body">
+      <form class="bg-light" style="overflow-y: scroll;">
+        <div class="form-group text-left">
+          <label class="text-dark font-weight-bold">Nombre:</label>
+          <input [(ngModel)]="movieToUpdate.nombre_pelicula" [ngModelOptions]="{standalone: true}" type="text"
+            class="form-control" placeholder="Movie Name" autofocus="">
+        </div>
+        <div class="form-group text-left">
+          <label class="text-dark font-weight-bold">Fecha de Estreno:</label>
+            <input [(ngModel)]="movieToUpdate.fecha_estreno" [ngModelOptions]="{standalone: true}"
+            type="date" data-format="DD-MM-YY" min="1990-01-01" max="2019-09-28" class="form-control">
+        </div>
+        <div class="form-group text-left">
+          <label class="text-dark font-weight-bold">Presupuesto:</label>
+          <input [(ngModel)]="movieToUpdate.presupuesto" [ngModelOptions]="{standalone: true}" type="number"
+            min="0" max="300000000" step="1" maxlength="9" class="form-control">
+        </div>
+        <div class="form-group text-left">
+          <label class="text-dark font-weight-bold">Recaudación:</label>
+          <input [(ngModel)]="movieToUpdate.recaudacion" [ngModelOptions]="{standalone: true}" type="number"
+            min="0" max="300000000" step="1" maxlength="9" class="form-control">
+        </div>
+        <div class="form-group" style="display: inline-block;">
+          <label class="text-dark font-weight-bold">Sinopsis:</label>
+          <textarea [(ngModel)]="movieToUpdate.sinopsis" [ngModelOptions]="{standalone: true}"
+            rows="4" cols="30" maxlength="300" placeholder="Movie Sinopsis">
+          </textarea>
+        </div>
+        <div class="form-group text-left">
+          <label class="text-dark font-weight-bold">Calificación:</label>
+          <input [(ngModel)]="movieToUpdate.calificacion" [ngModelOptions]="{standalone: true}" type="number"
+            min="0" max="100" step="1" maxlength="3" class="form-control">
+        </div>
+        <div class="form-group text-left">
+          <label class="text-dark font-weight-bold">Directores:</label>
+          <input [(ngModel)]="movieToUpdate.directores" [ngModelOptions]="{standalone: true}" type="text"
+            class="form-control" placeholder="Movie Directors">
+        </div>
+        <div class="form-group text-left">
+          <label class="text-dark font-weight-bold">Géneros:</label>
+          <input [(ngModel)]="movieToUpdate.generos" [ngModelOptions]="{standalone: true}" type="text"
+            class="form-control" placeholder="Movie Category">
+        </div>
+        <div class="form-group text-left">
+          <label class="text-dark font-weight-bold">Detalle:</label>
+          <select [(ngModel)]="movieToUpdate.id_detalle" [ngModelOptions]="{standalone: true}" class="form-control">
+            <option *ngFor="let detalleTecnico of detallesTecnicos;" [value]="movieToUpdate.id_detalle">
+              {{detalleTecnico.id_detalle}}:
+              {{detalleTecnico.id_formato}}.- {{detalleTecnico.nombre_formato}} |
+              {{detalleTecnico.id_tipo_resolucion}}.- {{detalleTecnico.nombre_tipo_resolucion}} |
+              {{detalleTecnico.id_valor_resolucion}}.- {{detalleTecnico.valor_resolucion}} |
+              {{detalleTecnico.id_relacion_aspecto}}.- {{detalleTecnico.valor_relacion_aspecto}}
             </option>
           </select>
         </div>

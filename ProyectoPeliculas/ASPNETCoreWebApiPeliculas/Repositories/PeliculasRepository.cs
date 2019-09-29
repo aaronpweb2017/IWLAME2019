@@ -42,6 +42,10 @@ namespace ASPNETCoreWebApiPeliculas
                 movieToUpdate.presupuesto = pelicula.presupuesto;
                 movieToUpdate.recaudacion = pelicula.recaudacion;
                 movieToUpdate.sinopsis = pelicula.sinopsis;
+                movieToUpdate.calificacion = pelicula.calificacion;
+                movieToUpdate.directores = pelicula.directores;
+                movieToUpdate.generos = pelicula.generos;
+                movieToUpdate.id_detalle = pelicula.id_detalle;
                 AppDbContext.peliculas.Update(movieToUpdate); 
                 await AppDbContext.SaveChangesAsync(); response = true;
             }

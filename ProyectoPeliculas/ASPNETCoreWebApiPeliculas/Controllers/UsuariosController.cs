@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using ASPNETCoreWebApiPeliculas.Services;
 using ASPNETCoreWebApiPeliculas.Models;
 
 namespace ASPNETCoreWebApiPeliculas.Controllers
@@ -10,7 +9,6 @@ namespace ASPNETCoreWebApiPeliculas.Controllers
     public class UsuariosController : ControllerBase
     {
         private readonly IUsuarios usuarios;
-        private readonly IUserService userService;
 
         public UsuariosController(IUsuarios usuarios) {
             this.usuarios = usuarios;

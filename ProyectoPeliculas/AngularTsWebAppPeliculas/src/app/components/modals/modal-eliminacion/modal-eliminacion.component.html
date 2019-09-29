@@ -38,6 +38,9 @@
       <h5 *ngIf="request.includes('EliminarEnlace')" class="modal-title font-weight-bold">
         Eliminación del enlace {{model}}
       </h5>
+      <h5 *ngIf="request.includes('EliminarPelicula')" class="modal-title font-weight-bold">
+        Eliminación de la película {{model.id_pelicula}} ({{model.nombre_pelicula}})
+      </h5>
       <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
         <span aria-hidden="true">&times;</span>
       </button>

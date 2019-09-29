@@ -8,11 +8,16 @@ CREATE TABLE Usuario(
    id_usuario INT IDENTITY(1, 1) NOT NULL,
    nombre_usuario VARCHAR(70) NOT NULL,
    correo_usuario VARCHAR(50) NOT NULL,
-   password_usuario VARCHAR(32) NOT NULL,
+   password_usuario VARCHAR(30) NOT NULL,
    tipo_usuario INT NOT NULL,
 )
 
 ALTER TABLE Usuario ADD CONSTRAINT id_usuario_PK_CSTR PRIMARY KEY(id_usuario)
+
+ALTER TABLE Usuario ADD CONSTRAINT nombre_usuario_UN_CSTR UNIQUE(nombre_usuario)
+
+INSERT INTO Usuario(nombre_usuario, correo_usuario, password_usuario, tipo_usuario) VALUES
+('admin', 'luis-aaron40@hotmail.com', 'Wc+gCD/DHyc=', 1)
 
 SELECT id_usuario, nombre_usuario, correo_usuario, 
 password_usuario, tipo_usuario FROM Usuario
@@ -33,6 +38,8 @@ CREATE TABLE Token(
 )
 
 ALTER TABLE Token ADD CONSTRAINT id_token_PK_CSTR PRIMARY KEY(id_token)
+
+ALTER TABLE Token ADD CONSTRAINT valor_token_UN_CSTR UNIQUE(valor_token)
 
 ALTER TABLE Token ADD CONSTRAINT id_usuario_tk_FK_CSTR
 FOREIGN KEY(id_usuario) REFERENCES Usuario(id_usuario)
@@ -105,9 +112,10 @@ CREATE TABLE Formato(
 ALTER TABLE Formato ADD CONSTRAINT
 id_formato_PK_CSTR PRIMARY KEY(id_formato)
 
-SELECT id_formato,
-nombre_formato
-FROM Formato
+INSERT INTO Formato(nombre_formato) VALUES
+('MKV'), ('MP4'), ('AVI')
+
+SELECT id_formato, nombre_formato FROM Formato
 
 DROP TABLE Formato
 
@@ -163,9 +171,7 @@ INSERT INTO ValorResolucion(valor_resolucion) VALUES
 ('1920x1024'), ('1920x1032'), ('1920x1036'), ('1920x1040'), ('1920x1072'),
 ('1920x1080')
 
-SELECT id_valor_resolucion,
-valor_resolucion
-FROM ValorResolucion
+SELECT id_valor_resolucion, valor_resolucion FROM ValorResolucion
 
 DROP TABLE ValorResolucion
 
@@ -182,15 +188,10 @@ CREATE TABLE RelacionAspecto(
 ALTER TABLE RelacionAspecto ADD CONSTRAINT
 id_relacion_aspecto_PK_CSTR PRIMARY KEY(id_relacion_aspecto)
 
---ALTER TABLE RelacionAspecto ADD CONSTRAINT
---valor_relacion_aspecto_CK_CSTR CHECK(valor_relacion_aspecto LIKE '[4-16]:[3-9]')
-
 INSERT INTO RelacionAspecto(valor_relacion_aspecto) VALUES
 ('4:3'), ('5:12'), ('16:9')
 
-SELECT id_relacion_aspecto,
-valor_relacion_aspecto
-FROM RelacionAspecto
+SELECT id_relacion_aspecto, valor_relacion_aspecto FROM RelacionAspecto
 
 DROP TABLE RelacionAspecto
 
@@ -285,12 +286,14 @@ DROP TABLE DetalleTecnico
 
 CREATE TABLE Pelicula(
     id_pelicula INT IDENTITY(1, 1) NOT NULL,
-    nombre_pelicula VARCHAR(50) NOT NULL,
+    nombre_pelicula VARCHAR(80) NOT NULL,
     fecha_estreno DATETIME2 NOT NULL,
     presupuesto MONEY NULL,
     recaudacion MONEY NULL,
     sinopsis VARCHAR(300) NOT NULL,
     calificacion DECIMAL(6, 3) NULL,
+    directores VARCHAR(100) NOT NULL,
+    generos VARCHAR(80) NOT NULL,
     id_detalle INT NOT NULL
 )
 
@@ -300,12 +303,15 @@ id_pelicula_PK_CSTR PRIMARY KEY(id_pelicula)
 ALTER TABLE Pelicula ADD CONSTRAINT id_detalle_FK_CSTR
 FOREIGN KEY(id_detalle) REFERENCES DetalleTecnico(id_detalle)
 
-INSERT INTO Pelicula(nombre_pelicula, fecha_estreno, presupuesto, recaudacion, sinopsis, calificacion, id_detalle) VALUES
-('Avengers Endgame', '2019-04-26T00:00:00.000', 356000000, 2796000000, 'Thanos es el mejor villano', 70.00, 4)
+INSERT INTO Pelicula(nombre_pelicula, fecha_estreno, presupuesto, recaudacion, sinopsis, calificacion, directores, generos, id_detalle) VALUES
+('Avengers Endgame', '2019-04-26T00:00:00.000', 356000000, 2796000000, 'Thanos es el mejor villano', 75.00, 'Joe & Anthony Russo', 'Ciencia Ficción', 1)
+INSERT INTO Pelicula(nombre_pelicula, fecha_estreno, presupuesto, recaudacion, sinopsis, calificacion, directores, generos, id_detalle) VALUES
+('Invicto', '2002-08-23T00:00:00.000', 20000000, 0.00, 'Monroe Hutchen es el verdadero invicto', 85.00, 'Walter Hill', 'Deportes', 1)
 
 SELECT id_pelicula, nombre_pelicula, fecha_estreno,
 presupuesto, recaudacion, sinopsis,
-calificacion, id_detalle FROM Pelicula
+calificacion, directores, generos
+id_detalle FROM Pelicula
 
 SELECT P.nombre_pelicula, F.nombre_formato, TR.nombre_tipo_resolucion,
 VR.valor_resolucion, RA.valor_relacion_aspecto FROM Pelicula P
@@ -377,7 +383,7 @@ DROP TABLE Servidor
 
 CREATE TABLE Descarga(
     id_descarga INT IDENTITY(1, 1) NOT NULL,
-    password_descarga VARCHAR(32) NULL,
+    password_descarga VARCHAR(30) NULL,
     id_tipo_archivo INT NOT NULL,
     id_servidor INT NOT NULL,
     id_pelicula INT NOT NULL
@@ -526,31 +532,5 @@ CREATE VIEW VDescarga AS
 SELECT * FROM VDescarga
 
 DROP VIEW VDescarga
-
-------------------------------------------------------------------------------------------------------
-
-
-------------------------------------------------------------------------------------------------------
-
-CREATE TRIGGER ActualizaCalificacionPelicula
-ON Escena AFTER INSERT, UPDATE, DELETE AS
-BEGIN
-    DECLARE @id_pelicula INT
-    DECLARE @calificacion INT
-    IF EXISTS (SELECT 1 FROM inserted)
-    BEGIN
-        SET @id_pelicula = (SELECT id_pelicula FROM inserted)
-    END
-    ELSE
-    BEGIN
-        SET @id_pelicula = (SELECT id_pelicula FROM deleted)
-    END
-    SET @calificacion = (SELECT AVG(calificacion_escena)
-    FROM Escena WHERE id_pelicula = @id_pelicula)
-    UPDATE Pelicula SET calificacion = @calificacion
-    WHERE id_pelicula = @id_pelicula
-END
-
-DROP TRIGGER ActualizaCalificacionPelicula
 
 ------------------------------------------------------------------------------------------------------

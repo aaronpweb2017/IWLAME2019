@@ -6,5 +6,8 @@ export interface Pelicula {
     recaudacion: number;
     sinopsis: string;
     calificacion: number;
+    directores: string;
+    generos: string;
     id_detalle: number;
+    rutaImagen: string;
 }

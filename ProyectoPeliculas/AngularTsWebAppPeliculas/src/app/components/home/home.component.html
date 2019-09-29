@@ -1,43 +1,12 @@
 <div class="container-fluid">
   <app-sidenavbar></app-sidenavbar>
   <div class="row">
-    <div class="col-xl column animated-fade-in" *ngFor="let a of noPeliculas">
-      <div class="card animated-fade-in">
-        <div class="poster">
-          <img src="assets/imgAvengersEndGame.jpg">
-          <div class="details">
-            <h4 class="font-weight-bold">
-              Avengers: Endgame (2019)<br>
-              <span>Directed by Joe Russo</span>
-            </h4>
-            <div class="rating">
-                <div class="progress">
-                  <div class="progress-bar" role="progressbar" style="width: 90%;"
-                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">90%
-                  </div>
-                </div>
-            </div>
-            <div class="tags">
-              <span class="badge-primary">Acción</span>
-              <span class="badge-secondary">Ciencia Ficción</span>
-            </div>
-            <div class="info">
-              <b>Sinopsis:</b>
-              <p>Los Vengadores restantes deben encontrar una manera de recuperar a sus aliados para
-                un enfrentamiento épico con Thanos, el malvado que debastó el planeta y el universo.
-              </p>
-              <span><b>Fecha de estreno: </b>26/04/2019</span><br>
-              <span><b>Presupuesto: </b>$300000000.00</span><br>
-              <span><b>Recaudación: </b>$2048359754.00</span><br>
-              <span><b>Idiomas: </b>Español / Inglés</span><br>
-              <span><b>Productoras: </b>Marvel</span><br>
-            </div>
-            <div class="form-details">
-                <button class="btn btn-info" type="submit"><b>Ver más detalles</b></button>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="col-xl column animated-fade-in" *ngFor="let pelicula of peliculas | paginate: { id:
+      'moviesPagination', itemsPerPage: paginationConfig.itemsPerPage, currentPage:
+      paginationConfig.currentPage, totalItems: paginationConfig.totalItems };" >
+      <app-tarjeta-pelicula *ngIf="pelicula" [pelicula]="pelicula"></app-tarjeta-pelicula>
+      <app-tarjeta-pelicula *ngIf="!pelicula" [pelicula]=""></app-tarjeta-pelicula>
     </div>
   </div>
 </div>
+<pagination-controls id="moviesPagination" (pageChange)="pageChanged($event)"></pagination-controls>
