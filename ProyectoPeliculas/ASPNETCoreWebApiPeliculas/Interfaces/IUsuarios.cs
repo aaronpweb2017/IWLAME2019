@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using ASPNETCoreWebApiPeliculas.Models;
@@ -6,7 +7,7 @@ namespace ASPNETCoreWebApiPeliculas
 {
     public interface IUsuarios
     {
-        Task<bool> CrearUsuario(Usuario user);
+        Task<Object []> CrearUsuario(Usuario user);
         Task<Usuario> GetUsuario(string username_email);
         Task<List<Usuario>> GetUsuarios();
         Task<bool> ActualizarUsuario(Usuario user);

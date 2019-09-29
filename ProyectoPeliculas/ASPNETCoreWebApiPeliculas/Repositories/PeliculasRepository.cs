@@ -47,6 +47,11 @@ namespace ASPNETCoreWebApiPeliculas
                 movieToUpdate.generos = pelicula.generos;
                 movieToUpdate.idiomas = pelicula.idiomas;
                 movieToUpdate.productoras = pelicula.productoras;
+                movieToUpdate.actores = pelicula.actores;
+                movieToUpdate.pais = pelicula.pais;
+                movieToUpdate.audios = pelicula.audios;
+                movieToUpdate.subtitulos = pelicula.subtitulos;
+                movieToUpdate.peso = pelicula.peso;
                 movieToUpdate.id_detalle = pelicula.id_detalle;
                 AppDbContext.peliculas.Update(movieToUpdate); 
                 await AppDbContext.SaveChangesAsync(); response = true;

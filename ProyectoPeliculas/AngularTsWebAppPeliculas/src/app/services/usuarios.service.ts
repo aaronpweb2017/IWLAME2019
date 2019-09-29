@@ -22,10 +22,10 @@ export class UsuariosService {
     this.ApiUsuariosURL = apiURL+"/Usuarios";
   }
 
-  crearUsuario(usuario: Usuario): Observable<boolean> {
+  crearUsuario(usuario: Usuario): Observable<any[]> {
     this.ApiCrearUsuarioURL = this.ApiUsuariosURL + "/CrearUsuario";
     return this.http.post(this.ApiCrearUsuarioURL, usuario).pipe(
-      map((data: any) => data as boolean)
+      map((data: any) => data as any[])
     );
   }
 

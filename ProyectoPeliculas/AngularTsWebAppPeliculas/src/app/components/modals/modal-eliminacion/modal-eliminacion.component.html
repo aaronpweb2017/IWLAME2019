@@ -39,45 +39,89 @@
         Eliminación del enlace {{model}}
       </h5>
       <h5 *ngIf="request.includes('EliminarPelicula')" class="modal-title font-weight-bold">
-        Eliminación de la película {{model.id_pelicula}} ({{model.nombre_pelicula}})
+        Eliminación de {{model.id_pelicula}} ({{model.nombre_pelicula}})
       </h5>
       <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div *ngIf="request.includes('EliminarUsuario')" class="modal-body">
-      <p class="text-center">Está seguro de que desea eliminar este usuario?</p>
+      <p class="text-center">
+        Está seguro de que desea eliminar este usuario?.
+        Al hacerlo, se eliminarán todas sus solicidudes y tokens.
+      </p>
     </div>
     <div *ngIf="request.includes('EliminarFormato')" class="modal-body">
-      <p class="text-center">Está seguro de que desea eliminar este formato?</p>
+      <p class="text-center">
+        Está seguro de que desea eliminar este formato?. 
+        Al hacerlo, se eliminarán todos sus detalles técnicos, las películas que
+        tengan ese detalle, las descargas de esas películas y los enlaces de esas descargas.
+      </p>
     </div>
     <div *ngIf="request.includes('EliminarTipoResolucion')" class="modal-body">
-      <p class="text-center">Está seguro de que desea eliminar este tipo de resolución?</p>
+      <p class="text-center">
+        Está seguro de que desea eliminar este tipo de resolución?
+        Al hacerlo, se eliminarán todas sus resoluciones, los detalles técnicos que tengan esas resoluciones,
+        las películas que tengan ese detalle, las descargas de esas películas y los enlaces de esas descargas.
+      </p>
     </div>
     <div *ngIf="request.includes('EliminarValorResolucion')" class="modal-body">
-      <p class="text-center">Está seguro de que desea eliminar este valor de resolución?</p>
+      <p class="text-center">
+        Está seguro de que desea eliminar este valor de resolución?
+        Al hacerlo, se eliminarán todas sus resoluciones, los detalles técnicos que tengan esas resoluciones,
+        las películas que tengan ese detalle, las descargas de esas películas y los enlaces de esas descargas.
+      </p>
     </div>
     <div *ngIf="request.includes('EliminarRelacionAspecto')" class="modal-body">
-      <p class="text-center">Está seguro de que desea eliminar esta relación de aspecto?</p>
+      <p class="text-center">
+        Está seguro de que desea eliminar esta relación de aspecto?
+        Al hacerlo, se eliminarán todas sus resoluciones, los detalles técnicos que tengan esas resoluciones,
+        las películas que tengan ese detalle, las descargas de esas películas y los enlaces de esas descargas.
+      </p>
     </div>
     <div *ngIf="request.includes('EliminarResolucion')" class="modal-body">
-      <p class="text-center">Está seguro de que desea eliminar esta resolución?</p>
+      <p class="text-center">
+        Está seguro de que desea eliminar esta resolución?
+        Al hacerlo, se eliminarán todos sus detalles técnicos, las películas que tengan
+        ese detalle, las descargas de esas películas y los enlaces de esas descargas.
+      </p>
     </div>
     <div *ngIf="request.includes('EliminarDetalleTecnico')" class="modal-body">
-      <p class="text-center">Está seguro de que desea eliminar este detalle técnico?</p>
+      <p class="text-center">
+        Está seguro de que desea eliminar este detalle técnico?
+        Al hacerlo, se eliminarán todas sus películas, las descargas
+        de esas películas y los enlaces de esas descargas.
+      </p>
     </div>
     <div *ngIf="request.includes('EliminarTipoArchivo')" class="modal-body">
-      <p class="text-center">Está seguro de que desea eliminar este tipo de archivo?</p>
+      <p class="text-center">
+        Está seguro de que desea eliminar este tipo de archivo? Al hacerlo,
+        se eliminarán todas sus descargas y los enlaces de esas descargas.
+      </p>
     </div>
     <div *ngIf="request.includes('EliminarServidor')" class="modal-body">
-      <p class="text-center">Está seguro de que desea eliminar este servidor?</p>
+      <p class="text-center">
+        Está seguro de que desea eliminar este servidor? Al hacerlo,
+        se eliminarán todas sus descargas y los enlaces de esas descargas.
+      </p>
     </div>
     <div *ngIf="request.includes('EliminarDescarga')" class="modal-body">
-      <p class="text-center">Está seguro de que desea eliminar esta descarga?</p>
+      <p class="text-center">
+        Está seguro de que desea eliminar esta descarga? 
+        Al hacerlo se eliminarán todos sus enlaces.
+      </p>
     </div>
     <div *ngIf="request.includes('EliminarEnlace')" class="modal-body">
       <p class="text-center">Está seguro de que desea eliminar este enlace?</p>
     </div>
+
+    <div *ngIf="request.includes('EliminarPelicula')" class="modal-body">
+      <p class="text-center">
+        Está seguro de que desea eliminar esta película? Al hacerlo, se
+        eliminarán todas sus descargas y los enlaces de esas descargas.
+      </p>
+    </div>
+
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Cerrar</button>
       <button type="button" class="btn btn-danger" (click)="emitModelIdentifierEvent()">Aceptar

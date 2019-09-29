@@ -13,19 +13,18 @@ import { Router } from '@angular/router';
 })
 export class TarjetaPeliculaComponent implements OnInit {
   @Input() pelicula: Pelicula;
-  directores: string[];  generos: string[];
+  @Input() detallesTecnicos: VDetalleTecnico[];
+  directores: string[]; generos: string[];
   nuevapelicula: Pelicula;
-  detallesTecnicos: VDetalleTecnico[];
   create: boolean;
 
-  
   constructor(private peliculasService: PeliculasService, private vistasService:
     VistasService, private router: Router, private toastrService: ToastrService) {
-      this.router.routeReuseStrategy.shouldReuseRoute = function () { return false; };
-    }
+    this.router.routeReuseStrategy.shouldReuseRoute = function () { return false; };
+  }
 
   ngOnInit() {
-    if(this.pelicula) {
+    if (this.pelicula) {
       this.directores = this.pelicula.directores.split(", ");
       this.generos = this.pelicula.generos.split(", ");
     }
@@ -42,13 +41,14 @@ export class TarjetaPeliculaComponent implements OnInit {
       generos: "",
       idiomas: "",
       productoras: "",
+      actores: "",
+      pais: "",
+      audios: "",
+      subtitulos: "",
+      peso: 0,
       id_detalle: 0,
       rutaImagen: "",
     };
-    this.vistasService.getVistaDetallesTecnicos().subscribe(detallesTecnicos => {
-      this.detallesTecnicos = detallesTecnicos;
-      console.log( this.detallesTecnicos);
-    });
   }
 
   setCreateFlag(flag: boolean) {
@@ -62,34 +62,58 @@ export class TarjetaPeliculaComponent implements OnInit {
           this.toastrService.success("Creación realizada con éxito.");
           this.router.navigate(['/home']); return;
         }
-        this.toastrService.error("Creación fallida...");
-      },
-      error => {
+        //this.toastrService.error("Creación fallida...");
+      }, error => {
         this.toastrService.error(error.message);
       });
   }
 
   actualizarPelicula(pelicula: Pelicula) {
-    console.log("actualizarPelicula:"); console.log(pelicula);
-    this.peliculasService.actualizarPelicula(pelicula).subscribe(response => {
-      if (response) {
-        this.toastrService.success("Actualización realizada con éxito.");
-        this.router.navigate(['/home']); return;
-      }
-      this.toastrService.error("Actualización fallida...");
-    },
-    error => {
-      this.toastrService.error(error.message);
-    });
+    this.peliculasService.actualizarPelicula(pelicula).subscribe(
+      response => {
+        if (response) {
+          this.toastrService.success("Actualización realizada con éxito.");
+          this.router.navigate(['/home']); return;
+        }
+        //this.toastrService.error("Actualización fallida...");
+      }, error => {
+        this.toastrService.error(error.message);
+      });
   }
 
   eliminarPelicula(pelicula: Pelicula) {
-    this.peliculasService.eliminarPelicula(pelicula.id_pelicula).subscribe(response => {
-      if (response) {
-        this.toastrService.success("Eliminación realizada con éxito.");
-        this.router.navigate(['/home']); return;
-      }
-      this.toastrService.error("Eliminación fallida...");
-    });
+    this.peliculasService.eliminarPelicula(pelicula.id_pelicula).subscribe(
+      response => {
+        if (response) {
+          this.toastrService.success("Eliminación realizada con éxito.");
+          this.router.navigate(['/home']); return;
+        }
+        //this.toastrService.error("Eliminación fallida...");
+      }, error => {
+        this.toastrService.error(error.message);
+      });
+  }
+
+  verDetallesPelicula() {
+    this.router.navigate(['/detallesPelicula', {
+      id_pelicula: this.pelicula.id_pelicula,
+      nombre_pelicula: this.pelicula.nombre_pelicula,
+      fecha_estreno: this.pelicula.fecha_estreno,
+      presupuesto: this.pelicula.presupuesto,
+      recaudacion: this.pelicula.recaudacion,
+      sinopsis: this.pelicula.sinopsis,
+      calificacion: this.pelicula.calificacion,
+      directores: this.pelicula.directores,
+      generos: this.pelicula.generos,
+      idiomas: this.pelicula.idiomas,
+      productoras: this.pelicula.productoras,
+      actores: this.pelicula.actores,
+      pais: this.pelicula.pais,
+      audios: this.pelicula.audios,
+      subtitulos: this.pelicula.subtitulos,
+      peso: this.pelicula.peso,
+      id_detalle: this.pelicula.id_detalle,
+      rutaImagen: this.pelicula.rutaImagen
+    }]);
   }
 }

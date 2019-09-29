@@ -16,10 +16,20 @@
         (click)="iniciarSesion()"><strong>Iniciar Sesión</strong>
       </button>
       <div class="btn-group" role="group" aria-label="passTokenButtons">
-        <button class="btn btn-link" type="button" (click)="setFlagForgottenPassword()">Olvidaste la contraseña?</button> 
+        <button *ngIf="!flagForgottenPassword" class="btn btn-link" type="button"
+          (click)="setFlagForgottenPassword(true)">Olvidaste la contraseña?
+        </button> 
+        <button *ngIf="flagForgottenPassword" class="btn btn-link" type="button"
+          (click)="setFlagForgottenPassword(false)">Olvidaste la contraseña?
+        </button> 
         <button class="btn btn-link" type="button" (click)="solicitarToken()">Solicitar Token</button>
       </div><hr>      
-      <button class="btn btn-primary btn-block" type="button" (click)="setFlagNuevaCuenta()">Crear cuenta nueva</button>
+      <button *ngIf="!flagNuevaCuenta" class="btn btn-primary btn-block" type="button"
+        (click)="setFlagNuevaCuenta(true)">Crear cuenta nueva
+      </button>
+      <button *ngIf="flagNuevaCuenta" class="btn btn-primary btn-block" type="button"
+        (click)="setFlagNuevaCuenta(false)">Crear cuenta nueva
+      </button>
     </form>
     <form *ngIf="flagForgottenPassword" class="form-reset bg-dark animated-fade-in">
       <div class="form-group">

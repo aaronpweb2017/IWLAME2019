@@ -18,26 +18,34 @@ namespace ASPNETCoreWebApiPeliculas
             this.AppDbContext = AppDbContext; this.userService = userService;
         }
         
-        public async Task<bool> CrearUsuario(Usuario user) {
-            bool response = false;
+        public async Task<Object []> CrearUsuario(Usuario user) {
+            Object [] response = new Object [2];
             try {
                 string originalPassword = user.password_usuario; user.tipo_usuario = 2;
                 user.password_usuario = userService.EncryptPassword(originalPassword);                
                 await AppDbContext.usuarios.AddAsync(user); await AppDbContext.SaveChangesAsync();
                 Usuario userToAuthenticate = await AppDbContext.usuarios.Where(u =>
-                u.nombre_usuario.Equals(user.nombre_usuario)).FirstOrDefaultAsync();                
-                if(await SolicitudToken(new Usuario() { nombre_usuario = user.nombre_usuario, password_usuario = originalPassword})) {
+                    u.nombre_usuario.Equals(user.nombre_usuario)).FirstOrDefaultAsync();                
+                Usuario userToGetTokenRequest = new Usuario() {
+                    nombre_usuario = user.nombre_usuario,
+                    password_usuario = originalPassword
+                };
+                if(await SolicitudToken(userToGetTokenRequest)) {
                     UsuarioSolicitud ultimaSolicitud = await AppDbContext.usuariosSolicitudes.Where(
                     us => us.id_usuario == userToAuthenticate.id_usuario && us.id_solicitud == 2
                     && us.status_solicitud == 0).LastOrDefaultAsync();
                     ultimaSolicitud.status_solicitud = 1; ultimaSolicitud.aprobacion_solicitud = DateTime.Now;
                     AppDbContext.usuariosSolicitudes.Update(ultimaSolicitud); await AppDbContext.SaveChangesAsync();
                     await userService.GetTokenAuthentication(userToAuthenticate.nombre_usuario, originalPassword);
-                    response = true;
+                    response[0] = true;
                 }
             }
             catch(Exception exception) {
-                Console.WriteLine("Exception msj: "+exception.Message);
+                if(exception.InnerException != null) {
+                    response[1] = exception.InnerException.Message;
+                    return response;
+                }
+                response[1] = exception.Message;
             }
             return response;
         }

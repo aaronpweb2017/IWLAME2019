@@ -4,12 +4,11 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.Extensions.Configuration;
 using ASPNETCoreWebApiPeliculas.Helpers;
-using Microsoft.Extensions.DependencyInjection;
-using ASPNETCoreWebApiPeliculas.Models;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Configuration;
 using ASPNETCoreWebApiPeliculas.Services;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace ASPNETCoreWebApiPeliculas
 {

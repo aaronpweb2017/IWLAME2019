@@ -27,17 +27,20 @@ export class RelacionesAspectoComponent implements OnInit {
   ngOnInit() {
     this.relacionesAspecto = []; this.create = false;
     this.nuevaRelacionAspecto = { id_relacion_aspecto: 0, valor_relacion_aspecto: "" };
-    this.detallesTecnicosService.getRelacionesAspecto().subscribe(relacionesAspecto => {
-      this.relacionesAspecto = relacionesAspecto; this.relacionesAspecto.push(null);
-      this.paginationConfig = {
-        itemsPerPage: 5,
-        currentPage: this.currentPage,
-        totalItems: this.relacionesAspecto.length
-      };
-      this.totalPages = Math.trunc(this.relacionesAspecto.length / this.paginationConfig.itemsPerPage);
-      if (this.relacionesAspecto.length % this.paginationConfig.itemsPerPage != 0) this.totalPages += 1;
-      this.currentItemsPerPage = this.relacionesAspecto.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
-    });
+    this.detallesTecnicosService.getRelacionesAspecto().subscribe(
+      relacionesAspecto => {
+        this.relacionesAspecto = relacionesAspecto; this.relacionesAspecto.push(null);
+        this.paginationConfig = {
+          itemsPerPage: 5,
+          currentPage: this.currentPage,
+          totalItems: this.relacionesAspecto.length
+        };
+        this.totalPages = Math.trunc(this.relacionesAspecto.length / this.paginationConfig.itemsPerPage);
+        if (this.relacionesAspecto.length % this.paginationConfig.itemsPerPage != 0) this.totalPages += 1;
+        this.currentItemsPerPage = this.relacionesAspecto.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
+      }, error => {
+        this.toastrService.error(error.message);
+      });
   }
 
   setCreateFlag() {
@@ -48,33 +51,42 @@ export class RelacionesAspectoComponent implements OnInit {
   }
 
   crearRelacionAspecto() {
-    this.detallesTecnicosService.crearRelacionAspecto(this.nuevaRelacionAspecto).subscribe(response => {
-      if (response) {
-        this.toastrService.success("Creación realizada con éxito.");
-        this.router.navigate(['/adminDetalles']); return;
-      }
-      this.toastrService.error("Creación fallida...");
-    });
+    this.detallesTecnicosService.crearRelacionAspecto(this.nuevaRelacionAspecto).subscribe(
+      response => {
+        if (response) {
+          this.toastrService.success("Creación realizada con éxito.");
+          this.router.navigate(['/adminDetalles']); return;
+        }
+        //this.toastrService.error("Creación fallida...");
+      }, error => {
+        this.toastrService.error(error.message);
+      });
   }
 
   actualizarRelacionAspecto(relacionAspecto: RelacionAspecto) {
-    this.detallesTecnicosService.actualizarRelacionAspecto(relacionAspecto).subscribe(response => {
-      if (response) {
-        this.toastrService.success("Actualización realizada con éxito.");
-        this.router.navigate(['/adminDetalles']); return;
-      }
-      this.toastrService.error("Actualización fallida...");
-    });
+    this.detallesTecnicosService.actualizarRelacionAspecto(relacionAspecto).subscribe(
+      response => {
+        if (response) {
+          this.toastrService.success("Actualización realizada con éxito.");
+          this.router.navigate(['/adminDetalles']); return;
+        }
+        //this.toastrService.error("Actualización fallida...");
+      }, error => {
+        this.toastrService.error(error.message);
+      });
   }
 
   eliminarRelacionAspecto(id_relacion_aspecto: number) {
-    this.detallesTecnicosService.eliminarRelacionAspecto(id_relacion_aspecto).subscribe(response => {
-      if (response) {
-        this.toastrService.success("Eliminación realizada con éxito.");
-        this.router.navigate(['/adminDetalles']); return;
-      }
-      this.toastrService.error("Eliminación fallida...");
-    });
+    this.detallesTecnicosService.eliminarRelacionAspecto(id_relacion_aspecto).subscribe(
+      response => {
+        if (response) {
+          this.toastrService.success("Eliminación realizada con éxito.");
+          this.router.navigate(['/adminDetalles']); return;
+        }
+        //this.toastrService.error("Eliminación fallida...");
+      }, error => {
+        this.toastrService.error(error.message);
+      });
   }
 
   pageChanged(currentPage: number) {

@@ -6,6 +6,7 @@ import { TokensComponent } from './components/tokens/tokens.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { AdminDetallesComponent } from './components/admin-detalles/admin-detalles.component';
 import { AdminDescargasComponent } from './components/admin-descargas/admin-descargas.component';
+import { DetallesPeliculaComponent } from './components/peliculas/detalles-pelicula/detalles-pelicula.component';
 
 export const appRoutes: Routes = [
     {path: 'login', component: LoginComponent},
@@ -15,5 +16,6 @@ export const appRoutes: Routes = [
     {path: 'usuarios/:pg', component: UsuariosComponent},
     {path: 'adminDetalles', component: AdminDetallesComponent},
     {path: 'adminDescargas', component: AdminDescargasComponent},
+    {path: 'detallesPelicula', component: DetallesPeliculaComponent},
     {path: '', redirectTo: '/login', pathMatch: 'full'}
 ]

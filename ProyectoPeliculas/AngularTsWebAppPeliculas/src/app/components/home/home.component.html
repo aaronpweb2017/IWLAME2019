@@ -4,8 +4,11 @@
     <div class="col-xl column animated-fade-in" *ngFor="let pelicula of peliculas | paginate: { id:
       'moviesPagination', itemsPerPage: paginationConfig.itemsPerPage, currentPage:
       paginationConfig.currentPage, totalItems: paginationConfig.totalItems };" >
-      <app-tarjeta-pelicula *ngIf="pelicula" [pelicula]="pelicula"></app-tarjeta-pelicula>
-      <app-tarjeta-pelicula *ngIf="!pelicula" [pelicula]=""></app-tarjeta-pelicula>
+      <app-tarjeta-pelicula *ngIf="pelicula"
+        [pelicula]="pelicula"
+        detallesTecnicos="detallesTecnicos">
+      </app-tarjeta-pelicula>
+      <app-tarjeta-pelicula *ngIf="!pelicula"></app-tarjeta-pelicula>
     </div>
   </div>
 </div>

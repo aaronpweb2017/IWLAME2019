@@ -30,6 +30,8 @@ import { TiposArchivoComponent } from './components/descargas/tipos-archivo/tipo
 import { ServidoresComponent } from './components/descargas/servidores/servidores.component';
 import { DescargasComponent } from './components/descargas/descargas/descargas.component';
 import { AdminDescargasComponent } from './components/admin-descargas/admin-descargas.component';
+import { TarjetaPeliculaComponent } from './components/peliculas/tarjeta-pelicula/tarjeta-pelicula.component';
+import { DetallesPeliculaComponent } from './components/peliculas/detalles-pelicula/detalles-pelicula.component';
 import { ModalActualizacionComponent } from './components/modals/modal-actualizacion/modal-actualizacion.component';
 import { ModalEliminacionComponent } from './components/modals/modal-eliminacion/modal-eliminacion.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -45,8 +47,6 @@ import { VistasService } from './services/vistas.service';
 
 //Global variables:
 import { appRoutes } from './app.routes';
-import { TarjetaPeliculaComponent } from './components/peliculas/tarjeta-pelicula/tarjeta-pelicula.component';
-import { DetallesPeliculaComponent } from './components/peliculas/detalles-pelicula/detalles-pelicula.component';
 
 @NgModule({
   imports: [
@@ -70,7 +70,6 @@ import { DetallesPeliculaComponent } from './components/peliculas/detalles-pelic
     TopNavbarComponent,
     SidenavbarComponent,
     HomeComponent,
-    //TarjetaPeliculaComponent,
     SolicitudesComponent,
     TokensComponent,
     UsuariosComponent,
@@ -85,11 +84,11 @@ import { DetallesPeliculaComponent } from './components/peliculas/detalles-pelic
     ServidoresComponent,
     DescargasComponent,
     AdminDescargasComponent,
+    TarjetaPeliculaComponent,
+    DetallesPeliculaComponent,
     ModalActualizacionComponent,
     ModalEliminacionComponent,
-    FooterComponent,
-    TarjetaPeliculaComponent,
-    DetallesPeliculaComponent
+    FooterComponent
   ],
   providers: [GlobalService, UsuariosService,
     SolicitudesService, DetallesTecnicosService,

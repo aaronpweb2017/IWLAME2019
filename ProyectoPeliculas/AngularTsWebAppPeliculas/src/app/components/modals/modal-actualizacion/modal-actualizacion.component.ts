@@ -14,6 +14,7 @@ import { PeliculasService } from 'src/app/services/peliculas.service';
 import { VDescarga } from 'src/app/interfaces/views/v-descarga';
 import { Enlace } from 'src/app/interfaces/descargas/enlace';
 import { VDetalleTecnico } from 'src/app/interfaces/views/v-detalle-tecnico';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-modal-actualizacion',
@@ -40,9 +41,9 @@ export class ModalActualizacionComponent implements OnInit {
   fecha_estreno: string;
   movieToUpdate: Pelicula;
 
-  constructor(private vistasService: VistasService, private detallesTecnicosService:
-    DetallesTecnicosService, private descargasService: DescargasService,
-    private peliculasService: PeliculasService, private modalService: BsModalService) { }
+  constructor(private vistasService: VistasService, private detallesTecnicosService: DetallesTecnicosService,
+    private descargasService: DescargasService, private peliculasService: PeliculasService,
+    private modalService: BsModalService, private toastrService: ToastrService) { }
 
   ngOnInit() {
     if (this.request.includes("ActualizarDetalleTecnico")) {
@@ -52,14 +53,22 @@ export class ModalActualizacionComponent implements OnInit {
         id_valor_resolucion: this.model.id_valor_resolucion,
         id_relacion_aspecto: this.model.id_relacion_aspecto
       };
-      this.vistasService.getVistaResoluciones().subscribe(resoluciones => {
-        this.resoluciones = resoluciones;
-        this.resolutionIndex = this.resoluciones.indexOf(this.resoluciones.filter(r =>
-          r.id_tipo_resolucion == this.model.id_tipo_resolucion
-          && r.id_valor_resolucion == this.model.id_valor_resolucion
-          && r.id_relacion_aspecto == this.model.id_relacion_aspecto)[0]);
-        this.detallesTecnicosService.getFormatos().subscribe(formatos => { this.formatos = formatos; });
-      });
+      this.vistasService.getVistaResoluciones().subscribe(
+        resoluciones => {
+          this.resoluciones = resoluciones;
+          this.resolutionIndex = this.resoluciones.indexOf(this.resoluciones.filter(r =>
+            r.id_tipo_resolucion == this.model.id_tipo_resolucion
+            && r.id_valor_resolucion == this.model.id_valor_resolucion
+            && r.id_relacion_aspecto == this.model.id_relacion_aspecto)[0]);
+          this.detallesTecnicosService.getFormatos().subscribe(
+            formatos => {
+              this.formatos = formatos;
+            }, error => {
+              this.toastrService.error(error.message);
+            });
+        }, error => {
+          this.toastrService.error(error.message);
+        });
     }
     if (this.request.includes("ActualizarDescarga")) {
       this.downloadToUpdate = {
@@ -69,22 +78,40 @@ export class ModalActualizacionComponent implements OnInit {
         id_servidor: this.model.id_servidor,
         id_pelicula: this.model.id_pelicula
       };
-      this.descargasService.getTiposArchivo().subscribe(tiposArchivo => { this.tiposArchivo = tiposArchivo; });
-      this.descargasService.getServidores().subscribe(servidores => { this.servidores = servidores; });
-      this.peliculasService.getPeliculas().subscribe(peliculas => { this.peliculas = peliculas; });
+      this.descargasService.getTiposArchivo().subscribe(
+        tiposArchivo => {
+          this.tiposArchivo = tiposArchivo;
+        }, error => {
+          this.toastrService.error(error.message);
+        });
+      this.descargasService.getServidores().subscribe(
+        servidores => {
+          this.servidores = servidores;
+        }, error => {
+          this.toastrService.error(error.message);
+        });
+      this.peliculasService.getPeliculas().subscribe(
+        peliculas => {
+          this.peliculas = peliculas;
+        }, error => {
+          this.toastrService.error(error.message);
+        });
     }
     if (this.request.includes("ActualizarEnlace")) {
       this.linkToUpdate = {
         id_enlace: this.model.id_enlace, valor_enlace: this.model.valor_enlace,
         status_enlace: this.model.status_enlace, id_descarga: this.model.id_descarga
       };
-      this.vistasService.getVistaDescargas().subscribe(descargas => {
-        this.descargas = descargas;
-      });
+      this.vistasService.getVistaDescargas().subscribe(
+        descargas => {
+          this.descargas = descargas;
+        }, error => {
+          this.toastrService.error(error.message);
+        });
     }
     if (this.request.includes("ActualizarPelicula")) {
-      this.fecha_estreno = this.model.fecha_estreno.substring(0,10);
-      this.movieToUpdate = { 
+      this.fecha_estreno = this.model.fecha_estreno.substring(0, 10);
+      this.movieToUpdate = {
         id_pelicula: this.model.id_pelicula,
         nombre_pelicula: this.model.nombre_pelicula,
         fecha_estreno: this.model.fecha_estreno,
@@ -96,10 +123,20 @@ export class ModalActualizacionComponent implements OnInit {
         generos: this.model.generos,
         idiomas: this.model.idiomas,
         productoras: this.model.productoras,
+        actores: this.model.actores,
+        pais: this.model.pais,
+        audios: this.model.audios,
+        subtitulos: this.model.subtitulos,
+        peso: this.model.peso,
         id_detalle: this.model.id_detalle,
         rutaImagen: this.model.rutaImagen,
       };
-      this.vistasService.getVistaDetallesTecnicos().subscribe(detallesTecnicos => { this.detallesTecnicos = detallesTecnicos; });
+      this.vistasService.getVistaDetallesTecnicos().subscribe(
+        detallesTecnicos => {
+          this.detallesTecnicos = detallesTecnicos;
+        }, error => {
+          this.toastrService.error(error.message);
+        });
     }
   }
 

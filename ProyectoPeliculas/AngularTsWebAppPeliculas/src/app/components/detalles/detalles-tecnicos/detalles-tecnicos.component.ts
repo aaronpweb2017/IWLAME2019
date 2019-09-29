@@ -49,9 +49,21 @@ export class DetallesTecnicosComponent implements OnInit {
       this.totalPages = Math.trunc(this.detallesTecnicos.length / this.paginationConfig.itemsPerPage);
       if (this.detallesTecnicos.length % this.paginationConfig.itemsPerPage != 0) this.totalPages += 1;
       this.currentItemsPerPage = this.detallesTecnicos.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
-      this.detallesTecnicosService.getFormatos().subscribe(formatos => { this.formatos = formatos; });
-      this.vistasService.getVistaResoluciones().subscribe(resoluciones => { this.resoluciones = resoluciones; });
-    });
+      this.detallesTecnicosService.getFormatos().subscribe(
+        formatos => {
+          this.formatos = formatos;
+        }, error => {
+          this.toastrService.error(error.message);
+        });
+      this.vistasService.getVistaResoluciones().subscribe(
+        resoluciones => {
+          this.resoluciones = resoluciones;
+        }, error => {
+          this.toastrService.error(error.message);
+        });
+    }, error => {
+        this.toastrService.error(error.message);
+      });
   }
 
   setCreateFlag() {
@@ -65,34 +77,42 @@ export class DetallesTecnicosComponent implements OnInit {
     this.nuevoDetalleTecnico.id_tipo_resolucion = this.resoluciones[this.resolutionIndex].id_tipo_resolucion;
     this.nuevoDetalleTecnico.id_valor_resolucion = this.resoluciones[this.resolutionIndex].id_valor_resolucion;
     this.nuevoDetalleTecnico.id_relacion_aspecto = this.resoluciones[this.resolutionIndex].id_relacion_aspecto;
-    this.detallesTecnicosService.crearDetalleTecnico(this.nuevoDetalleTecnico).subscribe(response => {
-      if (response) {
-        this.toastrService.success("Creación realizada con éxito.");
-        this.router.navigate(['/adminDetalles']); return;
-      }
-      this.toastrService.error("Creación fallida...");
-    });
+    this.detallesTecnicosService.crearDetalleTecnico(this.nuevoDetalleTecnico).subscribe(
+      response => {
+        if (response) {
+          this.toastrService.success("Creación realizada con éxito.");
+          this.router.navigate(['/adminDetalles']); return;
+        }
+        //this.toastrService.error("Creación fallida...");
+      }, error => {
+        this.toastrService.error(error.message);
+      });
   }
 
-  actualizarDetalleTecnico(detalleTecnico: DetalleTecnico) {    
-    this.detallesTecnicosService.actualizarDetalleTecnico(detalleTecnico).subscribe(response => {
-    if(response) {
-      this.toastrService.success("Actualización realizada con éxito.");
-      this.router.navigate(['/adminDetalles']); return;
-    }
-    this.toastrService.error("Actualización fallida...");
-    });
+  actualizarDetalleTecnico(detalleTecnico: DetalleTecnico) {
+    this.detallesTecnicosService.actualizarDetalleTecnico(detalleTecnico).subscribe(
+      response => {
+        if (response) {
+          this.toastrService.success("Actualización realizada con éxito.");
+          this.router.navigate(['/adminDetalles']); return;
+        }
+        //this.toastrService.error("Actualización fallida...");
+      }, error => {
+        this.toastrService.error(error.message);
+      });
   }
 
   eliminarDetalleTecnico(id_detalle: number) {
-    console.log("Eliminar el detalle tecnico: " + id_detalle);
-    this.detallesTecnicosService.eliminarDetalleTecnico(id_detalle).subscribe(response => {
-      if (response) {
-        this.toastrService.success("Eliminación realizada con éxito.");
-        this.router.navigate(['/adminDetalles']); return;
-      }
-      this.toastrService.error("Eliminación fallida...");
-    });
+    this.detallesTecnicosService.eliminarDetalleTecnico(id_detalle).subscribe(
+      response => {
+        if (response) {
+          this.toastrService.success("Eliminación realizada con éxito.");
+          this.router.navigate(['/adminDetalles']); return;
+        }
+        //this.toastrService.error("Eliminación fallida...");
+      }, error => {
+        this.toastrService.error(error.message);
+      });
   }
 
   pageChanged(currentPage: number) {

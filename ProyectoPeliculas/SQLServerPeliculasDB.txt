@@ -296,6 +296,11 @@ CREATE TABLE Pelicula(
     generos VARCHAR(80) NOT NULL,
     idiomas VARCHAR(80) NOT NULL,
     productoras VARCHAR(80) NOT NULL,
+    actores VARCHAR(300) NOT NULL,
+    pais VARCHAR(50) NOT NULL,
+    audios VARCHAR(200) NOT NULL,
+    subtitulos VARCHAR(100) NOT NULL,
+    peso DECIMAL(8, 3) NOT NULL,
     id_detalle INT NOT NULL
 )
 
@@ -313,7 +318,8 @@ INSERT INTO Pelicula(nombre_pelicula, fecha_estreno, presupuesto, recaudacion, s
 SELECT id_pelicula, nombre_pelicula, fecha_estreno,
 presupuesto, recaudacion, sinopsis, calificacion,
 directores, generos, idiomas, productoras,
-id_detalle FROM Pelicula
+actores, pais, audios, subtitulos,
+peso, id_detalle FROM Pelicula
 
 SELECT P.nombre_pelicula, F.nombre_formato, TR.nombre_tipo_resolucion,
 VR.valor_resolucion, RA.valor_relacion_aspecto FROM Pelicula P

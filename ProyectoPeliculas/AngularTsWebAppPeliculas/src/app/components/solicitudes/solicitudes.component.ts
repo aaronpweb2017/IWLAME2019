@@ -25,24 +25,30 @@ export class SolicitudesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.vistasService.getVistaSolicitudes().subscribe(solicitudes => {
-      this.solicitudes = solicitudes;
-      this.paginationConfig = {
-        itemsPerPage: 5,
-        currentPage: this.currentPage,
-        totalItems: this.solicitudes.length
-      };
-    });
+    this.vistasService.getVistaSolicitudes().subscribe(
+      solicitudes => {
+        this.solicitudes = solicitudes;
+        this.paginationConfig = {
+          itemsPerPage: 5,
+          currentPage: this.currentPage,
+          totalItems: this.solicitudes.length
+        };
+      }, error => {
+        this.toastrService.error(error.message);
+      });
   }
 
   aprobarSolicitud(id_usuario_solicitud: number) {
-    this.solicitudesService.aprobarSolicitud(id_usuario_solicitud).subscribe(response => {
-      if (response) {
-        this.toastrService.info("Solicitud aprobada con éxito...");
-        this.router.navigate(['/solicitudes', this.currentPage]); return;
-      }
-      this.toastrService.error("Aprobación fallida...");
-    });
+    this.solicitudesService.aprobarSolicitud(id_usuario_solicitud).subscribe(
+      response => {
+        if (response) {
+          this.toastrService.info("Solicitud aprobada con éxito...");
+          this.router.navigate(['/solicitudes', this.currentPage]); return;
+        }
+        //this.toastrService.error("Aprobación fallida...");
+      }, error => {
+        this.toastrService.error(error.message);
+      });
   }
 
   pageChanged(currentPage: number) {

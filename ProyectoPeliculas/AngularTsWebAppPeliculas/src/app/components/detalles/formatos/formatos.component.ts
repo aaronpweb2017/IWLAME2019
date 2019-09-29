@@ -27,17 +27,20 @@ export class FormatoComponent implements OnInit {
   ngOnInit() {
     this.formatos = []; this.create = false;
     this.nuevoFormato = { id_formato: 0, nombre_formato: "" };
-    this.detallesTecnicosService.getFormatos().subscribe(formatos => {
-      this.formatos = formatos; this.formatos.push(null);
-      this.paginationConfig = {
-        itemsPerPage: 5,
-        currentPage: this.currentPage,
-        totalItems: this.formatos.length
-      };
-      this.totalPages = Math.trunc(this.formatos.length / this.paginationConfig.itemsPerPage);
-      if (this.formatos.length % this.paginationConfig.itemsPerPage != 0) this.totalPages += 1;
-      this.currentItemsPerPage = this.formatos.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
-    });
+    this.detallesTecnicosService.getFormatos().subscribe(
+      formatos => {
+        this.formatos = formatos; this.formatos.push(null);
+        this.paginationConfig = {
+          itemsPerPage: 5,
+          currentPage: this.currentPage,
+          totalItems: this.formatos.length
+        };
+        this.totalPages = Math.trunc(this.formatos.length / this.paginationConfig.itemsPerPage);
+        if (this.formatos.length % this.paginationConfig.itemsPerPage != 0) this.totalPages += 1;
+        this.currentItemsPerPage = this.formatos.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
+      }, error => {
+        this.toastrService.error(error.message);
+      });
   }
 
   setCreateFlag() {
@@ -48,33 +51,42 @@ export class FormatoComponent implements OnInit {
   }
 
   crearFormato() {
-    this.detallesTecnicosService.crearFormato(this.nuevoFormato).subscribe(response => {
-      if (response) {
-        this.toastrService.success("Creación realizada con éxito.");
-        this.router.navigate(['/adminDetalles']); return;
-      }
-      this.toastrService.error("Creación fallida...");
-    });
+    this.detallesTecnicosService.crearFormato(this.nuevoFormato).subscribe(
+      response => {
+        if (response) {
+          this.toastrService.success("Creación realizada con éxito.");
+          this.router.navigate(['/adminDetalles']); return;
+        }
+        this.toastrService.error("Creación fallida...");
+      }, error => {
+        this.toastrService.error(error.message);
+      });
   }
 
   actualizarFormato(formato: Formato) {
-    this.detallesTecnicosService.actualizarFormato(formato).subscribe(response => {
-      if (response) {
-        this.toastrService.success("Actualización realizada con éxito.");
-        this.router.navigate(['/adminDetalles']); return;
-      }
-      this.toastrService.error("Actualización fallida...");
-    });
+    this.detallesTecnicosService.actualizarFormato(formato).subscribe(
+      response => {
+        if (response) {
+          this.toastrService.success("Actualización realizada con éxito.");
+          this.router.navigate(['/adminDetalles']); return;
+        }
+        this.toastrService.error("Actualización fallida...");
+      }, error => {
+        this.toastrService.error(error.message);
+      });
   }
 
   eliminarFormato(id_formato: number) {
-    this.detallesTecnicosService.eliminarFormato(id_formato).subscribe(response => {
-      if (response) {
-        this.toastrService.success("Eliminación realizada con éxito.");
-        this.router.navigate(['/adminDetalles']); return;
-      }
-      this.toastrService.error("Eliminación fallida...");
-    });
+    this.detallesTecnicosService.eliminarFormato(id_formato).subscribe(
+      response => {
+        if (response) {
+          this.toastrService.success("Eliminación realizada con éxito.");
+          this.router.navigate(['/adminDetalles']); return;
+        }
+        this.toastrService.error("Eliminación fallida...");
+      }, error => {
+        this.toastrService.error(error.message);
+      });
   }
 
   pageChanged(currentPage: number) {

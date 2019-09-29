@@ -27,17 +27,20 @@ export class TiposArchivoComponent implements OnInit {
   ngOnInit() {
     this.tiposArchivo = []; this.create = false;
     this.nuevoTipoArchivo = { id_tipo_archivo: 0, nombre_tipo_archivo: "" };
-    this.descargasService.getTiposArchivo().subscribe(tiposArchivo => {
-      this.tiposArchivo = tiposArchivo; this.tiposArchivo.push(null);
-      this.paginationConfig = {
-        itemsPerPage: 5,
-        currentPage: this.currentPage,
-        totalItems: this.tiposArchivo.length
-      };
-      this.totalPages = Math.trunc(this.tiposArchivo.length / this.paginationConfig.itemsPerPage);
-      if (this.tiposArchivo.length % this.paginationConfig.itemsPerPage != 0) this.totalPages += 1;
-      this.currentItemsPerPage = this.tiposArchivo.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
-    });
+    this.descargasService.getTiposArchivo().subscribe(
+      tiposArchivo => {
+        this.tiposArchivo = tiposArchivo; this.tiposArchivo.push(null);
+        this.paginationConfig = {
+          itemsPerPage: 5,
+          currentPage: this.currentPage,
+          totalItems: this.tiposArchivo.length
+        };
+        this.totalPages = Math.trunc(this.tiposArchivo.length / this.paginationConfig.itemsPerPage);
+        if (this.tiposArchivo.length % this.paginationConfig.itemsPerPage != 0) this.totalPages += 1;
+        this.currentItemsPerPage = this.tiposArchivo.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
+      }, error => {
+        this.toastrService.error(error.message);
+      });
   }
 
   setCreateFlag() {
@@ -48,33 +51,42 @@ export class TiposArchivoComponent implements OnInit {
   }
 
   crearTipoArchivo() {
-    this.descargasService.crearTipoArchivo(this.nuevoTipoArchivo).subscribe(response => {
-      if (response) {
-        this.toastrService.success("Creación realizada con éxito.");
-        this.router.navigate(['/adminDescargas']); return;
-      }
-      this.toastrService.error("Creación fallida...");
-    });
+    this.descargasService.crearTipoArchivo(this.nuevoTipoArchivo).subscribe(
+      response => {
+        if (response) {
+          this.toastrService.success("Creación realizada con éxito.");
+          this.router.navigate(['/adminDescargas']); return;
+        }
+        //this.toastrService.error("Creación fallida...");
+      }, error => {
+        this.toastrService.error(error.message);
+      });
   }
 
   actualizarTipoArchivo(tipoArchivo: TipoArchivo) {
-    this.descargasService.actualizarTipoArchivo(tipoArchivo).subscribe(response => {
-      if (response) {
-        this.toastrService.success("Actualización realizada con éxito.");
-        this.router.navigate(['/adminDescargas']); return;
-      }
-      this.toastrService.error("Actualización fallida...");
-    });
+    this.descargasService.actualizarTipoArchivo(tipoArchivo).subscribe(
+      response => {
+        if (response) {
+          this.toastrService.success("Actualización realizada con éxito.");
+          this.router.navigate(['/adminDescargas']); return;
+        }
+        //this.toastrService.error("Actualización fallida...");
+      }, error => {
+        this.toastrService.error(error.message);
+      });
   }
 
   eliminarTipoArchivo(id_tipo_archivo: number) {
-    this.descargasService.eliminarTipoArchivo(id_tipo_archivo).subscribe(response => {
-      if (response) {
-        this.toastrService.success("Eliminación realizada con éxito.");
-        this.router.navigate(['/adminDescargas']); return;
-      }
-      this.toastrService.error("Eliminación fallida...");
-    });
+    this.descargasService.eliminarTipoArchivo(id_tipo_archivo).subscribe(
+      response => {
+        if (response) {
+          this.toastrService.success("Eliminación realizada con éxito.");
+          this.router.navigate(['/adminDescargas']); return;
+        }
+        //this.toastrService.error("Eliminación fallida...");
+      }, error => {
+        this.toastrService.error(error.message);
+      });
   }
 
   pageChanged(currentPage: number) {

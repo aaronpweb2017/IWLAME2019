@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { VistasService } from 'src/app/services/vistas.service';
@@ -17,6 +17,8 @@ import { Enlace } from 'src/app/interfaces/descargas/enlace';
   styleUrls: []
 })
 export class DescargasComponent implements OnInit {
+  @Input() adminView: boolean;
+  @Input() id_pelicula: number;
   totalPages: number;
   currentPage: number;
   currentItemsPerPage: number;
@@ -51,31 +53,57 @@ export class DescargasComponent implements OnInit {
       id_enlace: 0, valor_enlace: "",
       status_enlace: 0, id_descarga: 0
     };
-    this.vistasService.getVistaDescargas().subscribe(descargas => {
-      this.descargas = descargas;
-      for (let i: number = 0; i < this.descargas.length; i++) {
-        let id_descarga: number = this.descargas[i].id_descarga;
-        this.descargasService.getEnlacesDescarga(id_descarga).subscribe(enlaces => {
-          this.descargas[i].enlaces = [];
-          this.descargas[i].enlaces = enlaces;
-          this.descargas[i].enlaces.push(null);
-        });
-      }
-      this.descargas.push(null);
-      this.mostrarEnlaces = new Array(this.descargas.length).fill(false);
-      this.crearEnlaces = new Array(this.descargas.length).fill(false);
-      this.paginationConfig = {
-        itemsPerPage: 5,
-        currentPage: this.currentPage,
-        totalItems: this.descargas.length
-      };
-      this.totalPages = Math.trunc(this.descargas.length / this.paginationConfig.itemsPerPage);
-      if (this.descargas.length % this.paginationConfig.itemsPerPage != 0) this.totalPages += 1;
-      this.currentItemsPerPage = this.descargas.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
-      this.descargasService.getTiposArchivo().subscribe(tiposArchivo => { this.tiposArchivo = tiposArchivo; });
-      this.descargasService.getServidores().subscribe(servidores => { this.servidores = servidores; });
-      this.peliculasService.getPeliculas().subscribe(peliculas => { this.peliculas = peliculas; });
-    });
+    this.vistasService.getVistaDescargas().subscribe(
+      descargas => {
+        this.descargas = descargas;
+        for (let i: number = 0; i < this.descargas.length; i++) {
+          let id_descarga: number = this.descargas[i].id_descarga;
+          this.descargasService.getEnlacesDescarga(id_descarga).subscribe(
+            enlaces => {
+              this.descargas[i].enlaces = [];
+              this.descargas[i].enlaces = enlaces;
+              this.descargas[i].enlaces.push(null);
+            },
+            error => {
+              this.toastrService.error(error.message);
+            });
+        }
+        this.descargas.push(null);
+        this.mostrarEnlaces = new Array(this.descargas.length).fill(false);
+        this.crearEnlaces = new Array(this.descargas.length).fill(false);
+        this.paginationConfig = {
+          itemsPerPage: 5,
+          currentPage: this.currentPage,
+          totalItems: this.descargas.length
+        };
+        this.totalPages = Math.trunc(this.descargas.length / this.paginationConfig.itemsPerPage);
+        if (this.descargas.length % this.paginationConfig.itemsPerPage != 0) this.totalPages += 1;
+        this.currentItemsPerPage = this.descargas.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
+        this.descargasService.getTiposArchivo().subscribe(
+          tiposArchivo => {
+            this.tiposArchivo = tiposArchivo;
+          },
+          error => {
+            this.toastrService.error(error.message);
+          });
+        this.descargasService.getServidores().subscribe(
+          servidores => {
+            this.servidores = servidores;
+          },
+          error => {
+            this.toastrService.error(error.message);
+          });
+        this.peliculasService.getPeliculas().subscribe(
+          peliculas => {
+            this.peliculas = peliculas;
+          },
+          error => {
+            this.toastrService.error(error.message);
+          });
+      },
+      error => {
+        this.toastrService.error(error.message);
+      });
   }
 
   setCreateFlag() {
@@ -95,64 +123,89 @@ export class DescargasComponent implements OnInit {
 
 
   crearDescarga() {
-    this.descargasService.crearDescarga(this.nuevaDescarga).subscribe(response => {
-      if (response) {
-        this.toastrService.success("Creación realizada con éxito.");
-        this.router.navigate(['/adminDescargas']); return;
-      }
-      this.toastrService.error("Creación fallida...");
-    });
+    this.descargasService.crearDescarga(this.nuevaDescarga).subscribe(
+      response => {
+        if (response) {
+          this.toastrService.success("Creación realizada con éxito.");
+          this.router.navigate(['/adminDescargas']); return;
+        }
+        //this.toastrService.error("Creación fallida...");
+      },
+      error => {
+        this.toastrService.error(error.message);
+      });
   }
 
   actualizarDescarga(descarga: Descarga) {
-    this.descargasService.actualizarDescarga(descarga).subscribe(response => {
-      if (response) {
-        this.toastrService.success("Actualización realizada con éxito.");
-        this.router.navigate(['/adminDescargas']); return;
-      }
-      this.toastrService.error("Actualización fallida...");
-    });
+    this.descargasService.actualizarDescarga(descarga).subscribe(
+      response => {
+        if (response) {
+          this.toastrService.success("Actualización realizada con éxito.");
+          this.router.navigate(['/adminDescargas']); return;
+        }
+        //this.toastrService.error("Actualización fallida...");
+      },
+      error => {
+        this.toastrService.error(error.message);
+      });
   }
 
   eliminarDescarga(id_descarga: number) {
-    this.descargasService.eliminarDescarga(id_descarga).subscribe(response => {
-      if (response) {
-        this.toastrService.success("Eliminación realizada con éxito.");
-        this.router.navigate(['/adminDescargas']); return;
-      }
-      this.toastrService.error("Eliminación fallida...");
-    });
+    this.descargasService.eliminarDescarga(id_descarga).subscribe(
+      response => {
+        if (response) {
+          this.toastrService.success("Eliminación realizada con éxito.");
+          this.router.navigate(['/adminDescargas']); return;
+        }
+        //this.toastrService.error("Eliminación fallida...");
+      },
+      error => {
+        this.toastrService.error(error.message);
+      });
   }
 
   crearEnlace(id_descarga: number) {
     this.nuevoEnlace.id_descarga = id_descarga;
-    this.descargasService.crearEnlace(this.nuevoEnlace).subscribe(response => {
-      if (response) {
-        this.toastrService.success("Creación realizada con éxito.");
-        this.router.navigate(['/adminDescargas']); return;
-      }
-      this.toastrService.error("Creación fallida...");
-    });
+    this.descargasService.crearEnlace(this.nuevoEnlace).subscribe(
+      response => {
+        if (response) {
+          this.toastrService.success("Creación realizada con éxito.");
+          this.router.navigate(['/adminDescargas']); return;
+        }
+        //this.toastrService.error("Creación fallida...");
+      },
+      error => {
+        this.toastrService.error(error.message);
+      });
   }
 
   actualizarEnlace(enlace: Enlace) {
-    this.descargasService.actualizarEnlace(enlace).subscribe(response => {
-      if (response) {
-        this.toastrService.success("Actualización realizada con éxito.");
-        this.router.navigate(['/adminDescargas']); return;
-      }
-      this.toastrService.error("Actualización fallida...");
-    });
+    this.descargasService.actualizarEnlace(enlace).subscribe(
+      response => {
+        if (response) {
+          this.toastrService.success("Actualización realizada con éxito.");
+          this.router.navigate(['/adminDescargas']); return;
+        }
+        //this.toastrService.error("Actualización fallida...");
+      },
+      error => {
+        this.toastrService.error(error.message);
+      });
   }
 
   eliminarEnlace(id_enlace: number) {
-    this.descargasService.eliminarEnlace(id_enlace).subscribe(response => {
-      if (response) {
-        this.toastrService.success("Eliminación realizada con éxito.");
-        this.router.navigate(['/adminDescargas']); return;
-      }
-      this.toastrService.error("Eliminación fallida...");
-    });
+    this.descargasService.eliminarEnlace(id_enlace).subscribe(
+      response => {
+        console.log(response);
+        if (response[0]) {
+          this.toastrService.success("Eliminación realizada con éxito.");
+          this.router.navigate(['/adminDescargas']); return;
+        }
+        this.toastrService.error(response[1]);
+      },
+      error => {
+        this.toastrService.error(error.message);
+      });
   }
 
   pageChanged(currentPage: number) {

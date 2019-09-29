@@ -1,16 +1,16 @@
 using System;
-using System.Text;
-using System.Security.Claims;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using ASPNETCoreWebApiPeliculas.Helpers;
-using ASPNETCoreWebApiPeliculas.Models;
-using System.Security.Cryptography;
-using Microsoft.IdentityModel.Logging;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
+using System.Text;
 using System.Threading.Tasks;
+using System.Security.Claims;
+using System.Security.Cryptography;
+using Microsoft.Extensions.Options;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.IdentityModel.Logging;
+using System.IdentityModel.Tokens.Jwt;
+using ASPNETCoreWebApiPeliculas.Models;
+using ASPNETCoreWebApiPeliculas.Helpers;
 
 namespace ASPNETCoreWebApiPeliculas.Services
 {

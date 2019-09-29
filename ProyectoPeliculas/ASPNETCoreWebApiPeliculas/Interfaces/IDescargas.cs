@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using ASPNETCoreWebApiPeliculas.Models;
@@ -20,7 +21,7 @@ namespace ASPNETCoreWebApiPeliculas
         Task<bool> EliminarDescarga(int id_descarga);
         Task<bool> CrearEnlace(Enlace enlace);
         Task<bool> ActualizarEnlace(Enlace enlace);
-        Task<bool> EliminarEnlace(int id_enlace);
+        Task<Object []> EliminarEnlace(int id_enlace);
         Task<List<Enlace>> GetEnlacesDescarga(int id_descarga);
     }
 }

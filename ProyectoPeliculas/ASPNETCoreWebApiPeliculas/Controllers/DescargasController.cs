@@ -1,12 +1,13 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using ASPNETCoreWebApiPeliculas.Models;
-//using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ASPNETCoreWebApiPeliculas.Controllers
 {
-    [ApiController] [Route("Api/[controller]/[action]")] //[Authorize]
+    [ApiController] [Route("Api/[controller]/[action]")] [Authorize]
     public class DescargasController : ControllerBase
     {
         private readonly IDescargas descargas;
@@ -107,7 +108,7 @@ namespace ASPNETCoreWebApiPeliculas.Controllers
 
         //DELETE: https://localhost:5001/Api/Descargas/EliminarEnlace?id_enlace=[value]
         [HttpDelete] [ActionName("EliminarEnlace")]
-        public async Task<bool> DeleteLinkAsync(int id_enlace) {
+        public async Task<Object []> DeleteLinkAsync(int id_enlace) {
             return await descargas.EliminarEnlace(id_enlace);
         }
     }

@@ -54,7 +54,7 @@ namespace ASPNETCoreWebApiPeliculas
                 List<DetalleTecnico> detallesTecnicos = await AppDbContext.detallesTecnicos.Where(dt => 
                     dt.id_formato == formatToDelete.id_formato).ToListAsync();
                 foreach(DetalleTecnico detalleTecnico in detallesTecnicos)
-                    AppDbContext.detallesTecnicos.Remove(detalleTecnico);
+                    await EliminarDetalleTecnico(detalleTecnico.id_detalle);
                 AppDbContext.formatos.Remove(formatToDelete);
                 await AppDbContext.SaveChangesAsync(); response = true;
             }
@@ -102,14 +102,12 @@ namespace ASPNETCoreWebApiPeliculas
             try {
                 TipoResolucion resolutionTypeToDelete = await AppDbContext.tiposResolucion.Where(tr =>
                 tr.id_tipo_resolucion == id_tipo_resolucion).FirstOrDefaultAsync();
-                List<DetalleTecnico> detallesTecnicos = await AppDbContext.detallesTecnicos.Where(dt => 
-                dt.id_tipo_resolucion == resolutionTypeToDelete.id_tipo_resolucion).ToListAsync();
-                foreach(DetalleTecnico detalleTecnico in detallesTecnicos)
-                    AppDbContext.detallesTecnicos.Remove(detalleTecnico);
                 List<Resolucion> resoluciones = await AppDbContext.resoluciones.Where(r => 
                 r.id_tipo_resolucion == resolutionTypeToDelete.id_tipo_resolucion).ToListAsync();
-                foreach(Resolucion resolucion in resoluciones)
-                    AppDbContext.resoluciones.Remove(resolucion);
+                foreach(Resolucion resolucion in resoluciones) {
+                    await EliminarResolucion(resolucion.id_tipo_resolucion,
+                    resolucion.id_valor_resolucion, resolucion.id_relacion_aspecto);
+                }
                 AppDbContext.tiposResolucion.Remove(resolutionTypeToDelete);
                 await AppDbContext.SaveChangesAsync(); response = true;
             }
@@ -155,14 +153,12 @@ namespace ASPNETCoreWebApiPeliculas
             try {
                 ValorResolucion resolutionValueToDelete = await AppDbContext.valoresResolucion.Where(vr =>
                     vr.id_valor_resolucion == id_valor_resolucion).FirstOrDefaultAsync();
-                List<DetalleTecnico> detallesTecnicos = await AppDbContext.detallesTecnicos.Where(dt => 
-                dt.id_valor_resolucion == resolutionValueToDelete.id_valor_resolucion).ToListAsync();
-                foreach(DetalleTecnico detalleTecnico in detallesTecnicos)
-                    AppDbContext.detallesTecnicos.Remove(detalleTecnico);
                 List<Resolucion> resoluciones = await AppDbContext.resoluciones.Where(r => 
                 r.id_valor_resolucion == resolutionValueToDelete.id_valor_resolucion).ToListAsync();
-                foreach(Resolucion resolucion in resoluciones)
-                    AppDbContext.resoluciones.Remove(resolucion);
+                foreach(Resolucion resolucion in resoluciones) {
+                    await EliminarResolucion(resolucion.id_tipo_resolucion,
+                    resolucion.id_valor_resolucion, resolucion.id_relacion_aspecto);
+                }
                 AppDbContext.valoresResolucion.Remove(resolutionValueToDelete);
                 await AppDbContext.SaveChangesAsync(); response = true;
             }
@@ -208,14 +204,12 @@ namespace ASPNETCoreWebApiPeliculas
             try {
                 RelacionAspecto aspectRatioToDelete = await AppDbContext.relacionesAspecto.Where(ra =>
                     ra.id_relacion_aspecto == id_relacion_aspecto).FirstOrDefaultAsync();
-                List<DetalleTecnico> detallesTecnicos = await AppDbContext.detallesTecnicos.Where(dt => 
-                dt.id_relacion_aspecto == aspectRatioToDelete.id_relacion_aspecto).ToListAsync();
-                foreach(DetalleTecnico detalleTecnico in detallesTecnicos)
-                    AppDbContext.detallesTecnicos.Remove(detalleTecnico);
                 List<Resolucion> resoluciones = await AppDbContext.resoluciones.Where(r => 
                 r.id_relacion_aspecto == aspectRatioToDelete.id_relacion_aspecto).ToListAsync();
-                foreach(Resolucion resolucion in resoluciones)
-                    AppDbContext.resoluciones.Remove(resolucion);
+                foreach(Resolucion resolucion in resoluciones) {
+                    await EliminarResolucion(resolucion.id_tipo_resolucion,
+                    resolucion.id_valor_resolucion, resolucion.id_relacion_aspecto);
+                }
                 AppDbContext.relacionesAspecto.Remove(aspectRatioToDelete);
                 await AppDbContext.SaveChangesAsync(); response = true;
             }
@@ -249,7 +243,7 @@ namespace ASPNETCoreWebApiPeliculas
                     dt.id_valor_resolucion == resolutionToToDelete.id_valor_resolucion &&
                     dt.id_relacion_aspecto == resolutionToToDelete.id_relacion_aspecto).ToListAsync();
                 foreach(DetalleTecnico detalleTecnico in detallesTecnicos)
-                    AppDbContext.detallesTecnicos.Remove(detalleTecnico);
+                    await EliminarDetalleTecnico(detalleTecnico.id_detalle);
                 AppDbContext.resoluciones.Remove(resolutionToToDelete);
                 await AppDbContext.SaveChangesAsync(); response = true;
             }

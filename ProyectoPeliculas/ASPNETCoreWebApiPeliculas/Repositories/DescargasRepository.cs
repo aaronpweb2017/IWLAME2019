@@ -53,11 +53,7 @@ namespace ASPNETCoreWebApiPeliculas
                 List<Descarga> descargas = await AppDbContext.descargas.Where(d => 
                     d.id_tipo_archivo == fileTypeToDelete.id_tipo_archivo).ToListAsync();
                 foreach(Descarga descarga in descargas) {
-                    List<Enlace> enlaces = await AppDbContext.enlaces.Where(e =>
-                        e.id_descarga == descarga.id_descarga).ToListAsync();
-                    foreach(Enlace enlace in enlaces)
-                        AppDbContext.enlaces.Remove(enlace);
-                    AppDbContext.descargas.Remove(descarga);
+                    await EliminarDescarga(descarga.id_descarga);
                 }
                 AppDbContext.tiposArchivo.Remove(fileTypeToDelete);
                 await AppDbContext.SaveChangesAsync(); response = true;
@@ -108,11 +104,7 @@ namespace ASPNETCoreWebApiPeliculas
                 List<Descarga> descargas = await AppDbContext.descargas.Where(d => 
                     d.id_servidor == serverToDelete.id_servidor).ToListAsync();
                 foreach(Descarga descarga in descargas) {
-                    List<Enlace> enlaces = await AppDbContext.enlaces.Where(e =>
-                        e.id_descarga == descarga.id_descarga).ToListAsync();
-                    foreach(Enlace enlace in enlaces)
-                        AppDbContext.enlaces.Remove(enlace);
-                    AppDbContext.descargas.Remove(descarga);
+                    await EliminarDescarga(descarga.id_descarga);
                 }
                 AppDbContext.servidores.Remove(serverToDelete);
                 await AppDbContext.SaveChangesAsync(); response = true;
@@ -208,18 +200,22 @@ namespace ASPNETCoreWebApiPeliculas
             return response;
         }
 
-        public async Task<bool> EliminarEnlace(int id_enlace) {
-            bool response = false;
+        public async Task<Object []> EliminarEnlace(int id_enlace) {
+            Object [] response = new Object [2]; response[0] = false;
             try {
                 Enlace linkToDelete = await AppDbContext.enlaces.Where(e =>
                     e.id_enlace == id_enlace).FirstOrDefaultAsync();
                 AppDbContext.enlaces.Remove(linkToDelete);
-                await AppDbContext.SaveChangesAsync(); response = true;
+                await AppDbContext.SaveChangesAsync(); response[0] = true;
             }
             catch(Exception exception) {
-                Console.WriteLine("Exception msj: "+exception.Message);
+                if(exception.InnerException != null) {
+                    response[1] = exception.InnerException.Message;
+                    return response;
+                }
+                response[1] = exception.Message;
             }
-            return response;  
+            return response;
         }
     }
 }

@@ -1,4 +1,4 @@
-<div class="container-fluid" style="padding: 20px;">
+<div *ngIf="adminView" class="container-fluid" style="padding: 20px;">
     <div class="col-xl-12 animated-fade-in">
         <table class="table table-bordered table-dark table-hover">
             <thead>
@@ -21,6 +21,7 @@
                     <th class="text-center"><span style="font-size: 20px;">Archivo</span></th>
                     <th class="text-center"><span style="font-size: 20px;">Servidor</span></th>
                     <th class="text-center"><span style="font-size: 20px;">Película</span></th>
+                    <th class="text-center" colspan="2"><span style="font-size: 20px;">Acciones</span></th>
                 </tr>
             </thead>
             <tbody>
@@ -143,5 +144,64 @@
             </tbody>
         </table>
         <pagination-controls id="downloadsPagination" (pageChange)="pageChanged($event)"></pagination-controls>
+    </div>
+</div>
+<div *ngIf="!adminView" class="container-fluid" style="padding: 20px;">
+    <div class="col-xl-12 animated-fade-in">
+        <table class="table table-bordered table-dark table-hover">
+            <thead>
+                <tr>
+                    <th colspan="4">
+                        <h3 class="font-weight-bold text-center">Descargas</h3>
+                    </th>
+                </tr>
+                <tr>
+                    <th class="text-center"><span style="font-size: 20px;">Id</span></th>
+                    <th class="text-center"><span style="font-size: 20px;">Archivo</span></th>
+                    <th class="text-center"><span style="font-size: 20px;">Servidor</span></th>
+                    <th class="text-center"><span style="font-size: 20px;">Password</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let descarga of descargas; let i=index;">
+                    <tr *ngIf="descarga && descarga.id_pelicula == id_pelicula">
+                        <td class="text-center">
+                            <button *ngIf="descarga && !mostrarEnlaces[i]" type="button" class="btn btn-link"
+                                data-toggle="tooltip" data-placement="top" title="Mostrar enlaces"
+                                (click)="setShowLinkFlag(i, true);"><i class="fas fa-caret-down"> </i>{{descarga.id_descarga}}
+                            </button>
+                            <button *ngIf="descarga && mostrarEnlaces[i]" type="button" class="btn btn-link"
+                                data-toggle="tooltip" data-placement="top" title="Ignorar enlaces"
+                                (click)="setShowLinkFlag(i, false);"><i class="fas fa-caret-up"> </i>{{descarga.id_descarga}}
+                            </button>
+                        </td>
+                        <td class="text-center">
+                            <span *ngIf="descarga">{{descarga.nombre_tipo_archivo}}</span>
+                        </td>
+                        <td class="text-center">
+                            <span *ngIf="descarga">{{descarga.nombre_servidor}}</span>
+                        </td>
+                        <td class="text-center">
+                            <span *ngIf="descarga && descarga.password_descarga!=''">{{descarga.password_descarga}}</span>
+                            <span *ngIf="descarga && descarga.password_descarga==''">NINGUNA</span>
+                        </td>
+                    </tr>
+                    <ng-container *ngIf="mostrarEnlaces[i] && descarga.id_pelicula == id_pelicula">
+                        <tr *ngFor="let enlace of descarga?.enlaces;">
+                            <td class="text-center">
+                                <span *ngIf="enlace">{{enlace.id_enlace}}</span>
+                            </td>
+                            <td class="text-center" colspan="2">
+                                <span *ngIf="enlace">{{enlace.valor_enlace}}</span>
+                            </td>
+                            <td class="text-center">
+                                <span *ngIf="enlace && enlace.status_enlace==0">Inactivo</span>
+                                <span *ngIf="enlace && enlace.status_enlace==1">Activo</span>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </ng-container>
+            </tbody>
+        </table>
     </div>
 </div>

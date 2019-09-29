@@ -1,5 +1,6 @@
-using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using ASPNETCoreWebApiPeliculas.Models;
 
@@ -16,7 +17,7 @@ namespace ASPNETCoreWebApiPeliculas.Controllers
 
         //POST: https://localhost:5001/Api/Usuarios/CrearUsuario
         [HttpPost] [ActionName("CrearUsuario")]
-        public async Task<bool> CreateUserAsync([FromBody] Usuario user) {
+        public async Task<Object []> CreateUserAsync([FromBody] Usuario user) {
             return await usuarios.CrearUsuario(user);
         }
 

@@ -271,6 +271,31 @@
             class="form-control" placeholder="Movie Producer">
         </div>
         <div class="form-group text-left">
+          <label class="text-dark font-weight-bold">Actores:</label>
+          <input [(ngModel)]="movieToUpdate.actores" [ngModelOptions]="{standalone: true}" type="text"
+            class="form-control" placeholder="Movie Actors">
+        </div>
+        <div class="form-group text-left">
+          <label class="text-dark font-weight-bold">País:</label>
+          <input [(ngModel)]="movieToUpdate.pais" [ngModelOptions]="{standalone: true}" type="text"
+            class="form-control" placeholder="Movie Country">
+        </div>
+        <div class="form-group text-left">
+          <label class="text-dark font-weight-bold">Audios:</label>
+          <input [(ngModel)]="movieToUpdate.audios" [ngModelOptions]="{standalone: true}" type="text"
+            class="form-control" placeholder="Movie Audio">
+        </div>
+        <div class="form-group text-left">
+          <label class="text-dark font-weight-bold">Subtítulos:</label>
+          <input [(ngModel)]="movieToUpdate.subtitulos" [ngModelOptions]="{standalone: true}" type="text"
+            class="form-control" placeholder="Movie Subtitles">
+        </div>
+        <div class="form-group text-left">
+          <label class="text-dark font-weight-bold">Tamaño (MB):</label>
+          <input [(ngModel)]="movieToUpdate.peso" [ngModelOptions]="{standalone: true}" type="number"
+            min="0" max="20480" step="1" maxlength="5" class="form-control">
+        </div>
+        <div class="form-group text-left">
           <label class="text-dark font-weight-bold">Detalle:</label>
           <select [(ngModel)]="movieToUpdate.id_detalle" [ngModelOptions]="{standalone: true}" class="form-control">
             <option *ngFor="let detalleTecnico of detallesTecnicos;" [value]="detalleTecnico.id_detalle">

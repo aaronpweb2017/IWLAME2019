@@ -30,17 +30,20 @@ export class TiposResolucionComponent implements OnInit {
       id_tipo_resolucion: 0, nombre_tipo_resolucion: "",
       porcentaje_visualizacion: 0, porcentaje_perdida: 0
     };
-    this.detallesTecnicosService.getTiposResolucion().subscribe(tiposResolucion => {
-      this.tiposResolucion = tiposResolucion; this.tiposResolucion.push(null);
-      this.paginationConfig = {
-        itemsPerPage: 5,
-        currentPage: this.currentPage,
-        totalItems: this.tiposResolucion.length
-      };
-      this.totalPages = Math.trunc(this.tiposResolucion.length / this.paginationConfig.itemsPerPage);
-      if (this.tiposResolucion.length % this.paginationConfig.itemsPerPage != 0) this.totalPages += 1;
-      this.currentItemsPerPage = this.tiposResolucion.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
-    });
+    this.detallesTecnicosService.getTiposResolucion().subscribe(
+      tiposResolucion => {
+        this.tiposResolucion = tiposResolucion; this.tiposResolucion.push(null);
+        this.paginationConfig = {
+          itemsPerPage: 5,
+          currentPage: this.currentPage,
+          totalItems: this.tiposResolucion.length
+        };
+        this.totalPages = Math.trunc(this.tiposResolucion.length / this.paginationConfig.itemsPerPage);
+        if (this.tiposResolucion.length % this.paginationConfig.itemsPerPage != 0) this.totalPages += 1;
+        this.currentItemsPerPage = this.tiposResolucion.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
+      }, error => {
+        this.toastrService.error(error.message);
+      });
   }
 
   setCreateFlag() {
@@ -51,33 +54,42 @@ export class TiposResolucionComponent implements OnInit {
   }
 
   crearTipoResolucion() {
-    this.detallesTecnicosService.crearTipoResolucion(this.nuevoTipoResolucion).subscribe(response => {
-      if (response) {
-        this.toastrService.success("Creación realizada con éxito.");
-        this.router.navigate(['/adminDetalles']); return;
-      }
-      this.toastrService.error("Creación fallida...");
-    });
+    this.detallesTecnicosService.crearTipoResolucion(this.nuevoTipoResolucion).subscribe(
+      response => {
+        if (response) {
+          this.toastrService.success("Creación realizada con éxito.");
+          this.router.navigate(['/adminDetalles']); return;
+        }
+        //this.toastrService.error("Creación fallida...");
+      }, error => {
+        this.toastrService.error(error.message);
+      });
   }
 
   actualizarTipoResolucion(tipoResolucion: TipoResolucion) {
-    this.detallesTecnicosService.actualizarTipoResolucion(tipoResolucion).subscribe(response => {
-      if (response) {
-        this.toastrService.success("Actualización realizada con éxito.");
-        this.router.navigate(['/adminDetalles']); return;
-      }
-      this.toastrService.error("Actualización fallida...");
-    });
+    this.detallesTecnicosService.actualizarTipoResolucion(tipoResolucion).subscribe(
+      response => {
+        if (response) {
+          this.toastrService.success("Actualización realizada con éxito.");
+          this.router.navigate(['/adminDetalles']); return;
+        }
+        //this.toastrService.error("Actualización fallida...");
+      }, error => {
+        this.toastrService.error(error.message);
+      });
   }
 
   eliminarTipoResolucion(id_tipo_resolucion: number) {
-    this.detallesTecnicosService.eliminarTipoResolucion(id_tipo_resolucion).subscribe(response => {
-      if (response) {
-        this.toastrService.success("Eliminación realizada con éxito.");
-        this.router.navigate(['/adminDetalles']); return;
-      }
-      this.toastrService.error("Eliminación fallida...");
-    });
+    this.detallesTecnicosService.eliminarTipoResolucion(id_tipo_resolucion).subscribe(
+      response => {
+        if (response) {
+          this.toastrService.success("Eliminación realizada con éxito.");
+          this.router.navigate(['/adminDetalles']); return;
+        }
+        //this.toastrService.error("Eliminación fallida...");
+      }, error => {
+        this.toastrService.error(error.message);
+      });
   }
 
   pageChanged(currentPage: number) {
