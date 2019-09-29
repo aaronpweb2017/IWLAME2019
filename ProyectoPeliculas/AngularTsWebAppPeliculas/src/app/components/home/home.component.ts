@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
       this.peliculas = peliculas;
       this.peliculas = peliculas; this.peliculas.push(null);
       this.paginationConfig = {
-        itemsPerPage: 4,
+        itemsPerPage: 5,
         currentPage: this.currentPage,
         totalItems: this.peliculas.length -1
       };

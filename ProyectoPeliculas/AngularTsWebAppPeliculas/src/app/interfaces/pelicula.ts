@@ -8,6 +8,8 @@ export interface Pelicula {
     calificacion: number;
     directores: string;
     generos: string;
+    idiomas: string;
+    productoras: string;
     id_detalle: number;
     rutaImagen: string;
 }

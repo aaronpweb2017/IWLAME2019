@@ -3,19 +3,20 @@
     <img src="{{pelicula.rutaImagen}}">
     <div class="details">
       <h4 class="font-weight-bold">
-        {{pelicula.nombre_pelicula}} ({{pelicula.fecha_estreno | date: 'yyyy'}})<br>
-        <span>Directed by {{pelicula.directores}}</span>
+        {{pelicula?.nombre_pelicula}}<br>({{pelicula.fecha_estreno | date: 'yyyy'}})<br>
+        <span>Directed by {{directores[0]}}</span>
       </h4>
       <div class="rating">
+        <span><b>Calificación: </b></span>
         <div class="progress">
-          <div class="progress-bar" role="progressbar" style="width: 90%;"
-            aria-valuenow="25" aria-valuemin="0"
-            aria-valuemax="100">{{pelicula.calificacion}}%
+          <div class="progress-bar w-75" role="progressbar"
+            aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+            {{pelicula.calificacion}}%
           </div>
         </div>
       </div>
       <div class="tags">
-        <span class="badge-primary">{{pelicula.generos}}</span>
+        <span class="badge-primary" *ngFor="let genero of generos">{{genero}}</span>
       </div>
       <div class="info">
         <b>Sinopsis:</b>
@@ -23,6 +24,8 @@
         <span><b>Fecha de estreno: </b>{{pelicula.fecha_estreno | date: 'dd/MM/yyyy'}}</span><br>
         <span><b>Presupuesto: </b>{{pelicula.presupuesto}}</span><br>
         <span><b>Recaudación: </b>{{pelicula.recaudacion}}</span><br>
+        <span><b>Idiomas: </b>{{pelicula.idiomas}}</span><br>
+        <span><b>Productoras: </b>{{pelicula.productoras}}</span><br>
       </div>
       <div class="form-details">
         <button class="btn btn-info" type="submit"><b>Ver detalles</b></button>
@@ -84,6 +87,16 @@
       <label class="text-light font-weight-bold" for="movie-category">Géneros:</label>
       <input [(ngModel)]="nuevapelicula.generos" [ngModelOptions]="{standalone: true}" type="text"
         class="form-control" id="movie-category" placeholder="Movie Category">
+    </div>
+    <div class="form-group">
+      <label class="text-light font-weight-bold" for="movie-language">Idiomas:</label>
+      <input [(ngModel)]="nuevapelicula.idiomas" [ngModelOptions]="{standalone: true}" type="text"
+        class="form-control" id="movie-language" placeholder="Movie Language">
+    </div>
+    <div class="form-group">
+      <label class="text-light font-weight-bold" for="movie-producer">Productoras:</label>
+      <input [(ngModel)]="nuevapelicula.productoras" [ngModelOptions]="{standalone: true}" type="text"
+        class="form-control" id="movie-producer" placeholder="Movie Producer">
     </div>
     <div class="form-group">
       <label class="text-light font-weight-bold" for="movie-detail">Detalle:</label>

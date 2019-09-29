@@ -37,6 +37,7 @@ export class ModalActualizacionComponent implements OnInit {
   descargas: VDescarga[];
   linkToUpdate: Enlace;
   detallesTecnicos: VDetalleTecnico[];
+  fecha_estreno: string;
   movieToUpdate: Pelicula;
 
   constructor(private vistasService: VistasService, private detallesTecnicosService:
@@ -82,6 +83,7 @@ export class ModalActualizacionComponent implements OnInit {
       });
     }
     if (this.request.includes("ActualizarPelicula")) {
+      this.fecha_estreno = this.model.fecha_estreno.substring(0,10);
       this.movieToUpdate = { 
         id_pelicula: this.model.id_pelicula,
         nombre_pelicula: this.model.nombre_pelicula,
@@ -92,6 +94,8 @@ export class ModalActualizacionComponent implements OnInit {
         calificacion: this.model.calificacion,
         directores: this.model.directores,
         generos: this.model.generos,
+        idiomas: this.model.idiomas,
+        productoras: this.model.productoras,
         id_detalle: this.model.id_detalle,
         rutaImagen: this.model.rutaImagen,
       };
@@ -113,6 +117,7 @@ export class ModalActualizacionComponent implements OnInit {
       this.modelObjectEvent.emit(this.linkToUpdate);
     }
     else if (this.request.includes("ActualizarPelicula")) {
+      this.movieToUpdate.fecha_estreno = new Date(this.fecha_estreno);
       this.modelObjectEvent.emit(this.movieToUpdate);
     }
     else {

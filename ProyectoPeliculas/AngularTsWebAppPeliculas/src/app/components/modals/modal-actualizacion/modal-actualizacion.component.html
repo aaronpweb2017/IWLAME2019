@@ -2,7 +2,7 @@
   <i class="far fa-edit"></i>
 </button>
 <ng-template #modalTemplate>
-  <div class="modal-content">
+  <div class="modal-content" style="max-height: 400px;">
     <div class="modal-header text-center">
       <h5 *ngIf="request.includes('ActualizarUsuario')" class="modal-title font-weight-bold">
         Actualización del usuario número {{model.id_usuario}}
@@ -41,7 +41,7 @@
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <div *ngIf="request.includes('ActualizarUsuario')" class="modal-body">
+    <div *ngIf="request.includes('ActualizarUsuario')" class="modal-body" style="overflow-y: auto;">
       <form class="bg-light">
         <div class="form-group text-left">
             <label class="text-dark font-weight-bold">Nombre:</label>
@@ -67,7 +67,7 @@
         </div>
       </form>
     </div>
-    <div *ngIf="request.includes('ActualizarFormato')" class="modal-body">
+    <div *ngIf="request.includes('ActualizarFormato')" class="modal-body" style="overflow-y: auto;">
       <form class="bg-light">
         <div class="form-group text-left">
           <label class="text-dark font-weight-bold">Nombre:</label>
@@ -76,7 +76,7 @@
         </div>
       </form>
     </div>
-    <div *ngIf="request.includes('ActualizarTipoResolucion')" class="modal-body">
+    <div *ngIf="request.includes('ActualizarTipoResolucion')" class="modal-body" style="overflow-y: auto;">
       <form class="bg-light">
         <div class="form-group text-left">
           <label class="text-dark font-weight-bold">Nombre:</label>
@@ -95,7 +95,7 @@
         </div>
       </form>
     </div>
-    <div *ngIf="request.includes('ActualizarValorResolucion')" class="modal-body">
+    <div *ngIf="request.includes('ActualizarValorResolucion')" class="modal-body" style="overflow-y: auto;">
       <form class="bg-light">
         <div class="form-group text-left">
           <label class="text-dark font-weight-bold">Valor:</label>
@@ -104,7 +104,7 @@
         </div>
       </form>
     </div>
-    <div *ngIf="request.includes('ActualizarRelacionAspecto')" class="modal-body">
+    <div *ngIf="request.includes('ActualizarRelacionAspecto')" class="modal-body" style="overflow-y: auto;">
       <form class="bg-light">
         <div class="form-group text-left">
           <label class="text-dark font-weight-bold">Valor:</label>
@@ -113,7 +113,7 @@
         </div>
       </form>
     </div>
-    <div *ngIf="request.includes('ActualizarDetalleTecnico')" class="modal-body">
+    <div *ngIf="request.includes('ActualizarDetalleTecnico')" class="modal-body" style="overflow-y: auto;">
       <form class="bg-light">
         <div class="form-group text-left">
           <label class="text-dark font-weight-bold">Formato:</label>
@@ -135,7 +135,7 @@
         </div>
       </form>
     </div>
-    <div *ngIf="request.includes('ActualizarTipoArchivo')" class="modal-body">
+    <div *ngIf="request.includes('ActualizarTipoArchivo')" class="modal-body" style="overflow-y: auto;">
       <form class="bg-light">
         <div class="form-group text-left">
           <label class="text-dark font-weight-bold">Nombre:</label>
@@ -144,7 +144,7 @@
         </div>
       </form>
     </div>
-    <div *ngIf="request.includes('ActualizarServidor')" class="modal-body">
+    <div *ngIf="request.includes('ActualizarServidor')" class="modal-body" style="overflow-y: auto;">
       <form class="bg-light">
         <div class="form-group text-left">
           <label class="text-dark font-weight-bold">Nombre:</label>
@@ -160,7 +160,7 @@
         </div>
       </form>
     </div>
-    <div *ngIf="request.includes('ActualizarDescarga')" class="modal-body">
+    <div *ngIf="request.includes('ActualizarDescarga')" class="modal-body" style="overflow-y: auto;">
       <form class="bg-light">
         <div class="form-group text-left">
           <label class="text-dark font-weight-bold">Password:</label>
@@ -193,7 +193,7 @@
         </div>
       </form>
     </div>
-    <div *ngIf="request.includes('ActualizarEnlace')" class="modal-body">
+    <div *ngIf="request.includes('ActualizarEnlace')" class="modal-body" style="overflow-y: auto;">
       <form class="bg-light">
         <div class="form-group text-left">
             <label class="text-dark font-weight-bold">Valor:</label>
@@ -216,8 +216,8 @@
         </div>
       </form>
     </div>
-    <div *ngIf="request.includes('ActualizarPelicula')" class="modal-body">
-      <form class="bg-light" style="overflow-y: scroll;">
+    <div *ngIf="request.includes('ActualizarPelicula')" class="modal-body" style="overflow-y: auto;">
+      <form class="bg-light">
         <div class="form-group text-left">
           <label class="text-dark font-weight-bold">Nombre:</label>
           <input [(ngModel)]="movieToUpdate.nombre_pelicula" [ngModelOptions]="{standalone: true}" type="text"
@@ -225,8 +225,9 @@
         </div>
         <div class="form-group text-left">
           <label class="text-dark font-weight-bold">Fecha de Estreno:</label>
-            <input [(ngModel)]="movieToUpdate.fecha_estreno" [ngModelOptions]="{standalone: true}"
-            type="date" data-format="DD-MM-YY" min="1990-01-01" max="2019-09-28" class="form-control">
+            <input [(ngModel)]="fecha_estreno" [ngModelOptions]="{standalone: true}"
+              type="date" data-format="DD-MM-YY" min="1990-01-01" max="2019-09-28"
+              class="form-control" value="{{fecha_estreno}}">
         </div>
         <div class="form-group text-left">
           <label class="text-dark font-weight-bold">Presupuesto:</label>
@@ -239,9 +240,9 @@
             min="0" max="300000000" step="1" maxlength="9" class="form-control">
         </div>
         <div class="form-group" style="display: inline-block;">
-          <label class="text-dark font-weight-bold">Sinopsis:</label>
+          <label class="text-dark font-weight-bold">Sinopsis:</label> <br>
           <textarea [(ngModel)]="movieToUpdate.sinopsis" [ngModelOptions]="{standalone: true}"
-            rows="4" cols="30" maxlength="300" placeholder="Movie Sinopsis">
+            rows="4" cols="52" maxlength="300" placeholder="Movie Sinopsis">
           </textarea>
         </div>
         <div class="form-group text-left">
@@ -260,9 +261,19 @@
             class="form-control" placeholder="Movie Category">
         </div>
         <div class="form-group text-left">
+          <label class="text-dark font-weight-bold">Idiomas:</label>
+          <input [(ngModel)]="movieToUpdate.idiomas" [ngModelOptions]="{standalone: true}" type="text"
+            class="form-control" placeholder="Movie Language">
+        </div>
+        <div class="form-group text-left">
+          <label class="text-dark font-weight-bold">Productoras:</label>
+          <input [(ngModel)]="movieToUpdate.productoras" [ngModelOptions]="{standalone: true}" type="text"
+            class="form-control" placeholder="Movie Producer">
+        </div>
+        <div class="form-group text-left">
           <label class="text-dark font-weight-bold">Detalle:</label>
           <select [(ngModel)]="movieToUpdate.id_detalle" [ngModelOptions]="{standalone: true}" class="form-control">
-            <option *ngFor="let detalleTecnico of detallesTecnicos;" [value]="movieToUpdate.id_detalle">
+            <option *ngFor="let detalleTecnico of detallesTecnicos;" [value]="detalleTecnico.id_detalle">
               {{detalleTecnico.id_detalle}}:
               {{detalleTecnico.id_formato}}.- {{detalleTecnico.nombre_formato}} |
               {{detalleTecnico.id_tipo_resolucion}}.- {{detalleTecnico.nombre_tipo_resolucion}} |

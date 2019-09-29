@@ -179,6 +179,10 @@ namespace ASPNETCoreWebApiPeliculas {
             HasColumnName("directores").HasColumnType("VARCHAR").HasMaxLength(100).IsRequired();
             modelBuilder.Entity<Pelicula>().Property(p => p.generos).
             HasColumnName("generos").HasColumnType("VARCHAR").HasMaxLength(80).IsRequired();
+            modelBuilder.Entity<Pelicula>().Property(p => p.idiomas).
+            HasColumnName("idiomas").HasColumnType("VARCHAR").HasMaxLength(80).IsRequired();
+            modelBuilder.Entity<Pelicula>().Property(p => p.productoras).
+            HasColumnName("productoras").HasColumnType("VARCHAR").HasMaxLength(80).IsRequired();
             modelBuilder.Entity<Pelicula>().Property(p => p.id_detalle).
             HasColumnName("id_detalle").HasColumnType("INT");
             modelBuilder.Entity<Pelicula>().HasKey(p => p.id_pelicula).HasName("id_pelicula_PK_CSTR");
