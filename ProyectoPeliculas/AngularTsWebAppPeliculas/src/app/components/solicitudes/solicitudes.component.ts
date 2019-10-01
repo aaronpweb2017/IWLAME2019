@@ -45,7 +45,7 @@ export class SolicitudesComponent implements OnInit {
           this.toastrService.info("Solicitud aprobada con éxito...");
           this.router.navigate(['/solicitudes', this.currentPage]); return;
         }
-        //this.toastrService.error("Aprobación fallida...");
+        this.toastrService.error(response[1]);
       }, error => {
         this.toastrService.error(error.message);
       });

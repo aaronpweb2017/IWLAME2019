@@ -29,63 +29,63 @@ export class UsuariosService {
     );
   }
 
-  getUsuario(username_email: string): Observable<Usuario> {
+  getUsuario(username_email: string): Observable<any[]> {
     this.ApiGetUsuarioURL = this.ApiUsuariosURL
     + "/GetUsuario/?username_email="+username_email;
     return this.http.get(this.ApiGetUsuarioURL).pipe(
-      map((data: any) => data as Usuario)
+      map((data: any) => data as any[])
     );
   }
   
-  getUsuarios(): Observable<Usuario[]> {
+  getUsuarios(): Observable<any[]> {
     this.ApiGetUsuariosURL = this.ApiUsuariosURL+ "/GetUsuarios";
     return this.http.get(this.ApiGetUsuariosURL).pipe(
-      map((data: any) => data as Usuario[])
+      map((data: any) => data as any[])
     ); 
   }
 
-  actualizarUsuario(usuario: Usuario): Observable<boolean> {
+  actualizarUsuario(usuario: Usuario): Observable<any[]> {
     this.ApiActualizarUsuarioURL = this.ApiUsuariosURL + "/ActualizarUsuario";
     return this.http.put(this.ApiActualizarUsuarioURL, usuario).pipe(
-      map((data: any) => data as boolean)
+      map((data: any) => data as any[])
     );
   }
   
-  eliminarUsuario(id_usuario: number): Observable<boolean> {
+  eliminarUsuario(id_usuario: number): Observable<any[]> {
     this.ApiEliminarUsuarioURL = this.ApiUsuariosURL
       + "/EliminarUsuario/?id_usuario="+id_usuario;
     return this.http.delete(this.ApiEliminarUsuarioURL).pipe(
-      map((data: any) => data as boolean)
+      map((data: any) => data as any[])
     );
   }
 
-  getDecryptedPassword(id_usuario: number): Observable<string> {
+  getDecryptedPassword(id_usuario: number): Observable<any[]> {
     this.ApiGetDecryptedPasswordURL = this.ApiUsuariosURL
     + "/GetDecryptedPassword/?id_usuario="+id_usuario;
     return this.http.get(this.ApiGetDecryptedPasswordURL, { responseType: 'text' }).pipe(
-      map((data: any) => data as string)
+      map((data: any) => data as any[])
     );
   }
 
-  solicitudToken(usuario: Usuario): Observable<boolean> {
+  solicitudToken(usuario: Usuario): Observable<any[]> {
     this.ApiSolicitudTokenURL = this.ApiUsuariosURL + "/SolicitudToken";
     return this.http.post(this.ApiSolicitudTokenURL, usuario).pipe(
-      map((data: any) => data as boolean)
+      map((data: any) => data as any[])
     );
   }
 
-  getTokenAuthentication(usuario: Usuario): Observable<string> {
+  getTokenAuthentication(usuario: Usuario): Observable<any[]> {
     this.ApiGetTokenAuthenticationURL = this.ApiUsuariosURL + "/GetTokenAuthentication";
     return this.http.post(this.ApiGetTokenAuthenticationURL, usuario,
-      { responseType: 'text' }).pipe(map((data: any) => data as string)
+      { responseType: 'text' }).pipe(map((data: any) => data as any[])
     );
   }
 
-  getForgottenPassword(correo_usuario: string): Observable<boolean> {
+  getForgottenPassword(correo_usuario: string): Observable<any[]> {
     this.ApiGetForgottenPasswordURL = this.ApiUsuariosURL
       + "/GetForgottenPassword/?correo_usuario="+correo_usuario;
     return this.http.get(this.ApiGetForgottenPasswordURL).pipe(
-      map((data: any) => data as boolean)
+      map((data: any) => data as any[])
     );
   }
 }

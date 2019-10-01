@@ -1,27 +1,26 @@
 using System;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 using ASPNETCoreWebApiPeliculas.Models;
 
 namespace ASPNETCoreWebApiPeliculas 
 {
     public interface IDescargas
     {
-        Task<bool> CrearTipoArchivo(TipoArchivo tipoArchivo);
-        Task<List<TipoArchivo>> GetTiposArchivo();
-        Task<bool> ActualizarTipoArchivo(TipoArchivo tipoArchivo);
-        Task<bool> EliminarTipoArchivo(int id_tipo_archivo);
-        Task<bool> CrearServidor(Servidor servidor);
-        Task<List<Servidor>> GetServidores();
-        Task<bool> ActualizarServidor(Servidor servidor);
-        Task<bool> EliminarServidor(int id_servidor);
-        Task<bool> CrearDescarga(Descarga descarga);
-        Task<List<Descarga>> GetDescargas();
-        Task<bool> ActualizarDescarga(Descarga descarga);
-        Task<bool> EliminarDescarga(int id_descarga);
-        Task<bool> CrearEnlace(Enlace enlace);
-        Task<bool> ActualizarEnlace(Enlace enlace);
+        Task<Object []> CrearTipoArchivo(TipoArchivo tipoArchivo);
+        Task<Object []> GetTiposArchivo();
+        Task<Object []> ActualizarTipoArchivo(TipoArchivo tipoArchivo);
+        Task<Object []> EliminarTipoArchivo(int id_tipo_archivo);
+        Task<Object []> CrearServidor(Servidor servidor);
+        Task<Object []> GetServidores();
+        Task<Object []> ActualizarServidor(Servidor servidor);
+        Task<Object []> EliminarServidor(int id_servidor);
+        Task<Object []> CrearDescarga(Descarga descarga);
+        Task<Object []> GetDescargas();
+        Task<Object []> ActualizarDescarga(Descarga descarga);
+        Task<Object []> EliminarDescarga(int id_descarga);
+        Task<Object []> CrearEnlace(Enlace enlace);
+        Task<Object []> ActualizarEnlace(Enlace enlace);
         Task<Object []> EliminarEnlace(int id_enlace);
-        Task<List<Enlace>> GetEnlacesDescarga(int id_descarga);
+        Task<Object []> GetEnlacesDescarga(int id_descarga);
     }
 }

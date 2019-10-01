@@ -45,11 +45,11 @@ export class UsuariosComponent implements OnInit {
   decryptPassword(index: number, id_usuario: number) {
     this.usuariosService.getDecryptedPassword(id_usuario).subscribe(
       response => {
-        if (response) {
+        if (response[0]) {
           this.decrypts[index] = true;
-          this.passwords[index] = response; return;
+          this.passwords[index] = response[0]; return;
         }
-        //this.toastrService.error("Desencriptación fallida...");
+        this.toastrService.error(response[1]);
       }, error => {
         this.toastrService.error(error.message);
       });
@@ -67,7 +67,7 @@ export class UsuariosComponent implements OnInit {
           this.toastrService.success("Actualización realizada con éxito.");
           this.router.navigate(['/usuarios', this.currentPage]); return;
         }
-        //this.toastrService.error("Actualización fallida...");
+        this.toastrService.error(response[1]);
       }, error => {
         this.toastrService.error(error.message);
       });
@@ -80,7 +80,7 @@ export class UsuariosComponent implements OnInit {
           this.toastrService.success("Eliminación realizada con éxito.");
           this.router.navigate(['/usuarios', this.currentPage]); return;
         }
-        //this.toastrService.error("Eliminación fallida...");
+        this.toastrService.error(response[1]);
       }, error => {
         this.toastrService.error(error.message);
       });

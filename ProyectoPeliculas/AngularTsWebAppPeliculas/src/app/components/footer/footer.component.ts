@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { GlobalService } from 'src/app/global.service';
+import { GlobalService, logged } from 'src/app/global.service';
 
 @Component({
   selector: 'app-footer',

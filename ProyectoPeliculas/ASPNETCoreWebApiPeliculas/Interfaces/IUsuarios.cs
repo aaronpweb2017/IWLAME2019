@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 using ASPNETCoreWebApiPeliculas.Models;
 
 namespace ASPNETCoreWebApiPeliculas 
@@ -8,13 +7,13 @@ namespace ASPNETCoreWebApiPeliculas
     public interface IUsuarios
     {
         Task<Object []> CrearUsuario(Usuario user);
-        Task<Usuario> GetUsuario(string username_email);
-        Task<List<Usuario>> GetUsuarios();
-        Task<bool> ActualizarUsuario(Usuario user);
-        Task<bool> EliminarUsuario(int id_usuario);
-        Task<string> GetDecryptedPassword(int id_usuario);
-        Task<bool> SolicitudToken(Usuario user);
-        Task<string> GetTokenAuthentication(Usuario user);
-        Task<bool> GetForgottenPassword(string correo_usuario);
+        Task<Object []> GetUsuario(string username_email);
+        Task<Object []> GetUsuarios();
+        Task<Object []> ActualizarUsuario(Usuario user);
+        Task<Object []> EliminarUsuario(int id_usuario);
+        Task<Object []> GetDecryptedPassword(int id_usuario);
+        Task<Object []> SolicitudToken(Usuario user);
+        Task<Object []> GetTokenAuthentication(Usuario user);
+        Task<Object []> GetForgottenPassword(string correo_usuario);
     } 
 }

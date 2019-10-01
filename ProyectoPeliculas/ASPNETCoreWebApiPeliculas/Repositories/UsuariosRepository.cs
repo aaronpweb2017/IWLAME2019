@@ -30,7 +30,8 @@ namespace ASPNETCoreWebApiPeliculas
                     nombre_usuario = user.nombre_usuario,
                     password_usuario = originalPassword
                 };
-                if(await SolicitudToken(userToGetTokenRequest)) {
+                Object [] requestResponse = await SolicitudToken(userToGetTokenRequest);
+                if(requestResponse[0] != null && (bool) requestResponse[0] == true) {
                     UsuarioSolicitud ultimaSolicitud = await AppDbContext.usuariosSolicitudes.Where(
                     us => us.id_usuario == userToAuthenticate.id_usuario && us.id_solicitud == 2
                     && us.status_solicitud == 0).LastOrDefaultAsync();
@@ -41,26 +42,45 @@ namespace ASPNETCoreWebApiPeliculas
                 }
             }
             catch(Exception exception) {
-                if(exception.InnerException != null) {
+                if(exception.InnerException != null)
                     response[1] = exception.InnerException.Message;
-                    return response;
-                }
-                response[1] = exception.Message;
+                else
+                    response[1] = exception.Message;
             }
             return response;
         }
 
-        public async Task<Usuario> GetUsuario(string username_email) {
-            return await AppDbContext.usuarios.Where(u => u.nombre_usuario.Equals(username_email)
+        public async Task<Object []> GetUsuario(string username_email) {
+            Object [] response = new Object [2];
+            try {
+                response[0] = await AppDbContext.usuarios.Where(u => u.nombre_usuario.Equals(username_email)
                 || u.correo_usuario.Equals(username_email)).FirstOrDefaultAsync();
+            }
+            catch(Exception exception) {
+                if(exception.InnerException != null)
+                    response[1] = exception.InnerException.Message;
+                else
+                    response[1] = exception.Message;
+            }
+            return response;
         }
 
-        public async Task<List<Usuario>> GetUsuarios() {
-            return await AppDbContext.usuarios.ToListAsync();
+        public async Task<Object []> GetUsuarios() {
+            Object [] response = new Object [2];
+            try {
+                response[0] = await AppDbContext.usuarios.ToListAsync();
+            }
+            catch(Exception exception) {
+                if(exception.InnerException != null)
+                    response[1] = exception.InnerException.Message;
+                else
+                    response[1] = exception.Message;
+            }
+            return response;
         }
 
-        public async Task<bool> ActualizarUsuario(Usuario user) {
-            bool response = false;
+        public async Task<Object []> ActualizarUsuario(Usuario user) {
+            Object [] response = new Object [2];
             try {
                 Usuario userToUpdate = await AppDbContext.usuarios.Where(u =>
                 u.id_usuario == user.id_usuario).FirstOrDefaultAsync();
@@ -72,16 +92,19 @@ namespace ASPNETCoreWebApiPeliculas
                 userToUpdate.tipo_usuario = user.tipo_usuario;
                 AppDbContext.usuarios.Update(userToUpdate); 
                 await AppDbContext.SaveChangesAsync();
-                response = true;
+                response[0] = true;
             }
             catch(Exception exception) {
-                Console.WriteLine("Exception msj: "+exception.Message);
+                if(exception.InnerException != null)
+                    response[1] = exception.InnerException.Message;
+                else
+                    response[1] = exception.Message;
             }
             return response;
         }
 
-        public async Task<bool> EliminarUsuario(int id_usuario) {
-            bool response = false;
+        public async Task<Object []> EliminarUsuario(int id_usuario) {
+            Object [] response = new Object [2];
             try {
                 Usuario userToDelete = await AppDbContext.usuarios.Where(u =>
                 u.id_usuario == id_usuario).FirstOrDefaultAsync();
@@ -95,32 +118,46 @@ namespace ASPNETCoreWebApiPeliculas
                     AppDbContext.tokens.Remove(token);
                 AppDbContext.usuarios.Remove(userToDelete);
                 await AppDbContext.SaveChangesAsync();
-                response = true;
+                response[0] = true;
             }
             catch(Exception exception) {
-                Console.WriteLine("Exception msj: "+exception.Message);
+                if(exception.InnerException != null)
+                    response[1] = exception.InnerException.Message;
+                else
+                    response[1] = exception.Message;
             }
             return response;  
         }
 
-        public async Task<string> GetDecryptedPassword(int id_usuario) {
-            Usuario user = await AppDbContext.usuarios.FindAsync(id_usuario);
-            return userService.DecryptPassword(user.password_usuario);
+        public async Task<Object []> GetDecryptedPassword(int id_usuario) {
+            Object [] response = new Object [2];
+            try {
+                Usuario user = await AppDbContext.usuarios.FindAsync(id_usuario);
+                response[0] = userService.DecryptPassword(user.password_usuario);
+            }
+            catch(Exception exception) {
+                if(exception.InnerException != null)
+                    response[1] = exception.InnerException.Message;
+                else
+                    response[1] = exception.Message;
+            }
+            return response;
         }
 
-        public async Task<bool> SolicitudToken(Usuario user) {            
-            string userNameEmail = "", decryptedPassword = ""; bool response = false;
+        public async Task<Object []> SolicitudToken(Usuario user) {
+            Object [] response = new Object [2];
+            string userNameEmail = "", decryptedPassword = "";
             userNameEmail = GetUserNameEmail(user.nombre_usuario, user.correo_usuario);            
             Usuario userToUpdate = await AppDbContext.usuarios.Where(u =>
                 u.nombre_usuario.Equals(userNameEmail) || u.correo_usuario.Equals(userNameEmail)
             ).FirstOrDefaultAsync();
-            if(userToUpdate == null) { return response; }            
+            if(userToUpdate == null) { response[0] = false; return response; }            
             decryptedPassword = userService.DecryptPassword(userToUpdate.password_usuario);            
-            if(!user.password_usuario.Equals(decryptedPassword)) { return response; }
+            if(!user.password_usuario.Equals(decryptedPassword)) { response[0] = false; return response; }
             UsuarioSolicitud ultimaSolicitud = await AppDbContext.usuariosSolicitudes.Where(
                 us => us.id_usuario == userToUpdate.id_usuario && us.id_solicitud == 2
                 && (us.status_solicitud == 0 || us.status_solicitud == 1)).LastOrDefaultAsync();
-            if(ultimaSolicitud != null) { return response; }
+            if(ultimaSolicitud != null) { response[0] = false; return response; }
             try {
                 UsuarioSolicitud solicitudActual = new UsuarioSolicitud() {
                     id_usuario = userToUpdate.id_usuario,
@@ -128,25 +165,38 @@ namespace ASPNETCoreWebApiPeliculas
                     emision_solicitud = DateTime.Now
                 };
                 await AppDbContext.usuariosSolicitudes.AddAsync(solicitudActual);
-                await AppDbContext.SaveChangesAsync(); response = true;
+                await AppDbContext.SaveChangesAsync(); response[0] = true;
             }
             catch(Exception exception) {
-                Console.WriteLine("Exception msj: "+exception.Message);
+                if(exception.InnerException != null)
+                    response[1] = exception.InnerException.Message;
+                else
+                    response[1] = exception.Message;
             }
-            response = true;
             return response;
         }
 
-        public async Task<string> GetTokenAuthentication(Usuario user) {
-            string userNameEmail = GetUserNameEmail(user.nombre_usuario, user.correo_usuario);
-            return await userService.GetTokenAuthentication(userNameEmail, user.password_usuario);
+        public async Task<Object []> GetTokenAuthentication(Usuario user) {
+            Object [] response = new Object [2];
+            try {
+                string userNameEmail = GetUserNameEmail(user.nombre_usuario, user.correo_usuario);
+                response[0] = await userService.GetTokenAuthentication(userNameEmail, user.password_usuario);
+            }
+            catch(Exception exception) {
+                if(exception.InnerException != null)
+                    response[1] = exception.InnerException.Message;
+                else
+                    response[1] = exception.Message;
+            }
+            return response;
         }
 
-        public async Task<bool> GetForgottenPassword(string correo_usuario) {
-            string user_email, decryptedPassword, message; bool response = false;
+        public async Task<Object []> GetForgottenPassword(string correo_usuario) {
+            Object [] response = new Object [2];
+            string user_email, decryptedPassword, message;
             Usuario userToRecover = await AppDbContext.usuarios.Where(u =>
                 u.correo_usuario == correo_usuario).FirstOrDefaultAsync();
-            if(userToRecover == null) { return response; }
+            if(userToRecover == null) { response[0] = false; return response; }
             try {
                 UsuarioSolicitud solicitudActual = new UsuarioSolicitud() {
                     id_usuario = userToRecover.id_usuario,
@@ -160,10 +210,13 @@ namespace ASPNETCoreWebApiPeliculas
                 message = "<p><strong>Tu contraseña es: </strong>"+decryptedPassword+".</p>";
                 SendEmail(user_email, message);
                 await AppDbContext.usuariosSolicitudes.AddAsync(solicitudActual);
-                await AppDbContext.SaveChangesAsync(); response = true;
+                await AppDbContext.SaveChangesAsync(); response[0] = true;
             }
             catch(Exception exception) {
-                Console.WriteLine("Exception msj: "+exception.Message);
+                if(exception.InnerException != null)
+                    response[1] = exception.InnerException.Message;
+                else
+                    response[1] = exception.Message;
             }
             return response;
         }

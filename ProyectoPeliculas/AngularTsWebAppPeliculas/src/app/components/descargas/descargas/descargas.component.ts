@@ -129,7 +129,7 @@ export class DescargasComponent implements OnInit {
           this.toastrService.success("Creación realizada con éxito.");
           this.router.navigate(['/adminDescargas']); return;
         }
-        //this.toastrService.error("Creación fallida...");
+        this.toastrService.error(response[1]);
       },
       error => {
         this.toastrService.error(error.message);
@@ -143,7 +143,7 @@ export class DescargasComponent implements OnInit {
           this.toastrService.success("Actualización realizada con éxito.");
           this.router.navigate(['/adminDescargas']); return;
         }
-        //this.toastrService.error("Actualización fallida...");
+        this.toastrService.error(response[1]);
       },
       error => {
         this.toastrService.error(error.message);
@@ -157,7 +157,7 @@ export class DescargasComponent implements OnInit {
           this.toastrService.success("Eliminación realizada con éxito.");
           this.router.navigate(['/adminDescargas']); return;
         }
-        //this.toastrService.error("Eliminación fallida...");
+        this.toastrService.error(response[1]);
       },
       error => {
         this.toastrService.error(error.message);
@@ -172,7 +172,7 @@ export class DescargasComponent implements OnInit {
           this.toastrService.success("Creación realizada con éxito.");
           this.router.navigate(['/adminDescargas']); return;
         }
-        //this.toastrService.error("Creación fallida...");
+        this.toastrService.error(response[1]);
       },
       error => {
         this.toastrService.error(error.message);
@@ -186,7 +186,7 @@ export class DescargasComponent implements OnInit {
           this.toastrService.success("Actualización realizada con éxito.");
           this.router.navigate(['/adminDescargas']); return;
         }
-        //this.toastrService.error("Actualización fallida...");
+        this.toastrService.error(response[1]);
       },
       error => {
         this.toastrService.error(error.message);
