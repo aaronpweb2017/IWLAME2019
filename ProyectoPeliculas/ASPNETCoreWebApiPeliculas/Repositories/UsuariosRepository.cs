@@ -54,7 +54,7 @@ namespace ASPNETCoreWebApiPeliculas
             Object [] response = new Object [2];
             try {
                 response[0] = await AppDbContext.usuarios.Where(u => u.nombre_usuario.Equals(username_email)
-                || u.correo_usuario.Equals(username_email)).FirstOrDefaultAsync();
+                    || u.correo_usuario.Equals(username_email)).FirstOrDefaultAsync();
             }
             catch(Exception exception) {
                 if(exception.InnerException != null)
@@ -109,11 +109,11 @@ namespace ASPNETCoreWebApiPeliculas
                 Usuario userToDelete = await AppDbContext.usuarios.Where(u =>
                 u.id_usuario == id_usuario).FirstOrDefaultAsync();
                 List<UsuarioSolicitud> solicitudesToDelete = await AppDbContext.usuariosSolicitudes.Where(
-                us => us.id_usuario == userToDelete.id_usuario).ToListAsync();
+                    us => us.id_usuario == userToDelete.id_usuario).ToListAsync();
                 foreach(UsuarioSolicitud solicitud in solicitudesToDelete)
                     AppDbContext.usuariosSolicitudes.Remove(solicitud);
                 List<Token> tokensToDelete = await AppDbContext.tokens.Where(
-                t => t.id_usuario == userToDelete.id_usuario).ToListAsync();
+                    t => t.id_usuario == userToDelete.id_usuario).ToListAsync();
                 foreach(Token token in tokensToDelete)
                     AppDbContext.tokens.Remove(token);
                 AppDbContext.usuarios.Remove(userToDelete);

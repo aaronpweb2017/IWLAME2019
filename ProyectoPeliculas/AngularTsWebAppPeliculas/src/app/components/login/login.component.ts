@@ -74,7 +74,7 @@ export class LoginComponent implements OnInit {
                   this.toastrService.info("Bienvenido: " + this.usuario.nombre_usuario);
                   this.router.navigate(['/home']); return;
                 }
-                this.toastrService.error(response[1]); return;
+                this.toastrService.error(response[1]);
               }, error => {
                 this.toastrService.error(error.message);
               });
@@ -82,7 +82,7 @@ export class LoginComponent implements OnInit {
           }
           this.toastrService.error(response[0]); return;
         }
-        this.toastrService.error(response[1]); return;
+        this.toastrService.error(response[1]);
       }, error => {
         this.toastrService.error(error.message);
       });
@@ -92,11 +92,11 @@ export class LoginComponent implements OnInit {
     this.setUserLogInAttributes();
     this.usuariosService.getTokenAuthentication(this.usuario).subscribe(
       response => {
-        if (response != null) {
-          if (response.includes("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9")) {
+        if (response[0] != null) {
+          if (response[0].includes("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9")) {
             this.toastrService.info("Tu token aún no ha expirado..."); return;
           }
-          if (response.includes("Tu token ha expirado")) {
+          if (response[0].includes("expirado")) {
             this.usuariosService.solicitudToken(this.usuario).subscribe(
               response => {
                 if (response[0] != null) {
@@ -104,14 +104,15 @@ export class LoginComponent implements OnInit {
                     this.toastrService.success("Tu solicitud ha sido enviada."); return;
                   }
                   this.toastrService.error("El usuario no existe, la contraseña es"
-                    + "incorrecta o tu solicitud aún no es aprobada por el administrador."); return;
+                    + "incorrecta o tu solicitud ya fue realizada."); return;
                 }
-                this.toastrService.error(response[1]); return;
+                this.toastrService.error(response[1]);
               }, error => {
                 this.toastrService.error(error.message);
               });
             return;
           }
+          this.toastrService.error(response[0]); return;
         }
         this.toastrService.error(response[1]); return;
       }, error => {

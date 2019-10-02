@@ -12,27 +12,29 @@ import { VDetalleTecnico } from 'src/app/interfaces/views/v-detalle-tecnico';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  currentPage: number;
-  paginationConfig: any;
+  ordenamiento;
   peliculas: Pelicula[];
   detallesTecnicos: VDetalleTecnico[];
-
   constructor(private peliculasService: PeliculasService, private vistasService: VistasService,
     private router: Router, private route: ActivatedRoute, private toastrService: ToastrService) {
-    this.currentPage = 1;
-    this.paginationConfig = { itemsPerPage: 0, currentPage: 0, totalItems: 0 };
+    this.router.routeReuseStrategy.shouldReuseRoute = function () { return false; };
   }
 
   ngOnInit() {
+    this.ordenamiento = this.route.snapshot.paramMap.get('ordenamiento');
     this.peliculasService.getPeliculas().subscribe(
       peliculas => {
         this.peliculas = peliculas;
+        if (this.ordenamiento != null) {
+          if (this.ordenamiento.includes("nombre")) {
+            this.peliculas.sort((currentMovie, nextMovie): number => {
+              if(currentMovie.nombre_pelicula < nextMovie.nombre_pelicula) return -1;
+              if(currentMovie.nombre_pelicula > nextMovie.nombre_pelicula) return 1;
+              return 0;
+            });
+          }
+        }
         this.peliculas = peliculas; this.peliculas.push(null);
-        this.paginationConfig = {
-          itemsPerPage: 5,
-          currentPage: this.currentPage,
-          totalItems: this.peliculas.length - 1
-        };
         for (let i: number = 0; i < this.peliculas.length - 1; i++) {
           this.peliculas[i].rutaImagen = "assets/img" + this.peliculas[i].nombre_pelicula + ".jpg";
         }
@@ -45,10 +47,5 @@ export class HomeComponent implements OnInit {
       }, error => {
         this.toastrService.error(error.message);
       });
-  }
-
-  pageChanged(currentPage: number) {
-    this.currentPage = currentPage;
-    this.paginationConfig.currentPage = this.currentPage;
   }
 }

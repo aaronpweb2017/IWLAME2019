@@ -1,9 +1,7 @@
 <div class="container-fluid">
   <app-sidenavbar></app-sidenavbar>
   <div class="row">
-    <div class="col-xl column animated-fade-in" *ngFor="let pelicula of peliculas | paginate: { id:
-      'moviesPagination', itemsPerPage: paginationConfig.itemsPerPage, currentPage:
-      paginationConfig.currentPage, totalItems: paginationConfig.totalItems };" >
+    <div class="col-xl column animated-fade-in" *ngFor="let pelicula of peliculas;" >
       <app-tarjeta-pelicula *ngIf="pelicula"
         [pelicula]="pelicula"
         detallesTecnicos="detallesTecnicos">
@@ -12,4 +10,3 @@
     </div>
   </div>
 </div>
-<pagination-controls id="moviesPagination" (pageChange)="pageChanged($event)"></pagination-controls>

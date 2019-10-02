@@ -23,11 +23,17 @@
         <a><i class="far fa-object-group"></i>Ordenar por<span class="arrow"></span></a>
       </li>
       <ul class="sub-menu collapse" id="order">
-        <li>Ordenamiento 1</li>
-        <li>Ordenamiento 2</li>
-        <li>Ordenamiento 3</li>
-        <li>Ordenamiento 4</li>
-        <li>Ordenamiento 5</li>
+        <li><a [routerLink]="['/home', {ordenamiento: 'nombre'}]">Nombre</a></li>
+        <li><a [routerLink]="['/home', {ordenamiento: 'fecha'}]">Fecha de Estreno</a></li>
+        <li><a [routerLink]="['/home', {ordenamiento: 'presupuesto'}]">Presupuesto</a></li>
+        <li><a [routerLink]="['/home', {ordenamiento: 'recaudacion'}]">Recaudación</a></li>
+        <li><a [routerLink]="['/home', {ordenamiento: 'calificación'}]">Calificación</a></li>
+        <li><a [routerLink]="['/home', {ordenamiento: 'directores'}]">Directores</a></li>
+        <li><a [routerLink]="['/home', {ordenamiento: 'genero'}]">Géneros</a></li>
+        <li><a [routerLink]="['/home', {ordenamiento: 'productoras'}]">Productoras</a></li>
+        <li><a [routerLink]="['/home', {ordenamiento: 'actores'}]">Actores</a></li>
+        <li><a [routerLink]="['/home', {ordenamiento: 'pais'}]">País</a></li>
+        <li><a [routerLink]="['/home', {ordenamiento: 'tamaño'}]">Tamaño</a></li>
       </ul>
       <li data-toggle="collapse" data-target="#new" class="collapsed">
         <a><i class="fa fa-car fa-lg"></i>New<span class="arrow"></span></a>

@@ -310,11 +310,6 @@ id_pelicula_PK_CSTR PRIMARY KEY(id_pelicula)
 ALTER TABLE Pelicula ADD CONSTRAINT id_detalle_FK_CSTR
 FOREIGN KEY(id_detalle) REFERENCES DetalleTecnico(id_detalle)
 
-INSERT INTO Pelicula(nombre_pelicula, fecha_estreno, presupuesto, recaudacion, sinopsis, calificacion, directores, generos, id_detalle) VALUES
-('Avengers Endgame', '2019-04-26T00:00:00.000', 356000000, 2796000000, 'Thanos es el mejor villano', 75.00, 'Joe & Anthony Russo', 'Ciencia Ficción', 1)
-INSERT INTO Pelicula(nombre_pelicula, fecha_estreno, presupuesto, recaudacion, sinopsis, calificacion, directores, generos, id_detalle) VALUES
-('Invicto', '2002-08-23T00:00:00.000', 20000000, 0.00, 'Monroe Hutchen es el verdadero invicto', 85.00, 'Walter Hill', 'Deportes', 1)
-
 SELECT id_pelicula, nombre_pelicula, fecha_estreno,
 presupuesto, recaudacion, sinopsis, calificacion,
 directores, generos, idiomas, productoras,

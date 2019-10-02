@@ -16,6 +16,9 @@ export class DetallesPeliculaComponent implements OnInit {
 
   constructor(private vistasService: VistasService, private router: Router,
     private route: ActivatedRoute, private toastrService: ToastrService) {
+  }
+
+  ngOnInit() {
     this.pelicula = {
       id_pelicula: Number(this.route.snapshot.paramMap.get('id_pelicula')),
       nombre_pelicula: this.route.snapshot.paramMap.get('nombre_pelicula'),
@@ -36,9 +39,6 @@ export class DetallesPeliculaComponent implements OnInit {
       id_detalle: Number(this.route.snapshot.paramMap.get('id_detalle')),
       rutaImagen: this.route.snapshot.paramMap.get('rutaImagen')
     };
-  }
-
-  ngOnInit() {
     this.vistasService.getVistaDetalleTecnicoPelicula(this.pelicula.id_pelicula).subscribe(
       detalleTecnico => {
         this.detalleTecnico = detalleTecnico;

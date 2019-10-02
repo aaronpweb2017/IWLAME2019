@@ -28,15 +28,19 @@ export class UsuariosComponent implements OnInit {
   ngOnInit() {
     this.usuarios = []; this.decrypts = []; this.passwords = [];
     this.usuariosService.getUsuarios().subscribe(
-      usuarios => {
-        this.usuarios = usuarios;
-        this.decrypts = new Array(this.usuarios.length).fill(false);
-        this.passwords = new Array(this.usuarios.length).fill("");
-        this.paginationConfig = {
-          itemsPerPage: 5,
-          currentPage: this.currentPage,
-          totalItems: this.usuarios.length
-        };
+      response => {
+        if (response[0]) {
+          this.usuarios = response[0];
+          this.decrypts = new Array(this.usuarios.length).fill(false);
+          this.passwords = new Array(this.usuarios.length).fill("");
+          this.paginationConfig = {
+            itemsPerPage: 5,
+            currentPage: this.currentPage,
+            totalItems: this.usuarios.length
+          };
+          return;
+        }
+        this.toastrService.error(response[1]);
       }, error => {
         this.toastrService.error(error.message);
       });
@@ -63,7 +67,7 @@ export class UsuariosComponent implements OnInit {
   actualizarUsuario(usuario: Usuario) {
     this.usuariosService.actualizarUsuario(usuario).subscribe(
       response => {
-        if (response) {
+        if (response[0]) {
           this.toastrService.success("Actualización realizada con éxito.");
           this.router.navigate(['/usuarios', this.currentPage]); return;
         }
@@ -76,7 +80,7 @@ export class UsuariosComponent implements OnInit {
   eliminarUsuario(id_usuario: number) {
     this.usuariosService.eliminarUsuario(id_usuario).subscribe(
       response => {
-        if (response) {
+        if (response[0]) {
           this.toastrService.success("Eliminación realizada con éxito.");
           this.router.navigate(['/usuarios', this.currentPage]); return;
         }
