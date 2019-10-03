@@ -31,6 +31,8 @@
         <button class="btn btn-info" type="button" (click)="verDetallesPelicula()"><strong>Ver detalles</strong></button>
         <app-modal-actualizacion style="margin-left: 5px;"
           [request]="'ActualizarPelicula'" [model]="pelicula"
+          [detallesTecnicos] = "detallesTecnicos"
+          [movieToUpdate] = "pelicula"
           (modelObjectEvent)="actualizarPelicula($event)">
         </app-modal-actualizacion>
         <app-modal-eliminacion style="margin-left: 5px;"

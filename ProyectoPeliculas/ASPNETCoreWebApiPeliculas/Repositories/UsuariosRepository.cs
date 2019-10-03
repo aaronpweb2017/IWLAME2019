@@ -42,10 +42,11 @@ namespace ASPNETCoreWebApiPeliculas
                 }
             }
             catch(Exception exception) {
-                if(exception.InnerException != null)
+                if(exception.InnerException != null) {
                     response[1] = exception.InnerException.Message;
-                else
-                    response[1] = exception.Message;
+                    return response;
+                }
+                response[1] = exception.Message;
             }
             return response;
         }
@@ -57,10 +58,11 @@ namespace ASPNETCoreWebApiPeliculas
                     || u.correo_usuario.Equals(username_email)).FirstOrDefaultAsync();
             }
             catch(Exception exception) {
-                if(exception.InnerException != null)
+                if(exception.InnerException != null) {
                     response[1] = exception.InnerException.Message;
-                else
-                    response[1] = exception.Message;
+                    return response;
+                }
+                response[1] = exception.Message;
             }
             return response;
         }
@@ -71,10 +73,11 @@ namespace ASPNETCoreWebApiPeliculas
                 response[0] = await AppDbContext.usuarios.ToListAsync();
             }
             catch(Exception exception) {
-                if(exception.InnerException != null)
+                if(exception.InnerException != null) {
                     response[1] = exception.InnerException.Message;
-                else
-                    response[1] = exception.Message;
+                    return response;
+                }
+                response[1] = exception.Message;
             }
             return response;
         }
@@ -95,10 +98,11 @@ namespace ASPNETCoreWebApiPeliculas
                 response[0] = true;
             }
             catch(Exception exception) {
-                if(exception.InnerException != null)
+                if(exception.InnerException != null) {
                     response[1] = exception.InnerException.Message;
-                else
-                    response[1] = exception.Message;
+                    return response;
+                }
+                response[1] = exception.Message;
             }
             return response;
         }
@@ -121,10 +125,11 @@ namespace ASPNETCoreWebApiPeliculas
                 response[0] = true;
             }
             catch(Exception exception) {
-                if(exception.InnerException != null)
+                if(exception.InnerException != null) {
                     response[1] = exception.InnerException.Message;
-                else
-                    response[1] = exception.Message;
+                    return response;
+                }
+                response[1] = exception.Message;
             }
             return response;  
         }
@@ -136,10 +141,11 @@ namespace ASPNETCoreWebApiPeliculas
                 response[0] = userService.DecryptPassword(user.password_usuario);
             }
             catch(Exception exception) {
-                if(exception.InnerException != null)
+                if(exception.InnerException != null) {
                     response[1] = exception.InnerException.Message;
-                else
-                    response[1] = exception.Message;
+                    return response;
+                }
+                response[1] = exception.Message;
             }
             return response;
         }
@@ -168,10 +174,11 @@ namespace ASPNETCoreWebApiPeliculas
                 await AppDbContext.SaveChangesAsync(); response[0] = true;
             }
             catch(Exception exception) {
-                if(exception.InnerException != null)
+                if(exception.InnerException != null) {
                     response[1] = exception.InnerException.Message;
-                else
-                    response[1] = exception.Message;
+                    return response;
+                }
+                response[1] = exception.Message;
             }
             return response;
         }
@@ -183,10 +190,11 @@ namespace ASPNETCoreWebApiPeliculas
                 response[0] = await userService.GetTokenAuthentication(userNameEmail, user.password_usuario);
             }
             catch(Exception exception) {
-                if(exception.InnerException != null)
+                if(exception.InnerException != null) {
                     response[1] = exception.InnerException.Message;
-                else
-                    response[1] = exception.Message;
+                    return response;
+                }
+                response[1] = exception.Message;
             }
             return response;
         }
@@ -213,10 +221,11 @@ namespace ASPNETCoreWebApiPeliculas
                 await AppDbContext.SaveChangesAsync(); response[0] = true;
             }
             catch(Exception exception) {
-                if(exception.InnerException != null)
+                if(exception.InnerException != null) {
                     response[1] = exception.InnerException.Message;
-                else
-                    response[1] = exception.Message;
+                    return response;
+                }
+                response[1] = exception.Message;
             }
             return response;
         }

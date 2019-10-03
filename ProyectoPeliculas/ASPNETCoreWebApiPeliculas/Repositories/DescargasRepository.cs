@@ -22,10 +22,11 @@ namespace ASPNETCoreWebApiPeliculas
                 response[0] = true;
             }
             catch(Exception exception) {
-                if(exception.InnerException != null)
+                if(exception.InnerException != null) {
                     response[1] = exception.InnerException.Message;
-                else
-                    response[1] = exception.Message;
+                    return response;
+                }
+                response[1] = exception.Message;
             }
             return response;
         }
@@ -36,10 +37,11 @@ namespace ASPNETCoreWebApiPeliculas
                 response[0] = await AppDbContext.tiposArchivo.ToListAsync();
             }
             catch(Exception exception) {
-                if(exception.InnerException != null)
+                if(exception.InnerException != null) {
                     response[1] = exception.InnerException.Message;
-                else
-                    response[1] = exception.Message;
+                    return response;
+                }
+                response[1] = exception.Message;
             }
             return response;
         }
@@ -55,10 +57,11 @@ namespace ASPNETCoreWebApiPeliculas
                 response[0] = true;
             }
             catch(Exception exception) {
-                if(exception.InnerException != null)
+                if(exception.InnerException != null) {
                     response[1] = exception.InnerException.Message;
-                else
-                    response[1] = exception.Message;
+                    return response;
+                }
+                response[1] = exception.Message;
             }
             return response;
         }
@@ -70,20 +73,20 @@ namespace ASPNETCoreWebApiPeliculas
                     ta.id_tipo_archivo == id_tipo_archivo).FirstOrDefaultAsync();
                 List<Descarga> descargas = await AppDbContext.descargas.Where(d => 
                     d.id_tipo_archivo == fileTypeToDelete.id_tipo_archivo).ToListAsync();
-                foreach(Descarga descarga in descargas) {
+                foreach(Descarga descarga in descargas)
                     await EliminarDescarga(descarga.id_descarga);
-                }
                 AppDbContext.tiposArchivo.Remove(fileTypeToDelete);
                 await AppDbContext.SaveChangesAsync();
                 response[0] = true;
             }
             catch(Exception exception) {
-                if(exception.InnerException != null)
+                if(exception.InnerException != null) {
                     response[1] = exception.InnerException.Message;
-                else
-                    response[1] = exception.Message;
+                    return response;
+                }
+                response[1] = exception.Message;
             }
-            return response;  
+            return response;
         }
 
         public async Task<Object []> CrearServidor(Servidor servidor) {
@@ -94,10 +97,11 @@ namespace ASPNETCoreWebApiPeliculas
                 response[0] = true;
             }
             catch(Exception exception) {
-                if(exception.InnerException != null)
+                if(exception.InnerException != null) {
                     response[1] = exception.InnerException.Message;
-                else
-                    response[1] = exception.Message;
+                    return response;
+                }
+                response[1] = exception.Message;
             }
             return response;
         }
@@ -108,10 +112,11 @@ namespace ASPNETCoreWebApiPeliculas
                 response[0] = await AppDbContext.servidores.ToListAsync();
             }
             catch(Exception exception) {
-                if(exception.InnerException != null)
+                if(exception.InnerException != null) {
                     response[1] = exception.InnerException.Message;
-                else
-                    response[1] = exception.Message;
+                    return response;
+                }
+                response[1] = exception.Message;
             }
             return response;
         }
@@ -128,10 +133,11 @@ namespace ASPNETCoreWebApiPeliculas
                 response[0] = true;
             }
             catch(Exception exception) {
-                if(exception.InnerException != null)
+                if(exception.InnerException != null) {
                     response[1] = exception.InnerException.Message;
-                else
-                    response[1] = exception.Message;
+                    return response;
+                }
+                response[1] = exception.Message;
             }
             return response;
         }
@@ -143,18 +149,18 @@ namespace ASPNETCoreWebApiPeliculas
                     s.id_servidor == id_servidor).FirstOrDefaultAsync();
                 List<Descarga> descargas = await AppDbContext.descargas.Where(d => 
                     d.id_servidor == serverToDelete.id_servidor).ToListAsync();
-                foreach(Descarga descarga in descargas) {
+                foreach(Descarga descarga in descargas)
                     await EliminarDescarga(descarga.id_descarga);
-                }
                 AppDbContext.servidores.Remove(serverToDelete);
                 await AppDbContext.SaveChangesAsync();
                 response[0] = true;
             }
             catch(Exception exception) {
-                if(exception.InnerException != null)
+                if(exception.InnerException != null) {
                     response[1] = exception.InnerException.Message;
-                else
-                    response[1] = exception.Message;
+                    return response;
+                }
+                response[1] = exception.Message;
             }
             return response;  
         }
@@ -167,10 +173,11 @@ namespace ASPNETCoreWebApiPeliculas
                 response[0] = true;
             }
             catch(Exception exception) {
-                if(exception.InnerException != null)
+                if(exception.InnerException != null) {
                     response[1] = exception.InnerException.Message;
-                else
-                    response[1] = exception.Message;
+                    return response;
+                }
+                response[1] = exception.Message;
             }
             return response;
         }
@@ -181,10 +188,11 @@ namespace ASPNETCoreWebApiPeliculas
                 response[0] = await AppDbContext.descargas.ToListAsync();
             }
             catch(Exception exception) {
-                if(exception.InnerException != null)
+                if(exception.InnerException != null) {
                     response[1] = exception.InnerException.Message;
-                else
-                    response[1] = exception.Message;
+                    return response;
+                }
+                response[1] = exception.Message;
             }
             return response;
         }
@@ -203,10 +211,11 @@ namespace ASPNETCoreWebApiPeliculas
                 response[0] = true;
             }
             catch(Exception exception) {
-                if(exception.InnerException != null)
+                if(exception.InnerException != null) {
                     response[1] = exception.InnerException.Message;
-                else
-                    response[1] = exception.Message;
+                    return response;
+                }
+                response[1] = exception.Message;
             }
             return response;
         }
@@ -225,10 +234,11 @@ namespace ASPNETCoreWebApiPeliculas
                 response[0] = true;
             }
             catch(Exception exception) {
-                if(exception.InnerException != null)
+                if(exception.InnerException != null) {
                     response[1] = exception.InnerException.Message;
-                else
-                    response[1] = exception.Message;
+                    return response;
+                }
+                response[1] = exception.Message;
             }
             return response;  
         }
@@ -241,10 +251,11 @@ namespace ASPNETCoreWebApiPeliculas
                 response[0] = true;
             }
             catch(Exception exception) {
-                if(exception.InnerException != null)
+                if(exception.InnerException != null) {
                     response[1] = exception.InnerException.Message;
-                else
-                    response[1] = exception.Message;
+                    return response;
+                }
+                response[1] = exception.Message;
             }
             return response;
         }
@@ -255,10 +266,11 @@ namespace ASPNETCoreWebApiPeliculas
                 response[0] = await AppDbContext.enlaces.Where(e => e.id_descarga == id_descarga).ToListAsync();
             }
             catch(Exception exception) {
-                if(exception.InnerException != null)
+                if(exception.InnerException != null) {
                     response[1] = exception.InnerException.Message;
-                else
-                    response[1] = exception.Message;
+                    return response;
+                }
+                response[1] = exception.Message;
             }
             return response;
         }
@@ -276,10 +288,11 @@ namespace ASPNETCoreWebApiPeliculas
                 response[0] = true;
             }
             catch(Exception exception) {
-                if(exception.InnerException != null)
+                if(exception.InnerException != null) {
                     response[1] = exception.InnerException.Message;
-                else
-                    response[1] = exception.Message;
+                    return response;
+                }
+                response[1] = exception.Message;
             }
             return response;
         }

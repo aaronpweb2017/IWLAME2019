@@ -28,32 +28,33 @@ export class ServidoresComponent implements OnInit {
     this.servidores = []; this.create = false;
     this.nuevoServidor = { id_servidor: 0, nombre_servidor: "", sitio_servidor: "" };
     this.descargasService.getServidores().subscribe(
-      servidores => {
-        this.servidores = servidores; this.servidores.push(null);
-        this.paginationConfig = {
-          itemsPerPage: 5,
-          currentPage: this.currentPage,
-          totalItems: this.servidores.length
-        };
-        this.totalPages = Math.trunc(this.servidores.length / this.paginationConfig.itemsPerPage);
-        if (this.servidores.length % this.paginationConfig.itemsPerPage != 0) this.totalPages += 1;
-        this.currentItemsPerPage = this.servidores.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
+      response => {
+        if (response[0]) {
+          this.servidores = response[0]; this.servidores.push(null);
+          this.paginationConfig = {
+            itemsPerPage: 5,
+            currentPage: this.currentPage,
+            totalItems: this.servidores.length
+          };
+          this.totalPages = Math.trunc(this.servidores.length / this.paginationConfig.itemsPerPage);
+          if (this.servidores.length % this.paginationConfig.itemsPerPage != 0) this.totalPages += 1;
+          this.currentItemsPerPage = this.servidores.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
+          return;
+        }
+        this.toastrService.error(response[1]);
       }, error => {
         this.toastrService.error(error.message);
       });
   }
 
-  setCreateFlag() {
-    if (this.create) {
-      this.create = false; return;
-    }
-    this.create = true;
+  setCreateFlag(flag: boolean) {
+    this.create = flag;
   }
 
   crearServidor() {
     this.descargasService.crearServidor(this.nuevoServidor).subscribe(
       response => {
-        if (response) {
+        if (response[0]) {
           this.toastrService.success("Creación realizada con éxito.");
           this.router.navigate(['/adminDescargas']); return;
         }
@@ -66,7 +67,7 @@ export class ServidoresComponent implements OnInit {
   actualizarServidor(servidor: Servidor) {
     this.descargasService.actualizarServidor(servidor).subscribe(
       response => {
-        if (response) {
+        if (response[0]) {
           this.toastrService.success("Actualización realizada con éxito.");
           this.router.navigate(['/adminDescargas']); return;
         }
@@ -79,7 +80,7 @@ export class ServidoresComponent implements OnInit {
   eliminarServidor(id_servidor: number) {
     this.descargasService.eliminarServidor(id_servidor).subscribe(
       response => {
-        if (response) {
+        if (response[0]) {
           this.toastrService.success("Eliminación realizada con éxito.");
           this.router.navigate(['/adminDescargas']); return;
         }

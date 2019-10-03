@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ASPNETCoreWebApiPeliculas.Controllers
 {
-    [ApiController] [Route("Api/[controller]/[action]")] [Authorize]
+    [ApiController] [Route("Api/[controller]/[action]")] //[Authorize]
     public class DetallesTecnicosController : ControllerBase
     {
         private readonly IDetallesTecnicos detallesTecnicos;

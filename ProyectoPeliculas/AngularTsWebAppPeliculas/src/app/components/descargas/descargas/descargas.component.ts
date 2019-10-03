@@ -54,63 +54,72 @@ export class DescargasComponent implements OnInit {
       status_enlace: 0, id_descarga: 0
     };
     this.vistasService.getVistaDescargas().subscribe(
-      descargas => {
-        this.descargas = descargas;
-        for (let i: number = 0; i < this.descargas.length; i++) {
-          let id_descarga: number = this.descargas[i].id_descarga;
-          this.descargasService.getEnlacesDescarga(id_descarga).subscribe(
-            enlaces => {
-              this.descargas[i].enlaces = [];
-              this.descargas[i].enlaces = enlaces;
-              this.descargas[i].enlaces.push(null);
+      response => {
+        if (response[0]) {
+          this.descargas = response[0];
+          for (let i: number = 0; i < this.descargas.length; i++) {
+            let id_descarga: number = this.descargas[i].id_descarga;
+            this.descargasService.getEnlacesDescarga(id_descarga).subscribe(
+              response => {
+                if (response[0]) {
+                  //this.descargas[i].enlaces = [];
+                  this.descargas[i].enlaces = response[0];
+                  this.descargas[i].enlaces.push(null);
+                }
+              },
+              error => {
+                this.toastrService.error(error.message);
+              });
+          }
+          this.descargas.push(null);
+          this.mostrarEnlaces = new Array(this.descargas.length).fill(false);
+          this.crearEnlaces = new Array(this.descargas.length).fill(false);
+          this.paginationConfig = {
+            itemsPerPage: 5,
+            currentPage: this.currentPage,
+            totalItems: this.descargas.length
+          };
+          this.totalPages = Math.trunc(this.descargas.length / this.paginationConfig.itemsPerPage);
+          if (this.descargas.length % this.paginationConfig.itemsPerPage != 0) this.totalPages += 1;
+          this.currentItemsPerPage = this.descargas.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
+          this.descargasService.getTiposArchivo().subscribe(
+            response => {
+              if (response[0]) {
+                this.tiposArchivo = response[0];
+              }
             },
             error => {
               this.toastrService.error(error.message);
             });
+          this.descargasService.getServidores().subscribe(
+            response => {
+              if (response[0]) {
+                this.servidores = response[0];
+              }
+            },
+            error => {
+              this.toastrService.error(error.message);
+            });
+          this.peliculasService.getPeliculas().subscribe(
+            response => {
+              if (response[0]) {
+                this.peliculas = response[0];
+              }
+            },
+            error => {
+              this.toastrService.error(error.message);
+            });
+          return;
         }
-        this.descargas.push(null);
-        this.mostrarEnlaces = new Array(this.descargas.length).fill(false);
-        this.crearEnlaces = new Array(this.descargas.length).fill(false);
-        this.paginationConfig = {
-          itemsPerPage: 5,
-          currentPage: this.currentPage,
-          totalItems: this.descargas.length
-        };
-        this.totalPages = Math.trunc(this.descargas.length / this.paginationConfig.itemsPerPage);
-        if (this.descargas.length % this.paginationConfig.itemsPerPage != 0) this.totalPages += 1;
-        this.currentItemsPerPage = this.descargas.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
-        this.descargasService.getTiposArchivo().subscribe(
-          tiposArchivo => {
-            this.tiposArchivo = tiposArchivo;
-          },
-          error => {
-            this.toastrService.error(error.message);
-          });
-        this.descargasService.getServidores().subscribe(
-          servidores => {
-            this.servidores = servidores;
-          },
-          error => {
-            this.toastrService.error(error.message);
-          });
-        this.peliculasService.getPeliculas().subscribe(
-          peliculas => {
-            this.peliculas = peliculas;
-          },
-          error => {
-            this.toastrService.error(error.message);
-          });
+        this.toastrService.error(response[1]);
       },
       error => {
         this.toastrService.error(error.message);
       });
   }
 
-  setCreateFlag() {
-    if (this.create) {
-      this.create = false; return;
-    }
-    this.create = true;
+  setCreateFlag(flag: boolean) {
+    this.create = flag;
   }
 
   setCreateLinkFlag(index: number, flag: boolean) {
@@ -125,7 +134,7 @@ export class DescargasComponent implements OnInit {
   crearDescarga() {
     this.descargasService.crearDescarga(this.nuevaDescarga).subscribe(
       response => {
-        if (response) {
+        if (response[0]) {
           this.toastrService.success("Creación realizada con éxito.");
           this.router.navigate(['/adminDescargas']); return;
         }
@@ -139,7 +148,7 @@ export class DescargasComponent implements OnInit {
   actualizarDescarga(descarga: Descarga) {
     this.descargasService.actualizarDescarga(descarga).subscribe(
       response => {
-        if (response) {
+        if (response[0]) {
           this.toastrService.success("Actualización realizada con éxito.");
           this.router.navigate(['/adminDescargas']); return;
         }
@@ -153,7 +162,7 @@ export class DescargasComponent implements OnInit {
   eliminarDescarga(id_descarga: number) {
     this.descargasService.eliminarDescarga(id_descarga).subscribe(
       response => {
-        if (response) {
+        if (response[0]) {
           this.toastrService.success("Eliminación realizada con éxito.");
           this.router.navigate(['/adminDescargas']); return;
         }
@@ -168,7 +177,7 @@ export class DescargasComponent implements OnInit {
     this.nuevoEnlace.id_descarga = id_descarga;
     this.descargasService.crearEnlace(this.nuevoEnlace).subscribe(
       response => {
-        if (response) {
+        if (response[0]) {
           this.toastrService.success("Creación realizada con éxito.");
           this.router.navigate(['/adminDescargas']); return;
         }
@@ -182,7 +191,7 @@ export class DescargasComponent implements OnInit {
   actualizarEnlace(enlace: Enlace) {
     this.descargasService.actualizarEnlace(enlace).subscribe(
       response => {
-        if (response) {
+        if (response[0]) {
           this.toastrService.success("Actualización realizada con éxito.");
           this.router.navigate(['/adminDescargas']); return;
         }

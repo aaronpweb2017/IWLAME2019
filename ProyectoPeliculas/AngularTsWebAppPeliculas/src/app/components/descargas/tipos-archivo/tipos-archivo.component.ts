@@ -28,26 +28,28 @@ export class TiposArchivoComponent implements OnInit {
     this.tiposArchivo = []; this.create = false;
     this.nuevoTipoArchivo = { id_tipo_archivo: 0, nombre_tipo_archivo: "" };
     this.descargasService.getTiposArchivo().subscribe(
-      tiposArchivo => {
-        this.tiposArchivo = tiposArchivo; this.tiposArchivo.push(null);
-        this.paginationConfig = {
-          itemsPerPage: 5,
-          currentPage: this.currentPage,
-          totalItems: this.tiposArchivo.length
-        };
-        this.totalPages = Math.trunc(this.tiposArchivo.length / this.paginationConfig.itemsPerPage);
-        if (this.tiposArchivo.length % this.paginationConfig.itemsPerPage != 0) this.totalPages += 1;
-        this.currentItemsPerPage = this.tiposArchivo.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
+      response => {
+        if (response[0]) {
+          this.tiposArchivo = response[0];
+          this.tiposArchivo.push(null);
+          this.paginationConfig = {
+            itemsPerPage: 5,
+            currentPage: this.currentPage,
+            totalItems: this.tiposArchivo.length
+          };
+          this.totalPages = Math.trunc(this.tiposArchivo.length / this.paginationConfig.itemsPerPage);
+          if (this.tiposArchivo.length % this.paginationConfig.itemsPerPage != 0) this.totalPages += 1;
+          this.currentItemsPerPage = this.tiposArchivo.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
+          return;
+        }
+        this.toastrService.error(response[1]);
       }, error => {
         this.toastrService.error(error.message);
       });
   }
 
-  setCreateFlag() {
-    if (this.create) {
-      this.create = false; return;
-    }
-    this.create = true;
+  setCreateFlag(flag: boolean) {
+    this.create = flag;
   }
 
   crearTipoArchivo() {
@@ -66,7 +68,7 @@ export class TiposArchivoComponent implements OnInit {
   actualizarTipoArchivo(tipoArchivo: TipoArchivo) {
     this.descargasService.actualizarTipoArchivo(tipoArchivo).subscribe(
       response => {
-        if (response) {
+        if (response[0]) {
           this.toastrService.success("Actualización realizada con éxito.");
           this.router.navigate(['/adminDescargas']); return;
         }
@@ -79,7 +81,7 @@ export class TiposArchivoComponent implements OnInit {
   eliminarTipoArchivo(id_tipo_archivo: number) {
     this.descargasService.eliminarTipoArchivo(id_tipo_archivo).subscribe(
       response => {
-        if (response) {
+        if (response[0]) {
           this.toastrService.success("Eliminación realizada con éxito.");
           this.router.navigate(['/adminDescargas']); return;
         }

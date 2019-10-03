@@ -39,38 +39,42 @@ export class DetallesTecnicosComponent implements OnInit {
       id_valor_resolucion: 0, id_relacion_aspecto: 0
     };
     this.resolutionIndex = -1;
-    this.vistasService.getVistaDetallesTecnicos().subscribe(detallesTecnicos => {
-      this.detallesTecnicos = detallesTecnicos; this.detallesTecnicos.push(null);
-      this.paginationConfig = {
-        itemsPerPage: 5,
-        currentPage: this.currentPage,
-        totalItems: this.detallesTecnicos.length
-      };
-      this.totalPages = Math.trunc(this.detallesTecnicos.length / this.paginationConfig.itemsPerPage);
-      if (this.detallesTecnicos.length % this.paginationConfig.itemsPerPage != 0) this.totalPages += 1;
-      this.currentItemsPerPage = this.detallesTecnicos.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
-      this.detallesTecnicosService.getFormatos().subscribe(
-        formatos => {
-          this.formatos = formatos;
-        }, error => {
-          this.toastrService.error(error.message);
-        });
-      this.vistasService.getVistaResoluciones().subscribe(
-        resoluciones => {
-          this.resoluciones = resoluciones;
-        }, error => {
-          this.toastrService.error(error.message);
-        });
-    }, error => {
+    this.vistasService.getVistaDetallesTecnicos().subscribe(
+      response => {
+        if (response[0]) {
+          this.detallesTecnicos = response[0];
+          this.detallesTecnicos.push(null);
+          this.paginationConfig = {
+            itemsPerPage: 5,
+            currentPage: this.currentPage,
+            totalItems: this.detallesTecnicos.length
+          };
+          this.totalPages = Math.trunc(this.detallesTecnicos.length / this.paginationConfig.itemsPerPage);
+          if (this.detallesTecnicos.length % this.paginationConfig.itemsPerPage != 0) this.totalPages += 1;
+          this.currentItemsPerPage = this.detallesTecnicos.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
+          this.detallesTecnicosService.getFormatos().subscribe(
+            formatos => {
+              this.formatos = formatos;
+            }, error => {
+              this.toastrService.error(error.message);
+            });
+          this.vistasService.getVistaResoluciones().subscribe(
+            response => {
+              if (response[0])
+                this.resoluciones = response[0];
+            }, error => {
+              this.toastrService.error(error.message);
+            });
+          return;
+        }
+        this.toastrService.error(response[1]);
+      }, error => {
         this.toastrService.error(error.message);
       });
   }
 
-  setCreateFlag() {
-    if (this.create) {
-      this.create = false; return;
-    }
-    this.create = true;
+  setCreateFlag(flag: boolean) {
+    this.create = flag;
   }
 
   crearDetalleTecnico() {

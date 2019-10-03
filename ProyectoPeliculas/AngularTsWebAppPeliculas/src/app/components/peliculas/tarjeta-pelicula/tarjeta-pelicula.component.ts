@@ -58,7 +58,7 @@ export class TarjetaPeliculaComponent implements OnInit {
   crearPelicula() {
     this.peliculasService.crearPelicula(this.nuevapelicula).subscribe(
       response => {
-        if (response) {
+        if (response[1]) {
           this.toastrService.success("Creación realizada con éxito.");
           this.router.navigate(['/home']); return;
         }
@@ -69,9 +69,10 @@ export class TarjetaPeliculaComponent implements OnInit {
   }
 
   actualizarPelicula(pelicula: Pelicula) {
+    console.log(pelicula);
     this.peliculasService.actualizarPelicula(pelicula).subscribe(
       response => {
-        if (response) {
+        if (response[0]) {
           this.toastrService.success("Actualización realizada con éxito.");
           this.router.navigate(['/home']); return;
         }
@@ -84,7 +85,7 @@ export class TarjetaPeliculaComponent implements OnInit {
   eliminarPelicula(pelicula: Pelicula) {
     this.peliculasService.eliminarPelicula(pelicula.id_pelicula).subscribe(
       response => {
-        if (response) {
+        if (response[1]) {
           this.toastrService.success("Eliminación realizada con éxito.");
           this.router.navigate(['/home']); return;
         }

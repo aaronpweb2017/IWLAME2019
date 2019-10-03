@@ -43,11 +43,8 @@ export class ValoresResolucionComponent implements OnInit {
       });
   }
 
-  setCreateFlag() {
-    if (this.create) {
-      this.create = false; return;
-    }
-    this.create = true;
+  setCreateFlag(flag: boolean) {
+    this.create = flag;
   }
 
   crearValorResolucion() {

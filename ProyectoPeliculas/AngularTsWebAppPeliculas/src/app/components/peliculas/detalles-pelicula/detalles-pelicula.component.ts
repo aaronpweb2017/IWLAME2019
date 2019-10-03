@@ -40,8 +40,11 @@ export class DetallesPeliculaComponent implements OnInit {
       rutaImagen: this.route.snapshot.paramMap.get('rutaImagen')
     };
     this.vistasService.getVistaDetalleTecnicoPelicula(this.pelicula.id_pelicula).subscribe(
-      detalleTecnico => {
-        this.detalleTecnico = detalleTecnico;
+      response => {
+        if (response[0]) {
+          this.detalleTecnico = response[0]; return;
+        }
+        this.toastrService.error(response[1]);
       }, error => {
         this.toastrService.error(error.message);
       });

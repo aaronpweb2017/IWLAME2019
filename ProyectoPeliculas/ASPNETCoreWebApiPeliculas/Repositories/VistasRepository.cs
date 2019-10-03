@@ -15,36 +15,97 @@ namespace ASPNETCoreWebApiPeliculas
             this.AppDbContext = AppDbContext;
         }
 
-        public async Task<List<VSolicitud>> GetVistaSolicitudes() {
-            return await AppDbContext.vSolicitudes.ToListAsync();
+        public async Task<Object []> GetVistaSolicitudes() {
+            Object [] response = new Object [2];
+            try {
+                response[0] = await AppDbContext.vSolicitudes.ToListAsync();
+            }
+            catch(Exception exception) {
+                if(exception.InnerException != null) {
+                    response[1] = exception.InnerException.Message;
+                    return response;
+                }
+                response[1] = exception.Message;
+            }
+            return response;
         }
 
-        public async Task<List<VToken>> GetVistaTokens() {
-            return await AppDbContext.vTokens.ToListAsync();
+        public async Task<Object []> GetVistaTokens() {
+            Object [] response = new Object [2];
+            try {
+                response[0] = await AppDbContext.vTokens.ToListAsync();
+            }
+            catch(Exception exception) {
+                if(exception.InnerException != null) {
+                    response[1] = exception.InnerException.Message;
+                    return response;
+                }
+                response[1] = exception.Message;
+            }
+            return response;
         }
 
-        public async Task<List<VResolucion>> GetVistaResoluciones() {
-            return await AppDbContext.vResoluciones.ToListAsync();
+        public async Task<Object []> GetVistaResoluciones() {
+            Object [] response = new Object [2];
+            try {
+                response[0] = await AppDbContext.vResoluciones.ToListAsync();
+            }
+            catch(Exception exception) {
+                if(exception.InnerException != null) {
+                    response[1] = exception.InnerException.Message;
+                    return response;
+                }
+                response[1] = exception.Message;
+            }
+            return response;
         }
 
-        public async Task<List<VDetalleTecnico>> GetVistaDetallesTecnicos() {
-            return await AppDbContext.vDetallesTecnicos.ToListAsync();
+        public async Task<Object []> GetVistaDetallesTecnicos() {
+            Object [] response = new Object [2];
+            try {
+                response[0] = await AppDbContext.vDetallesTecnicos.ToListAsync();
+            }
+            catch(Exception exception) {
+                if(exception.InnerException != null) {
+                    response[1] = exception.InnerException.Message;
+                    return response;
+                }
+                response[1] = exception.Message;
+            }
+            return response;
         }
-        public async Task<VDetalleTecnico> GetVistaDetalleTecnicoPelicula(int id_pelicula) {
+
+        public async Task<Object []> GetVistaDetalleTecnicoPelicula(int id_pelicula) {
+            Object [] response = new Object [2];
             try {
                  Pelicula movieToGetTechnicalDetail = await AppDbContext.peliculas.
                     Where(p => p.id_pelicula == id_pelicula).FirstOrDefaultAsync();
-                return await AppDbContext.vDetallesTecnicos.Where(dt =>
+                response[0] =  await AppDbContext.vDetallesTecnicos.Where(dt =>
                     dt.id_detalle == movieToGetTechnicalDetail.id_detalle).FirstOrDefaultAsync();
             }
             catch(Exception exception) {
-                Console.WriteLine("Exception msj: "+exception.Message);
-                return null; 
+                if(exception.InnerException != null) {
+                    response[1] = exception.InnerException.Message;
+                    return response;
+                }
+                response[1] = exception.Message;
             }
+            return response;
         }
 
-        public async Task<List<VDescarga>> GetVistaDescargas() {
-            return await AppDbContext.vDescargas.ToListAsync();
+        public async Task<Object []> GetVistaDescargas() {
+            Object [] response = new Object [2];
+            try {
+                response[0] = await AppDbContext.vDescargas.ToListAsync();
+            }
+            catch(Exception exception) {
+                if(exception.InnerException != null) {
+                    response[1] = exception.InnerException.Message;
+                    return response;
+                }
+                response[1] = exception.Message;
+            }
+            return response;
         }
     }
 }

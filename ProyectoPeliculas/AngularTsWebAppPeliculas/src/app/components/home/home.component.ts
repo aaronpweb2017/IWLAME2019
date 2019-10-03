@@ -23,27 +23,29 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.ordenamiento = this.route.snapshot.paramMap.get('ordenamiento');
     this.peliculasService.getPeliculas().subscribe(
-      peliculas => {
-        this.peliculas = peliculas;
-        if (this.ordenamiento != null) {
-          if (this.ordenamiento.includes("nombre")) {
+      response => {
+        if (response[0]) {
+          this.peliculas = response[0];
+          if (this.ordenamiento != null && this.ordenamiento.includes("nombre")) {
             this.peliculas.sort((currentMovie, nextMovie): number => {
-              if(currentMovie.nombre_pelicula < nextMovie.nombre_pelicula) return -1;
-              if(currentMovie.nombre_pelicula > nextMovie.nombre_pelicula) return 1;
+              if (currentMovie.nombre_pelicula < nextMovie.nombre_pelicula) return -1;
+              if (currentMovie.nombre_pelicula > nextMovie.nombre_pelicula) return 1;
               return 0;
             });
           }
+          this.peliculas.push(null);
+          for (let i: number = 0; i < this.peliculas.length - 1; i++)
+            this.peliculas[i].rutaImagen = "assets/img" + this.peliculas[i].nombre_pelicula + ".jpg";
+          this.vistasService.getVistaDetallesTecnicos().subscribe(
+            response => {
+              if (response[0])
+                this.detallesTecnicos = response[0];
+            }, error => {
+              this.toastrService.error(error.message);
+            });
+          return;
         }
-        this.peliculas = peliculas; this.peliculas.push(null);
-        for (let i: number = 0; i < this.peliculas.length - 1; i++) {
-          this.peliculas[i].rutaImagen = "assets/img" + this.peliculas[i].nombre_pelicula + ".jpg";
-        }
-        this.vistasService.getVistaDetallesTecnicos().subscribe(
-          detallesTecnicos => {
-            this.detallesTecnicos = detallesTecnicos;
-          }, error => {
-            this.toastrService.error(error.message);
-          });
+        this.toastrService.error(response[1]);
       }, error => {
         this.toastrService.error(error.message);
       });

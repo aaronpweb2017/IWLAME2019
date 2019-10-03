@@ -25,13 +25,17 @@ export class TokensComponent implements OnInit {
 
   ngOnInit() {
     this.vistasService.getVistaTokens().subscribe(
-      tokens => {
-        this.tokens = tokens;
-        this.paginationConfig = {
-          itemsPerPage: 5,
-          currentPage: this.currentPage,
-          totalItems: this.tokens.length
-        };
+      response => {
+        if (response[0]) {
+          this.tokens = response[0];
+          this.paginationConfig = {
+            itemsPerPage: 5,
+            currentPage: this.currentPage,
+            totalItems: this.tokens.length
+          };
+          return;
+        }
+        this.toastrService.error(response[1]);
       }, error => {
         this.toastrService.error(error.message);
       });

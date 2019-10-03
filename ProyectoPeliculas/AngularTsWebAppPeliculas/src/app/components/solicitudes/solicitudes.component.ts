@@ -26,13 +26,17 @@ export class SolicitudesComponent implements OnInit {
 
   ngOnInit() {
     this.vistasService.getVistaSolicitudes().subscribe(
-      solicitudes => {
-        this.solicitudes = solicitudes;
-        this.paginationConfig = {
-          itemsPerPage: 5,
-          currentPage: this.currentPage,
-          totalItems: this.solicitudes.length
-        };
+      response => {
+        if (response[0]) {
+          this.solicitudes = response[0];
+          this.paginationConfig = {
+            itemsPerPage: 5,
+            currentPage: this.currentPage,
+            totalItems: this.solicitudes.length
+          };
+          return;
+        }
+        this.toastrService.error(response[1]);
       }, error => {
         this.toastrService.error(error.message);
       });

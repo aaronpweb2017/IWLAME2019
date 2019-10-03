@@ -40,7 +40,7 @@ export class DescargasService {
   getTiposArchivo(): Observable<any[]> {
     this.ApiGetTiposArchivoURL = this.ApiDescargasURL + "/GetTiposArchivo";
     return this.http.get(this.ApiGetTiposArchivoURL,
-      { headers: header }).pipe(map((data: any) => data as any[][]));
+      { headers: header }).pipe(map((data: any) => data as any[]));
   }
 
   actualizarTipoArchivo(tipoArchivo: TipoArchivo): Observable<any[]> {
@@ -65,7 +65,7 @@ export class DescargasService {
   getServidores(): Observable<any[]> {
     this.ApiGetServidoresURL = this.ApiDescargasURL + "/GetServidores";
     return this.http.get(this.ApiGetServidoresURL,
-      { headers: header }).pipe(map((data: any) => data as any[][]));
+      { headers: header }).pipe(map((data: any) => data as any[]));
   }
 
   actualizarServidor(servidor: Servidor): Observable<any[]> {
@@ -110,7 +110,7 @@ export class DescargasService {
     this.ApiGetEnlacesDescargaURL = this.ApiDescargasURL
       + "/GetEnlacesDescarga?id_descarga=" + id_descarga;
     return this.http.get(this.ApiGetEnlacesDescargaURL,
-      { headers: header }).pipe(map((data: any) => data as any[][]));
+      { headers: header }).pipe(map((data: any) => data as any[]));
   }
 
   actualizarEnlace(enlace: Enlace): Observable<any[]> {
@@ -123,6 +123,6 @@ export class DescargasService {
     this.ApiEliminarEnlaceURL = this.ApiDescargasURL
       + "/EliminarEnlace?id_enlace=" + id_enlace;
     return this.http.delete(this.ApiEliminarEnlaceURL,
-      { headers: header }).pipe(map((data: any) => data as any[][]));
+      { headers: header }).pipe(map((data: any) => data as any[]));
   }
 }

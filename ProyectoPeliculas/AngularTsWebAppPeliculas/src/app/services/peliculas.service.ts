@@ -17,28 +17,28 @@ export class PeliculasService {
         this.ApiPeliculasURL = apiURL + "/Peliculas";
     }
 
-    crearPelicula(pelicula: Pelicula): Observable<boolean> {
+    crearPelicula(pelicula: Pelicula): Observable<any[]> {
         this.ApiCrearPeliculaURL = this.ApiPeliculasURL + "/CrearPelicula";
         return this.http.post(this.ApiCrearPeliculaURL, pelicula,
-            { headers: header }).pipe(map((data: any) => data as boolean));
+            { headers: header }).pipe(map((data: any) => data as any[]));
     }
 
-    getPeliculas(): Observable<Pelicula[]> {
+    getPeliculas(): Observable<any[]> {
         this.ApiGetPeliculasURL = this.ApiPeliculasURL + "/GetPeliculas";
         return this.http.get(this.ApiGetPeliculasURL,
-            { headers: header }).pipe(map((data: any) => data as Pelicula[]));
+            { headers: header }).pipe(map((data: any) => data as any[]));
     }
 
-    actualizarPelicula(pelicula: Pelicula): Observable<boolean> {
+    actualizarPelicula(pelicula: Pelicula): Observable<any[]> {
         this.ApiActualizarPeliculaURL = this.ApiPeliculasURL + "/ActualizarPelicula";
         return this.http.put(this.ApiActualizarPeliculaURL, pelicula,
-            { headers: header }).pipe(map((data: any) => data as boolean));
+            { headers: header }).pipe(map((data: any) => data as any[]));
     }
 
-    eliminarPelicula(id_pelicula: number): Observable<boolean> {
+    eliminarPelicula(id_pelicula: number): Observable<any[]> {
         this.ApiEliminarPeliculaURL = this.ApiPeliculasURL
             + "/EliminarPelicula?id_pelicula=" + id_pelicula;
         return this.http.delete(this.ApiEliminarPeliculaURL,
-            { headers: header }).pipe(map((data: any) => data as boolean));
+            { headers: header }).pipe(map((data: any) => data as any[]));
     }
 }

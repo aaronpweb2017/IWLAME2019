@@ -6,11 +6,11 @@
                     <th colspan="7">
                         <h3 class="font-weight-bold text-center">Descargas</h3>
                         <button *ngIf="!create && currentPage == totalPages" type="button" class="btn btn-success" data-toggle="tooltip"
-                            data-placement="top" title="Agregar Elemento" (click)="setCreateFlag()"
+                            data-placement="top" title="Agregar Elemento" (click)="setCreateFlag(true)"
                             style="float: right; margin-top: -40px;"><i class="fas fa-plus-circle"></i>
                         </button>
                         <button *ngIf="create && currentPage == totalPages" type="button" class="btn btn-info" data-toggle="tooltip"
-                            data-placement="top" title="Ingorar Agregación" (click)="setCreateFlag()"
+                            data-placement="top" title="Ingorar Agregación" (click)="setCreateFlag(false)"
                             style="float: right; margin-top: -40px;"><i class="fas fa-minus-circle"></i>
                         </button>
                     </th>
@@ -77,6 +77,8 @@
                         </td>
                         <td *ngIf="descarga" class="text-center">
                             <app-modal-actualizacion [request]="'ActualizarDescarga'" [model]="descarga"
+                                [tiposArchivo] = "tiposArchivo" [servidores] = "servidores"
+                                [peliculas] = "peliculas" [downloadToUpdate] = "descarga"
                                 (modelObjectEvent)="actualizarDescarga($event)">
                             </app-modal-actualizacion>
                         </td>
@@ -125,7 +127,9 @@
                             </td>
                             <td *ngIf="enlace" class="text-center">
                                 <app-modal-actualizacion [request]="'ActualizarEnlace'" [model]="enlace"
-                                    (modelObjectEvent)="actualizarEnlace($event)">
+                                [descargas] = "descargas" [linkToUpdate] = "enlace"
+                                (modelObjectEvent)="actualizarEnlace($event)"
+                                >
                                 </app-modal-actualizacion>
                             </td>
                             <td *ngIf="enlace" class="text-center">
