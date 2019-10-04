@@ -28,16 +28,21 @@ export class ValoresResolucionComponent implements OnInit {
     this.valoresResolucion = []; this.create = false;
     this.nuevoValorResolucion = { id_valor_resolucion: 0, valor_resolucion: "" };
     this.detallesTecnicosService.getValoresResolucion().subscribe(
-      valoresResolucion => {
-        this.valoresResolucion = valoresResolucion; this.valoresResolucion.push(null);
-        this.paginationConfig = {
-          itemsPerPage: 5,
-          currentPage: this.currentPage,
-          totalItems: this.valoresResolucion.length
-        };
-        this.totalPages = Math.trunc(this.valoresResolucion.length / this.paginationConfig.itemsPerPage);
-        if (this.valoresResolucion.length % this.paginationConfig.itemsPerPage != 0) this.totalPages += 1;
-        this.currentItemsPerPage = this.valoresResolucion.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
+      response => {
+        if (response[0]) {
+          this.valoresResolucion = response[0];
+          this.valoresResolucion.push(null);
+          this.paginationConfig = {
+            itemsPerPage: 5,
+            currentPage: this.currentPage,
+            totalItems: this.valoresResolucion.length
+          };
+          this.totalPages = Math.trunc(this.valoresResolucion.length / this.paginationConfig.itemsPerPage);
+          if (this.valoresResolucion.length % this.paginationConfig.itemsPerPage != 0) this.totalPages += 1;
+          this.currentItemsPerPage = this.valoresResolucion.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
+          return;
+        }
+        this.toastrService.error(response[1]);
       }, error => {
         this.toastrService.error(error.message);
       });
@@ -50,7 +55,7 @@ export class ValoresResolucionComponent implements OnInit {
   crearValorResolucion() {
     this.detallesTecnicosService.crearValorResolucion(this.nuevoValorResolucion).subscribe(
       response => {
-        if (response) {
+        if (response[0]) {
           this.toastrService.success("Creación realizada con éxito.");
           this.router.navigate(['/adminDetalles']); return;
         }
@@ -63,7 +68,7 @@ export class ValoresResolucionComponent implements OnInit {
   actualizarValorResolucion(valorResolucion: ValorResolucion) {
     this.detallesTecnicosService.actualizarValorResolucion(valorResolucion).subscribe(
       response => {
-        if (response) {
+        if (response[0]) {
           this.toastrService.success("Actualización realizada con éxito.");
           this.router.navigate(['/adminDetalles']); return;
         }
@@ -76,7 +81,7 @@ export class ValoresResolucionComponent implements OnInit {
   eliminarValorResolucion(id_valor_resolucion: number) {
     this.detallesTecnicosService.eliminarValorResolucion(id_valor_resolucion).subscribe(
       response => {
-        if (response) {
+        if (response[0]) {
           this.toastrService.success("Eliminación realizada con éxito.");
           this.router.navigate(['/adminDetalles']); return;
         }

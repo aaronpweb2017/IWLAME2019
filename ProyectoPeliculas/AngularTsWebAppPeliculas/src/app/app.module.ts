@@ -15,7 +15,6 @@ import { LoginComponent } from './components/login/login.component';
 import { TopNavbarComponent } from './components/topnavbar/topnavbar.component';
 import { SidenavbarComponent } from './components/sidenavbar/sidenavbar.component';
 import { HomeComponent } from './components/home/home.component';
-//import { TarjetaPeliculaComponent } from './components/peliculas/tarjeta-pelicula/tarjeta-pelicula.component';
 import { SolicitudesComponent } from './components/solicitudes/solicitudes.component';
 import { TokensComponent } from './components/tokens/tokens.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
@@ -37,7 +36,6 @@ import { ModalEliminacionComponent } from './components/modals/modal-eliminacion
 import { FooterComponent } from './components/footer/footer.component';
 
 //Services (providers):
-import { GlobalService } from './global.service';
 import { UsuariosService } from './services/usuarios.service';
 import { SolicitudesService } from './services/solicitudes.service';
 import { DetallesTecnicosService } from './services/detalles-tecnicos.service';
@@ -90,7 +88,7 @@ import { appRoutes } from './app.routes';
     ModalEliminacionComponent,
     FooterComponent
   ],
-  providers: [GlobalService, UsuariosService,
+  providers: [UsuariosService,
     SolicitudesService, DetallesTecnicosService,
     DescargasService, PeliculasService, VistasService
   ],

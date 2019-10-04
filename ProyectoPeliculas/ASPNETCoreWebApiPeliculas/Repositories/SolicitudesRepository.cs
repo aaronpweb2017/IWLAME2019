@@ -11,17 +11,19 @@ namespace ASPNETCoreWebApiPeliculas
             this.AppDbContext = AppDbContext;
         }
 
-        public async Task<bool> AprobarSolicitud(int id_usuario_solicitud) {
-            bool response = false;
+        public async Task<Object []> AprobarSolicitud(int id_usuario_solicitud) {
+            Object [] response = new Object [2];
             try {
                 UsuarioSolicitud solicitud = await AppDbContext.usuariosSolicitudes.FindAsync(id_usuario_solicitud);
+                if(solicitud.status_solicitud != 0) { response[0] = false; return response; }
                 solicitud.status_solicitud = 1; solicitud.aprobacion_solicitud = DateTime.Now;
                 AppDbContext.usuariosSolicitudes.Update(solicitud);
                 await AppDbContext.SaveChangesAsync();
-                response = true;
+                response[0] = true;
             }
             catch(Exception exception) {
-                Console.WriteLine("Exception msj: "+exception.Message);
+                response[1] = (exception.InnerException != null) ?
+                exception.InnerException.Message : exception.Message;
             }
             return response;
         }

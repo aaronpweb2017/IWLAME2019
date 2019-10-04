@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { apiURL, header } from '../global.service';
 import { Formato } from '../interfaces/detalles/formato';
 import { TipoResolucion } from '../interfaces/detalles/resoluciones/tipo-resolucion';
 import { ValorResolucion } from '../interfaces/detalles/resoluciones/valor-resolucion';
@@ -13,6 +12,8 @@ import { DetalleTecnico } from '../interfaces/detalles/detalle-tecnico';
 @Injectable()
 export class DetallesTecnicosService {
   private ApiDetallesTecnicosURL: string;
+  private token: string;
+  private header: HttpHeaders;
   private ApiCrearFormatoURL: string;
   private ApiGetFormatosURL: string;
   private ApiActualizarFormatoURL: string;
@@ -36,140 +37,144 @@ export class DetallesTecnicosService {
   private ApiEliminarDetalleTecnicoURL: string;
 
   constructor(private http: HttpClient) {
-    this.ApiDetallesTecnicosURL = apiURL + "/DetallesTecnicos";
+    this.ApiDetallesTecnicosURL = localStorage.getItem('apiUrl') + "/DetallesTecnicos";
+    this.header = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': localStorage.getItem('token')
+    });
   }
 
-  crearFormato(formato: Formato): Observable<boolean> {
+  crearFormato(formato: Formato): Observable<any[]> {
     this.ApiCrearFormatoURL = this.ApiDetallesTecnicosURL + "/CrearFormato";
     return this.http.post(this.ApiCrearFormatoURL, formato,
-      { headers: header }).pipe(map((data: any) => data as boolean));
+      { headers: this.header }).pipe(map((data: any) => data as any[]));
   }
 
-  getFormatos(): Observable<Formato[]> {
+  getFormatos(): Observable<any[]> {
     this.ApiGetFormatosURL = this.ApiDetallesTecnicosURL + "/GetFormatos";
     return this.http.get(this.ApiGetFormatosURL,
-      { headers: header }).pipe(map((data: any) => data as Formato[]));
+      { headers: this.header }).pipe(map((data: any) => data as any[]));
   }
 
-  actualizarFormato(formato: Formato): Observable<boolean> {
+  actualizarFormato(formato: Formato): Observable<any[]> {
     this.ApiActualizarFormatoURL = this.ApiDetallesTecnicosURL + "/ActualizarFormato";
     return this.http.put(this.ApiActualizarFormatoURL, formato,
-      { headers: header }).pipe(map((data: any) => data as boolean));
+      { headers: this.header }).pipe(map((data: any) => data as any[]));
   }
 
-  eliminarFormato(id_formato: number): Observable<boolean> {
+  eliminarFormato(id_formato: number): Observable<any[]> {
     this.ApiEliminarFormatoURL = this.ApiDetallesTecnicosURL
       + "/EliminarFormato?id_formato=" + id_formato;
     return this.http.delete(this.ApiEliminarFormatoURL,
-      { headers: header }).pipe(map((data: any) => data as boolean));
+      { headers: this.header }).pipe(map((data: any) => data as any[]));
   }
 
-  crearTipoResolucion(tipoResolucion: TipoResolucion): Observable<boolean> {
+  crearTipoResolucion(tipoResolucion: TipoResolucion): Observable<any[]> {
     this.ApiCrearTipoResolucionURL = this.ApiDetallesTecnicosURL + "/CrearTipoResolucion";
     return this.http.post(this.ApiCrearTipoResolucionURL, tipoResolucion,
-      { headers: header }).pipe(map((data: any) => data as boolean));
+      { headers: this.header }).pipe(map((data: any) => data as any[]));
   }
 
-  getTiposResolucion(): Observable<TipoResolucion[]> {
+  getTiposResolucion(): Observable<any[]> {
     this.ApiGetTiposResolucionURL = this.ApiDetallesTecnicosURL + "/GetTiposResolucion";
     return this.http.get(this.ApiGetTiposResolucionURL,
-      { headers: header }).pipe(map((data: any) => data as TipoResolucion[]));
+      { headers: this.header }).pipe(map((data: any) => data as any[]));
   }
 
-  actualizarTipoResolucion(tipoResolucion: TipoResolucion): Observable<boolean> {
+  actualizarTipoResolucion(tipoResolucion: TipoResolucion): Observable<any[]> {
     this.ApiActualizarTipoResolucionURL = this.ApiDetallesTecnicosURL + "/ActualizarTipoResolucion";
     return this.http.put(this.ApiActualizarTipoResolucionURL, tipoResolucion,
-      { headers: header }).pipe(map((data: any) => data as boolean));
+      { headers: this.header }).pipe(map((data: any) => data as any[]));
   }
 
-  eliminarTipoResolucion(id_tipo_resolucion: number): Observable<boolean> {
+  eliminarTipoResolucion(id_tipo_resolucion: number): Observable<any[]> {
     this.ApiEliminarTipoResolucionURL = this.ApiDetallesTecnicosURL
       + "/EliminarTipoResolucion?id_tipo_resolucion=" + id_tipo_resolucion;
     return this.http.delete(this.ApiEliminarTipoResolucionURL,
-      { headers: header }).pipe(map((data: any) => data as boolean));
+      { headers: this.header }).pipe(map((data: any) => data as any[]));
   }
 
-  crearValorResolucion(valorResolucion: ValorResolucion): Observable<boolean> {
+  crearValorResolucion(valorResolucion: ValorResolucion): Observable<any[]> {
     this.ApiCrearValorResolucionURL = this.ApiDetallesTecnicosURL + "/CrearValorResolucion";
     return this.http.post(this.ApiCrearValorResolucionURL, valorResolucion,
-      { headers: header }).pipe(map((data: any) => data as boolean));
+      { headers: this.header }).pipe(map((data: any) => data as any[]));
   }
 
-  getValoresResolucion(): Observable<ValorResolucion[]> {
+  getValoresResolucion(): Observable<any[]> {
     this.ApiGetValoresResolucionURL = this.ApiDetallesTecnicosURL + "/GetValoresResolucion";
     return this.http.get(this.ApiGetValoresResolucionURL,
-      { headers: header }).pipe(map((data: any) => data as ValorResolucion[]));
+      { headers: this.header }).pipe(map((data: any) => data as any[]));
   }
 
-  actualizarValorResolucion(valorResolucion: ValorResolucion): Observable<boolean> {
+  actualizarValorResolucion(valorResolucion: ValorResolucion): Observable<any[]> {
     this.ApiActualizarValorResolucionURL = this.ApiDetallesTecnicosURL + "/ActualizarValorResolucion";
     return this.http.put(this.ApiActualizarValorResolucionURL, valorResolucion,
-      { headers: header }).pipe(map((data: any) => data as boolean));
+      { headers: this.header }).pipe(map((data: any) => data as any[]));
   }
 
-  eliminarValorResolucion(id_valor_resolucion: number): Observable<boolean> {
+  eliminarValorResolucion(id_valor_resolucion: number): Observable<any[]> {
     this.ApiEliminarValorResolucionURL = this.ApiDetallesTecnicosURL
       + "/EliminarValorResolucion?id_valor_resolucion=" + id_valor_resolucion;
     return this.http.delete(this.ApiEliminarValorResolucionURL,
-      { headers: header }).pipe(map((data: any) => data as boolean));
+      { headers: this.header }).pipe(map((data: any) => data as any[]));
   }
 
-  crearRelacionAspecto(relacionAspecto: RelacionAspecto): Observable<boolean> {
+  crearRelacionAspecto(relacionAspecto: RelacionAspecto): Observable<any[]> {
     this.ApiCrearRelacionAspectoURL = this.ApiDetallesTecnicosURL + "/CrearRelacionAspecto";
     return this.http.post(this.ApiCrearRelacionAspectoURL, relacionAspecto,
-      { headers: header }).pipe(map((data: any) => data as boolean));
+      { headers: this.header }).pipe(map((data: any) => data as any[]));
   }
 
-  getRelacionesAspecto(): Observable<RelacionAspecto[]> {
+  getRelacionesAspecto(): Observable<any[]> {
     this.ApiGetRelacionesAspectoURL = this.ApiDetallesTecnicosURL + "/GetRelacionesAspecto";
     return this.http.get(this.ApiGetRelacionesAspectoURL,
-      { headers: header }).pipe(map((data: any) => data as RelacionAspecto[]));
+      { headers: this.header }).pipe(map((data: any) => data as any[]));
   }
 
-  actualizarRelacionAspecto(relacionAspecto: RelacionAspecto): Observable<boolean> {
+  actualizarRelacionAspecto(relacionAspecto: RelacionAspecto): Observable<any[]> {
     this.ApiActualizarRelacionAspectoURL = this.ApiDetallesTecnicosURL + "/ActualizarRelacionAspecto";
     return this.http.put(this.ApiActualizarRelacionAspectoURL, relacionAspecto,
-      { headers: header }).pipe(map((data: any) => data as boolean));
+      { headers: this.header }).pipe(map((data: any) => data as any[]));
   }
 
-  eliminarRelacionAspecto(id_relacion_aspecto: number): Observable<boolean> {
+  eliminarRelacionAspecto(id_relacion_aspecto: number): Observable<any[]> {
     this.ApiEliminarRelacionAspectoURL = this.ApiDetallesTecnicosURL
       + "/EliminarRelacionAspecto?id_relacion_aspecto=" + id_relacion_aspecto;
     return this.http.delete(this.ApiEliminarRelacionAspectoURL,
-      { headers: header }).pipe(map((data: any) => data as boolean));
+      { headers: this.header }).pipe(map((data: any) => data as any[]));
   }
 
-  crearResolucion(resolucion: Resolucion): Observable<boolean> {
+  crearResolucion(resolucion: Resolucion): Observable<any[]> {
     this.ApiCrearResolucionURL = this.ApiDetallesTecnicosURL + "/CrearResolucion";
     return this.http.post(this.ApiCrearResolucionURL, resolucion,
-      { headers: header }).pipe(map((data: any) => data as boolean));
+      { headers: this.header }).pipe(map((data: any) => data as any[]));
   }
 
   eliminarResolucion(id_tipo_resolucion: number, id_valor_resolucion:
-    number, id_relacion_aspecto: number): Observable<boolean> {
+    number, id_relacion_aspecto: number): Observable<any[]> {
     this.ApiEliminarResolucionURL = this.ApiDetallesTecnicosURL + "/EliminarResolucion"
       + "?id_tipo_resolucion=" + id_tipo_resolucion + "&id_valor_resolucion="
       + id_valor_resolucion + "&id_relacion_aspecto=" + id_relacion_aspecto;
     return this.http.delete(this.ApiEliminarResolucionURL,
-      { headers: header }).pipe(map((data: any) => data as boolean));
+      { headers: this.header }).pipe(map((data: any) => data as any[]));
   }
 
-  crearDetalleTecnico(detalleTecnico: DetalleTecnico): Observable<boolean> {
+  crearDetalleTecnico(detalleTecnico: DetalleTecnico): Observable<any[]> {
     this.ApiCrearDetalleTecnicoURL = this.ApiDetallesTecnicosURL + "/CrearDetalleTecnico";
     return this.http.post(this.ApiCrearDetalleTecnicoURL, detalleTecnico,
-      { headers: header }).pipe(map((data: any) => data as boolean));
+      { headers: this.header }).pipe(map((data: any) => data as any[]));
   }
 
-  actualizarDetalleTecnico(detalleTecnico: DetalleTecnico): Observable<boolean> {
+  actualizarDetalleTecnico(detalleTecnico: DetalleTecnico): Observable<any[]> {
     this.ApiActualizarDetalleTecnicoURL = this.ApiDetallesTecnicosURL + "/ActualizarDetalleTecnico";
     return this.http.put(this.ApiActualizarDetalleTecnicoURL, detalleTecnico,
-      { headers: header }).pipe(map((data: any) => data as boolean));
+      { headers: this.header }).pipe(map((data: any) => data as any[]));
   }
 
-  eliminarDetalleTecnico(id_detalle: number): Observable<boolean> {
+  eliminarDetalleTecnico(id_detalle: number): Observable<any[]> {
     this.ApiEliminarDetalleTecnicoURL = this.ApiDetallesTecnicosURL
       + "/EliminarDetalleTecnico?id_detalle=" + id_detalle;
     return this.http.delete(this.ApiEliminarDetalleTecnicoURL,
-      { headers: header }).pipe(map((data: any) => data as boolean));
+      { headers: this.header }).pipe(map((data: any) => data as any[]));
   }
 }

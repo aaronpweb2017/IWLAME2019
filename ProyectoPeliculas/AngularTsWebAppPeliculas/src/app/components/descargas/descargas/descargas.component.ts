@@ -45,14 +45,8 @@ export class DescargasComponent implements OnInit {
     this.peliculas = [];
     this.mostrarEnlaces = []; this.crearEnlaces = [];
     this.create = false;
-    this.nuevaDescarga = {
-      id_descarga: 0, password_descarga: "",
-      id_tipo_archivo: 0, id_servidor: 0, id_pelicula: 0,
-    };
-    this.nuevoEnlace = {
-      id_enlace: 0, valor_enlace: "",
-      status_enlace: 0, id_descarga: 0
-    };
+    this.inicializaDescarga();
+    this.inicializaEnlace();
     this.vistasService.getVistaDescargas().subscribe(
       response => {
         if (response[0]) {
@@ -62,7 +56,6 @@ export class DescargasComponent implements OnInit {
             this.descargasService.getEnlacesDescarga(id_descarga).subscribe(
               response => {
                 if (response[0]) {
-                  //this.descargas[i].enlaces = [];
                   this.descargas[i].enlaces = response[0];
                   this.descargas[i].enlaces.push(null);
                 }
@@ -84,27 +77,24 @@ export class DescargasComponent implements OnInit {
           this.currentItemsPerPage = this.descargas.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
           this.descargasService.getTiposArchivo().subscribe(
             response => {
-              if (response[0]) {
+              if (response[0])
                 this.tiposArchivo = response[0];
-              }
             },
             error => {
               this.toastrService.error(error.message);
             });
           this.descargasService.getServidores().subscribe(
             response => {
-              if (response[0]) {
+              if (response[0])
                 this.servidores = response[0];
-              }
             },
             error => {
               this.toastrService.error(error.message);
             });
           this.peliculasService.getPeliculas().subscribe(
             response => {
-              if (response[0]) {
+              if (response[0])
                 this.peliculas = response[0];
-              }
             },
             error => {
               this.toastrService.error(error.message);
@@ -118,6 +108,20 @@ export class DescargasComponent implements OnInit {
       });
   }
 
+  inicializaDescarga() {
+    this.nuevaDescarga = {
+      id_descarga: 0, password_descarga: "",
+      id_tipo_archivo: 0, id_servidor: 0, id_pelicula: 0,
+    };
+  }
+
+  inicializaEnlace() {
+    this.nuevoEnlace = {
+      id_enlace: 0, valor_enlace: "",
+      status_enlace: 0, id_descarga: 0
+    };
+  }
+
   setCreateFlag(flag: boolean) {
     this.create = flag;
   }
@@ -126,10 +130,12 @@ export class DescargasComponent implements OnInit {
     this.crearEnlaces[index] = flag;;
   }
 
-  setShowLinkFlag(index: number, flag: boolean) {
-    this.mostrarEnlaces[index] = flag;;
+  setShowLinkFlag(index: number) {
+    if(this.mostrarEnlaces[index]) {
+      this.mostrarEnlaces[index] = false; return;
+    }
+    this.mostrarEnlaces[index] = true;
   }
-
 
   crearDescarga() {
     this.descargasService.crearDescarga(this.nuevaDescarga).subscribe(
@@ -145,12 +151,18 @@ export class DescargasComponent implements OnInit {
       });
   }
 
-  actualizarDescarga(descarga: Descarga) {
+  actualizarDescarga(descarga: VDescarga) {
+    this.nuevaDescarga.id_descarga = descarga.id_descarga
+    this.nuevaDescarga.password_descarga = descarga.password_descarga
+    this.nuevaDescarga.id_tipo_archivo = descarga.id_tipo_archivo
+    this.nuevaDescarga.id_servidor = descarga.id_servidor
+    this.nuevaDescarga.id_pelicula = descarga.id_pelicula
     this.descargasService.actualizarDescarga(descarga).subscribe(
       response => {
         if (response[0]) {
           this.toastrService.success("Actualización realizada con éxito.");
-          this.router.navigate(['/adminDescargas']); return;
+          this.router.navigate(['/adminDescargas']);
+          this.inicializaDescarga(); return;
         }
         this.toastrService.error(response[1]);
       },

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-xl navbar-dark bg-dark" style="margin-bottom: 20px;">
+<nav *ngIf="isLogged()" class="navbar navbar-expand-xl navbar-dark bg-dark" style="margin-bottom: 20px;">
   <a class="navbar-brand" [routerLink]="['/login']">
     <img src="assets/imgMovieIcon.png" width="30" height="30" class="d-inline-block align-top">
     MoviesProject2019
@@ -13,7 +13,7 @@
         <a class="nav-link" [routerLink]="['/home']">Home</a>
       </li>
       <li class="nav-item active dropdown">
-        <a class="nav-link dropdown-toggle puntero" id="navbarDropdownMenu" data-toggle="dropdown"
+        <a *ngIf="isAdmin()" class="nav-link dropdown-toggle puntero" id="navbarDropdownMenu" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">Administración</a>
         <div class="dropdown-menu dropdown-primary animated-fade-in" aria-labelledby="navbarDropdownMenu">
           <a class="dropdown-item" [routerLink]="['/usuarios', 1]">Usuarios</a>

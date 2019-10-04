@@ -21,11 +21,8 @@ namespace ASPNETCoreWebApiPeliculas
                 response[0] = await AppDbContext.vSolicitudes.ToListAsync();
             }
             catch(Exception exception) {
-                if(exception.InnerException != null) {
-                    response[1] = exception.InnerException.Message;
-                    return response;
-                }
-                response[1] = exception.Message;
+                response[1] = (exception.InnerException != null) ?
+                exception.InnerException.Message : exception.Message;
             }
             return response;
         }
@@ -36,11 +33,8 @@ namespace ASPNETCoreWebApiPeliculas
                 response[0] = await AppDbContext.vTokens.ToListAsync();
             }
             catch(Exception exception) {
-                if(exception.InnerException != null) {
-                    response[1] = exception.InnerException.Message;
-                    return response;
-                }
-                response[1] = exception.Message;
+                response[1] = (exception.InnerException != null) ?
+                exception.InnerException.Message : exception.Message;
             }
             return response;
         }
@@ -51,11 +45,8 @@ namespace ASPNETCoreWebApiPeliculas
                 response[0] = await AppDbContext.vResoluciones.ToListAsync();
             }
             catch(Exception exception) {
-                if(exception.InnerException != null) {
-                    response[1] = exception.InnerException.Message;
-                    return response;
-                }
-                response[1] = exception.Message;
+                response[1] = (exception.InnerException != null) ?
+                exception.InnerException.Message : exception.Message;
             }
             return response;
         }
@@ -66,11 +57,8 @@ namespace ASPNETCoreWebApiPeliculas
                 response[0] = await AppDbContext.vDetallesTecnicos.ToListAsync();
             }
             catch(Exception exception) {
-                if(exception.InnerException != null) {
-                    response[1] = exception.InnerException.Message;
-                    return response;
-                }
-                response[1] = exception.Message;
+                response[1] = (exception.InnerException != null) ?
+                exception.InnerException.Message : exception.Message;
             }
             return response;
         }
@@ -84,11 +72,8 @@ namespace ASPNETCoreWebApiPeliculas
                     dt.id_detalle == movieToGetTechnicalDetail.id_detalle).FirstOrDefaultAsync();
             }
             catch(Exception exception) {
-                if(exception.InnerException != null) {
-                    response[1] = exception.InnerException.Message;
-                    return response;
-                }
-                response[1] = exception.Message;
+                response[1] = (exception.InnerException != null) ?
+                exception.InnerException.Message : exception.Message;
             }
             return response;
         }
@@ -99,11 +84,8 @@ namespace ASPNETCoreWebApiPeliculas
                 response[0] = await AppDbContext.vDescargas.ToListAsync();
             }
             catch(Exception exception) {
-                if(exception.InnerException != null) {
-                    response[1] = exception.InnerException.Message;
-                    return response;
-                }
-                response[1] = exception.Message;
+                response[1] = (exception.InnerException != null) ?
+                exception.InnerException.Message : exception.Message;
             }
             return response;
         }

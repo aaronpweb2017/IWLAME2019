@@ -24,11 +24,8 @@ namespace ASPNETCoreWebApiPeliculas
                 response[0] = true;
             }
             catch(Exception exception) {
-                if(exception.InnerException != null) {
-                    response[1] = exception.InnerException.Message;
-                    return response;
-                }
-                response[1] = exception.Message;
+                response[1] = (exception.InnerException != null) ?
+                exception.InnerException.Message : exception.Message;
             }
             return response;
         }
@@ -39,11 +36,8 @@ namespace ASPNETCoreWebApiPeliculas
                 response[0] = await AppDbContext.peliculas.ToListAsync();
             }
             catch(Exception exception) {
-                if(exception.InnerException != null) {
-                    response[1] = exception.InnerException.Message;
-                    return response;
-                }
-                response[1] = exception.Message;
+                response[1] = (exception.InnerException != null) ?
+                exception.InnerException.Message : exception.Message;
             }
             return response;
         }
@@ -75,11 +69,8 @@ namespace ASPNETCoreWebApiPeliculas
                 response[0] = true;
             }
             catch(Exception exception) {
-                if(exception.InnerException != null) {
-                    response[1] = exception.InnerException.Message;
-                    return response;
-                }
-                response[1] = exception.Message;
+                response[1] = (exception.InnerException != null) ?
+                exception.InnerException.Message : exception.Message;
             }
             return response;
         }
@@ -99,11 +90,8 @@ namespace ASPNETCoreWebApiPeliculas
                 response[0] = true;
             }
             catch(Exception exception) {
-                if(exception.InnerException != null) {
-                    response[1] = exception.InnerException.Message;
-                    return response;
-                }
-                response[1] = exception.Message;
+                response[1] = (exception.InnerException != null) ?
+                exception.InnerException.Message : exception.Message;
             }
             return response;
         }

@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
@@ -15,7 +16,7 @@ namespace ASPNETCoreWebApiPeliculas.Controllers
 
         //PUT: https://localhost:5001/Api/Solicitudes/AprobarSolicitud
         [HttpPut] [ActionName("AprobarSolicitud")]
-        public async Task<bool> ApproveRequestAsync([FromBody] int id_usuario_solicitud) {
+        public async Task<Object []> ApproveRequestAsync([FromBody] int id_usuario_solicitud) {
             return await solicitudes.AprobarSolicitud(id_usuario_solicitud);
         }
     }

@@ -42,11 +42,8 @@ namespace ASPNETCoreWebApiPeliculas
                 }
             }
             catch(Exception exception) {
-                if(exception.InnerException != null) {
-                    response[1] = exception.InnerException.Message;
-                    return response;
-                }
-                response[1] = exception.Message;
+                response[1] = (exception.InnerException != null) ?
+                exception.InnerException.Message : exception.Message;
             }
             return response;
         }
@@ -58,11 +55,8 @@ namespace ASPNETCoreWebApiPeliculas
                     || u.correo_usuario.Equals(username_email)).FirstOrDefaultAsync();
             }
             catch(Exception exception) {
-                if(exception.InnerException != null) {
-                    response[1] = exception.InnerException.Message;
-                    return response;
-                }
-                response[1] = exception.Message;
+                response[1] = (exception.InnerException != null) ?
+                exception.InnerException.Message : exception.Message;
             }
             return response;
         }
@@ -73,11 +67,8 @@ namespace ASPNETCoreWebApiPeliculas
                 response[0] = await AppDbContext.usuarios.ToListAsync();
             }
             catch(Exception exception) {
-                if(exception.InnerException != null) {
-                    response[1] = exception.InnerException.Message;
-                    return response;
-                }
-                response[1] = exception.Message;
+                response[1] = (exception.InnerException != null) ?
+                exception.InnerException.Message : exception.Message;
             }
             return response;
         }
@@ -98,11 +89,8 @@ namespace ASPNETCoreWebApiPeliculas
                 response[0] = true;
             }
             catch(Exception exception) {
-                if(exception.InnerException != null) {
-                    response[1] = exception.InnerException.Message;
-                    return response;
-                }
-                response[1] = exception.Message;
+                response[1] = (exception.InnerException != null) ?
+                exception.InnerException.Message : exception.Message;
             }
             return response;
         }
@@ -125,11 +113,8 @@ namespace ASPNETCoreWebApiPeliculas
                 response[0] = true;
             }
             catch(Exception exception) {
-                if(exception.InnerException != null) {
-                    response[1] = exception.InnerException.Message;
-                    return response;
-                }
-                response[1] = exception.Message;
+                response[1] = (exception.InnerException != null) ?
+                exception.InnerException.Message : exception.Message;
             }
             return response;  
         }
@@ -141,11 +126,8 @@ namespace ASPNETCoreWebApiPeliculas
                 response[0] = userService.DecryptPassword(user.password_usuario);
             }
             catch(Exception exception) {
-                if(exception.InnerException != null) {
-                    response[1] = exception.InnerException.Message;
-                    return response;
-                }
-                response[1] = exception.Message;
+                response[1] = (exception.InnerException != null) ?
+                exception.InnerException.Message : exception.Message;
             }
             return response;
         }
@@ -153,12 +135,12 @@ namespace ASPNETCoreWebApiPeliculas
         public async Task<Object []> SolicitudToken(Usuario user) {
             Object [] response = new Object [2];
             string userNameEmail = "", decryptedPassword = "";
-            userNameEmail = GetUserNameEmail(user.nombre_usuario, user.correo_usuario);            
+            userNameEmail = GetUserNameEmail(user.nombre_usuario, user.correo_usuario);
             Usuario userToUpdate = await AppDbContext.usuarios.Where(u =>
                 u.nombre_usuario.Equals(userNameEmail) || u.correo_usuario.Equals(userNameEmail)
             ).FirstOrDefaultAsync();
             if(userToUpdate == null) { response[0] = false; return response; }            
-            decryptedPassword = userService.DecryptPassword(userToUpdate.password_usuario);            
+            decryptedPassword = userService.DecryptPassword(userToUpdate.password_usuario);
             if(!user.password_usuario.Equals(decryptedPassword)) { response[0] = false; return response; }
             UsuarioSolicitud ultimaSolicitud = await AppDbContext.usuariosSolicitudes.Where(
                 us => us.id_usuario == userToUpdate.id_usuario && us.id_solicitud == 2
@@ -174,11 +156,8 @@ namespace ASPNETCoreWebApiPeliculas
                 await AppDbContext.SaveChangesAsync(); response[0] = true;
             }
             catch(Exception exception) {
-                if(exception.InnerException != null) {
-                    response[1] = exception.InnerException.Message;
-                    return response;
-                }
-                response[1] = exception.Message;
+                response[1] = (exception.InnerException != null) ?
+                exception.InnerException.Message : exception.Message;
             }
             return response;
         }
@@ -190,11 +169,8 @@ namespace ASPNETCoreWebApiPeliculas
                 response[0] = await userService.GetTokenAuthentication(userNameEmail, user.password_usuario);
             }
             catch(Exception exception) {
-                if(exception.InnerException != null) {
-                    response[1] = exception.InnerException.Message;
-                    return response;
-                }
-                response[1] = exception.Message;
+                response[1] = (exception.InnerException != null) ?
+                exception.InnerException.Message : exception.Message;
             }
             return response;
         }
@@ -221,11 +197,8 @@ namespace ASPNETCoreWebApiPeliculas
                 await AppDbContext.SaveChangesAsync(); response[0] = true;
             }
             catch(Exception exception) {
-                if(exception.InnerException != null) {
-                    response[1] = exception.InnerException.Message;
-                    return response;
-                }
-                response[1] = exception.Message;
+                response[1] = (exception.InnerException != null) ?
+                exception.InnerException.Message : exception.Message;
             }
             return response;
         }

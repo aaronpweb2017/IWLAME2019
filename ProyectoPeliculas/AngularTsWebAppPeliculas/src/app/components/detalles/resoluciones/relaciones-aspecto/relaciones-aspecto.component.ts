@@ -28,16 +28,21 @@ export class RelacionesAspectoComponent implements OnInit {
     this.relacionesAspecto = []; this.create = false;
     this.nuevaRelacionAspecto = { id_relacion_aspecto: 0, valor_relacion_aspecto: "" };
     this.detallesTecnicosService.getRelacionesAspecto().subscribe(
-      relacionesAspecto => {
-        this.relacionesAspecto = relacionesAspecto; this.relacionesAspecto.push(null);
-        this.paginationConfig = {
-          itemsPerPage: 5,
-          currentPage: this.currentPage,
-          totalItems: this.relacionesAspecto.length
-        };
-        this.totalPages = Math.trunc(this.relacionesAspecto.length / this.paginationConfig.itemsPerPage);
-        if (this.relacionesAspecto.length % this.paginationConfig.itemsPerPage != 0) this.totalPages += 1;
-        this.currentItemsPerPage = this.relacionesAspecto.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
+      response => {
+        if (response[0]) {
+          this.relacionesAspecto = response[0];
+          this.relacionesAspecto.push(null);
+          this.paginationConfig = {
+            itemsPerPage: 5,
+            currentPage: this.currentPage,
+            totalItems: this.relacionesAspecto.length
+          };
+          this.totalPages = Math.trunc(this.relacionesAspecto.length / this.paginationConfig.itemsPerPage);
+          if (this.relacionesAspecto.length % this.paginationConfig.itemsPerPage != 0) this.totalPages += 1;
+          this.currentItemsPerPage = this.relacionesAspecto.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
+          return;
+        }
+        this.toastrService.error(response[1]);
       }, error => {
         this.toastrService.error(error.message);
       });
@@ -50,7 +55,7 @@ export class RelacionesAspectoComponent implements OnInit {
   crearRelacionAspecto() {
     this.detallesTecnicosService.crearRelacionAspecto(this.nuevaRelacionAspecto).subscribe(
       response => {
-        if (response) {
+        if (response[0]) {
           this.toastrService.success("Creación realizada con éxito.");
           this.router.navigate(['/adminDetalles']); return;
         }
@@ -63,7 +68,7 @@ export class RelacionesAspectoComponent implements OnInit {
   actualizarRelacionAspecto(relacionAspecto: RelacionAspecto) {
     this.detallesTecnicosService.actualizarRelacionAspecto(relacionAspecto).subscribe(
       response => {
-        if (response) {
+        if (response[0]) {
           this.toastrService.success("Actualización realizada con éxito.");
           this.router.navigate(['/adminDetalles']); return;
         }
@@ -76,7 +81,7 @@ export class RelacionesAspectoComponent implements OnInit {
   eliminarRelacionAspecto(id_relacion_aspecto: number) {
     this.detallesTecnicosService.eliminarRelacionAspecto(id_relacion_aspecto).subscribe(
       response => {
-        if (response) {
+        if (response[0]) {
           this.toastrService.success("Eliminación realizada con éxito.");
           this.router.navigate(['/adminDetalles']); return;
         }

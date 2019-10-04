@@ -29,13 +29,12 @@
       </div>
       <div class="form-details">
         <button class="btn btn-info" type="button" (click)="verDetallesPelicula()"><strong>Ver detalles</strong></button>
-        <app-modal-actualizacion style="margin-left: 5px;"
+        <app-modal-actualizacion *ngIf="isAdmin()" style="margin-left: 5px;"
           [request]="'ActualizarPelicula'" [model]="pelicula"
           [detallesTecnicos] = "detallesTecnicos"
-          [movieToUpdate] = "pelicula"
           (modelObjectEvent)="actualizarPelicula($event)">
         </app-modal-actualizacion>
-        <app-modal-eliminacion style="margin-left: 5px;"
+        <app-modal-eliminacion *ngIf="isAdmin()" style="margin-left: 5px;"
           [request]="'EliminarPelicula'" [model]="pelicula"
           (modelIdentifierEvent)="eliminarPelicula($event)">
         </app-modal-eliminacion>

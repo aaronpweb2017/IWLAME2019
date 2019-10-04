@@ -45,9 +45,13 @@ export class SolicitudesComponent implements OnInit {
   aprobarSolicitud(id_usuario_solicitud: number) {
     this.solicitudesService.aprobarSolicitud(id_usuario_solicitud).subscribe(
       response => {
-        if (response) {
-          this.toastrService.info("Solicitud aprobada con éxito...");
-          this.router.navigate(['/solicitudes', this.currentPage]); return;
+        if (response[0] != null) {
+          if (response[0]) {
+            this.toastrService.info("Solicitud aprobada con éxito...");
+            this.router.navigate(['/solicitudes', this.currentPage]); return;
+          }
+          this.toastrService.error("Esta solicitud ya está aprobada o terminada.");
+          return;
         }
         this.toastrService.error(response[1]);
       }, error => {

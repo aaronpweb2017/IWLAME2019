@@ -37,34 +37,41 @@ export class ResolucionesComponent implements OnInit {
     this.valoresResolucion = []; this.relacionesAspecto = []; this.create = false;
     this.nuevaResolucion = { id_tipo_resolucion: 0, id_valor_resolucion: 0, id_relacion_aspecto: 0 };
     this.vistasService.getVistaResoluciones().subscribe(
-      resoluciones => {
-        this.resoluciones = resoluciones; this.resoluciones.push(null);
-        this.paginationConfig = {
-          itemsPerPage: 5,
-          currentPage: this.currentPage,
-          totalItems: this.resoluciones.length
-        };
-        this.totalPages = Math.trunc(this.resoluciones.length / this.paginationConfig.itemsPerPage);
-        if (this.resoluciones.length % this.paginationConfig.itemsPerPage != 0) this.totalPages += 1;
-        this.currentItemsPerPage = this.resoluciones.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
-        this.detallesTecnicosService.getTiposResolucion().subscribe(
-          tiposResolucion => {
-            this.tiposResolucion = tiposResolucion;
-          }, error => {
-            this.toastrService.error(error.message);
-          });
-        this.detallesTecnicosService.getValoresResolucion().subscribe(
-          valoresResolucion => {
-            this.valoresResolucion = valoresResolucion;
-          }, error => {
-            this.toastrService.error(error.message);
-          });
-        this.detallesTecnicosService.getRelacionesAspecto().subscribe(
-          relacionesAspecto => {
-            this.relacionesAspecto = relacionesAspecto;
-          }, error => {
-            this.toastrService.error(error.message);
-          });
+      response => {
+        if (response[0]) {
+          this.resoluciones = response[0]; this.resoluciones.push(null);
+          this.paginationConfig = {
+            itemsPerPage: 5,
+            currentPage: this.currentPage,
+            totalItems: this.resoluciones.length
+          };
+          this.totalPages = Math.trunc(this.resoluciones.length / this.paginationConfig.itemsPerPage);
+          if (this.resoluciones.length % this.paginationConfig.itemsPerPage != 0) this.totalPages += 1;
+          this.currentItemsPerPage = this.resoluciones.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
+          this.detallesTecnicosService.getTiposResolucion().subscribe(
+            response => {
+              if (response[0])
+                this.tiposResolucion = response[0];
+            }, error => {
+              this.toastrService.error(error.message);
+            });
+          this.detallesTecnicosService.getValoresResolucion().subscribe(
+            response => {
+              if (response[0])
+                this.valoresResolucion = response[0];
+            }, error => {
+              this.toastrService.error(error.message);
+            });
+          this.detallesTecnicosService.getRelacionesAspecto().subscribe(
+            response => {
+              if (response[0])
+                this.relacionesAspecto = response[0];
+            }, error => {
+              this.toastrService.error(error.message);
+            });
+          return;
+        }
+        this.toastrService.error(response[1]);
       }, error => {
         this.toastrService.error(error.message);
       });
@@ -77,7 +84,7 @@ export class ResolucionesComponent implements OnInit {
   crearResolucion() {
     this.detallesTecnicosService.crearResolucion(this.nuevaResolucion).subscribe(
       response => {
-        if (response) {
+        if (response[0]) {
           this.toastrService.success("Creación realizada con éxito.");
           this.router.navigate(['/adminDetalles']); return;
         }
@@ -91,7 +98,7 @@ export class ResolucionesComponent implements OnInit {
     this.detallesTecnicosService.eliminarResolucion(resolucion.id_tipo_resolucion,
       resolucion.id_valor_resolucion, resolucion.id_relacion_aspecto).subscribe(
         response => {
-          if (response) {
+          if (response[0]) {
             this.toastrService.success("Eliminación realizada con éxito.");
             this.router.navigate(['/adminDetalles']); return;
           }

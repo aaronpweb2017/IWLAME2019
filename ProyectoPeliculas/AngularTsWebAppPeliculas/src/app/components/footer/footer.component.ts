@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { GlobalService, logged } from 'src/app/global.service';
 
 @Component({
   selector: 'app-footer',
@@ -8,5 +7,9 @@ import { GlobalService, logged } from 'src/app/global.service';
 })
 
 export class FooterComponent  {
-  constructor(private globalService: GlobalService) { }
+  constructor() { }
+
+  isLogged() {
+    return JSON.parse(localStorage.getItem('logged'));
+  }
 }

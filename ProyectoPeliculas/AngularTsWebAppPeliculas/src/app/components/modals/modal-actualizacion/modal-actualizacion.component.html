@@ -117,7 +117,7 @@
       <form class="bg-light">
         <div class="form-group text-left">
           <label class="text-dark font-weight-bold">Formato:</label>
-          <select [(ngModel)]="technicalDetailToUpdate.id_formato" [ngModelOptions]="{standalone: true}" class="form-control">
+          <select [(ngModel)]="model.id_formato" [ngModelOptions]="{standalone: true}" class="form-control">
             <option *ngFor="let formato of formatos;" [value]="formato.id_formato">
               {{formato.id_formato}}.- {{formato.nombre_formato}}
             </option>
@@ -164,12 +164,12 @@
       <form class="bg-light">
         <div class="form-group text-left">
           <label class="text-dark font-weight-bold">Password:</label>
-          <input [(ngModel)]="downloadToUpdate.password_descarga" [ngModelOptions]="{standalone: true}"
+          <input [(ngModel)]="model.password_descarga" [ngModelOptions]="{standalone: true}"
           type="text" class="form-control" placeholder="Download Password" autofocus="">
         </div>
         <div class="form-group text-left">
           <label class="text-dark font-weight-bold">Archivo:</label>
-          <select [(ngModel)]="downloadToUpdate.id_tipo_archivo" [ngModelOptions]="{standalone: true}" class="form-control">
+          <select [(ngModel)]="model.id_tipo_archivo" [ngModelOptions]="{standalone: true}" class="form-control">
             <option *ngFor="let tipoArchivo of tiposArchivo;" [value]="tipoArchivo.id_tipo_archivo">
                 {{tipoArchivo.id_tipo_archivo}}.- {{tipoArchivo.nombre_tipo_archivo}}
             </option>
@@ -177,7 +177,7 @@
         </div>
         <div class="form-group text-left">
           <label class="text-dark font-weight-bold">Servidor:</label>
-          <select [(ngModel)]="downloadToUpdate.id_servidor" [ngModelOptions]="{standalone: true}" class="form-control">
+          <select [(ngModel)]="model.id_servidor" [ngModelOptions]="{standalone: true}" class="form-control">
             <option *ngFor="let servidor of servidores;" [value]="servidor.id_servidor">
                 {{servidor.id_servidor}}.- {{servidor.nombre_servidor}}
             </option>
@@ -185,7 +185,7 @@
         </div>
         <div class="form-group text-left">
           <label class="text-dark font-weight-bold">Película:</label>
-          <select [(ngModel)]="downloadToUpdate.id_pelicula" [ngModelOptions]="{standalone: true}" class="form-control">
+          <select [(ngModel)]="model.id_pelicula" [ngModelOptions]="{standalone: true}" class="form-control">
             <option *ngFor="let pelicula of peliculas;" [value]="pelicula.id_pelicula">
                 {{pelicula.id_pelicula}}.- {{pelicula.nombre_pelicula}}
             </option>
@@ -197,18 +197,18 @@
       <form class="bg-light">
         <div class="form-group text-left">
             <label class="text-dark font-weight-bold">Valor:</label>
-            <input [(ngModel)]="linkToUpdate.valor_enlace" [ngModelOptions]="{standalone: true}"
+            <input [(ngModel)]="model.valor_enlace" [ngModelOptions]="{standalone: true}"
             type="text" class="form-control" placeholder="LinkValue" autofocus="">
         </div>
         <div class="form-group text-left">
           <label class="text-dark font-weight-bold">Status:</label>
-          <select [(ngModel)]="linkToUpdate.status_enlace" [ngModelOptions]="{standalone: true}" class="form-control">
+          <select [(ngModel)]="model.status_enlace" [ngModelOptions]="{standalone: true}" class="form-control">
             <option [value]="0">Inactivo</option> <option [value]="1">Activo</option>
           </select>
         </div>
         <div class="form-group text-left">
           <label class="text-dark font-weight-bold">Descarga</label>
-          <select [(ngModel)]="linkToUpdate.id_descarga" [ngModelOptions]="{standalone: true}" class="form-control">
+          <select [(ngModel)]="model.id_descarga" [ngModelOptions]="{standalone: true}" class="form-control">
             <option *ngFor="let descarga of descargas;" [value]="descarga.id_descarga">
                 {{descarga.id_descarga}}.- {{descarga.nombre_pelicula}} ({{descarga.nombre_tipo_archivo}})
             </option>
@@ -220,7 +220,7 @@
       <form class="bg-light">
         <div class="form-group text-left">
           <label class="text-dark font-weight-bold">Nombre:</label>
-          <input [(ngModel)]="movieToUpdate.nombre_pelicula" [ngModelOptions]="{standalone: true}" type="text"
+          <input [(ngModel)]="model.nombre_pelicula" [ngModelOptions]="{standalone: true}" type="text"
             class="form-control" placeholder="Movie Name" autofocus="">
         </div>
         <div class="form-group text-left">
@@ -231,73 +231,73 @@
         </div>
         <div class="form-group text-left">
           <label class="text-dark font-weight-bold">Presupuesto:</label>
-          <input [(ngModel)]="movieToUpdate.presupuesto" [ngModelOptions]="{standalone: true}" type="number"
+          <input [(ngModel)]="model.presupuesto" [ngModelOptions]="{standalone: true}" type="number"
             min="0" max="300000000" step="1" maxlength="9" class="form-control">
         </div>
         <div class="form-group text-left">
           <label class="text-dark font-weight-bold">Recaudación:</label>
-          <input [(ngModel)]="movieToUpdate.recaudacion" [ngModelOptions]="{standalone: true}" type="number"
+          <input [(ngModel)]="model.recaudacion" [ngModelOptions]="{standalone: true}" type="number"
             min="0" max="300000000" step="1" maxlength="9" class="form-control">
         </div>
         <div class="form-group" style="display: inline-block;">
           <label class="text-dark font-weight-bold">Sinopsis:</label> <br>
-          <textarea [(ngModel)]="movieToUpdate.sinopsis" [ngModelOptions]="{standalone: true}"
+          <textarea [(ngModel)]="model.sinopsis" [ngModelOptions]="{standalone: true}"
             rows="4" cols="52" maxlength="300" placeholder="Movie Sinopsis">
           </textarea>
         </div>
         <div class="form-group text-left">
           <label class="text-dark font-weight-bold">Calificación:</label>
-          <input [(ngModel)]="movieToUpdate.calificacion" [ngModelOptions]="{standalone: true}" type="number"
+          <input [(ngModel)]="model.calificacion" [ngModelOptions]="{standalone: true}" type="number"
             min="0" max="100" step="1" maxlength="3" class="form-control">
         </div>
         <div class="form-group text-left">
           <label class="text-dark font-weight-bold">Directores:</label>
-          <input [(ngModel)]="movieToUpdate.directores" [ngModelOptions]="{standalone: true}" type="text"
+          <input [(ngModel)]="model.directores" [ngModelOptions]="{standalone: true}" type="text"
             class="form-control" placeholder="Movie Directors">
         </div>
         <div class="form-group text-left">
           <label class="text-dark font-weight-bold">Géneros:</label>
-          <input [(ngModel)]="movieToUpdate.generos" [ngModelOptions]="{standalone: true}" type="text"
+          <input [(ngModel)]="model.generos" [ngModelOptions]="{standalone: true}" type="text"
             class="form-control" placeholder="Movie Category">
         </div>
         <div class="form-group text-left">
           <label class="text-dark font-weight-bold">Idiomas:</label>
-          <input [(ngModel)]="movieToUpdate.idiomas" [ngModelOptions]="{standalone: true}" type="text"
+          <input [(ngModel)]="model.idiomas" [ngModelOptions]="{standalone: true}" type="text"
             class="form-control" placeholder="Movie Language">
         </div>
         <div class="form-group text-left">
           <label class="text-dark font-weight-bold">Productoras:</label>
-          <input [(ngModel)]="movieToUpdate.productoras" [ngModelOptions]="{standalone: true}" type="text"
+          <input [(ngModel)]="model.productoras" [ngModelOptions]="{standalone: true}" type="text"
             class="form-control" placeholder="Movie Producer">
         </div>
         <div class="form-group text-left">
           <label class="text-dark font-weight-bold">Actores:</label>
-          <input [(ngModel)]="movieToUpdate.actores" [ngModelOptions]="{standalone: true}" type="text"
+          <input [(ngModel)]="model.actores" [ngModelOptions]="{standalone: true}" type="text"
             class="form-control" placeholder="Movie Actors">
         </div>
         <div class="form-group text-left">
           <label class="text-dark font-weight-bold">País:</label>
-          <input [(ngModel)]="movieToUpdate.pais" [ngModelOptions]="{standalone: true}" type="text"
+          <input [(ngModel)]="model.pais" [ngModelOptions]="{standalone: true}" type="text"
             class="form-control" placeholder="Movie Country">
         </div>
         <div class="form-group text-left">
           <label class="text-dark font-weight-bold">Audios:</label>
-          <input [(ngModel)]="movieToUpdate.audios" [ngModelOptions]="{standalone: true}" type="text"
+          <input [(ngModel)]="model.audios" [ngModelOptions]="{standalone: true}" type="text"
             class="form-control" placeholder="Movie Audio">
         </div>
         <div class="form-group text-left">
           <label class="text-dark font-weight-bold">Subtítulos:</label>
-          <input [(ngModel)]="movieToUpdate.subtitulos" [ngModelOptions]="{standalone: true}" type="text"
+          <input [(ngModel)]="model.subtitulos" [ngModelOptions]="{standalone: true}" type="text"
             class="form-control" placeholder="Movie Subtitles">
         </div>
         <div class="form-group text-left">
           <label class="text-dark font-weight-bold">Tamaño (MB):</label>
-          <input [(ngModel)]="movieToUpdate.peso" [ngModelOptions]="{standalone: true}" type="number"
+          <input [(ngModel)]="model.peso" [ngModelOptions]="{standalone: true}" type="number"
             min="0" max="20480" step="1" maxlength="5" class="form-control">
         </div>
         <div class="form-group text-left">
           <label class="text-dark font-weight-bold">Detalle Técnico:</label>
-          <select [(ngModel)]="movieToUpdate.id_detalle" [ngModelOptions]="{standalone: true}" class="form-control">
+          <select [(ngModel)]="model.id_detalle" [ngModelOptions]="{standalone: true}" class="form-control">
             <option *ngFor="let detalleTecnico of detallesTecnicos;" [value]="detalleTecnico.id_detalle">
               {{detalleTecnico.id_detalle}}:
               {{detalleTecnico.id_formato}}.- {{detalleTecnico.nombre_formato}} |

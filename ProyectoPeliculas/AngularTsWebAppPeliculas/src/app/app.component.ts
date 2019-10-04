@@ -8,5 +8,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title: string = 'PeliculasWebApp';
 
-  constructor() { }
+  constructor() {
+    localStorage.setItem('apiUrl', 'https://localhost:5001/Api');
+  }
 }

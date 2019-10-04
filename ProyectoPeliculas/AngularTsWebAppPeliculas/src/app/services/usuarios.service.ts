@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Usuario } from '../interfaces/usuario';
-import { apiURL } from '../global.service';
 
 @Injectable()
 export class UsuariosService {
@@ -19,7 +18,7 @@ export class UsuariosService {
   private ApiGetForgottenPasswordURL: string;
 
   constructor(private http: HttpClient) {
-    this.ApiUsuariosURL = apiURL + "/Usuarios";
+    this.ApiUsuariosURL = localStorage.getItem('apiUrl')+ "/Usuarios";
   }
 
   crearUsuario(usuario: Usuario): Observable<any[]> {

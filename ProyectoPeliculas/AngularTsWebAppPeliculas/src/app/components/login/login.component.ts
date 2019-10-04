@@ -3,7 +3,6 @@ import { Usuario } from 'src/app/interfaces/usuario';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import { GlobalService } from 'src/app/global.service';
 
 @Component({
   selector: 'app-login',
@@ -22,8 +21,7 @@ export class LoginComponent implements OnInit {
   usuario: Usuario;
 
   constructor(private usuariosService: UsuariosService,
-    private router: Router, private toastrService: ToastrService,
-    private globalService: GlobalService) { }
+    private router: Router, private toastrService: ToastrService) { }
 
   ngOnInit() {
     this.emailPattern = /\b[a-z0-9-_.]+@[a-z0-9-_.]+(\.[a-z0-9]+)+/;
@@ -65,12 +63,15 @@ export class LoginComponent implements OnInit {
       response => {
         if (response[0] != null) {
           if (response[0].includes("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9")) {
-            this.globalService.setToken(response[0]); this.globalService.setLogged(true);
+            localStorage.setItem('token', "Bearer " + response[0]);
             let username_email: string = this.getUserNameEmail();
             this.usuariosService.getUsuario(username_email).subscribe(
               response => {
                 if (response[0]) {
                   this.usuario = response[0];
+                  localStorage.setItem('logged', JSON.stringify(true));
+                  if(this.usuario.tipo_usuario == 1)
+                    localStorage.setItem('admin', JSON.stringify(true));
                   this.toastrService.info("Bienvenido: " + this.usuario.nombre_usuario);
                   this.router.navigate(['/home']); return;
                 }

@@ -31,16 +31,21 @@ export class TiposResolucionComponent implements OnInit {
       porcentaje_visualizacion: 0, porcentaje_perdida: 0
     };
     this.detallesTecnicosService.getTiposResolucion().subscribe(
-      tiposResolucion => {
-        this.tiposResolucion = tiposResolucion; this.tiposResolucion.push(null);
-        this.paginationConfig = {
-          itemsPerPage: 5,
-          currentPage: this.currentPage,
-          totalItems: this.tiposResolucion.length
-        };
-        this.totalPages = Math.trunc(this.tiposResolucion.length / this.paginationConfig.itemsPerPage);
-        if (this.tiposResolucion.length % this.paginationConfig.itemsPerPage != 0) this.totalPages += 1;
-        this.currentItemsPerPage = this.tiposResolucion.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
+      response => {
+        if (response[0]) {
+          this.tiposResolucion = response[0];
+          this.tiposResolucion.push(null);
+          this.paginationConfig = {
+            itemsPerPage: 5,
+            currentPage: this.currentPage,
+            totalItems: this.tiposResolucion.length
+          };
+          this.totalPages = Math.trunc(this.tiposResolucion.length / this.paginationConfig.itemsPerPage);
+          if (this.tiposResolucion.length % this.paginationConfig.itemsPerPage != 0) this.totalPages += 1;
+          this.currentItemsPerPage = this.tiposResolucion.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
+          return;
+        }
+        this.toastrService.error(response[1]);
       }, error => {
         this.toastrService.error(error.message);
       });
@@ -53,7 +58,7 @@ export class TiposResolucionComponent implements OnInit {
   crearTipoResolucion() {
     this.detallesTecnicosService.crearTipoResolucion(this.nuevoTipoResolucion).subscribe(
       response => {
-        if (response) {
+        if (response[0]) {
           this.toastrService.success("Creación realizada con éxito.");
           this.router.navigate(['/adminDetalles']); return;
         }
@@ -66,7 +71,7 @@ export class TiposResolucionComponent implements OnInit {
   actualizarTipoResolucion(tipoResolucion: TipoResolucion) {
     this.detallesTecnicosService.actualizarTipoResolucion(tipoResolucion).subscribe(
       response => {
-        if (response) {
+        if (response[0]) {
           this.toastrService.success("Actualización realizada con éxito.");
           this.router.navigate(['/adminDetalles']); return;
         }
@@ -79,7 +84,7 @@ export class TiposResolucionComponent implements OnInit {
   eliminarTipoResolucion(id_tipo_resolucion: number) {
     this.detallesTecnicosService.eliminarTipoResolucion(id_tipo_resolucion).subscribe(
       response => {
-        if (response) {
+        if (response[0]) {
           this.toastrService.success("Eliminación realizada con éxito.");
           this.router.navigate(['/adminDetalles']); return;
         }

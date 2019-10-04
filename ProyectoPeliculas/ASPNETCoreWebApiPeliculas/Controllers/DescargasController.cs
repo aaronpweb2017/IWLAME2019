@@ -2,11 +2,11 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ASPNETCoreWebApiPeliculas.Models;
-//using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ASPNETCoreWebApiPeliculas.Controllers
 {
-    [ApiController] [Route("Api/[controller]/[action]")] //[Authorize]
+    [ApiController] [Route("Api/[controller]/[action]")] [Authorize]
     public class DescargasController : ControllerBase
     {
         private readonly IDescargas descargas;

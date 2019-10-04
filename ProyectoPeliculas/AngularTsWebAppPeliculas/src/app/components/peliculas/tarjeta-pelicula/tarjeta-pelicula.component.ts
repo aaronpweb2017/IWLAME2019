@@ -51,6 +51,10 @@ export class TarjetaPeliculaComponent implements OnInit {
     };
   }
 
+  isAdmin() {
+    return JSON.parse(localStorage.getItem('admin'));
+  }
+
   setCreateFlag(flag: boolean) {
     this.create = flag;
   }

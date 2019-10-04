@@ -28,16 +28,10 @@
                 <ng-container *ngFor="let descarga of descargas | paginate: { id:
                     'downloadsPagination', itemsPerPage: paginationConfig.itemsPerPage, currentPage:
                     paginationConfig.currentPage, totalItems: paginationConfig.totalItems }; let i=index;">
-                    <tr>
+                    <tr data-toggle="collapse" data-target="#accordion" class="clickable puntero"
+                        aria-expanded="false" aria-controls="accordion" (click)="setShowLinkFlag(i);">
                         <td class="text-center">
-                            <button *ngIf="descarga && !mostrarEnlaces[i]" type="button" class="btn btn-link"
-                                data-toggle="tooltip" data-placement="top" title="Mostrar enlaces"
-                                (click)="setShowLinkFlag(i, true);"><i class="fas fa-caret-down"> </i>{{descarga.id_descarga}}
-                            </button>
-                            <button *ngIf="descarga && mostrarEnlaces[i]" type="button" class="btn btn-link"
-                                data-toggle="tooltip" data-placement="top" title="Ignorar enlaces"
-                                (click)="setShowLinkFlag(i, false);"><i class="fas fa-caret-up"> </i>{{descarga.id_descarga}}
-                            </button>
+                            <span *ngIf="descarga">{{descarga.id_descarga}}</span>
                             <span *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1">
                                 {{descargas[descargas.length-2]?.id_descarga+1}}
                             </span>
@@ -78,8 +72,7 @@
                         <td *ngIf="descarga" class="text-center">
                             <app-modal-actualizacion [request]="'ActualizarDescarga'" [model]="descarga"
                                 [tiposArchivo] = "tiposArchivo" [servidores] = "servidores"
-                                [peliculas] = "peliculas" [downloadToUpdate] = "descarga"
-                                (modelObjectEvent)="actualizarDescarga($event)">
+                                [peliculas] = "peliculas" (modelObjectEvent)="actualizarDescarga($event)">
                             </app-modal-actualizacion>
                         </td>
                         <td *ngIf="descarga" class="text-center">
@@ -93,11 +86,10 @@
                             </button>
                         </td>
                     </tr>
-                    <ng-container *ngIf="mostrarEnlaces[i]">
+                    <ng-container *ngIf="mostrarEnlaces[i]" id="accordion" class="collapse">
                         <tr>
                             <th colspan="7">
                                 <h6 class="font-italic text-center">Enlaces de la descarga {{descarga?.id_descarga}}:</h6>
-                            
                                 <button *ngIf="!crearEnlaces[i]" type="button" class="btn btn-success" data-toggle="tooltip"
                                     data-placement="top" title="Agregar Enlace" (click)="setCreateLinkFlag(i, true)"
                                     style="float: right; margin-top: -25px;"><i class="fas fa-plus-circle"></i>
@@ -127,9 +119,7 @@
                             </td>
                             <td *ngIf="enlace" class="text-center">
                                 <app-modal-actualizacion [request]="'ActualizarEnlace'" [model]="enlace"
-                                [descargas] = "descargas" [linkToUpdate] = "enlace"
-                                (modelObjectEvent)="actualizarEnlace($event)"
-                                >
+                                [descargas] = "descargas" (modelObjectEvent)="actualizarEnlace($event)">
                                 </app-modal-actualizacion>
                             </td>
                             <td *ngIf="enlace" class="text-center">
@@ -168,16 +158,11 @@
             </thead>
             <tbody>
                 <ng-container *ngFor="let descarga of descargas; let i=index;">
-                    <tr *ngIf="descarga && descarga.id_pelicula == id_pelicula">
+                    <tr *ngIf="descarga && descarga.id_pelicula == id_pelicula"
+                        data-toggle="collapse" data-target="#accordion" class="clickable puntero"
+                        aria-expanded="false" aria-controls="accordion" (click)="setShowLinkFlag(i);">
                         <td class="text-center">
-                            <button *ngIf="descarga && !mostrarEnlaces[i]" type="button" class="btn btn-link"
-                                data-toggle="tooltip" data-placement="top" title="Mostrar enlaces"
-                                (click)="setShowLinkFlag(i, true);"><i class="fas fa-caret-down"> </i>{{descarga.id_descarga}}
-                            </button>
-                            <button *ngIf="descarga && mostrarEnlaces[i]" type="button" class="btn btn-link"
-                                data-toggle="tooltip" data-placement="top" title="Ignorar enlaces"
-                                (click)="setShowLinkFlag(i, false);"><i class="fas fa-caret-up"> </i>{{descarga.id_descarga}}
-                            </button>
+                            <span *ngIf="descarga">{{descarga.id_descarga}}</span>
                         </td>
                         <td class="text-center">
                             <span *ngIf="descarga">{{descarga.nombre_tipo_archivo}}</span>
@@ -190,7 +175,7 @@
                             <span *ngIf="descarga && descarga.password_descarga==''">NINGUNA</span>
                         </td>
                     </tr>
-                    <ng-container *ngIf="mostrarEnlaces[i] && descarga.id_pelicula == id_pelicula">
+                    <ng-container *ngIf="mostrarEnlaces[i] && descarga.id_pelicula == id_pelicula" id="accordion" class="collapse">
                         <tr *ngFor="let enlace of descarga?.enlaces;">
                             <td class="text-center">
                                 <span *ngIf="enlace">{{enlace.id_enlace}}</span>
