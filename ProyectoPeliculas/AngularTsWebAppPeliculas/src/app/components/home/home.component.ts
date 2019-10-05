@@ -12,7 +12,8 @@ import { VDetalleTecnico } from 'src/app/interfaces/views/v-detalle-tecnico';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  ordenamiento;
+  busqueda: string;
+  ordenamiento: string;
   peliculas: Pelicula[];
   detallesTecnicos: VDetalleTecnico[];
   constructor(private peliculasService: PeliculasService, private vistasService: VistasService,
@@ -21,17 +22,81 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.peliculas = [];
     this.ordenamiento = this.route.snapshot.paramMap.get('ordenamiento');
+    this.busqueda = this.route.snapshot.paramMap.get('busqueda');
     this.peliculasService.getPeliculas().subscribe(
       response => {
         if (response[0]) {
-          this.peliculas = response[0];
-          if (this.ordenamiento != null && this.ordenamiento.includes("nombre")) {
-            this.peliculas.sort((currentMovie, nextMovie): number => {
-              if (currentMovie.nombre_pelicula < nextMovie.nombre_pelicula) return -1;
-              if (currentMovie.nombre_pelicula > nextMovie.nombre_pelicula) return 1;
-              return 0;
-            });
+          if (this.busqueda != null && this.busqueda != "") {
+            for (let i: number = 0; i < response[0].length; i++) {
+              if (response[0][i].nombre_pelicula.includes(this.busqueda))
+                this.peliculas.push(response[0][i])
+            }
+          }
+          else
+            this.peliculas = response[0];
+          if (this.ordenamiento != null) {
+            if (this.ordenamiento.includes("nombre")) {
+              this.peliculas.sort((currentMovie, nextMovie): number => {
+                if (currentMovie.nombre_pelicula < nextMovie.nombre_pelicula) return -1;
+                if (currentMovie.nombre_pelicula > nextMovie.nombre_pelicula) return 1;
+              });
+            }
+            else if (this.ordenamiento.includes("fecha")) {
+              this.peliculas.sort((currentMovie, nextMovie): number => {
+                if (currentMovie.fecha_estreno < nextMovie.fecha_estreno) return -1;
+                if (currentMovie.fecha_estreno > nextMovie.fecha_estreno) return 1;
+              });
+            }
+            else if (this.ordenamiento.includes("presupuesto")) {
+              this.peliculas.sort((currentMovie, nextMovie): number => {
+                if (currentMovie.presupuesto < nextMovie.presupuesto) return -1;
+                if (currentMovie.presupuesto > nextMovie.presupuesto) return 1;
+              });
+            }
+            else if (this.ordenamiento.includes("recaudacion")) {
+              this.peliculas.sort((currentMovie, nextMovie): number => {
+                if (currentMovie.recaudacion < nextMovie.recaudacion) return -1;
+                if (currentMovie.recaudacion > nextMovie.recaudacion) return 1;
+              });
+            }
+            else if (this.ordenamiento.includes("calificacion")) {
+              this.peliculas.sort((currentMovie, nextMovie): number => {
+                if (currentMovie.calificacion < nextMovie.calificacion) return -1;
+                if (currentMovie.calificacion > nextMovie.calificacion) return 1;
+              });
+            }
+            else if (this.ordenamiento.includes("directores")) {
+              this.peliculas.sort((currentMovie, nextMovie): number => {
+                if (currentMovie.directores < nextMovie.directores) return -1;
+                if (currentMovie.directores > nextMovie.directores) return 1;
+              });
+            }
+            else if (this.ordenamiento.includes("generos")) {
+              this.peliculas.sort((currentMovie, nextMovie): number => {
+                if (currentMovie.generos < nextMovie.generos) return -1;
+                if (currentMovie.generos > nextMovie.generos) return 1;
+              });
+            }
+            else if (this.ordenamiento.includes("productoras")) {
+              this.peliculas.sort((currentMovie, nextMovie): number => {
+                if (currentMovie.productoras < nextMovie.productoras) return -1;
+                if (currentMovie.productoras > nextMovie.productoras) return 1;
+              });
+            }
+            else if (this.ordenamiento.includes("pais")) {
+              this.peliculas.sort((currentMovie, nextMovie): number => {
+                if (currentMovie.pais < nextMovie.pais) return -1;
+                if (currentMovie.pais > nextMovie.pais) return 1;
+              });
+            }
+            else if (this.ordenamiento.includes("tamaño")) {
+              this.peliculas.sort((currentMovie, nextMovie): number => {
+                if (currentMovie.peso < nextMovie.peso) return -1;
+                if (currentMovie.peso > nextMovie.peso) return 1;
+              });
+            }
           }
           this.peliculas.push(null);
           for (let i: number = 0; i < this.peliculas.length - 1; i++)

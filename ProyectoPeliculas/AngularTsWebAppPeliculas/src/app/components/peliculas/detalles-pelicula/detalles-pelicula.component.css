@@ -1,6 +1,7 @@
 .panel-single {
     padding: 4%;
     background: #0b0e10;
+    display: block;
 }
 
 .panel-single .mpost-title h1 {
@@ -14,6 +15,7 @@
 
 .clearfix, .content-single {
     display: inline-flex;
+    margin-top: 25px;
 }
 
 .feature {
@@ -45,26 +47,29 @@
 
 .panel-single .sposter {
     width: 160px;
-    /*float: left;*/
 }
 
 img {
     max-width: 200px;
     height: auto;
     box-sizing: border-box;
+    border-radius: 10px;
 }
 
 .panel-single .content-single {
-    /* float: left; */
     width: calc(100% - 0px);
     padding: 0 20px;
+}
+
+.panel-single .trailer {
+    margin-top: 20px;
 }
 
 .content-single {
     font-size: 15px;
     font-weight: 500;
     color: #738fa0;
-    max-width: 500px;
+    max-width: 555px;
     margin-left: 60px;
 
 }

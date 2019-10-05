@@ -28,13 +28,14 @@
                 <ng-container *ngFor="let descarga of descargas | paginate: { id:
                     'downloadsPagination', itemsPerPage: paginationConfig.itemsPerPage, currentPage:
                     paginationConfig.currentPage, totalItems: paginationConfig.totalItems }; let i=index;">
-                    <tr data-toggle="collapse" data-target="#accordion" class="clickable puntero"
-                        aria-expanded="false" aria-controls="accordion" (click)="setShowLinkFlag(i);">
-                        <td class="text-center">
-                            <span *ngIf="descarga">{{descarga.id_descarga}}</span>
-                            <span *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1">
-                                {{descargas[descargas.length-2]?.id_descarga+1}}
-                            </span>
+                    <tr>
+                        <td *ngIf="descarga" class="text-center" data-toggle="collapse" data-target="#accordion"
+                            class="clickable puntero" aria-expanded="false" aria-controls="accordion"
+                            (click)="setShowLinkFlag(i);">
+                            <span>{{descarga.id_descarga}}</span>
+                        </td>
+                        <td *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1" class="text-center">
+                            <span>{{descargas[descargas.length-2]?.id_descarga+1}}</span>
                         </td>
                         <td class="text-center">
                             <span *ngIf="descarga && descarga.password_descarga!=''">{{descarga.password_descarga}}</span>

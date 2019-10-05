@@ -3,22 +3,7 @@
   <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
   <div class="menu-list">
     <ul id="menu-content" class="menu-content collapse out">
-      <li><a href="#"><i class="fas fa-home"></i>Home</a></li>
-      <li data-toggle="collapse" data-target="#search" class="collapsed active">
-        <a><i class="fas fa-search"></i>Buscar<span class="arrow"></span></a>
-      </li>
-      <ul class="sub-menu collapse" id="search">
-        <li class="active"><a href="#">Búsqueda 1</a></li>
-        <li><a href="#">Búsqueda 2</a></li>
-        <li><a href="#">Búsqueda 3</a></li>
-        <li><a href="#">Búsqueda 4</a></li>
-        <li><a href="#">Búsqueda 5</a></li>
-        <li><a href="#">Búsqueda 6</a></li>
-        <li><a href="#">Búsqueda 7</a></li>
-        <li><a href="#">Búsqueda 8</a></li>
-        <li><a href="#">Búsqueda 9</a></li>
-        <li><a href="#">Otro filtro</a></li>
-      </ul>
+      <li><a [routerLink]="['/home']"><i class="fas fa-home"></i>Home</a></li>
       <li data-toggle="collapse" data-target="#order" class="collapsed">
         <a><i class="far fa-object-group"></i>Ordenar por<span class="arrow"></span></a>
       </li>
@@ -27,24 +12,14 @@
         <li><a [routerLink]="['/home', {ordenamiento: 'fecha'}]">Fecha de Estreno</a></li>
         <li><a [routerLink]="['/home', {ordenamiento: 'presupuesto'}]">Presupuesto</a></li>
         <li><a [routerLink]="['/home', {ordenamiento: 'recaudacion'}]">Recaudación</a></li>
-        <li><a [routerLink]="['/home', {ordenamiento: 'calificación'}]">Calificación</a></li>
+        <li><a [routerLink]="['/home', {ordenamiento: 'calificacion'}]">Calificación</a></li>
         <li><a [routerLink]="['/home', {ordenamiento: 'directores'}]">Directores</a></li>
-        <li><a [routerLink]="['/home', {ordenamiento: 'genero'}]">Géneros</a></li>
+        <li><a [routerLink]="['/home', {ordenamiento: 'generos'}]">Géneros</a></li>
         <li><a [routerLink]="['/home', {ordenamiento: 'productoras'}]">Productoras</a></li>
-        <li><a [routerLink]="['/home', {ordenamiento: 'actores'}]">Actores</a></li>
         <li><a [routerLink]="['/home', {ordenamiento: 'pais'}]">País</a></li>
         <li><a [routerLink]="['/home', {ordenamiento: 'tamaño'}]">Tamaño</a></li>
       </ul>
-      <li data-toggle="collapse" data-target="#new" class="collapsed">
-        <a><i class="fa fa-car fa-lg"></i>New<span class="arrow"></span></a>
-      </li>
-      <ul class="sub-menu collapse" id="new">
-        <li>New New 1</li>
-        <li>New New 2</li>
-        <li>New New 3</li>
-      </ul>
       <li><a href="#"><i class="fa fa-user fa-lg"></i>Profile</a></li>
-      <li><a href="#"><i class="fa fa-users fa-lg"></i>Users</a></li>
     </ul>
   </div>
 </div>

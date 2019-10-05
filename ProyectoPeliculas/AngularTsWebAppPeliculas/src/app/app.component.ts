@@ -9,6 +9,6 @@ export class AppComponent {
   title: string = 'PeliculasWebApp';
 
   constructor() {
-    localStorage.setItem('apiUrl', 'https://localhost:5001/Api');
+    localStorage.setItem('apiUrl', 'https://189.186.51.66:443/Api');
   }
 }

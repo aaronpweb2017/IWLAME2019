@@ -58,7 +58,7 @@ namespace ASPNETCoreWebApiPeliculas.Services
                 expiration = DateTime.UtcNow.AddDays(7);
             }
             else {
-                expiration = DateTime.UtcNow.AddHours(1);
+                expiration = DateTime.UtcNow.AddDays(1);
             }
             JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
             byte[] key = Encoding.ASCII.GetBytes(appSettings.Secret); 

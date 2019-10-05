@@ -39,26 +39,11 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  setUserLogInAttributes() {
-    this.usuario.correo_usuario = ""; this.usuario.nombre_usuario = "";
-    if (String(this.userNameEmail).search(this.emailPattern) != -1) {
-      this.usuario.correo_usuario = this.userNameEmail;
-    }
-    else {
-      this.usuario.nombre_usuario = this.userNameEmail;
-    }
-    this.usuario.password_usuario = this.passwordLogIn;
-  }
-
-  getUserNameEmail(): string {
-    if (this.usuario.nombre_usuario.length > 0) {
-      return this.usuario.nombre_usuario
-    }
-    return this.usuario.correo_usuario;
-  }
 
   iniciarSesion() {
-    this.setUserLogInAttributes();
+    if (!this.setUserLogInAttributes()) {
+      this.toastrService.error("Debe ingresar todos los datos."); return;
+    }
     this.usuariosService.getTokenAuthentication(this.usuario).subscribe(
       response => {
         if (response[0] != null) {
@@ -70,7 +55,7 @@ export class LoginComponent implements OnInit {
                 if (response[0]) {
                   this.usuario = response[0];
                   localStorage.setItem('logged', JSON.stringify(true));
-                  if(this.usuario.tipo_usuario == 1)
+                  if (this.usuario.tipo_usuario == 1)
                     localStorage.setItem('admin', JSON.stringify(true));
                   this.toastrService.info("Bienvenido: " + this.usuario.nombre_usuario);
                   this.router.navigate(['/home']); return;
@@ -90,7 +75,9 @@ export class LoginComponent implements OnInit {
   }
 
   solicitarToken() {
-    this.setUserLogInAttributes();
+    if (!this.setUserLogInAttributes()) {
+      this.toastrService.error("Debe ingresar todos los datos."); return;
+    }
     this.usuariosService.getTokenAuthentication(this.usuario).subscribe(
       response => {
         if (response[0] != null) {
@@ -122,6 +109,14 @@ export class LoginComponent implements OnInit {
   }
 
   sendForgottenPassword() {
+    if (this.emailToSendPass == "") {
+      this.toastrService.error("Debe ingresar un correo para enviar la contraseña.");
+      return;
+    }
+    if (!this.validarCorreo(this.emailToSendPass)) {
+      this.toastrService.error("Debe ingresar un correo correcto.");
+      return;
+    }
     this.usuariosService.getForgottenPassword(this.emailToSendPass).subscribe(
       response => {
         if (response[0] != null) {
@@ -137,8 +132,17 @@ export class LoginComponent implements OnInit {
   }
 
   crearCuentaNueva() {
+    if (this.usuario.nombre_usuario == "" || this.usuario.correo_usuario == ""
+      || this.passwordSignIn1 == "" || this.passwordSignIn2 == "") {
+      this.toastrService.error("Debe ingresar todos los datos.");
+      return;
+    }
+    if (!this.validarCorreo(this.usuario.correo_usuario)) {
+      this.toastrService.error("Debe ingresar un correo correcto.");
+      return;
+    }
     if (this.passwordSignIn1 != this.passwordSignIn2) {
-      this.toastrService.error("Contraseñas distintas.");
+      this.toastrService.error("Las contraseñas no coinciden.");
       return;
     }
     this.usuario.password_usuario = this.passwordSignIn1;
@@ -159,5 +163,35 @@ export class LoginComponent implements OnInit {
 
   setFlagNuevaCuenta(flag: boolean) {
     this.flagNuevaCuenta = flag;
+  }
+
+  validarCorreo(email: string): boolean {
+    let reponse: boolean = false;
+    if (String(email).search(this.emailPattern) != -1)
+      reponse = true;
+    return reponse;
+  }
+
+  setUserLogInAttributes(): boolean {
+    let reponse: boolean = false;
+    if (this.userNameEmail != "" && this.passwordLogIn != "") {
+      this.usuario.correo_usuario = "";
+      this.usuario.nombre_usuario = "";
+      if (this.validarCorreo(this.userNameEmail)) {
+        this.usuario.correo_usuario = this.userNameEmail;
+      }
+      else
+        this.usuario.nombre_usuario = this.userNameEmail;
+      this.usuario.password_usuario = this.passwordLogIn;
+      reponse = true;
+    }
+    return reponse;
+  }
+
+  getUserNameEmail(): string {
+    if (this.usuario.nombre_usuario.length > 0) {
+      return this.usuario.nombre_usuario
+    }
+    return this.usuario.correo_usuario;
   }
 }

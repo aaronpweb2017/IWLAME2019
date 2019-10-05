@@ -22,7 +22,7 @@ namespace ASPNETCoreWebApiPeliculas
             Object [] response = new Object [2];
             try {
                 string originalPassword = user.password_usuario; user.tipo_usuario = 2;
-                user.password_usuario = userService.EncryptPassword(originalPassword);                
+                user.password_usuario = userService.EncryptPassword(originalPassword);
                 await AppDbContext.usuarios.AddAsync(user); await AppDbContext.SaveChangesAsync();
                 Usuario userToAuthenticate = await AppDbContext.usuarios.Where(u =>
                     u.nombre_usuario.Equals(user.nombre_usuario)).FirstOrDefaultAsync();                
@@ -175,13 +175,19 @@ namespace ASPNETCoreWebApiPeliculas
             return response;
         }
 
-        public async Task<Object []> GetForgottenPassword(string correo_usuario) {
+        public async Task<Object []> GetForgottenPassword(string user_email) {
             Object [] response = new Object [2];
-            string user_email, decryptedPassword, message;
-            Usuario userToRecover = await AppDbContext.usuarios.Where(u =>
-                u.correo_usuario == correo_usuario).FirstOrDefaultAsync();
-            if(userToRecover == null) { response[0] = false; return response; }
+            string admin_email, adminPass, userPass, subject, message;
             try {
+                Usuario userToRecover = await AppDbContext.usuarios.Where(u =>
+                u.correo_usuario == user_email).FirstOrDefaultAsync();
+                if(userToRecover == null) { response[0] = false; return response; }
+                userPass = userService.DecryptPassword(userToRecover.password_usuario);
+                Usuario userAdmin = await AppDbContext.usuarios.Where(u =>
+                u.nombre_usuario == "admin").FirstOrDefaultAsync();
+                if(userAdmin == null) { response[0] = false; return response; }
+                admin_email = userAdmin.correo_usuario;
+                adminPass = userService.DecryptPassword(userAdmin.password_usuario);
                 UsuarioSolicitud solicitudActual = new UsuarioSolicitud() {
                     id_usuario = userToRecover.id_usuario,
                     id_solicitud = 1,
@@ -189,10 +195,9 @@ namespace ASPNETCoreWebApiPeliculas
                     emision_solicitud = DateTime.Now,
                     aprobacion_solicitud = DateTime.Now
                 };
-                user_email = userToRecover.correo_usuario;
-                decryptedPassword = userService.DecryptPassword(userToRecover.password_usuario);
-                message = "<p><strong>Tu contraseña es: </strong>"+decryptedPassword+".</p>";
-                SendEmail(user_email, message);
+                subject = "Recuperación de Contraseña de Películas";
+                message = "<p><strong>Tu contraseña es: </strong>"+userPass+".</p>";
+                SendEmail(admin_email, adminPass, user_email, subject, message);
                 await AppDbContext.usuariosSolicitudes.AddAsync(solicitudActual);
                 await AppDbContext.SaveChangesAsync(); response[0] = true;
             }
@@ -203,23 +208,24 @@ namespace ASPNETCoreWebApiPeliculas
             return response;
         }
 
-        public void SendEmail(string user_email, string message) {
+        public void SendEmail(string from_email, string pass_email,
+            string to_email, string subject, string message) {
             try {
                 string messageBodyHtml = message;
                 MailMessage mailMessage = new MailMessage();
-                mailMessage.From = new MailAddress("aaronecheverria23@gmail.com");
-                mailMessage.To.Add(new MailAddress(user_email));
-                mailMessage.Subject = "Recuperación de Contraseña de Películas";
+                mailMessage.From = new MailAddress(from_email);
+                mailMessage.To.Add(new MailAddress(to_email));
+                mailMessage.Subject = subject;
                 mailMessage.Body = messageBodyHtml;
                 mailMessage.IsBodyHtml = true;
                 SmtpClient smtpClient = new SmtpClient();
                 smtpClient.Host = "smtp.gmail.com";
                 smtpClient.Port = 587;
                 smtpClient.EnableSsl = true;
-                smtpClient.UseDefaultCredentials = true; //or false
+                smtpClient.UseDefaultCredentials = true;
                 smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
                 smtpClient.Credentials = new NetworkCredential(
-                    "aaronecheverria23@gmail.com", "1996lame2019");
+                    from_email, pass_email);
                 smtpClient.Send(mailMessage);
             } catch(Exception e) {
                 Console.WriteLine("Excepction Message: "+e.Message);
@@ -227,10 +233,7 @@ namespace ASPNETCoreWebApiPeliculas
         }
 
         public string GetUserNameEmail(string nombre, string correo) {
-            if(!String.IsNullOrEmpty(nombre)) {
-                return nombre;
-            }
-            return correo;
+            return !String.IsNullOrEmpty(nombre) ? nombre: correo;
         }
     }
 }

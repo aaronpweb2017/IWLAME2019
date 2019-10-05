@@ -38,7 +38,7 @@ export class DetallesPeliculaComponent implements OnInit {
       peso: Number(this.route.snapshot.paramMap.get('peso')),
       id_detalle: Number(this.route.snapshot.paramMap.get('id_detalle')),
       rutaImagen: this.route.snapshot.paramMap.get('rutaImagen')
-    };
+    }
     this.vistasService.getVistaDetalleTecnicoPelicula(this.pelicula.id_pelicula).subscribe(
       response => {
         if (response[0]) {
