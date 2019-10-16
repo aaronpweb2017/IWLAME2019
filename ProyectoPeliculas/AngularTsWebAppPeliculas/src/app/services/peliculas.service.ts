@@ -10,6 +10,7 @@ export class PeliculasService {
     private token: string;
     private header: HttpHeaders;
     private ApiCrearPeliculaURL: string;
+    private ApiGetPeliculaURL: string;
     private ApiGetPeliculasURL: string;
     private ApiActualizarPeliculaURL: string;
     private ApiEliminarPeliculaURL: string;
@@ -17,14 +18,21 @@ export class PeliculasService {
     constructor(private http: HttpClient) {
         this.ApiPeliculasURL = localStorage.getItem('apiUrl') + "/Peliculas";
         this.header = new HttpHeaders({
-          'Content-Type': 'application/json',
-          'Authorization': localStorage.getItem('token')
+            'Content-Type': 'application/json',
+            'Authorization': localStorage.getItem('token')
         });
     }
 
     crearPelicula(pelicula: Pelicula): Observable<any[]> {
         this.ApiCrearPeliculaURL = this.ApiPeliculasURL + "/CrearPelicula";
         return this.http.post(this.ApiCrearPeliculaURL, pelicula,
+            { headers: this.header }).pipe(map((data: any) => data as any[]));
+    }
+
+    getPelicula(id_pelicula: number): Observable<any[]> {
+        this.ApiGetPeliculaURL = this.ApiPeliculasURL
+            + "/GetPelicula?id_pelicula=" + id_pelicula;
+        return this.http.get(this.ApiGetPeliculaURL,
             { headers: this.header }).pipe(map((data: any) => data as any[]));
     }
 

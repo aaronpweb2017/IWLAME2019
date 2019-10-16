@@ -114,6 +114,7 @@ namespace ASPNETCoreWebApiPeliculas {
             modelBuilder.Entity<ValorResolucion>().Property(vr => vr.valor_resolucion).
             HasColumnName("valor_resolucion").HasColumnType("VARCHAR").HasMaxLength(10).IsRequired();
             modelBuilder.Entity<ValorResolucion>().HasKey(vr => vr.id_valor_resolucion).HasName("id_valor_resolucion_PK_CSTR");
+            modelBuilder.Entity<ValorResolucion>().HasIndex(vr => vr.valor_resolucion).HasName("valor_resolucion_UN_CSTR").IsUnique();
             
             //Table RelacionAspecto Configuration:
             modelBuilder.Entity<RelacionAspecto>().ToTable("RelacionAspecto");

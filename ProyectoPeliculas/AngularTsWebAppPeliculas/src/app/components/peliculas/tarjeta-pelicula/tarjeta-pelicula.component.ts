@@ -95,16 +95,16 @@ export class TarjetaPeliculaComponent implements OnInit {
   verDetallesPelicula() {
     this.router.navigate(['/detallesPelicula', {
       id_pelicula: this.pelicula.id_pelicula,
-      nombre_pelicula: this.pelicula.nombre_pelicula,
-      fecha_estreno: this.pelicula.fecha_estreno,
-      presupuesto: this.pelicula.presupuesto,
-      recaudacion: this.pelicula.recaudacion,
-      sinopsis: this.pelicula.sinopsis,
-      calificacion: this.pelicula.calificacion,
-      directores: this.pelicula.directores,
-      generos: this.pelicula.generos,
-      id_detalle: this.pelicula.id_detalle,
-      urlImagen: this.pelicula.urlImagen
+      //nombre_pelicula: this.pelicula.nombre_pelicula,
+      //fecha_estreno: this.pelicula.fecha_estreno,
+      //presupuesto: this.pelicula.presupuesto,
+      //recaudacion: this.pelicula.recaudacion,
+      //sinopsis: this.pelicula.sinopsis,
+      //calificacion: this.pelicula.calificacion,
+      //directores: this.pelicula.directores,
+      //generos: this.pelicula.generos,
+      //id_detalle: this.pelicula.id_detalle,
+      //urlImagen: this.pelicula.urlImagen
     }]);
   }
 }

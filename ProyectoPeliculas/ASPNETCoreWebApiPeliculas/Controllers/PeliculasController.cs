@@ -21,6 +21,12 @@ namespace ASPNETCoreWebApiPeliculas.Controllers
             return await peliculas.CrearPelicula(pelicula);
         }
 
+        //GET: https://189.186.51.66:443/Api/Peliculas/GetPelicula?id_pelicula=[value]
+        [HttpGet] [ActionName("GetPelicula")]
+        public async Task<Object []> GetMovieAsync(int id_pelicula) {
+            return await peliculas.GetPelicula(id_pelicula);
+        }
+
         //GET: https://189.186.51.66:443/Api/Peliculas/GetPeliculas
         [HttpGet] [ActionName("GetPeliculas")]
         public async Task<Object []> GetMoviesAsync() {

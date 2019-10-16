@@ -30,6 +30,20 @@ namespace ASPNETCoreWebApiPeliculas
             return response;
         }
 
+        public async Task<Object []> GetPelicula(int id_pelicula) {
+            Object [] response = new Object [2];
+            try {
+                Pelicula movie = await AppDbContext.peliculas.Where(p =>
+                    p.id_pelicula == id_pelicula).FirstOrDefaultAsync();
+                response[0] = movie;
+            }
+            catch(Exception exception) {
+                response[1] = (exception.InnerException != null) ?
+                exception.InnerException.Message : exception.Message;
+            }
+            return response;
+        }
+
         public async Task<Object []> GetPeliculas() {
             Object [] response = new Object [2];
             try {

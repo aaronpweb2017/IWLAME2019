@@ -163,6 +163,8 @@ id_valor_resolucion_PK_CSTR PRIMARY KEY(id_valor_resolucion)
 --ALTER TABLE ValorResolucion ADD CONSTRAINT
 --valor_resolucion_CK_CSTR CHECK(valor_resolucion LIKE '[624-1920]x[336-1080]')
 
+ALTER TABLE ValorResolucion ADD CONSTRAINT valor_resolucion_UN_CSTR UNIQUE(valor_resolucion)
+
 INSERT INTO ValorResolucion(valor_resolucion) VALUES
 ('624x352'), ('640x472'), ('688x336'), ('1024x576'), ('1056x592'),
 ('1152x648'), ('1280x526'), ('1280x534'), ('1280x542'), ('1280x690'),
