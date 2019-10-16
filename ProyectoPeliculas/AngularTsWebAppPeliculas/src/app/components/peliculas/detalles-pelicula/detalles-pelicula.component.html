@@ -1,55 +1,38 @@
 <div class="container-fluid animated-fade-in">
   <div class="panel-single text-center">
     <div class="mpost-title">
-      <h1 class="font-weight-bold">{{pelicula.nombre_pelicula}} ({{ pelicula.fecha_estreno | date: 'yyyy'}}) {{pelicula.idiomas}} HD {{detalleTecnico?.valor_resolucion.split('x')[1]}}p</h1>
+      <h1 class="font-weight-bold">{{pelicula.nombre_pelicula}} ({{ pelicula.fecha_estreno | date: 'yyyy'}}) | {{detalleTecnico?.valor_resolucion.split("x")[1]}}p</h1>
     </div>
     <div class="clearfix feature">
       <div class="col gro">
-        <span class="t">Calidad: </span> <span class="d">{{detalleTecnico?.valor_resolucion}}</span>
+        <span class="t">Resolución: </span> <span class="d">{{detalleTecnico?.valor_resolucion}} ({{detalleTecnico?.nombre_tipo_resolucion}})</span>
       </div>
       <div class="col gro">
-        <span class="t">Formato: </span><span class="d">{{detalleTecnico?.nombre_formato}}</span>
-      </div>
-      <div class="col gro">
-        <span class="t">Audio: </span><span class="d">{{pelicula.audios.split(', ')[0]}}</span>
+        <span class="t">Relaión de aspecto: </span> <span class="d">{{detalleTecnico?.valor_relacion_aspecto}}</span>
       </div>
       <div class="col gro" style="position: relative">
-        <span class="t">Tamaño: </span><span class="d">{{pelicula.peso}}MB</span>
-      </div>
-      <div class="col gro" style="position: relative">
-        <span class="t">Año: </span><span class="d">{{pelicula.fecha_estreno | date: 'yyyy'}}</span>
+        <span class="t">Fecha de estreno: </span><span class="d">{{pelicula.fecha_estreno | date: 'dd/MM/yyyy'}}</span>
       </div>
     </div><br>			
     <div class="clearfix text-center">
       <div class="sposter">
-        <img src="{{pelicula.rutaImagen}}" alt="{{pelicula.nombre_pelicula}}">
+        <img src="{{pelicula.urlImagen}}" alt="{{pelicula.nombre_pelicula}}">
       </div>
       <div class="row content-single">
         <div class="col text-center">
-          <p class="sinopsis">{{pelicula.sinopsis}}.</p>
-          <p class="detalles">
-            Formato: {{detalleTecnico?.nombre_formato}}<br>
-            Audio Principal: {{pelicula.audios.split(', ')[0]}}<br>
-            Audio Secundarios: {{pelicula.audios}}<br>
-            Subtitulos: {{pelicula.subtitulos}}<br>
-            Resolución: {{detalleTecnico?.valor_resolucion}}<br>
-            Calidad: HD {{detalleTecnico?.valor_resolucion.split('x')[1]}}p<br>
-          </p>
-        </div>
-        <div class="col text-center">
           <ul class="uk-list meta">                           
-            <li><b>Nombre Original: </b><span>{{pelicula.nombre_pelicula}}</span></li> 
+            <li><b>Número de película: </b><span>{{pelicula.id_pelicula}}</span></li> 
+            <li><b>Nombre: </b><span>{{pelicula.nombre_pelicula}}</span></li> 
             <li><b>Géneros: </b> <span>{{pelicula?.generos}}</span></li>
-            <li><b>País: </b> <span>{{pelicula.pais}}</span></li>
             <li><b>Directores: </b> <span>{{pelicula.directores}}</span></li> 
-            <li><b>Actores: </b> <span>{{pelicula.actores}}</span></li>
+            <li><b>Presupuesto: </b> <span>{{pelicula.presupuesto}}</span></li> 
+            <li><b>Recaudacion: </b> <span>{{pelicula.recaudacion}}</span></li> 
             <li><b>Lanzamiento: </b> <span>{{pelicula.fecha_estreno | date: 'dd/MM/yyyy'}}</span></li> 
+            <li><b>Calificación: </b> <span>{{pelicula.calificacion}}</span></li> 
+            <li><b>Sinopsis: </b> <span>{{pelicula.sinopsis}}</span></li> 
           </ul>
         </div>
       </div>
-    </div>
-    <div class="trailer">
-      <iframe width="720" height="405" src="//www.youtube.com/embed/TcMBFSGVi1c?rel=0&autoplay=0theme=lighthd=1" frameborder="0" allowfullscreen="true"></iframe>
     </div>
     <app-descargas [adminView]="false" [id_pelicula]="pelicula.id_pelicula"></app-descargas>
   </div>

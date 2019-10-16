@@ -12,13 +12,7 @@ namespace ASPNETCoreWebApiPeliculas.Models {
         public Decimal calificacion { get; set; }
         public string directores { get; set; }
         public string generos { get; set; }
-        public string idiomas { get; set; }
-        public string productoras { get; set; }
-        public string actores { get; set; }
-        public string pais { get; set; }
-        public string audios { get; set; }
-        public string subtitulos { get; set; }
-        public Decimal peso { get; set; }
+        public string urlImagen { get; set; }
         public int id_detalle { get; set; }
         public virtual DetalleTecnico detalleTecnico { get; set; }
         public virtual List<Descarga> descargas { get; set; }

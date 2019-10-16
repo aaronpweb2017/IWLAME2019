@@ -2,6 +2,7 @@
     padding: 4%;
     background: #0b0e10;
     display: block;
+    margin: 0 auto;
 }
 
 .panel-single .mpost-title h1 {
@@ -61,30 +62,13 @@ img {
     padding: 0 20px;
 }
 
-.panel-single .trailer {
-    margin-top: 20px;
-}
-
 .content-single {
-    font-size: 15px;
+    font-size: 18px;
     font-weight: 500;
     color: #738fa0;
     max-width: 555px;
     margin-left: 60px;
 
-}
-
-.sinopsis {
-    font-family: Arial, Helvetica, sans-serif;
-    color: #738FA0;
-    margin: 0px 0px 15px;
-    
-}
-
-.detalles {
-    font-family: impact;
-    font-size: medium;
-    color: rgb(84, 117, 170);
 }
 
 .uk-list {
@@ -103,7 +87,7 @@ img {
 .content-single .meta li b {
     color: #fff;
     font-weight: 500;
-    font-size: 14px;
+    font-size: 18px;
     font-weight: 300;
 }
 

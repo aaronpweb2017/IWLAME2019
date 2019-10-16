@@ -261,39 +261,9 @@
             class="form-control" placeholder="Movie Category">
         </div>
         <div class="form-group text-left">
-          <label class="text-dark font-weight-bold">Idiomas:</label>
-          <input [(ngModel)]="model.idiomas" [ngModelOptions]="{standalone: true}" type="text"
-            class="form-control" placeholder="Movie Language">
-        </div>
-        <div class="form-group text-left">
-          <label class="text-dark font-weight-bold">Productoras:</label>
-          <input [(ngModel)]="model.productoras" [ngModelOptions]="{standalone: true}" type="text"
-            class="form-control" placeholder="Movie Producer">
-        </div>
-        <div class="form-group text-left">
-          <label class="text-dark font-weight-bold">Actores:</label>
-          <input [(ngModel)]="model.actores" [ngModelOptions]="{standalone: true}" type="text"
-            class="form-control" placeholder="Movie Actors">
-        </div>
-        <div class="form-group text-left">
-          <label class="text-dark font-weight-bold">País:</label>
-          <input [(ngModel)]="model.pais" [ngModelOptions]="{standalone: true}" type="text"
-            class="form-control" placeholder="Movie Country">
-        </div>
-        <div class="form-group text-left">
-          <label class="text-dark font-weight-bold">Audios:</label>
-          <input [(ngModel)]="model.audios" [ngModelOptions]="{standalone: true}" type="text"
-            class="form-control" placeholder="Movie Audio">
-        </div>
-        <div class="form-group text-left">
-          <label class="text-dark font-weight-bold">Subtítulos:</label>
-          <input [(ngModel)]="model.subtitulos" [ngModelOptions]="{standalone: true}" type="text"
-            class="form-control" placeholder="Movie Subtitles">
-        </div>
-        <div class="form-group text-left">
-          <label class="text-dark font-weight-bold">Tamaño (MB):</label>
-          <input [(ngModel)]="model.peso" [ngModelOptions]="{standalone: true}" type="number"
-            min="0" max="20480" step="1" maxlength="5" class="form-control">
+          <label class="text-dark font-weight-bold">Url (portada):</label>
+          <input [(ngModel)]="model.urlImagen" [ngModelOptions]="{standalone: true}" type="text"
+            class="form-control" placeholder="Movie Cover Url">
         </div>
         <div class="form-group text-left">
           <label class="text-dark font-weight-bold">Detalle Técnico:</label>

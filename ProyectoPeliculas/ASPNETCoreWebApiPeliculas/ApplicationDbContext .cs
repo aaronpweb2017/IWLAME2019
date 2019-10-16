@@ -179,23 +179,8 @@ namespace ASPNETCoreWebApiPeliculas {
             HasColumnName("directores").HasColumnType("VARCHAR").HasMaxLength(100).IsRequired();
             modelBuilder.Entity<Pelicula>().Property(p => p.generos).
             HasColumnName("generos").HasColumnType("VARCHAR").HasMaxLength(80).IsRequired();
-            modelBuilder.Entity<Pelicula>().Property(p => p.idiomas).
-            HasColumnName("idiomas").HasColumnType("VARCHAR").HasMaxLength(80).IsRequired();
-            modelBuilder.Entity<Pelicula>().Property(p => p.productoras).
-            HasColumnName("productoras").HasColumnType("VARCHAR").HasMaxLength(80).IsRequired();
-            
-            modelBuilder.Entity<Pelicula>().Property(p => p.actores).
-            HasColumnName("actores").HasColumnType("VARCHAR").HasMaxLength(300).IsRequired();
-            modelBuilder.Entity<Pelicula>().Property(p => p.pais).
-            HasColumnName("pais").HasColumnType("VARCHAR").HasMaxLength(50).IsRequired();
-            modelBuilder.Entity<Pelicula>().Property(p => p.audios).
-            HasColumnName("audios").HasColumnType("VARCHAR").HasMaxLength(200).IsRequired();
-            modelBuilder.Entity<Pelicula>().Property(p => p.subtitulos).
-            HasColumnName("subtitulos").HasColumnType("VARCHAR").HasMaxLength(100).IsRequired();
-            modelBuilder.Entity<Pelicula>().Property(p => p.peso).
-            HasColumnName("peso").HasColumnType("DECIMAL(8,3)").IsRequired();;
-            
-                    
+            modelBuilder.Entity<Pelicula>().Property(p => p.urlImagen).
+            HasColumnName("urlImagen").HasColumnType("VARCHAR").HasMaxLength(300).IsRequired(); 
             modelBuilder.Entity<Pelicula>().Property(p => p.id_detalle).
             HasColumnName("id_detalle").HasColumnType("INT");
             modelBuilder.Entity<Pelicula>().HasKey(p => p.id_pelicula).HasName("id_pelicula_PK_CSTR");

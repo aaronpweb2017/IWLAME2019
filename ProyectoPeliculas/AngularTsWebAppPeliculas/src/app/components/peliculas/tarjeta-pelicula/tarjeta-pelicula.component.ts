@@ -39,15 +39,8 @@ export class TarjetaPeliculaComponent implements OnInit {
       calificacion: 0.0,
       directores: "",
       generos: "",
-      idiomas: "",
-      productoras: "",
-      actores: "",
-      pais: "",
-      audios: "",
-      subtitulos: "",
-      peso: 0,
       id_detalle: 0,
-      rutaImagen: "",
+      urlImagen: "",
     };
   }
 
@@ -62,7 +55,7 @@ export class TarjetaPeliculaComponent implements OnInit {
   crearPelicula() {
     this.peliculasService.crearPelicula(this.nuevapelicula).subscribe(
       response => {
-        if (response[1]) {
+        if (response[0]) {
           this.toastrService.success("Creación realizada con éxito.");
           this.router.navigate(['/home']); return;
         }
@@ -110,15 +103,8 @@ export class TarjetaPeliculaComponent implements OnInit {
       calificacion: this.pelicula.calificacion,
       directores: this.pelicula.directores,
       generos: this.pelicula.generos,
-      idiomas: this.pelicula.idiomas,
-      productoras: this.pelicula.productoras,
-      actores: this.pelicula.actores,
-      pais: this.pelicula.pais,
-      audios: this.pelicula.audios,
-      subtitulos: this.pelicula.subtitulos,
-      peso: this.pelicula.peso,
       id_detalle: this.pelicula.id_detalle,
-      rutaImagen: this.pelicula.rutaImagen
+      urlImagen: this.pelicula.urlImagen
     }]);
   }
 }

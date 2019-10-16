@@ -1,6 +1,6 @@
 <div *ngIf="pelicula" class="card animated-fade-in">
   <div class="poster">
-    <img src="{{pelicula.rutaImagen}}">
+    <img src="{{pelicula.urlImagen}}">
     <div class="details">
       <h4 class="font-weight-bold">
         {{pelicula?.nombre_pelicula}}<br>({{pelicula.fecha_estreno | date: 'yyyy'}})<br>
@@ -24,8 +24,6 @@
         <span><b>Fecha de estreno: </b>{{pelicula.fecha_estreno | date: 'dd/MM/yyyy'}}</span><br>
         <span><b>Presupuesto: </b>{{pelicula.presupuesto}}</span><br>
         <span><b>Recaudación: </b>{{pelicula.recaudacion}}</span><br>
-        <span><b>Idiomas: </b>{{pelicula.idiomas}}</span><br>
-        <span><b>Productoras: </b>{{pelicula.productoras}}</span><br>
       </div>
       <div class="form-details">
         <button class="btn btn-info" type="button" (click)="verDetallesPelicula()"><strong>Ver detalles</strong></button>
@@ -89,40 +87,10 @@
       <input [(ngModel)]="nuevapelicula.generos" [ngModelOptions]="{standalone: true}" type="text"
         class="form-control" id="movie-category" placeholder="Movie Category">
     </div>
-    <div class="form-group">
-      <label class="text-light font-weight-bold" for="movie-language">Idiomas:</label>
-      <input [(ngModel)]="nuevapelicula.idiomas" [ngModelOptions]="{standalone: true}" type="text"
-        class="form-control" id="movie-language" placeholder="Movie Language">
-    </div>
-    <div class="form-group">
-      <label class="text-light font-weight-bold" for="movie-producer">Productoras:</label>
-      <input [(ngModel)]="nuevapelicula.productoras" [ngModelOptions]="{standalone: true}" type="text"
-        class="form-control" id="movie-producer" placeholder="Movie Producer">
-    </div>
     <div class="form-group text-left">
-      <label class="text-light font-weight-bold" for="movie-actors">Actores:</label>
-      <input [(ngModel)]="nuevapelicula.actores" [ngModelOptions]="{standalone: true}" type="text"
-        class="form-control" placeholder="Movie Actors" id="movie-actors">
-    </div>
-    <div class="form-group text-left">
-      <label class="text-light font-weight-bold" for="movie-country">País:</label>
-      <input [(ngModel)]="nuevapelicula.pais" [ngModelOptions]="{standalone: true}" type="text"
-        class="form-control" placeholder="Movie Country" id="movie-country">
-    </div>
-    <div class="form-group text-left">
-      <label class="text-light font-weight-bold" for="movie-audio">Audios:</label>
-      <input [(ngModel)]="nuevapelicula.audios" [ngModelOptions]="{standalone: true}" type="text"
-        class="form-control" placeholder="Movie Audio" id="movie-audio">
-    </div>
-    <div class="form-group text-left">
-      <label class="text-light font-weight-bold" for="movie-subtitles">Subtítulos:</label>
-      <input [(ngModel)]="nuevapelicula.subtitulos" [ngModelOptions]="{standalone: true}" type="text"
-        class="form-control" placeholder="Movie Subtitles" id="movie-subtitles">
-    </div>
-    <div class="form-group text-left">
-      <label class="text-light font-weight-bold" for="movie-size">Tamaño (MB):</label>
-      <input [(ngModel)]="nuevapelicula.peso" [ngModelOptions]="{standalone: true}" type="number"
-        min="0" max="20480" step="1" maxlength="5" class="form-control" id="movie-size">
+      <label class="text-light font-weight-bold" for="movie-url-cover">Url (portada):</label>
+      <input [(ngModel)]="nuevapelicula.urlImagen" [ngModelOptions]="{standalone: true}" type="text"
+        class="form-control" placeholder="Movie Cover Url" id="movie-url-cover">
     </div>
     <div class="form-group">
       <label class="text-light font-weight-bold" for="movie-detail">Detalle:</label>

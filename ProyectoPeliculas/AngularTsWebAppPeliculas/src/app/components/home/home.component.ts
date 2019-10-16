@@ -39,68 +39,48 @@ export class HomeComponent implements OnInit {
           if (this.ordenamiento != null) {
             if (this.ordenamiento.includes("nombre")) {
               this.peliculas.sort((currentMovie, nextMovie): number => {
-                if (currentMovie.nombre_pelicula < nextMovie.nombre_pelicula) return -1;
-                if (currentMovie.nombre_pelicula > nextMovie.nombre_pelicula) return 1;
+                if (currentMovie.nombre_pelicula > nextMovie.nombre_pelicula) return -1;
+                if (currentMovie.nombre_pelicula < nextMovie.nombre_pelicula) return 1;
               });
             }
             else if (this.ordenamiento.includes("fecha")) {
               this.peliculas.sort((currentMovie, nextMovie): number => {
-                if (currentMovie.fecha_estreno < nextMovie.fecha_estreno) return -1;
-                if (currentMovie.fecha_estreno > nextMovie.fecha_estreno) return 1;
+                if (currentMovie.fecha_estreno > nextMovie.fecha_estreno) return -1;
+                if (currentMovie.fecha_estreno < nextMovie.fecha_estreno) return 1;
               });
             }
             else if (this.ordenamiento.includes("presupuesto")) {
               this.peliculas.sort((currentMovie, nextMovie): number => {
-                if (currentMovie.presupuesto < nextMovie.presupuesto) return -1;
-                if (currentMovie.presupuesto > nextMovie.presupuesto) return 1;
+                if (currentMovie.presupuesto > nextMovie.presupuesto) return -1;
+                if (currentMovie.presupuesto < nextMovie.presupuesto) return 1;
               });
             }
             else if (this.ordenamiento.includes("recaudacion")) {
               this.peliculas.sort((currentMovie, nextMovie): number => {
-                if (currentMovie.recaudacion < nextMovie.recaudacion) return -1;
-                if (currentMovie.recaudacion > nextMovie.recaudacion) return 1;
+                if (currentMovie.recaudacion > nextMovie.recaudacion) return -1;
+                if (currentMovie.recaudacion < nextMovie.recaudacion) return 1;
               });
             }
             else if (this.ordenamiento.includes("calificacion")) {
               this.peliculas.sort((currentMovie, nextMovie): number => {
-                if (currentMovie.calificacion < nextMovie.calificacion) return -1;
-                if (currentMovie.calificacion > nextMovie.calificacion) return 1;
+                if (currentMovie.calificacion > nextMovie.calificacion) return -1;
+                if (currentMovie.calificacion < nextMovie.calificacion) return 1;
               });
             }
             else if (this.ordenamiento.includes("directores")) {
               this.peliculas.sort((currentMovie, nextMovie): number => {
-                if (currentMovie.directores < nextMovie.directores) return -1;
-                if (currentMovie.directores > nextMovie.directores) return 1;
+                if (currentMovie.directores > nextMovie.directores) return -1;
+                if (currentMovie.directores < nextMovie.directores) return 1;
               });
             }
             else if (this.ordenamiento.includes("generos")) {
               this.peliculas.sort((currentMovie, nextMovie): number => {
-                if (currentMovie.generos < nextMovie.generos) return -1;
-                if (currentMovie.generos > nextMovie.generos) return 1;
-              });
-            }
-            else if (this.ordenamiento.includes("productoras")) {
-              this.peliculas.sort((currentMovie, nextMovie): number => {
-                if (currentMovie.productoras < nextMovie.productoras) return -1;
-                if (currentMovie.productoras > nextMovie.productoras) return 1;
-              });
-            }
-            else if (this.ordenamiento.includes("pais")) {
-              this.peliculas.sort((currentMovie, nextMovie): number => {
-                if (currentMovie.pais < nextMovie.pais) return -1;
-                if (currentMovie.pais > nextMovie.pais) return 1;
-              });
-            }
-            else if (this.ordenamiento.includes("tamaño")) {
-              this.peliculas.sort((currentMovie, nextMovie): number => {
-                if (currentMovie.peso < nextMovie.peso) return -1;
-                if (currentMovie.peso > nextMovie.peso) return 1;
+                if (currentMovie.generos > nextMovie.generos) return -1;
+                if (currentMovie.generos < nextMovie.generos) return 1;
               });
             }
           }
           this.peliculas.push(null);
-          for (let i: number = 0; i < this.peliculas.length - 1; i++)
-            this.peliculas[i].rutaImagen = "assets/img" + this.peliculas[i].nombre_pelicula + ".jpg";
           this.vistasService.getVistaDetallesTecnicos().subscribe(
             response => {
               if (response[0])

@@ -15,25 +15,25 @@ namespace ASPNETCoreWebApiPeliculas.Controllers
             this.peliculas = peliculas;
         }
 
-        //POST: https://localhost:5001/Api/Peliculas/CrearPelicula
+        //POST: https://189.186.51.66:443/Api/Peliculas/CrearPelicula
         [HttpPost] [ActionName("CrearPelicula")]
         public async Task<Object []> CreateMovieAsync([FromBody] Pelicula pelicula) {
             return await peliculas.CrearPelicula(pelicula);
         }
 
-        //GET: https://localhost:5001/Api/Peliculas/GetPeliculas
+        //GET: https://189.186.51.66:443/Api/Peliculas/GetPeliculas
         [HttpGet] [ActionName("GetPeliculas")]
         public async Task<Object []> GetMoviesAsync() {
             return await peliculas.GetPeliculas();
         }
 
-        //PUT: https://localhost:5001/Api/Peliculas/ActualizarPelicula
+        //PUT: https://189.186.51.66:443/Api/Peliculas/ActualizarPelicula
         [HttpPut] [ActionName("ActualizarPelicula")]
         public async Task<Object []> UpdateMovieAsync([FromBody] Pelicula pelicula) {
             return await peliculas.ActualizarPelicula(pelicula);
         }
 
-        //DELETE: https://localhost:5001/Api/Peliculas/EliminarPelicula?id_pelicula=[value]
+        //DELETE: https://189.186.51.66:443/Api/Peliculas/EliminarPelicula?id_pelicula=[value]
         [HttpDelete] [ActionName("EliminarPelicula")]
         public async Task<Object []> DeleteMovieAsync(int id_pelicula) {
             return await peliculas.EliminarPelicula(id_pelicula);

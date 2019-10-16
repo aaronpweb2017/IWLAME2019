@@ -141,7 +141,7 @@
         <pagination-controls id="downloadsPagination" (pageChange)="pageChanged($event)"></pagination-controls>
     </div>
 </div>
-<div *ngIf="!adminView" class="container-fluid" style="padding: 20px;">
+<div *ngIf="!adminView" class="container-fluid" style="padding: 20px; max-width: 855px;">
     <div class="col-xl-12 animated-fade-in">
         <table class="table table-bordered table-dark table-hover">
             <thead>
@@ -178,15 +178,15 @@
                     </tr>
                     <ng-container *ngIf="mostrarEnlaces[i] && descarga.id_pelicula == id_pelicula" id="accordion" class="collapse">
                         <tr *ngFor="let enlace of descarga?.enlaces;">
-                            <td class="text-center">
-                                <span *ngIf="enlace">{{enlace.id_enlace}}</span>
+                            <td *ngIf="enlace" class="text-center">
+                                <span>{{enlace.id_enlace}}</span>
                             </td>
-                            <td class="text-center" colspan="2">
-                                <span *ngIf="enlace">{{enlace.valor_enlace}}</span>
+                            <td *ngIf="enlace" class="text-center" colspan="2" style="text-align: justify;">
+                                <span>{{enlace.valor_enlace}}</span>
                             </td>
-                            <td class="text-center">
-                                <span *ngIf="enlace && enlace.status_enlace==0">Inactivo</span>
-                                <span *ngIf="enlace && enlace.status_enlace==1">Activo</span>
+                            <td *ngIf="enlace" class="text-center">
+                                <span *ngIf="enlace.status_enlace==0">Inactivo</span>
+                                <span *ngIf="enlace.status_enlace==1">Activo</span>
                             </td>
                         </tr>
                     </ng-container>

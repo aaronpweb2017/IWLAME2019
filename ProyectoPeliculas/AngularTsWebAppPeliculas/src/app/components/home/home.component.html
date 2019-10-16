@@ -6,7 +6,9 @@
         [pelicula]="pelicula"
         [detallesTecnicos]="detallesTecnicos">
       </app-tarjeta-pelicula>
-      <app-tarjeta-pelicula *ngIf="!pelicula"></app-tarjeta-pelicula>
+      <app-tarjeta-pelicula  *ngIf="!pelicula"
+        [detallesTecnicos]="detallesTecnicos">
+      </app-tarjeta-pelicula>
     </div>
   </div>
 </div>

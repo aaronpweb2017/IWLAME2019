@@ -29,15 +29,8 @@ export class DetallesPeliculaComponent implements OnInit {
       calificacion: Number(this.route.snapshot.paramMap.get('calificacion')),
       directores: this.route.snapshot.paramMap.get('directores'),
       generos: this.route.snapshot.paramMap.get('generos'),
-      idiomas: this.route.snapshot.paramMap.get('idiomas'),
-      productoras: this.route.snapshot.paramMap.get('productoras'),
-      actores: this.route.snapshot.paramMap.get('actores'),
-      pais: this.route.snapshot.paramMap.get('pais'),
-      audios: this.route.snapshot.paramMap.get('audios'),
-      subtitulos: this.route.snapshot.paramMap.get('subtitulos'),
-      peso: Number(this.route.snapshot.paramMap.get('peso')),
       id_detalle: Number(this.route.snapshot.paramMap.get('id_detalle')),
-      rutaImagen: this.route.snapshot.paramMap.get('rutaImagen')
+      urlImagen: this.route.snapshot.paramMap.get('urlImagen')
     }
     this.vistasService.getVistaDetalleTecnicoPelicula(this.pelicula.id_pelicula).subscribe(
       response => {
