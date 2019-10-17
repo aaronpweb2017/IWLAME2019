@@ -20,7 +20,8 @@ export class DescargasComponent implements OnInit {
   @Input() adminView: boolean;
   @Input() id_pelicula: number;
   totalPages: number;
-  currentPage: number;
+  //currentPage: number;
+  @Input() currentPage: number;
   currentItemsPerPage: number;
   paginationConfig: any;
   descargas: VDescarga[];
@@ -35,8 +36,8 @@ export class DescargasComponent implements OnInit {
 
   constructor(private vistasService: VistasService, private descargasService: DescargasService,
     private peliculasService: PeliculasService, private router: Router, private route:
-      ActivatedRoute, private toastrService: ToastrService) {
-    this.totalPages = 0; this.currentPage = 1; this.currentItemsPerPage = 0;
+    ActivatedRoute, private toastrService: ToastrService) {
+    this.totalPages = 0; this.currentItemsPerPage = 0;
     this.paginationConfig = { itemsPerPage: 0, currentPage: 0, totalItems: 0 };
   }
 
@@ -67,6 +68,7 @@ export class DescargasComponent implements OnInit {
           this.descargas.push(null);
           this.mostrarEnlaces = new Array(this.descargas.length).fill(false);
           this.crearEnlaces = new Array(this.descargas.length).fill(false);
+          if(this.currentPage == 0) this.currentPage = 1;
           this.paginationConfig = {
             itemsPerPage: 5,
             currentPage: this.currentPage,
@@ -142,7 +144,8 @@ export class DescargasComponent implements OnInit {
       response => {
         if (response[0]) {
           this.toastrService.success("Creación realizada con éxito.");
-          this.router.navigate(['/adminDescargas']); return;
+          this.router.navigate(['/adminDescargas', { currentPageDescargas: this.currentPage }]);
+          return;
         }
         this.toastrService.error(response[1]);
       },
@@ -161,7 +164,7 @@ export class DescargasComponent implements OnInit {
       response => {
         if (response[0]) {
           this.toastrService.success("Actualización realizada con éxito.");
-          this.router.navigate(['/adminDescargas']);
+          this.router.navigate(['/adminDescargas', { currentPageDescargas: this.currentPage }]);
           this.inicializaDescarga(); return;
         }
         this.toastrService.error(response[1]);
@@ -176,7 +179,8 @@ export class DescargasComponent implements OnInit {
       response => {
         if (response[0]) {
           this.toastrService.success("Eliminación realizada con éxito.");
-          this.router.navigate(['/adminDescargas']); return;
+          this.router.navigate(['/adminDescargas', { currentPageDescargas: this.currentPage }]);
+          return;
         }
         this.toastrService.error(response[1]);
       },
@@ -191,7 +195,8 @@ export class DescargasComponent implements OnInit {
       response => {
         if (response[0]) {
           this.toastrService.success("Creación realizada con éxito.");
-          this.router.navigate(['/adminDescargas']); return;
+          this.router.navigate(['/adminDescargas', { currentPageDescargas: this.currentPage }]);
+          return;
         }
         this.toastrService.error(response[1]);
       },
@@ -205,7 +210,8 @@ export class DescargasComponent implements OnInit {
       response => {
         if (response[0]) {
           this.toastrService.success("Actualización realizada con éxito.");
-          this.router.navigate(['/adminDescargas']); return;
+          this.router.navigate(['/adminDescargas', { currentPageDescargas: this.currentPage }]);
+          return;
         }
         this.toastrService.error(response[1]);
       },
@@ -220,7 +226,8 @@ export class DescargasComponent implements OnInit {
         console.log(response);
         if (response[0]) {
           this.toastrService.success("Eliminación realizada con éxito.");
-          this.router.navigate(['/adminDescargas']); return;
+          this.router.navigate(['/adminDescargas', { currentPageDescargas: this.currentPage }]);
+          return;
         }
         this.toastrService.error(response[1]);
       },

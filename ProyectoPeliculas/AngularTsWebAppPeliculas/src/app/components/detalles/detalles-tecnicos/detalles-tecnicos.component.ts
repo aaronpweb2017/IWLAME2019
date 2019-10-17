@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { VistasService } from 'src/app/services/vistas.service';
@@ -15,7 +15,7 @@ import { DetalleTecnico } from 'src/app/interfaces/detalles/detalle-tecnico';
 })
 export class DetallesTecnicosComponent implements OnInit {
   totalPages: number;
-  currentPage: number;
+  @Input() currentPage: number;
   currentItemsPerPage: number;
   paginationConfig: any;
   detallesTecnicos: VDetalleTecnico[];
@@ -27,7 +27,7 @@ export class DetallesTecnicosComponent implements OnInit {
 
   constructor(private vistasService: VistasService, private detallesTecnicosService: DetallesTecnicosService,
     private router: Router, private route: ActivatedRoute, private toastrService: ToastrService) {
-    this.totalPages = 0; this.currentPage = 1; this.currentItemsPerPage = 0;
+    this.totalPages = 0; this.currentItemsPerPage = 0;
     this.paginationConfig = { itemsPerPage: 0, currentPage: 0, totalItems: 0 };
   }
   ngOnInit() {
@@ -40,6 +40,7 @@ export class DetallesTecnicosComponent implements OnInit {
         if (response[0]) {
           this.detallesTecnicos = response[0];
           this.detallesTecnicos.push(null);
+          if(this.currentPage == 0) this.currentPage = 1;
           this.paginationConfig = {
             itemsPerPage: 5,
             currentPage: this.currentPage,
@@ -89,7 +90,7 @@ export class DetallesTecnicosComponent implements OnInit {
       response => {
         if (response[0]) {
           this.toastrService.success("Creación realizada con éxito.");
-          this.router.navigate(['/adminDetalles']);
+          this.router.navigate(['/adminDetalles', { currentPageDetallesTecnicos: this.currentPage }]);
           this.inicializaDetalleTecnico(); return;
         }
         this.toastrService.error(response[1]);
@@ -108,7 +109,7 @@ export class DetallesTecnicosComponent implements OnInit {
       response => {
         if (response[0]) {
           this.toastrService.success("Actualización realizada con éxito.");
-          this.router.navigate(['/adminDetalles']); return;
+          this.router.navigate(['/adminDetalles', { currentPageDetallesTecnicos: this.currentPage }]); return;
         }
         this.toastrService.error(response[1]);
       }, error => {
@@ -121,7 +122,7 @@ export class DetallesTecnicosComponent implements OnInit {
       response => {
         if (response[0]) {
           this.toastrService.success("Eliminación realizada con éxito.");
-          this.router.navigate(['/adminDetalles']); return;
+          this.router.navigate(['/adminDetalles', { currentPageDetallesTecnicos: this.currentPage }]); return;
         }
         this.toastrService.error(response[1]);
       }, error => {

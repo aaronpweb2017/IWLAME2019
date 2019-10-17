@@ -44,5 +44,11 @@ namespace ASPNETCoreWebApiPeliculas.Controllers
         public async Task<Object []> DeleteMovieAsync(int id_pelicula) {
             return await peliculas.EliminarPelicula(id_pelicula);
         }
+
+        //GET: https://189.186.51.66:443/Api/Peliculas/GetNoDescargasPelicula?id_pelicula=[value]
+        [HttpGet] [ActionName("GetNoDescargasPelicula")]
+        public async Task<Object []> GetNoMovieDownloads(int id_pelicula) {
+            return await peliculas.GetNoDescargasPelicula(id_pelicula);
+        }
     }
 }

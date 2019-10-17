@@ -103,5 +103,18 @@ namespace ASPNETCoreWebApiPeliculas
             }
             return response;
         }
+
+        public async Task<Object []> GetNoDescargasPelicula(int id_pelicula) {
+            Object [] response = new Object [2];
+            try {
+                List<Descarga> descargas = await AppDbContext.descargas.Where(d => d.id_pelicula == id_pelicula).ToListAsync();
+                response[0] = descargas.Count;
+            }
+            catch(Exception exception) {
+                response[1] = (exception.InnerException != null) ?
+                exception.InnerException.Message : exception.Message;
+            }
+            return response;
+        }
     }
 }

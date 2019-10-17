@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Servidor } from 'src/app/interfaces/descargas/servidor';
@@ -11,7 +11,7 @@ import { DescargasService } from 'src/app/services/descargas.service';
 })
 export class ServidoresComponent implements OnInit {
   totalPages: number;
-  currentPage: number;
+  @Input() currentPage: number;
   currentItemsPerPage: number;
   paginationConfig: any;
   servidores: Servidor[];
@@ -20,7 +20,7 @@ export class ServidoresComponent implements OnInit {
 
   constructor(private descargasService: DescargasService, private router: Router,
     private route: ActivatedRoute, private toastrService: ToastrService) {
-    this.totalPages = 0; this.currentPage = 1; this.currentItemsPerPage = 0;
+    this.totalPages = 0; this.currentItemsPerPage = 0;
     this.paginationConfig = { itemsPerPage: 0, currentPage: 0, totalItems: 0 };
   }
 
@@ -31,6 +31,7 @@ export class ServidoresComponent implements OnInit {
       response => {
         if (response[0]) {
           this.servidores = response[0]; this.servidores.push(null);
+          if(this.currentPage == 0) this.currentPage = 1;
           this.paginationConfig = {
             itemsPerPage: 5,
             currentPage: this.currentPage,
@@ -56,7 +57,8 @@ export class ServidoresComponent implements OnInit {
       response => {
         if (response[0]) {
           this.toastrService.success("Creación realizada con éxito.");
-          this.router.navigate(['/adminDescargas']); return;
+          this.router.navigate(['/adminDescargas', { currentPageServidores: this.currentPage }]);
+          return;
         }
         this.toastrService.error(response[1]);
       }, error => {
@@ -69,7 +71,8 @@ export class ServidoresComponent implements OnInit {
       response => {
         if (response[0]) {
           this.toastrService.success("Actualización realizada con éxito.");
-          this.router.navigate(['/adminDescargas']); return;
+          this.router.navigate(['/adminDescargas', { currentPageServidores: this.currentPage }]);
+          return;
         }
         this.toastrService.error(response[1]);
       }, error => {
@@ -82,7 +85,8 @@ export class ServidoresComponent implements OnInit {
       response => {
         if (response[0]) {
           this.toastrService.success("Eliminación realizada con éxito.");
-          this.router.navigate(['/adminDescargas']); return;
+          this.router.navigate(['/adminDescargas', { currentPageServidores: this.currentPage }]);
+          return;
         }
         this.toastrService.error(response[1]);
       }, error => {

@@ -3,11 +3,11 @@
       <span class="font-weight-bold text-light poppins">{{title}}</span>
     </h1>
   <div class="col-xl-12 animated-fade-in">
-    <app-formato></app-formato>
-    <app-tipos-resolucion></app-tipos-resolucion>
-    <app-valores-resolucion></app-valores-resolucion>
-    <app-relaciones-aspecto></app-relaciones-aspecto>
-    <app-resoluciones></app-resoluciones>  
-    <app-detalles-tecnicos></app-detalles-tecnicos>
+    <app-formato [currentPage]="currentPageFormato"></app-formato>
+    <app-tipos-resolucion [currentPage]="currentPageTiposResolucion"></app-tipos-resolucion>
+    <app-valores-resolucion [currentPage]="currentPageValoresResolucion"></app-valores-resolucion>
+    <app-relaciones-aspecto [currentPage]="currentPageRelacionesAspecto"></app-relaciones-aspecto>
+    <app-resoluciones [currentPage]="currentPageResoluciones"></app-resoluciones>  
+    <app-detalles-tecnicos [currentPage]="currentPageDetallesTecnicos"></app-detalles-tecnicos>
   </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { VistasService } from 'src/app/services/vistas.service';
@@ -16,7 +16,7 @@ import { Resolucion } from 'src/app/interfaces/detalles/resoluciones/resolucion'
 })
 export class ResolucionesComponent implements OnInit {
   totalPages: number;
-  currentPage: number;
+  @Input() currentPage: number;
   currentItemsPerPage: number;
   paginationConfig: any;
   resoluciones: VResolucion[];
@@ -28,7 +28,7 @@ export class ResolucionesComponent implements OnInit {
 
   constructor(private vistasService: VistasService, private detallesTecnicosService: DetallesTecnicosService,
     private router: Router, private route: ActivatedRoute, private toastrService: ToastrService) {
-    this.totalPages = 0; this.currentPage = 1; this.currentItemsPerPage = 0;
+    this.totalPages = 0; this.currentItemsPerPage = 0;
     this.paginationConfig = { itemsPerPage: 0, currentPage: 0, totalItems: 0 };
   }
 
@@ -40,6 +40,7 @@ export class ResolucionesComponent implements OnInit {
       response => {
         if (response[0]) {
           this.resoluciones = response[0]; this.resoluciones.push(null);
+          if(this.currentPage == 0) this.currentPage = 1;
           this.paginationConfig = {
             itemsPerPage: 5,
             currentPage: this.currentPage,
@@ -86,7 +87,7 @@ export class ResolucionesComponent implements OnInit {
       response => {
         if (response[0]) {
           this.toastrService.success("Creación realizada con éxito.");
-          this.router.navigate(['/adminDetalles']); return;
+          this.router.navigate(['/adminDetalles', { currentPageResoluciones: this.currentPage }]); return;
         }
         this.toastrService.error(response[1]);
       }, error => {
@@ -100,7 +101,7 @@ export class ResolucionesComponent implements OnInit {
         response => {
           if (response[0]) {
             this.toastrService.success("Eliminación realizada con éxito.");
-            this.router.navigate(['/adminDetalles']); return;
+            this.router.navigate(['/adminDetalles', { currentPageResoluciones: this.currentPage }]); return;
           }
           this.toastrService.error(response[1]);
         }, error => {

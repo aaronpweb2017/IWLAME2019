@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-admin-descargas',
@@ -9,12 +9,18 @@ import { Router } from '@angular/router';
 
 export class AdminDescargasComponent implements OnInit {
   title: string;
+  currentPageTiposArchivo: number;
+  currentPageServidores: number;
+  currentPageDescargas: number;
   
-  constructor(private router: Router) {
+  constructor(private router: Router, private route: ActivatedRoute) {
     this.router.routeReuseStrategy.shouldReuseRoute = function () { return false; };
   }
   
   ngOnInit() {
-    this.title = "Administración de descargas de películas"
+    this.title = "Administración de descargas de películas";
+    this.currentPageTiposArchivo = Number(this.route.snapshot.paramMap.get('currentPageTiposArchivo'));
+    this.currentPageServidores = Number(this.route.snapshot.paramMap.get('currentPageServidores'));
+    this.currentPageDescargas = Number(this.route.snapshot.paramMap.get('currentPageDescargas'));
   }
 }

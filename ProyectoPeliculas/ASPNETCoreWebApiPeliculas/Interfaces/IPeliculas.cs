@@ -11,5 +11,6 @@ namespace ASPNETCoreWebApiPeliculas
         Task<Object []> GetPeliculas();
         Task<Object []> ActualizarPelicula(Pelicula pelicula);
         Task<Object []> EliminarPelicula(int id_pelicula);
+        Task<Object []> GetNoDescargasPelicula(int id_pelicula);
     }
 }

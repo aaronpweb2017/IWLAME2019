@@ -107,7 +107,7 @@
                                 <span *ngIf="crearEnlaces[i] && !enlace">{{descarga.enlaces[descarga.enlaces.length-2]?.id_enlace+1}}</span>
                             </td>
                             <td class="text-center" colspan="3">
-                                <span *ngIf="enlace">{{enlace.valor_enlace}}</span>
+                                <span *ngIf="enlace"><a href="{{enlace.valor_enlace}}">{{enlace.valor_enlace}}</a></span>
                                 <input *ngIf="crearEnlaces[i] && !enlace" [(ngModel)]="nuevoEnlace.valor_enlace" type="text" class="form-control" autofocus="">
                             </td>
                             <td class="text-center">
@@ -182,7 +182,7 @@
                                 <span>{{enlace.id_enlace}}</span>
                             </td>
                             <td *ngIf="enlace" class="text-center" colspan="2" style="text-align: justify;">
-                                <span>{{enlace.valor_enlace}}</span>
+                                <span><a href="{{enlace.valor_enlace}}">{{enlace.valor_enlace}}</a></span>
                             </td>
                             <td *ngIf="enlace" class="text-center">
                                 <span *ngIf="enlace.status_enlace==0">Inactivo</span>

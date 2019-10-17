@@ -14,6 +14,7 @@ export class PeliculasService {
     private ApiGetPeliculasURL: string;
     private ApiActualizarPeliculaURL: string;
     private ApiEliminarPeliculaURL: string;
+    private ApiGetNoDescargasPeliculaURL: string;
 
     constructor(private http: HttpClient) {
         this.ApiPeliculasURL = localStorage.getItem('apiUrl') + "/Peliculas";
@@ -52,6 +53,13 @@ export class PeliculasService {
         this.ApiEliminarPeliculaURL = this.ApiPeliculasURL
             + "/EliminarPelicula?id_pelicula=" + id_pelicula;
         return this.http.delete(this.ApiEliminarPeliculaURL,
+            { headers: this.header }).pipe(map((data: any) => data as any[]));
+    }
+
+    getNoDescargasPelicula(id_pelicula: number): Observable<any[]> {
+        this.ApiGetNoDescargasPeliculaURL = this.ApiPeliculasURL
+        + "/GetNoDescargasPelicula?id_pelicula="+ id_pelicula;
+        return this.http.get(this.ApiGetNoDescargasPeliculaURL,
             { headers: this.header }).pipe(map((data: any) => data as any[]));
     }
 }

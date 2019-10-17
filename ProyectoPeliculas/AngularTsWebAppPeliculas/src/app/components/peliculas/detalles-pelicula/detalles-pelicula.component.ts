@@ -14,6 +14,7 @@ import { PeliculasService } from 'src/app/services/peliculas.service';
 export class DetallesPeliculaComponent implements OnInit {
   id_pelicula: number;
   pelicula: Pelicula;
+  no_descargas: number;
   detalleTecnico: VDetalleTecnico;
 
   constructor(private peliculasService: PeliculasService, private vistasService: VistasService,
@@ -21,12 +22,21 @@ export class DetallesPeliculaComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.no_descargas = 0;
     this.id_pelicula = Number(this.route.snapshot.paramMap.get('id_pelicula'));
-
     this.peliculasService.getPelicula(this.id_pelicula).subscribe(
       response => {
         if (response[0]) {
           this.pelicula = response[0]; return;
+        }
+        this.toastrService.error(response[1]);
+      }, error => {
+        this.toastrService.error(error.message);
+      });
+    this.peliculasService.getNoDescargasPelicula(this.id_pelicula).subscribe(
+      response => {
+        if (response[0] != null) {
+          this.no_descargas = response[0]; return;
         }
         this.toastrService.error(response[1]);
       }, error => {

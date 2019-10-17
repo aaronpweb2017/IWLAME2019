@@ -30,7 +30,10 @@ export class HomeComponent implements OnInit {
         if (response[0]) {
           if (this.busqueda != null && this.busqueda != "") {
             for (let i: number = 0; i < response[0].length; i++) {
-              if (response[0][i].nombre_pelicula.includes(this.busqueda))
+              if (response[0][i].nombre_pelicula.includes(this.busqueda)
+                || response[0][i].sinopsis.includes(this.busqueda)
+                || response[0][i].directores.includes(this.busqueda)
+                || response[0][i].generos.includes(this.busqueda))
                 this.peliculas.push(response[0][i])
             }
           }
