@@ -39,7 +39,7 @@
                         </td>
                         <td class="text-center">
                             <span *ngIf="descarga && descarga.password_descarga!=''">{{descarga.password_descarga}}</span>
-                            <span *ngIf="descarga && descarga.password_descarga==''">NINGUNA</span>
+                            <span *ngIf="descarga && descarga.password_descarga==''">SIN CONTRASEÑA</span>
                             <input *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1" 
                             [(ngModel)]="nuevaDescarga.password_descarga" type="text" class="form-control" autofocus="">
                         </td>
@@ -173,20 +173,13 @@
                         </td>
                         <td class="text-center">
                             <span *ngIf="descarga && descarga.password_descarga!=''">{{descarga.password_descarga}}</span>
-                            <span *ngIf="descarga && descarga.password_descarga==''">NINGUNA</span>
+                            <span *ngIf="descarga && descarga.password_descarga==''">SIN CONTRASEÑA</span>
                         </td>
                     </tr>
                     <ng-container *ngIf="mostrarEnlaces[i] && descarga.id_pelicula == id_pelicula" id="accordion" class="collapse">
-                        <tr *ngFor="let enlace of descarga?.enlaces;">
-                            <td *ngIf="enlace" class="text-center">
-                                <span>{{enlace.id_enlace}}</span>
-                            </td>
-                            <td *ngIf="enlace" class="text-center" colspan="2" style="text-align: justify;">
+                        <tr *ngFor="let enlace of descarga?.enlaces; let j = index;">
+                            <td *ngIf="enlace" class="text-center" colspan="4" style="text-align: justify;">
                                 <span><a href="{{enlace.valor_enlace}}">{{enlace.valor_enlace}}</a></span>
-                            </td>
-                            <td *ngIf="enlace" class="text-center">
-                                <span *ngIf="enlace.status_enlace==0">Inactivo</span>
-                                <span *ngIf="enlace.status_enlace==1">Activo</span>
                             </td>
                         </tr>
                     </ng-container>

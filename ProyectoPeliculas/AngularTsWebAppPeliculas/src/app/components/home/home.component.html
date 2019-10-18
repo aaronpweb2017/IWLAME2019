@@ -4,10 +4,12 @@
     <div class="col-xl column animated-fade-in" *ngFor="let pelicula of peliculas;" >
       <app-tarjeta-pelicula *ngIf="pelicula"
         [pelicula]="pelicula"
-        [detallesTecnicos]="detallesTecnicos">
+        [detallesTecnicos]="detallesTecnicos"
+        [categorias]="categorias">
       </app-tarjeta-pelicula>
       <app-tarjeta-pelicula  *ngIf="!pelicula"
-        [detallesTecnicos]="detallesTecnicos">
+        [detallesTecnicos]="detallesTecnicos"
+        [categorias]="categorias">
       </app-tarjeta-pelicula>
     </div>
   </div>

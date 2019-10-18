@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using ASPNETCoreWebApiPeliculas.Views;
 
 namespace ASPNETCoreWebApiPeliculas
 {
@@ -12,5 +11,6 @@ namespace ASPNETCoreWebApiPeliculas
         Task<Object []> GetVistaDetallesTecnicos();
         Task<Object []> GetVistaDetalleTecnicoPelicula(int id_pelicula);
         Task<Object []> GetVistaDescargas();
+        Task<Object []> GetVistaDescargasPelicula(int id_pelicula);
     }
 }

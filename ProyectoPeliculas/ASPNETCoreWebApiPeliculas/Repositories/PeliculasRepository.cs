@@ -62,7 +62,6 @@ namespace ASPNETCoreWebApiPeliculas
                 Pelicula movieToUpdate = await AppDbContext.peliculas.Where(p =>
                     p.id_pelicula == pelicula.id_pelicula).FirstOrDefaultAsync();
                 movieToUpdate.nombre_pelicula = pelicula.nombre_pelicula;
-                //SI CAMBIAS EL NOMBRE DE LA PELÍCULA CAMBIA EL NOMBRE DE SU IMAGEN.
                 movieToUpdate.fecha_estreno = pelicula.fecha_estreno;
                 movieToUpdate.presupuesto = pelicula.presupuesto;
                 movieToUpdate.recaudacion = pelicula.recaudacion;
@@ -96,19 +95,6 @@ namespace ASPNETCoreWebApiPeliculas
                 AppDbContext.peliculas.Remove(movieToDelete);
                 await AppDbContext.SaveChangesAsync();
                 response[0] = true;
-            }
-            catch(Exception exception) {
-                response[1] = (exception.InnerException != null) ?
-                exception.InnerException.Message : exception.Message;
-            }
-            return response;
-        }
-
-        public async Task<Object []> GetNoDescargasPelicula(int id_pelicula) {
-            Object [] response = new Object [2];
-            try {
-                List<Descarga> descargas = await AppDbContext.descargas.Where(d => d.id_pelicula == id_pelicula).ToListAsync();
-                response[0] = descargas.Count;
             }
             catch(Exception exception) {
                 response[1] = (exception.InnerException != null) ?

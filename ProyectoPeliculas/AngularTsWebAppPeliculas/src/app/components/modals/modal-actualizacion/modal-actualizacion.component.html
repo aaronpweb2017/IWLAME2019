@@ -258,7 +258,10 @@
         <div class="form-group text-left">
           <label class="text-dark font-weight-bold">Géneros:</label>
           <input [(ngModel)]="model.generos" [ngModelOptions]="{standalone: true}" type="text"
-            class="form-control" placeholder="Movie Category">
+            class="form-control" placeholder="Movie Category" style="margin-bottom: 10px;">
+          <select [(ngModel)]="genero" [ngModelOptions]="{standalone: true}" class="form-control"><hr>
+            <option *ngFor="let categoria of categorias;" [value]="categoria">{{categoria}}</option>
+          </select>
         </div>
         <div class="form-group text-left">
           <label class="text-dark font-weight-bold">Url (portada):</label>

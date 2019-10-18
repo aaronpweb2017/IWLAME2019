@@ -1,7 +1,7 @@
 <div class="container-fluid animated-fade-in">
   <div class="panel-single text-center">
     <div class="mpost-title">
-      <h1 class="font-weight-bold">{{pelicula.nombre_pelicula}} ({{ pelicula.fecha_estreno | date: 'yyyy'}}) | {{detalleTecnico?.valor_resolucion.split("x")[1]}}p</h1>
+      <h1 class="font-weight-bold">{{pelicula?.nombre_pelicula}} ({{ pelicula?.fecha_estreno | date: 'yyyy'}}) | {{detalleTecnico?.valor_resolucion.split("x")[1]}}p</h1>
     </div>
     <div class="clearfix feature">
       <div class="col gro">
@@ -14,25 +14,25 @@
         <span class="t">No. Descargas: </span><span class="d">{{no_descargas}}</span>
       </div>
       <div class="col gro" style="position: relative">
-        <span class="t">Estreno: </span><span class="d">{{pelicula.fecha_estreno | date: 'dd/MM/yyyy'}}</span>
+        <span class="t">Estreno: </span><span class="d">{{pelicula?.fecha_estreno | date: 'dd/MM/yyyy'}}</span>
       </div>
     </div><br>			
     <div class="clearfix text-center">
       <div class="sposter">
-        <img src="{{pelicula.urlImagen}}" alt="{{pelicula.nombre_pelicula}}">
+        <img src="{{pelicula?.urlImagen}}" alt="{{pelicula?.nombre_pelicula}}">
       </div>
       <div class="row content-single">
         <div class="col text-center">
           <ul class="uk-list meta">                           
-            <li><b>Número de película: </b><span>{{pelicula.id_pelicula}}</span></li> 
-            <li><b>Nombre: </b><span>{{pelicula.nombre_pelicula}}</span></li> 
+            <li><b>Número de película: </b><span>{{pelicula?.id_pelicula}}</span></li> 
+            <li><b>Nombre: </b><span>{{pelicula?.nombre_pelicula}}</span></li> 
             <li><b>Géneros: </b> <span>{{pelicula?.generos}}</span></li>
-            <li><b>Directores: </b> <span>{{pelicula.directores}}</span></li> 
-            <li><b>Presupuesto: </b> <span>{{pelicula.presupuesto}}</span></li> 
-            <li><b>Recaudacion: </b> <span>{{pelicula.recaudacion}}</span></li> 
-            <li><b>Lanzamiento: </b> <span>{{pelicula.fecha_estreno | date: 'dd/MM/yyyy'}}</span></li> 
-            <li><b>Calificación: </b> <span>{{pelicula.calificacion}}</span></li> 
-            <li><b>Sinopsis: </b> <span>{{pelicula.sinopsis}}</span></li> 
+            <li><b>Directores: </b> <span>{{pelicula?.directores}}</span></li> 
+            <li><b>Presupuesto: </b> <span>{{pelicula?.presupuesto}}USD</span></li> 
+            <li><b>Recaudacion: </b> <span>{{pelicula?.recaudacion}}USD</span></li> 
+            <li><b>Lanzamiento: </b> <span>{{pelicula?.fecha_estreno | date: 'dd/MM/yyyy'}}</span></li> 
+            <li><b>Calificación: </b> <span>{{pelicula?.calificacion}}</span></li> 
+            <li><b>Sinopsis: </b> <span>{{pelicula?.sinopsis}}</span></li> 
           </ul>
         </div>
       </div>

@@ -14,7 +14,10 @@ import { Router } from '@angular/router';
 export class TarjetaPeliculaComponent implements OnInit {
   @Input() pelicula: Pelicula;
   @Input() detallesTecnicos: VDetalleTecnico[];
-  directores: string[]; generos: string[];
+  @Input() categorias: string[];
+  directores: string[];
+  generos: string[];
+  genero: string;
   nuevapelicula: Pelicula;
   create: boolean;
 
@@ -42,6 +45,7 @@ export class TarjetaPeliculaComponent implements OnInit {
       id_detalle: 0,
       urlImagen: "",
     };
+    this.genero = "";
   }
 
   isAdmin() {
@@ -53,6 +57,9 @@ export class TarjetaPeliculaComponent implements OnInit {
   }
 
   crearPelicula() {
+    this.nuevapelicula.presupuesto = this.nuevapelicula.presupuesto * 1000000;
+    this.nuevapelicula.recaudacion = this.nuevapelicula.recaudacion * 1000000;
+    if (this.genero != "") { this.nuevapelicula.generos = this.genero; }
     this.peliculasService.crearPelicula(this.nuevapelicula).subscribe(
       response => {
         if (response[0]) {
@@ -66,7 +73,6 @@ export class TarjetaPeliculaComponent implements OnInit {
   }
 
   actualizarPelicula(pelicula: Pelicula) {
-    console.log(pelicula);
     this.peliculasService.actualizarPelicula(pelicula).subscribe(
       response => {
         if (response[0]) {

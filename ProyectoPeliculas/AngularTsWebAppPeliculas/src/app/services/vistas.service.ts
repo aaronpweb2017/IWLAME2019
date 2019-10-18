@@ -6,7 +6,6 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class VistasService {
   private ApiVistasURL: string;
-  private token: string;
   private header: HttpHeaders;
   private ApiGetVistaSolicitudesURL: string;
   private ApiGetVistaTokensURL: string;
@@ -14,6 +13,7 @@ export class VistasService {
   private ApiGetVistaDetallesTecnicosURL: string;
   private ApiGetVistaDetalleTecnicoPeliculaURL: string;
   private ApiGetVistaDescargasURL: string;
+  private ApiGetVistaDescargasPeliculaURL: string;
 
   constructor(private http: HttpClient) {
     this.ApiVistasURL = localStorage.getItem('apiUrl') + "/Vistas";
@@ -57,6 +57,13 @@ export class VistasService {
   getVistaDescargas(): Observable<any[]> {
     this.ApiGetVistaDescargasURL = this.ApiVistasURL + "/GetVistaDescargas";
     return this.http.get(this.ApiGetVistaDescargasURL,
+      { headers: this.header }).pipe(map((data: any) => data as any[]));
+  }
+
+  getVistaDescargasPelicula(id_pelicula: number): Observable<any[]> {
+    this.ApiGetVistaDescargasPeliculaURL = this.ApiVistasURL
+    + "/GetVistaDescargasPelicula?id_pelicula="+ id_pelicula;
+    return this.http.get(this.ApiGetVistaDescargasPeliculaURL,
       { headers: this.header }).pipe(map((data: any) => data as any[]));
   }
 }

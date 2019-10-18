@@ -14,7 +14,7 @@ namespace ASPNETCoreWebApiPeliculas.Controllers
             this.solicitudes = solicitudes;
         }
 
-        //PUT: https://189.186.51.66:443/Api/Solicitudes/AprobarSolicitud
+        //PUT: https://192.168.1.68:443/Api/Solicitudes/AprobarSolicitud
         [HttpPut] [ActionName("AprobarSolicitud")]
         public async Task<Object []> ApproveRequestAsync([FromBody] int id_usuario_solicitud) {
             return await solicitudes.AprobarSolicitud(id_usuario_solicitud);

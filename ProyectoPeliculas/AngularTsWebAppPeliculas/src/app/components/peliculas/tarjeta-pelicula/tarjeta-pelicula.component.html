@@ -22,15 +22,16 @@
         <b>Sinopsis:</b>
         <p>{{pelicula.sinopsis}}</p>
         <span><b>Fecha de estreno: </b>{{pelicula.fecha_estreno | date: 'dd/MM/yyyy'}}</span><br>
-        <span><b>Presupuesto: </b>{{pelicula.presupuesto}}</span><br>
-        <span><b>Recaudación: </b>{{pelicula.recaudacion}}</span><br>
+        <span><b>Presupuesto: </b>{{pelicula.presupuesto}}USD</span><br>
+        <span><b>Recaudación: </b>{{pelicula.recaudacion}}USD</span><br>
       </div>
       <div class="form-details">
         <button class="btn btn-info" type="button" (click)="verDetallesPelicula()"><strong>Ver detalles</strong></button>
         <app-modal-actualizacion *ngIf="isAdmin()" style="margin-left: 5px;"
           [request]="'ActualizarPelicula'" [model]="pelicula"
           [detallesTecnicos] = "detallesTecnicos"
-          (modelObjectEvent)="actualizarPelicula($event)">
+          (modelObjectEvent)="actualizarPelicula($event)"
+          [categorias]="categorias">
         </app-modal-actualizacion>
         <app-modal-eliminacion *ngIf="isAdmin()" style="margin-left: 5px;"
           [request]="'EliminarPelicula'" [model]="pelicula"
@@ -57,12 +58,12 @@
         type="date" data-format="DD-MM-YY" min="1990-01-01" max="2019-09-28" class="form-control">
     </div>
     <div class="form-group">
-      <label class="text-light font-weight-bold" for="movie-presupuesto">Presupuesto:</label>
+      <label class="text-light font-weight-bold" for="movie-presupuesto">Presupuesto (mUSD):</label>
       <input [(ngModel)]="nuevapelicula.presupuesto" [ngModelOptions]="{standalone: true}" type="number"
         min="0" max="300000000" step="1" maxlength="9" class="form-control" id="movie-presupuesto">
     </div>
     <div class="form-group">
-      <label class="text-light font-weight-bold" for="movie-recaudacion">Recaudación:</label>
+      <label class="text-light font-weight-bold" for="movie-recaudacion">Recaudación (mUSD):</label>
       <input [(ngModel)]="nuevapelicula.recaudacion" [ngModelOptions]="{standalone: true}" type="number"
         min="0" max="300000000" step="1" maxlength="9" class="form-control" id="movie-recaudacion">
     </div>
@@ -85,7 +86,10 @@
     <div class="form-group">
       <label class="text-light font-weight-bold" for="movie-category">Géneros:</label>
       <input [(ngModel)]="nuevapelicula.generos" [ngModelOptions]="{standalone: true}" type="text"
-        class="form-control" id="movie-category" placeholder="Movie Category">
+        class="form-control" id="movie-category" placeholder="Movie Category" style="margin-bottom: 10px;">
+        <select [(ngModel)]="genero" [ngModelOptions]="{standalone: true}" class="form-control"><hr>
+          <option *ngFor="let categoria of categorias;" [value]="categoria">{{categoria}}</option>
+        </select>
     </div>
     <div class="form-group text-left">
       <label class="text-light font-weight-bold" for="movie-url-cover">Url (portada):</label>

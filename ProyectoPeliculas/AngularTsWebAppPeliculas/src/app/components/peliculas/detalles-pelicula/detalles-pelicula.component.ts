@@ -33,10 +33,10 @@ export class DetallesPeliculaComponent implements OnInit {
       }, error => {
         this.toastrService.error(error.message);
       });
-    this.peliculasService.getNoDescargasPelicula(this.id_pelicula).subscribe(
+    this.vistasService.getVistaDescargasPelicula(this.id_pelicula).subscribe(
       response => {
         if (response[0] != null) {
-          this.no_descargas = response[0]; return;
+          this.no_descargas = response[0].length; return;
         }
         this.toastrService.error(response[1]);
       }, error => {

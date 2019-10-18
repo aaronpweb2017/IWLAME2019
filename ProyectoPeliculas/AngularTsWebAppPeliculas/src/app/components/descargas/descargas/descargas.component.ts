@@ -223,7 +223,6 @@ export class DescargasComponent implements OnInit {
   eliminarEnlace(id_enlace: number) {
     this.descargasService.eliminarEnlace(id_enlace).subscribe(
       response => {
-        console.log(response);
         if (response[0]) {
           this.toastrService.success("Eliminación realizada con éxito.");
           this.router.navigate(['/adminDescargas', { currentPageDescargas: this.currentPage }]);

@@ -26,7 +26,9 @@ export class ModalActualizacionComponent implements OnInit {
   @Input() peliculas: Pelicula[];
   @Input() descargas: VDescarga[];
   @Input() detallesTecnicos: VDetalleTecnico[];
+  @Input() categorias: string[];
   fecha_estreno: string;
+  genero: string;
 
   constructor(private modalService: BsModalService) { }
 
@@ -37,8 +39,12 @@ export class ModalActualizacionComponent implements OnInit {
         && r.id_valor_resolucion == this.model.id_valor_resolucion
         && r.id_relacion_aspecto == this.model.id_relacion_aspecto)[0]);
     }
-    if (this.request.includes("ActualizarPelicula"))
+    if (this.request.includes("ActualizarPelicula")) {
       this.fecha_estreno = this.model.fecha_estreno.substring(0, 10);
+      this.model.presupuesto = this.model.presupuesto / 1000000;
+      this.model.recaudacion = this.model.recaudacion / 1000000;
+      this.genero = "";
+    }
   }
 
   emitModelObjectEvent() {
@@ -47,8 +53,12 @@ export class ModalActualizacionComponent implements OnInit {
       this.model.id_valor_resolucion = this.resoluciones[this.resolutionIndex].id_valor_resolucion;
       this.model.id_relacion_aspecto = this.resoluciones[this.resolutionIndex].id_relacion_aspecto;
     }
-    if (this.request.includes("ActualizarPelicula"))
+    if (this.request.includes("ActualizarPelicula")) {
       this.model.fecha_estreno = new Date(this.fecha_estreno);
+      this.model.presupuesto = this.model.presupuesto * 1000000;
+      this.model.recaudacion = this.model.recaudacion * 1000000;
+      if (this.genero != "") { this.model.generos = this.genero; }
+    }
     this.modelObjectEvent.emit(this.model);
     this.modalRef.hide();
   }

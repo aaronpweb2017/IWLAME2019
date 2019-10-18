@@ -78,16 +78,29 @@ export class UsuariosComponent implements OnInit {
   }
 
   eliminarUsuario(id_usuario: number) {
-    this.usuariosService.eliminarUsuario(id_usuario).subscribe(
+    this.usuariosService.getUsuario("admin").subscribe(
       response => {
         if (response[0]) {
-          this.toastrService.success("Eliminación realizada con éxito.");
-          this.router.navigate(['/usuarios', this.currentPage]); return;
+          if (response[0].id_usuario == id_usuario) {
+            this.toastrService.error("No se puede eliminar al administrador"); return;
+          }
+          this.usuariosService.eliminarUsuario(id_usuario).subscribe(
+            response => {
+              if (response[0]) {
+                this.toastrService.success("Eliminación realizada con éxito.");
+                this.router.navigate(['/usuarios', this.currentPage]); return;
+              }
+              this.toastrService.error(response[1]);
+            }, error => {
+              this.toastrService.error(error.message);
+            });
+          return;
         }
         this.toastrService.error(response[1]);
       }, error => {
         this.toastrService.error(error.message);
       });
+
   }
 
   pageChanged(currentPage: number) {

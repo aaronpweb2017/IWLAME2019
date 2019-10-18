@@ -87,5 +87,17 @@ namespace ASPNETCoreWebApiPeliculas
             }
             return response;
         }
+        
+        public async Task<Object []> GetVistaDescargasPelicula(int id_pelicula) {
+            Object [] response = new Object [2];
+            try {
+                response[0] = await AppDbContext.vDescargas.Where(vd => vd.id_pelicula == id_pelicula).ToListAsync();
+            }
+            catch(Exception exception) {
+                response[1] = (exception.InnerException != null) ?
+                exception.InnerException.Message : exception.Message;
+            }
+            return response;
+        }
     }
 }
