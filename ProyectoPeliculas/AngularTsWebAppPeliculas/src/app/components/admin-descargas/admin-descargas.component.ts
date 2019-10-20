@@ -13,6 +13,7 @@ export class AdminDescargasComponent implements OnInit {
   currentPageServidores: number;
   currentPageDescargas: number;
   currenDownloadIndex: number;
+  createLinkFlag: boolean;
   
   constructor(private router: Router, private route: ActivatedRoute) {
     this.router.routeReuseStrategy.shouldReuseRoute = function () { return false; };
@@ -24,5 +25,6 @@ export class AdminDescargasComponent implements OnInit {
     this.currentPageServidores = Number(this.route.snapshot.paramMap.get('currentPageServidores'));
     this.currentPageDescargas = Number(this.route.snapshot.paramMap.get('currentPageDescargas'));
     this.currenDownloadIndex = Number(this.route.snapshot.paramMap.get('currenDownloadIndex'));
+    this.createLinkFlag = Boolean(this.route.snapshot.paramMap.get('createLinkFlag'));
   }
 }

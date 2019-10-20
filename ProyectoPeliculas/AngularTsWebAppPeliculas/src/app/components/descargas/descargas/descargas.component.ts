@@ -32,6 +32,7 @@ export class DescargasComponent implements OnInit {
   mostrarEnlaces: boolean[];
   @Input() currenDownloadIndex: number;
   crearEnlaces: boolean[];
+  @Input() createLinkFlag: boolean;
   create: boolean;
 
   constructor(private vistasService: VistasService, private descargasService: DescargasService,
@@ -42,8 +43,8 @@ export class DescargasComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.descargas = []; this.tiposArchivo = []; this.servidores = [];
-    this.peliculas = [];
+    this.descargas = []; this.tiposArchivo = [];
+    this.servidores = []; this.peliculas = [];
     this.mostrarEnlaces = []; this.crearEnlaces = [];
     this.create = false;
     this.inicializaDescarga();
@@ -70,7 +71,10 @@ export class DescargasComponent implements OnInit {
           this.crearEnlaces = new Array(this.descargas.length).fill(false);
           if (this.currenDownloadIndex > 0) {
             this.mostrarEnlaces[this.currenDownloadIndex - 1] = true;
-            this.crearEnlaces[this.currenDownloadIndex - 1] = true;
+            if (this.createLinkFlag) {
+              this.crearEnlaces[this.currenDownloadIndex - 1] = true;
+            }
+
           }
           if (this.currentPage == 0) this.currentPage = 1;
           this.paginationConfig = {
@@ -196,12 +200,15 @@ export class DescargasComponent implements OnInit {
 
   crearEnlace(id_descarga: number, index: number) {
     this.nuevoEnlace.id_descarga = id_descarga;
+    this.createLinkFlag = true;
     this.descargasService.crearEnlace(this.nuevoEnlace).subscribe(
       response => {
         if (response[0]) {
           this.toastrService.success("Creación realizada con éxito.");
           this.router.navigate(['/adminDescargas', {
-            currentPageDescargas: this.currentPage, currenDownloadIndex: index + 1
+            currentPageDescargas: this.currentPage,
+            currenDownloadIndex: index + 1,
+            createLinkFlag: this.createLinkFlag
           }]);
           return;
         }

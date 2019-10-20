@@ -2,7 +2,7 @@
   <i class="far fa-edit"></i>
 </button>
 <ng-template #modalTemplate>
-  <div class="modal-content" style="max-height: 400px;">
+  <div class="modal-content" style="max-height: 500px;">
     <div class="modal-header text-center">
       <h5 *ngIf="request.includes('ActualizarUsuario')" class="modal-title font-weight-bold">
         Actualización del usuario número {{model.id_usuario}}
@@ -35,7 +35,7 @@
         Actualización del enlace {{model.id_enlace}}
       </h5>
       <h5 *ngIf="request.includes('ActualizarPelicula')" class="modal-title font-weight-bold">
-        Actualización de {{model.nombre_pelicula}}
+        Actualización {{model.nombre_pelicula}} ({{model.id_pelicula}})
       </h5>
       <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
         <span aria-hidden="true">&times;</span>
