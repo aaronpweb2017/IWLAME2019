@@ -12,6 +12,7 @@ export class AdminDescargasComponent implements OnInit {
   currentPageTiposArchivo: number;
   currentPageServidores: number;
   currentPageDescargas: number;
+  currenDownloadIndex: number;
   
   constructor(private router: Router, private route: ActivatedRoute) {
     this.router.routeReuseStrategy.shouldReuseRoute = function () { return false; };
@@ -22,5 +23,6 @@ export class AdminDescargasComponent implements OnInit {
     this.currentPageTiposArchivo = Number(this.route.snapshot.paramMap.get('currentPageTiposArchivo'));
     this.currentPageServidores = Number(this.route.snapshot.paramMap.get('currentPageServidores'));
     this.currentPageDescargas = Number(this.route.snapshot.paramMap.get('currentPageDescargas'));
+    this.currenDownloadIndex = Number(this.route.snapshot.paramMap.get('currenDownloadIndex'));
   }
 }

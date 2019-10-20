@@ -30,12 +30,13 @@ export class DescargasComponent implements OnInit {
   nuevaDescarga: Descarga;
   nuevoEnlace: Enlace;
   mostrarEnlaces: boolean[];
+  @Input() currenDownloadIndex: number;
   crearEnlaces: boolean[];
   create: boolean;
 
   constructor(private vistasService: VistasService, private descargasService: DescargasService,
     private peliculasService: PeliculasService, private router: Router, private route:
-    ActivatedRoute, private toastrService: ToastrService) {
+      ActivatedRoute, private toastrService: ToastrService) {
     this.totalPages = 0; this.currentItemsPerPage = 0;
     this.paginationConfig = { itemsPerPage: 0, currentPage: 0, totalItems: 0 };
   }
@@ -67,15 +68,20 @@ export class DescargasComponent implements OnInit {
           this.descargas.push(null);
           this.mostrarEnlaces = new Array(this.descargas.length).fill(false);
           this.crearEnlaces = new Array(this.descargas.length).fill(false);
-          if(this.currentPage == 0) this.currentPage = 1;
+          if (this.currenDownloadIndex > 0) {
+            this.mostrarEnlaces[this.currenDownloadIndex - 1] = true;
+            this.crearEnlaces[this.currenDownloadIndex - 1] = true;
+          }
+          if (this.currentPage == 0) this.currentPage = 1;
           this.paginationConfig = {
-            itemsPerPage: 5,
+            itemsPerPage: 10,
             currentPage: this.currentPage,
             totalItems: this.descargas.length
           };
           this.totalPages = Math.trunc(this.descargas.length / this.paginationConfig.itemsPerPage);
           if (this.descargas.length % this.paginationConfig.itemsPerPage != 0) this.totalPages += 1;
-          this.currentItemsPerPage = this.descargas.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
+          this.currentItemsPerPage = this.descargas.slice(this.paginationConfig.itemsPerPage
+            * (this.currentPage - 1), this.paginationConfig.itemsPerPage * (this.currentPage)).length;
           this.descargasService.getTiposArchivo().subscribe(
             response => {
               if (response[0])
@@ -132,7 +138,7 @@ export class DescargasComponent implements OnInit {
   }
 
   setShowLinkFlag(index: number) {
-    if(this.mostrarEnlaces[index]) {
+    if (this.mostrarEnlaces[index]) {
       this.mostrarEnlaces[index] = false; return;
     }
     this.mostrarEnlaces[index] = true;
@@ -188,13 +194,15 @@ export class DescargasComponent implements OnInit {
       });
   }
 
-  crearEnlace(id_descarga: number) {
+  crearEnlace(id_descarga: number, index: number) {
     this.nuevoEnlace.id_descarga = id_descarga;
     this.descargasService.crearEnlace(this.nuevoEnlace).subscribe(
       response => {
         if (response[0]) {
           this.toastrService.success("Creación realizada con éxito.");
-          this.router.navigate(['/adminDescargas', { currentPageDescargas: this.currentPage }]);
+          this.router.navigate(['/adminDescargas', {
+            currentPageDescargas: this.currentPage, currenDownloadIndex: index + 1
+          }]);
           return;
         }
         this.toastrService.error(response[1]);
@@ -204,12 +212,14 @@ export class DescargasComponent implements OnInit {
       });
   }
 
-  actualizarEnlace(enlace: Enlace) {
+  actualizarEnlace(enlace: Enlace, index: number) {
     this.descargasService.actualizarEnlace(enlace).subscribe(
       response => {
         if (response[0]) {
           this.toastrService.success("Actualización realizada con éxito.");
-          this.router.navigate(['/adminDescargas', { currentPageDescargas: this.currentPage }]);
+          this.router.navigate(['/adminDescargas', {
+            currentPageDescargas: this.currentPage, currenDownloadIndex: index + 1
+          }]);
           return;
         }
         this.toastrService.error(response[1]);
@@ -219,12 +229,14 @@ export class DescargasComponent implements OnInit {
       });
   }
 
-  eliminarEnlace(id_enlace: number) {
+  eliminarEnlace(id_enlace: number, index: number) {
     this.descargasService.eliminarEnlace(id_enlace).subscribe(
       response => {
         if (response[0]) {
           this.toastrService.success("Eliminación realizada con éxito.");
-          this.router.navigate(['/adminDescargas', { currentPageDescargas: this.currentPage }]);
+          this.router.navigate(['/adminDescargas', {
+            currentPageDescargas: this.currentPage, currenDownloadIndex: index + 1
+          }]);
           return;
         }
         this.toastrService.error(response[1]);
@@ -237,6 +249,7 @@ export class DescargasComponent implements OnInit {
   pageChanged(currentPage: number) {
     this.currentPage = currentPage;
     this.paginationConfig.currentPage = this.currentPage;
-    this.currentItemsPerPage = this.descargas.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
+    this.currentItemsPerPage = this.descargas.slice(this.paginationConfig.itemsPerPage
+      * (this.currentPage - 1), this.paginationConfig.itemsPerPage * (this.currentPage)).length;
   }
 }

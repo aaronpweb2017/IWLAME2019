@@ -35,7 +35,7 @@ export class TiposResolucionComponent implements OnInit {
         if (response[0]) {
           this.tiposResolucion = response[0];
           this.tiposResolucion.push(null);
-          if(this.currentPage == 0) this.currentPage = 1;
+          if (this.currentPage == 0) this.currentPage = 1;
           this.paginationConfig = {
             itemsPerPage: 5,
             currentPage: this.currentPage,
@@ -43,7 +43,8 @@ export class TiposResolucionComponent implements OnInit {
           };
           this.totalPages = Math.trunc(this.tiposResolucion.length / this.paginationConfig.itemsPerPage);
           if (this.tiposResolucion.length % this.paginationConfig.itemsPerPage != 0) this.totalPages += 1;
-          this.currentItemsPerPage = this.tiposResolucion.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
+          this.currentItemsPerPage = this.tiposResolucion.slice(this.paginationConfig.itemsPerPage
+            * (this.currentPage - 1), this.paginationConfig.itemsPerPage * (this.currentPage)).length;
           return;
         }
         this.toastrService.error(response[1]);
@@ -98,6 +99,7 @@ export class TiposResolucionComponent implements OnInit {
   pageChanged(currentPage: number) {
     this.currentPage = currentPage;
     this.paginationConfig.currentPage = this.currentPage;
-    this.currentItemsPerPage = this.tiposResolucion.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
+    this.currentItemsPerPage = this.tiposResolucion.slice(this.paginationConfig.itemsPerPage
+      * (this.currentPage - 1), this.paginationConfig.itemsPerPage * (this.currentPage)).length;
   }
 }

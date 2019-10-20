@@ -108,7 +108,10 @@
                                 <span *ngIf="crearEnlaces[i] && !enlace">{{descarga.enlaces[descarga.enlaces.length-2]?.id_enlace+1}}</span>
                             </td>
                             <td class="text-center" colspan="3">
-                                <span *ngIf="enlace"><a href="{{enlace.valor_enlace}}">{{enlace.valor_enlace}}</a></span>
+                                <span *ngIf="enlace">
+                                    <a *ngIf="enlace.status_enlace==0" href="{{enlace.valor_enlace}}" style="color: red;">{{enlace.valor_enlace}}</a>
+                                    <a *ngIf="enlace.status_enlace==1" href="{{enlace.valor_enlace}}">{{enlace.valor_enlace}}</a>
+                                </span>
                                 <input *ngIf="crearEnlaces[i] && !enlace" [(ngModel)]="nuevoEnlace.valor_enlace" type="text" class="form-control" autofocus="">
                             </td>
                             <td class="text-center">
@@ -121,17 +124,17 @@
                             </td>
                             <td *ngIf="enlace" class="text-center">
                                 <app-modal-actualizacion [request]="'ActualizarEnlace'" [model]="enlace"
-                                [descargas] = "descargas" (modelObjectEvent)="actualizarEnlace($event)">
+                                [descargas] = "descargas" (modelObjectEvent)="actualizarEnlace($event, i)">
                                 </app-modal-actualizacion>
                             </td>
                             <td *ngIf="enlace" class="text-center">
                                 <app-modal-eliminacion [request]="'EliminarEnlace'" [model]="enlace.id_enlace"
-                                    (modelIdentifierEvent)="eliminarEnlace($event)">
+                                    (modelIdentifierEvent)="eliminarEnlace($event, i)">
                                 </app-modal-eliminacion>
                             </td>
                             <td *ngIf="crearEnlaces[i] && !enlace" colspan="2">
                                 <button type="button" class="btn btn-success btn-block" data-toggle="tooltip"
-                                    data-placement="top" title="Agregar Enlace" style="float: right;" (click)="crearEnlace(descarga.id_descarga)">Agregar
+                                    data-placement="top" title="Agregar Enlace" style="float: right;" (click)="crearEnlace(descarga.id_descarga, i)">Agregar
                                 </button>
                             </td>
                         </tr>
@@ -180,7 +183,10 @@
                     <ng-container *ngIf="mostrarEnlaces[i] && descarga.id_pelicula == id_pelicula" id="accordion" class="collapse">
                         <tr *ngFor="let enlace of descarga?.enlaces; let j = index;">
                             <td *ngIf="enlace" class="text-center" colspan="4" style="text-align: justify;">
-                                <span><a href="{{enlace.valor_enlace}}">{{enlace.valor_enlace}}</a></span>
+                                <span>
+                                    <a *ngIf="enlace.status_enlace==0" href="{{enlace.valor_enlace}}" style="color: red;">{{enlace.valor_enlace}}</a>
+                                    <a *ngIf="enlace.status_enlace==1" href="{{enlace.valor_enlace}}">{{enlace.valor_enlace}}</a>
+                                </span>
                             </td>
                         </tr>
                     </ng-container>

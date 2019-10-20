@@ -32,7 +32,7 @@ export class RelacionesAspectoComponent implements OnInit {
         if (response[0]) {
           this.relacionesAspecto = response[0];
           this.relacionesAspecto.push(null);
-          if(this.currentPage == 0) this.currentPage = 1;
+          if (this.currentPage == 0) this.currentPage = 1;
           this.paginationConfig = {
             itemsPerPage: 5,
             currentPage: this.currentPage,
@@ -40,7 +40,8 @@ export class RelacionesAspectoComponent implements OnInit {
           };
           this.totalPages = Math.trunc(this.relacionesAspecto.length / this.paginationConfig.itemsPerPage);
           if (this.relacionesAspecto.length % this.paginationConfig.itemsPerPage != 0) this.totalPages += 1;
-          this.currentItemsPerPage = this.relacionesAspecto.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
+          this.currentItemsPerPage = this.relacionesAspecto.slice(this.paginationConfig.itemsPerPage
+            * (this.currentPage - 1), this.paginationConfig.itemsPerPage * (this.currentPage)).length;
           return;
         }
         this.toastrService.error(response[1]);
@@ -95,6 +96,7 @@ export class RelacionesAspectoComponent implements OnInit {
   pageChanged(currentPage: number) {
     this.currentPage = currentPage;
     this.paginationConfig.currentPage = this.currentPage;
-    this.currentItemsPerPage = this.relacionesAspecto.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
+    this.currentItemsPerPage = this.relacionesAspecto.slice(this.paginationConfig.itemsPerPage
+      * (this.currentPage - 1), this.paginationConfig.itemsPerPage * (this.currentPage)).length;
   }
 }

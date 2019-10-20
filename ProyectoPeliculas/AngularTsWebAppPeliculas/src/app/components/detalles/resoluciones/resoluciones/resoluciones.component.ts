@@ -40,7 +40,7 @@ export class ResolucionesComponent implements OnInit {
       response => {
         if (response[0]) {
           this.resoluciones = response[0]; this.resoluciones.push(null);
-          if(this.currentPage == 0) this.currentPage = 1;
+          if (this.currentPage == 0) this.currentPage = 1;
           this.paginationConfig = {
             itemsPerPage: 5,
             currentPage: this.currentPage,
@@ -48,7 +48,8 @@ export class ResolucionesComponent implements OnInit {
           };
           this.totalPages = Math.trunc(this.resoluciones.length / this.paginationConfig.itemsPerPage);
           if (this.resoluciones.length % this.paginationConfig.itemsPerPage != 0) this.totalPages += 1;
-          this.currentItemsPerPage = this.resoluciones.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
+          this.currentItemsPerPage = this.resoluciones.slice(this.paginationConfig.itemsPerPage
+            * (this.currentPage - 1), this.paginationConfig.itemsPerPage * (this.currentPage)).length;
           this.detallesTecnicosService.getTiposResolucion().subscribe(
             response => {
               if (response[0])
@@ -112,6 +113,7 @@ export class ResolucionesComponent implements OnInit {
   pageChanged(currentPage: number) {
     this.currentPage = currentPage;
     this.paginationConfig.currentPage = this.currentPage;
-    this.currentItemsPerPage = this.resoluciones.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
+    this.currentItemsPerPage = this.resoluciones.slice(this.paginationConfig.itemsPerPage
+      * (this.currentPage - 1), this.paginationConfig.itemsPerPage * (this.currentPage)).length;
   }
 }

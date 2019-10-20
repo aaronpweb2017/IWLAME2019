@@ -48,7 +48,7 @@ export class DetallesTecnicosComponent implements OnInit {
           };
           this.totalPages = Math.trunc(this.detallesTecnicos.length / this.paginationConfig.itemsPerPage);
           if (this.detallesTecnicos.length % this.paginationConfig.itemsPerPage != 0) this.totalPages += 1;
-          this.currentItemsPerPage = this.detallesTecnicos.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
+          this.currentItemsPerPage = this.detallesTecnicos.slice(this.paginationConfig.itemsPerPage * (this.currentPage - 1), this.paginationConfig.itemsPerPage * (this.currentPage)).length;
           this.detallesTecnicosService.getFormatos().subscribe(
             response => {
               if (response[0])
@@ -133,6 +133,6 @@ export class DetallesTecnicosComponent implements OnInit {
   pageChanged(currentPage: number) {
     this.currentPage = currentPage;
     this.paginationConfig.currentPage = this.currentPage;
-    this.currentItemsPerPage = this.detallesTecnicos.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
+    this.currentItemsPerPage = this.detallesTecnicos.slice(this.paginationConfig.itemsPerPage * (this.currentPage - 1), this.paginationConfig.itemsPerPage * (this.currentPage)).length;
   }
 }

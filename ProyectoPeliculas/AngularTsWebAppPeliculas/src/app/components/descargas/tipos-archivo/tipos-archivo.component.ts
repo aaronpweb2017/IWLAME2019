@@ -32,7 +32,7 @@ export class TiposArchivoComponent implements OnInit {
         if (response[0]) {
           this.tiposArchivo = response[0];
           this.tiposArchivo.push(null);
-          if(this.currentPage == 0) this.currentPage = 1;
+          if (this.currentPage == 0) this.currentPage = 1;
           this.paginationConfig = {
             itemsPerPage: 5,
             currentPage: this.currentPage,
@@ -40,7 +40,8 @@ export class TiposArchivoComponent implements OnInit {
           };
           this.totalPages = Math.trunc(this.tiposArchivo.length / this.paginationConfig.itemsPerPage);
           if (this.tiposArchivo.length % this.paginationConfig.itemsPerPage != 0) this.totalPages += 1;
-          this.currentItemsPerPage = this.tiposArchivo.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
+          this.currentItemsPerPage = this.tiposArchivo.slice(this.paginationConfig.itemsPerPage
+            * (this.currentPage - 1), this.paginationConfig.itemsPerPage * (this.currentPage)).length;
           return;
         }
         this.toastrService.error(response[1]);
@@ -98,6 +99,7 @@ export class TiposArchivoComponent implements OnInit {
   pageChanged(currentPage: number) {
     this.currentPage = currentPage;
     this.paginationConfig.currentPage = this.currentPage;
-    this.currentItemsPerPage = this.tiposArchivo.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
+    this.currentItemsPerPage = this.tiposArchivo.slice(this.paginationConfig.itemsPerPage
+      * (this.currentPage - 1), this.paginationConfig.itemsPerPage * (this.currentPage)).length;
   }
 }

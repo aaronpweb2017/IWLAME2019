@@ -32,7 +32,7 @@ export class FormatoComponent implements OnInit {
         if (response[0]) {
           this.formatos = response[0];
           this.formatos.push(null);
-          if(this.currentPage == 0) this.currentPage = 1;
+          if (this.currentPage == 0) this.currentPage = 1;
           this.paginationConfig = {
             itemsPerPage: 5,
             currentPage: this.currentPage,
@@ -40,7 +40,8 @@ export class FormatoComponent implements OnInit {
           };
           this.totalPages = Math.trunc(this.formatos.length / this.paginationConfig.itemsPerPage);
           if (this.formatos.length % this.paginationConfig.itemsPerPage != 0) this.totalPages += 1;
-          this.currentItemsPerPage = this.formatos.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
+          this.currentItemsPerPage = this.formatos.slice(this.paginationConfig.itemsPerPage
+            * (this.currentPage - 1), this.paginationConfig.itemsPerPage * (this.currentPage)).length;
           return;
         }
         this.toastrService.error(response[1]);
@@ -95,6 +96,7 @@ export class FormatoComponent implements OnInit {
   pageChanged(currentPage: number) {
     this.currentPage = currentPage;
     this.paginationConfig.currentPage = this.currentPage;
-    this.currentItemsPerPage = this.formatos.slice(5 * (this.currentPage - 1), 5 * (this.currentPage)).length;
+    this.currentItemsPerPage = this.formatos.slice(this.paginationConfig.itemsPerPage
+      * (this.currentPage - 1), this.paginationConfig.itemsPerPage * (this.currentPage)).length;
   }
 }

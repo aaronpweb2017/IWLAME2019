@@ -5,6 +5,8 @@
   <div class="col-xl-12 animated-fade-in">
     <app-tipos-archivo [currentPage]="currentPageTiposArchivo"></app-tipos-archivo>
     <app-servidores [currentPage]="currentPageServidores"></app-servidores>
-    <app-descargas [adminView]="true" [currentPage]="currentPageDescargas"></app-descargas>
+    <app-descargas [adminView]="true" [currentPage]="currentPageDescargas"
+      [currenDownloadIndex]="currenDownloadIndex">
+    </app-descargas>
   </div>
 </div>
