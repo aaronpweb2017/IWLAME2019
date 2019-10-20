@@ -20,7 +20,6 @@ export class DescargasComponent implements OnInit {
   @Input() adminView: boolean;
   @Input() id_pelicula: number;
   totalPages: number;
-  //currentPage: number;
   @Input() currentPage: number;
   currentItemsPerPage: number;
   paginationConfig: any;
@@ -120,7 +119,7 @@ export class DescargasComponent implements OnInit {
   inicializaEnlace() {
     this.nuevoEnlace = {
       id_enlace: 0, valor_enlace: "",
-      status_enlace: 0, id_descarga: 0
+      status_enlace: 1, id_descarga: 0
     };
   }
 

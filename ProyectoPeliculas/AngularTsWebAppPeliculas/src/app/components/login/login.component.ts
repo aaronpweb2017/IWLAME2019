@@ -88,11 +88,19 @@ export class LoginComponent implements OnInit {
             this.usuariosService.solicitudToken(this.usuario).subscribe(
               response => {
                 if (response[0] != null) {
-                  if (response[0]) {
-                    this.toastrService.success("Tu solicitud ha sido enviada."); return;
-                  }
-                  this.toastrService.error("El usuario no existe, la contraseña es"
-                    + "incorrecta o tu solicitud ya fue realizada."); return;
+                  this.toastrService.success("Tu solicitud ha sido enviada."); return;
+                }
+                if (response[2] != null) {
+                  this.toastrService.error("El usuario no existe."); return;
+                }
+                if (response[3] != null) {
+                  this.toastrService.error("La contraseña es incorrecta."); return;
+                }
+                if (response[4] != null) {
+                  this.toastrService.error("Tu solicitud ya fue realizada (pero aún no es aprobada)."); return;
+                }
+                if (response[5] != null) {
+                  this.toastrService.info("Tu solicitud ya fue aprobada (ya puedes iniciar sesión)."); return;
                 }
                 this.toastrService.error(response[1]);
               }, error => {

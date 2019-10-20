@@ -405,7 +405,7 @@ ALTER TABLE Enlace ADD CONSTRAINT id_descarga_FK_CSTR
 FOREIGN KEY(id_descarga) REFERENCES Descarga(id_descarga)
 
 SELECT id_enlace, valor_enlace, 
-id_descarga, status_enlace FROM Enlace EN
+id_descarga, status_enlace FROM Enlace
 
 SELECT E.id_enlace, E.valor_enlace, E.status_enlace, 
 D.id_descarga, D.password_descarga,

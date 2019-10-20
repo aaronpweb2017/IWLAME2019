@@ -133,20 +133,27 @@ namespace ASPNETCoreWebApiPeliculas
         }
 
         public async Task<Object []> SolicitudToken(Usuario user) {
-            Object [] response = new Object [2];
+            Object [] response = new Object [6];
             string userNameEmail = "", decryptedPassword = "";
             userNameEmail = GetUserNameEmail(user.nombre_usuario, user.correo_usuario);
-            Usuario userToUpdate = await AppDbContext.usuarios.Where(u =>
-                u.nombre_usuario.Equals(userNameEmail) || u.correo_usuario.Equals(userNameEmail)
-            ).FirstOrDefaultAsync();
-            if(userToUpdate == null) { response[0] = false; return response; }            
-            decryptedPassword = userService.DecryptPassword(userToUpdate.password_usuario);
-            if(!user.password_usuario.Equals(decryptedPassword)) { response[0] = false; return response; }
-            UsuarioSolicitud ultimaSolicitud = await AppDbContext.usuariosSolicitudes.Where(
-                us => us.id_usuario == userToUpdate.id_usuario && us.id_solicitud == 2
-                && (us.status_solicitud == 0 || us.status_solicitud == 1)).LastOrDefaultAsync();
-            if(ultimaSolicitud != null) { response[0] = false; return response; }
-            try {
+             try {
+                Usuario userToUpdate = await AppDbContext.usuarios.Where(u =>
+                    u.nombre_usuario.Equals(userNameEmail) || u.correo_usuario.Equals(userNameEmail)
+                ).FirstOrDefaultAsync();
+                if(userToUpdate == null) { response[2] = false; return response; }            
+                decryptedPassword = userService.DecryptPassword(userToUpdate.password_usuario);
+                if(!user.password_usuario.Equals(decryptedPassword)) { response[3] = false; return response; }
+                UsuarioSolicitud ultimaSolicitud = await AppDbContext.usuariosSolicitudes.Where(
+                    us => us.id_usuario == userToUpdate.id_usuario && us.id_solicitud == 2 && us.status_solicitud != 2
+                ).LastOrDefaultAsync();
+                if(ultimaSolicitud != null) {
+                    if(ultimaSolicitud.status_solicitud == 0) {
+                        response[4] = false; return response;
+                    }
+                    if (ultimaSolicitud.status_solicitud == 1) {
+                        response[5] = false; return response;
+                    }
+                }
                 UsuarioSolicitud solicitudActual = new UsuarioSolicitud() {
                     id_usuario = userToUpdate.id_usuario,
                     id_solicitud = 2, status_solicitud = 0,
