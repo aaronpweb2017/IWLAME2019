@@ -88,7 +88,7 @@ export class TarjetaPeliculaComponent implements OnInit {
   eliminarPelicula(pelicula: Pelicula) {
     this.peliculasService.eliminarPelicula(pelicula.id_pelicula).subscribe(
       response => {
-        if (response[1]) {
+        if (response[0]) {
           this.toastrService.success("Eliminación realizada con éxito.");
           this.router.navigate(['/home']); return;
         }

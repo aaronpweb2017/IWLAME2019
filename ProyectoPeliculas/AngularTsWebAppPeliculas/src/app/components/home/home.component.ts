@@ -77,9 +77,9 @@ export class HomeComponent implements OnInit {
                 }
                 else
                   this.peliculas = response1[0];
-                for (let i: number = 0; i < this.peliculas.length; i++) {
-                  if (!this.categorias.includes(this.peliculas[i].generos))
-                    this.categorias.push(this.peliculas[i].generos);
+                for (let i: number = 0; i < response1[0].length; i++) {
+                  if (!this.categorias.includes(response1[0][i].generos))
+                    this.categorias.push(response1[0][i].generos);
                 }
                 if (this.ordenamiento != null) {
                   if (this.ordenamiento.includes("nombre")) {
