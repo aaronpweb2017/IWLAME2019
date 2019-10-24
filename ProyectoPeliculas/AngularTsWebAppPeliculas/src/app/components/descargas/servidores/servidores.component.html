@@ -39,7 +39,7 @@
               [(ngModel)]="nuevoServidor.nombre_servidor" type="text" class="form-control" autofocus="">
             </td>
             <td class="text-center">
-              <span *ngIf="servidor">{{servidor.sitio_servidor}}</span>
+              <span *ngIf="servidor"><a href="{{servidor.sitio_servidor}}">{{servidor.sitio_servidor}}</a></span>
               <input *ngIf="create && currentPage == totalPages && i==currentItemsPerPage-1" 
               [(ngModel)]="nuevoServidor.sitio_servidor" type="text" class="form-control" autofocus="">
             </td>

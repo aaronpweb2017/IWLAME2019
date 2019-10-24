@@ -46,7 +46,9 @@ export class HomeComponent implements OnInit {
                     this.vistasService.getVistaDescargasPelicula(response1[0][i].id_pelicula).subscribe(
                       response2 => {
                         if (response2[0] != null) {
-                          let descargas: VDescarga[] = response2[0];
+                          let descargas: VDescarga[] = response2[0]; let fechaEstreno: string[];
+                          fechaEstreno = response1[0][i].fecha_estreno.split("-");
+                          fechaEstreno[2] = fechaEstreno[2].substr(0, 2);
                           for (let j: number = 0; j < descargas.length; j++) {
                             let password_descarga: string = descargas[j].password_descarga;
                             let nombre_tipo_archivo: string = descargas[j].nombre_tipo_archivo;
@@ -55,6 +57,9 @@ export class HomeComponent implements OnInit {
                               || response1[0][i].sinopsis.toLowerCase().includes(this.busqueda.toLowerCase())
                               || response1[0][i].directores.toLowerCase().includes(this.busqueda.toLowerCase())
                               || response1[0][i].generos.toLowerCase().includes(this.busqueda.toLowerCase())
+                              || fechaEstreno[0].toLowerCase().includes(this.busqueda.toLowerCase())
+                              || fechaEstreno[1].toLowerCase().includes(this.busqueda.toLowerCase())
+                              || fechaEstreno[2].toLowerCase().includes(this.busqueda.toLowerCase())
                               || nombre_formato.toLowerCase().includes(this.busqueda.toLowerCase())
                               || nombre_tipo_resolucion.toLowerCase().includes(this.busqueda.toLowerCase())
                               || valor_resolucion.toLowerCase().includes(this.busqueda.toLowerCase())

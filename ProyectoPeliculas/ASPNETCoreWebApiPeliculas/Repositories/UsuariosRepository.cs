@@ -133,34 +133,44 @@ namespace ASPNETCoreWebApiPeliculas
         }
 
         public async Task<Object []> SolicitudToken(Usuario user) {
-            Object [] response = new Object [6];
-            string userNameEmail = "", decryptedPassword = "";
+            Object [] response = new Object [7];
+            string userNameEmail = "", tokenResponse = "";
             userNameEmail = GetUserNameEmail(user.nombre_usuario, user.correo_usuario);
              try {
-                Usuario userToUpdate = await AppDbContext.usuarios.Where(u =>
+                tokenResponse = await userService.GetTokenAuthentication(userNameEmail, user.password_usuario);
+                if(tokenResponse.Contains("El usuario ingresado no existe")) {
+                    response[2] = false; return response;
+                }
+                if(tokenResponse.Contains("Contraseña incorrecta")) {
+                    response[3] = false; return response;
+                }
+                if(tokenResponse.Contains("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9")) {
+                    response[4] = false; return response;
+                }
+                 Usuario userToUpdate = await AppDbContext.usuarios.Where(u =>
                     u.nombre_usuario.Equals(userNameEmail) || u.correo_usuario.Equals(userNameEmail)
                 ).FirstOrDefaultAsync();
-                if(userToUpdate == null) { response[2] = false; return response; }            
-                decryptedPassword = userService.DecryptPassword(userToUpdate.password_usuario);
-                if(!user.password_usuario.Equals(decryptedPassword)) { response[3] = false; return response; }
                 UsuarioSolicitud ultimaSolicitud = await AppDbContext.usuariosSolicitudes.Where(
                     us => us.id_usuario == userToUpdate.id_usuario && us.id_solicitud == 2 && us.status_solicitud != 2
                 ).LastOrDefaultAsync();
                 if(ultimaSolicitud != null) {
                     if(ultimaSolicitud.status_solicitud == 0) {
-                        response[4] = false; return response;
-                    }
-                    if (ultimaSolicitud.status_solicitud == 1) {
                         response[5] = false; return response;
                     }
+                    if (ultimaSolicitud.status_solicitud == 1) {
+                        response[6] = false; return response;
+                    }
                 }
-                UsuarioSolicitud solicitudActual = new UsuarioSolicitud() {
-                    id_usuario = userToUpdate.id_usuario,
-                    id_solicitud = 2, status_solicitud = 0,
-                    emision_solicitud = DateTime.Now
-                };
-                await AppDbContext.usuariosSolicitudes.AddAsync(solicitudActual);
-                await AppDbContext.SaveChangesAsync(); response[0] = true;
+                if(tokenResponse.Contains("Tu token ha expirado")) {
+                    UsuarioSolicitud solicitudActual = new UsuarioSolicitud() {
+                        id_usuario = userToUpdate.id_usuario,
+                        id_solicitud = 2, status_solicitud = 0,
+                        emision_solicitud = DateTime.Now
+                    };
+                    await AppDbContext.usuariosSolicitudes.AddAsync(solicitudActual);
+                    await AppDbContext.SaveChangesAsync();
+                    response[0] = true;
+                }
             }
             catch(Exception exception) {
                 response[1] = (exception.InnerException != null) ?

@@ -78,39 +78,27 @@ export class LoginComponent implements OnInit {
     if (!this.setUserLogInAttributes()) {
       this.toastrService.error("Debe ingresar todos los datos."); return;
     }
-    this.usuariosService.getTokenAuthentication(this.usuario).subscribe(
+    this.usuariosService.solicitudToken(this.usuario).subscribe(
       response => {
         if (response[0] != null) {
-          if (response[0].includes("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9")) {
-            this.toastrService.info("Tu token aún no ha expirado..."); return;
-          }
-          if (response[0].includes("expirado")) {
-            this.usuariosService.solicitudToken(this.usuario).subscribe(
-              response => {
-                if (response[0] != null) {
-                  this.toastrService.success("Tu solicitud ha sido enviada."); return;
-                }
-                if (response[2] != null) {
-                  this.toastrService.error("El usuario no existe."); return;
-                }
-                if (response[3] != null) {
-                  this.toastrService.error("La contraseña es incorrecta."); return;
-                }
-                if (response[4] != null) {
-                  this.toastrService.error("Tu solicitud ya fue realizada (pero aún no es aprobada)."); return;
-                }
-                if (response[5] != null) {
-                  this.toastrService.info("Tu solicitud ya fue aprobada (ya puedes iniciar sesión)."); return;
-                }
-                this.toastrService.error(response[1]);
-              }, error => {
-                this.toastrService.error(error.message);
-              });
-            return;
-          }
-          this.toastrService.error(response[0]); return;
+          this.toastrService.success("Tu solicitud ha sido enviada."); return;
         }
-        this.toastrService.error(response[1]); return;
+        if (response[2] != null) {
+          this.toastrService.error("El usuario no existe."); return;
+        }
+        if (response[3] != null) {
+          this.toastrService.error("La contraseña es incorrecta."); return;
+        }
+        if (response[4] != null) {
+          this.toastrService.info("Tu token aún no ha expirado..."); return;
+        }
+        if (response[5] != null) {
+          this.toastrService.error("Tu solicitud ya fue realizada (pero aún no es aprobada)."); return;
+        }
+        if (response[6] != null) {
+          this.toastrService.info("Tu solicitud ya fue aprobada (ya puedes iniciar sesión)."); return;
+        }
+        this.toastrService.error(response[1]);
       }, error => {
         this.toastrService.error(error.message);
       });
